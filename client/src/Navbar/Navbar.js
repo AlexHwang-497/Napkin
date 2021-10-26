@@ -43,7 +43,7 @@ const Navbar = () =>{
           if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
     
-      }, [location]);///////////////////////////////
+      }, [location]);
 
 
 
