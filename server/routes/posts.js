@@ -1,11 +1,12 @@
 import express from 'express'
-import { getPosts, createPost, updatePost, likePost, deletePost } from '../controllers/posts.js';
+import { getPosts, createPost, updatePost, likePost, deletePost, getPostsBySearch } from '../controllers/posts.js';
 // ? we include the middleware on specific actions aka in this case we want to give them one like per a post
 import auth from "../middleware/auth.js";
 
 
 const router = express.Router()
 
+router.get('/search', getPostsBySearch);
 router.get('/', getPosts);
 router.post('/',auth,  createPost);
 // *managed on the frontend
