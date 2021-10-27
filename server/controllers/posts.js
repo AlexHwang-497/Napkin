@@ -21,22 +21,38 @@ export const getPosts = async(req, res) => {
 // *req.query; 
     //! Query-> /posts?page=1 -> page = 1
     //! PARARMS-> /posts/:123 -> id =123
-export const getPostsBySearch = async (req, res) => {
-    const { searchQuery, tags } = req.query;
-    console.log('this is the req/query from getPostsBySearch in server/controllers/posts.js:',req.query)
-
-    try {
-        // *i; it stands for ignore case
-        const title = new RegExp(searchQuery, "i");
-        // *$or; stand for either find me the title "or" the tagrs
-        // *$in; this is asking for if there are these tags "in" our query
-        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
-
-        res.json({ data: posts });
-    } catch (error) {    
-        res.status(404).json({ message: error.message });
+    export const getPostsBySearch = async (req, res) => {
+        const { searchQuery, tags } = req.query;
+        console.log('this is the searchQuery in getPostsBySearch in server/controllers/posts.js',searchQuery)
+        console.log('this is the tags in getPostsBySearch in server/controllers/posts.js',tags)
+    
+        try {
+            const title = new RegExp(searchQuery, "i");
+    
+            const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+            
+    
+            res.json({ data: posts });
+        } catch (error) {    
+            res.status(404).json({ message: error.message });
+        }
     }
-}
+//     export const getPostsBySearch = async (req, res) => {
+//     const { searchQuery, tags } = req.query;
+//     console.log('this is the req/query from getPostsBySearch in server/controllers/posts.js:',req.query)
+
+//     try {
+//         // *i; it stands for ignore case
+//         const title = new RegExp(searchQuery, "i");
+//         // *$or; stand for either find me the title "or" the tagrs
+//         // *$in; this is asking for if there are these tags "in" our query
+//         const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+
+//         res.json({ data: posts });
+//     } catch (error) {    
+//         res.status(404).json({ message: error.message });
+//     }
+// }
 
 export const createPost = async(req,res) => {
     const post = req.body

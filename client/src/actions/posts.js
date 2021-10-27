@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH } from '../constants/actionTypes';
 // *   import*; this means we import everything from the actions
 import * as api from '../api/index'
 
@@ -26,10 +26,11 @@ export const getPosts = () => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
     // dispatch({ type: START_LOADING });
-    const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
+    const { data:{data}} = await api.fetchPostsBySearch(searchQuery);
+    console.log('this is the searchQuery in getPostsBySearch in client/actions/posts.js',searchQuery)
     console.log('this is the data for getPostsBySearch in client/actions/posts.js:',data)
 
-    // dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
+    dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
     // dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

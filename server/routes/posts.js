@@ -1,10 +1,11 @@
 import express from 'express'
-import { getPosts, createPost, updatePost, likePost, deletePost, getPostsBySearch } from '../controllers/posts.js';
+import { getPosts, getPostsBySearch, createPost, updatePost, likePost, deletePost } from '../controllers/posts.js';
+
+const router = express.Router()
+
 // ? we include the middleware on specific actions aka in this case we want to give them one like per a post
 import auth from "../middleware/auth.js";
 
-
-const router = express.Router()
 
 router.get('/search', getPostsBySearch);
 router.get('/', getPosts);

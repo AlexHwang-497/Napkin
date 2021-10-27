@@ -7,7 +7,7 @@ import { createPost,updatePost } from "../../actions/posts";
 
 
 const Form = ({ currentId, setCurrentId }) => {
-    const [postData,setPostData] = useState({title:'',message:'',selectedFile:''})
+    const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
     // *this allows us to get our id# that we want to update our post
     const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
     const classes = useStyles()
@@ -22,7 +22,7 @@ const Form = ({ currentId, setCurrentId }) => {
       
     const clear = () =>{
         setCurrentId(null)
-        setPostData({ title: '', message: '', tags: '', selectedFile: '' });
+        setPostData({ title: '', message: '', tags: [], selectedFile: '' });
     }
     
     const handleSubmit = async(e) =>{
