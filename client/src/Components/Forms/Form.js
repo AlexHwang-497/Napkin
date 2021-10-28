@@ -4,13 +4,14 @@ import {useDispatch, useSelector} from 'react-redux'
 import useStyles from './Styles'
 import FileBase from 'react-file-base64';
 import { createPost,updatePost } from "../../actions/posts";
-
+import { useHistory } from 'react-router-dom';
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
     // *this allows us to get our id# that we want to update our post
-    const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
+    const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
     const classes = useStyles()
+    const history = useHistory();
     const dispatch = useDispatch()
     // * this allows us to get our user
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -29,7 +30,7 @@ const Form = ({ currentId, setCurrentId }) => {
         e.preventDefault()
         console.log('this is the currentID in handlesubmit', currentId)
         if (!currentId) {
-        dispatch(createPost({ ...postData, name: user?.result?.name }));
+            dispatch(createPost({ ...postData, name: user?.result?.name }, history));
             
         } else {
             dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));

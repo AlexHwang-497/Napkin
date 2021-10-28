@@ -56,14 +56,14 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   }
 };
 
-export const createPost = (post) => async(dispatch) => {
+export const createPost = (post, history) => async (dispatch) => {
     try{
         dispatch({ type: START_LOADING });
         // *this is making a backend post to our server
         const {data} = await  api.createPost(post)
         dispatch({type: CREATE, payload:data})
-        console.log('the post has been created in action/posts.js createPost:', data)
-        // return {type: CREATE, payload:data}
+        
+        history.push(`/posts/${data._id}`);
     } catch(error){
         console.log(error.message)
     }   
