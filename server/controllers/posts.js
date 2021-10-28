@@ -7,12 +7,18 @@ import PostMessage from '../models/postMessage.js'
 const router = express.Router()
 
 export const getPosts = async(req, res) => {
+    const { page } = req.query;
     try{
+        const LIMIT = 8;
+        const startIndex = (Number(page) - 1) * LIMIT; //! get the starting index of every page
+        
+        // *we are counting up all thedocuents so we know how many posts we have
+        const total = await PostMessage.countDocuments({});
+        
         // * we are retrieving all the messages in the database
-        const postMessages = await PostMessage.find();
-        // console.log('this is the postMessages from controllers->post.js',postMessages)
-        // console.log(postMessages)
-        res.status(200).json(postMessages);
+        const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+        res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
     } catch (error){
         res.status(404).json({ message: error.message });
         console.log('this is the error message from getPosts in server/controllers:',error.message)

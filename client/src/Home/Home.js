@@ -31,9 +31,7 @@ const Home = () =>{
     console.log('this is the search in Home.js',search)
     const [tags, setTags] = useState([]);
 
-    useEffect(()=> {
-        dispatch(getPosts())
-    },[currentId,dispatch])
+
 
   
 
