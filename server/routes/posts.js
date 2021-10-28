@@ -1,5 +1,5 @@
 import express from 'express'
-import { getPosts, getPostsBySearch, createPost, updatePost, likePost, deletePost,getPost } from '../controllers/posts.js';
+import { getPosts, getPostsBySearch, createPost, updatePost, likePost, deletePost,getPost,commentPost } from '../controllers/posts.js';
 
 const router = express.Router()
 
@@ -19,7 +19,7 @@ router.delete('/:id', auth, deletePost);
     // *this will be managed on the backend
 router.patch('/:id/likePost', auth, likePost);
 
-
+router.post('/:id/commentPost', auth, commentPost);
 
 export default router
 

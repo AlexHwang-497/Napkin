@@ -163,5 +163,19 @@ export const likePost = async (req, res) => {
     res.json(updatedPost);
 }
 
+// *export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value }); this is from the API/index.js
+    // ! this is waht is poulating this post
+export const commentPost = async (req, res) => {
+    const { id } = req.params;
+    const { value } = req.body;
+    // *we are getting the post from the database
+    const post = await PostMessage.findById(id);
+    // * we are then pushing/adding the comments
+    post.comments.push(value);
+    // *then we are updating the datbase with the new comment
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+
+    res.json(updatedPost);
+};
 
 export default router

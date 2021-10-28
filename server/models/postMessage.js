@@ -10,6 +10,7 @@ const postSchema = mongoose.Schema({
     // *we are converting an image into a string using the base 64
     selectedFile: String,
     likes: { type: [String], default: [] },
+    comments: { type: [String], default: [] },
     createdAt: {
         type: Date,
         default: new Date(),
