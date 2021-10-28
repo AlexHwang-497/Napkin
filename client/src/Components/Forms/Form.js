@@ -57,7 +57,7 @@ const Form = ({ currentId, setCurrentId }) => {
 // *<FileBase/>; this allows us to upload files
      
     return (
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={6}>
             <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Typography>
                 {/* <TextField name="creator" variant="outlined" label="Creator" fullWidth value ={postData.creator} onChange={(e)=> setPostData({...postData,creator:e.target.value})}/> */}

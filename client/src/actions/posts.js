@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH,START_LOADING,END_LOADING } from '../constants/actionTypes';
 // *   import*; this means we import everything from the actions
 import * as api from '../api/index'
 
@@ -7,10 +7,12 @@ import * as api from '../api/index'
 // *getPosts = () => async(dispatch); the async(dispatch) is what thunk allows us to do 
 export const getPosts = (page) => async (dispatch) => {
     try{
+        dispatch({ type: START_LOADING });
         // *requesting all the data from the API
         const { data } = await api.fetchPosts(page);
         console.log('this is the data that is given from getposts in action/posts.js:', data)
         dispatch({ type: FETCH_ALL, payload: data });
+        dispatch({ type: END_LOADING });
 
 
     } catch(error){
@@ -25,7 +27,7 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
-    // dispatch({ type: START_LOADING });
+    dispatch({ type: START_LOADING });
     const { data:{data}} = await api.fetchPostsBySearch(searchQuery);
     // const res = await api.fetchPostsBySearch(searchQuery);
     console.log('this is the searchQuery in getPostsBySearch in client/actions/posts.js',searchQuery)
@@ -33,7 +35,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
     // dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
     dispatch({ type: FETCH_BY_SEARCH, payload:  data  });
-    // dispatch({ type: END_LOADING });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -41,6 +43,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const createPost = (post) => async(dispatch) => {
     try{
+        dispatch({ type: START_LOADING });
         // *this is making a backend post to our server
         const {data} = await  api.createPost(post)
         dispatch({type: CREATE, payload:data})
