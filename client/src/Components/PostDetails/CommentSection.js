@@ -2,29 +2,31 @@ import React, { useState, useRef } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 
-// import { commentPost } from '../actions/posts';
+import { commentPost } from '../../actions/posts';
 import useStyles from './styles';
 
 
 
 const CommentSection = ({ post }) => {
     console.log(post)
-    // const user = JSON.parse(localStorage.getItem('profile'));
+    const user = JSON.parse(localStorage.getItem('profile'));
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [comments, setComments] = useState([1,2,3]);
     const classes = useStyles();
     const commentsRef = useRef();
     const [comment, setComment] = useState('');
 
-    // const handleComment = async () => {
+    const handleComment = async () => {
+        const finalComment = () => `${user.result.name}:${comment}`
+        dispatch(commentPost(finalComment,post._id))
     //     const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
     
     //     setComment('');
     //     setComments(newComments);
     
     //     commentsRef.current.scrollIntoView({ behavior: 'smooth' });
-    //   };
+      };
 
 
     

@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH,START_LOADING,END_LOADING, FETCH_POST } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH,START_LOADING,END_LOADING, FETCH_POST,COMMENT } from '../constants/actionTypes';
 // *   import*; this means we import everything from the actions
 import * as api from '../api/index'
 
@@ -106,15 +106,16 @@ export const updatePost = (id, post) => async (dispatch) => {
     }
   };
 
-
-  // export const commentPost = (value, id) => async (dispatch) => {
-  //   try {
-  //     const { data } = await api.comment(value, id);
+// *similar to like post
+// *dispatch(commentPost(finalComment,post._id)); this is what is getting passed into value and id
+  export const commentPost = (value, id) => async (dispatch) => {
+    try {
+      const { data } = await api.comment(value, id);
   
-  //     dispatch({ type: 'COMMENT', payload: data });
+      dispatch({ type: COMMENT, payload: data });
   
-  //     return data.comments;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      return data.comments;
+    } catch (error) {
+      console.log(error);
+    }
+  };
