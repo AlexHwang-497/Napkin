@@ -34,3 +34,4 @@ const FetchStockPrice =  async() =>{
 
 }
 export default FetchStockPrice
+

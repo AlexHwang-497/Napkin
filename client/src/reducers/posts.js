@@ -6,6 +6,8 @@ export default (posts = [], action) => {
             return action.payload;
         case FETCH_BY_SEARCH:
             // return { ...state, posts: action.payload.data };
+            console.log('this is the action.palyload of FETCH_BY_SEARCH in reducer/postsaction.payload',action.payload.data)
+            // return action.payload.data;
             return action.payload;
         case CREATE:
             return [...posts, action.payload];
