@@ -113,8 +113,8 @@ export const updatePost = (id, post) => async (dispatch) => {
       const { data } = await api.comment(value, id);
       console.log('this the data from commentPost in actions/posts',data)
   
-      // dispatch({ type: COMMENT, payload: data });
-  
+      dispatch({ type: COMMENT, payload: data });
+      // *this means that we are returning the latest comments coming in
       return data.comments;
     } catch (error) {
       console.log(error);

@@ -8,27 +8,27 @@ import useStyles from './styles';
 
 
 const CommentSection = ({ post }) => {
-    console.log(post)
+    // console.log(post)
     const user = JSON.parse(localStorage.getItem('profile'));
 
     const dispatch = useDispatch();
-    const [comments, setComments] = useState([1,2,3]);
+    const [comments, setComments] = useState(post?.comments);
     const classes = useStyles();
     const commentsRef = useRef();
     const [comment, setComment] = useState('');
 
     const handleComment = async () => {
         const finalComment = () => `${user.result.name}:${comment}`
-        dispatch(commentPost(finalComment,post._id))
-    //     const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
+        // dispatch(commentPost(finalComment,post._id))
+        const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
     
-    //     setComment('');
-    //     setComments(newComments);
+        setComment('');
+        setComments(newComments);
     
-    //     commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+        commentsRef.current.scrollIntoView({ behavior: 'smooth' });
       };
 
-
+    //*{/* <strong>{c.split(': ')[0]}</strong> */}{/* {c.split(':')[1]} */};  we neeed to fix this part to get the comments to pop up
     
       return (
         <div>
@@ -36,20 +36,21 @@ const CommentSection = ({ post }) => {
             <div className={classes.commentsInnerContainer}>
               <Typography gutterBottom variant="h6">Comments</Typography>
               {comments?.map((c, i) => (
-                    <Typography key={i} gutterBottom variant="subtitle1">Comment{i}</Typography>
-                ))}
+                <Typography key={i} gutterBottom variant="subtitle1">
+                  {/* <strong>{c.split(': ')[0]}</strong>
+                  {c.split(':')[1]} */}
+                </Typography>
+              ))}
               <div ref={commentsRef} />
             </div>
-            {user?.result?.name && (
-              <div style={{ width: '70%' }}>
-                <Typography gutterBottom variant="h6">Write a comment</Typography>
-                <TextField fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
-                <br />
-                <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleComment}>
-                  Comment
-                </Button>
-              </div>
-            )}
+            <div style={{ width: '70%' }}>
+              <Typography gutterBottom variant="h6">Write a comment</Typography>
+              <TextField fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
+              <br />
+              <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleComment}>
+                Comment
+              </Button>
+            </div>
           </div>
         </div>
       );
