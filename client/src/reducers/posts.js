@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING,FETCH_POST } from '../constants/actionTypes';
 // *action.payload are our actual posts from dispatch({type:'FETCH_ALL', payload:[]})
 export default (state = { isLoading: true, posts: [] }, action) => {
     switch(action.type) {
@@ -18,6 +18,8 @@ export default (state = { isLoading: true, posts: [] }, action) => {
             // console.log('this is the action.palyload of FETCH_BY_SEARCH in reducer/postsaction.payload',action.payload.data)
             // return action.payload.data;
             // return action.payload;
+        case FETCH_POST:
+            return { ...state, post: action.payload.post };
         case CREATE:
             return { ...state, posts: [...state.posts, action.payload] };
         case UPDATE:
