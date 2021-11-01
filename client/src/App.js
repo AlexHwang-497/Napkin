@@ -9,6 +9,12 @@ import Navbar from './Navbar/Navbar';
 import Home from '../src/Home/Home';
 import Auth from './Auth/Auth';
 import PostDetails from './Components/PostDetails/PostDetails';
+import TreasuryRates from './StockData/TreasuryRates';
+import CreatePortfolio from './Components/Portfolio/CreatePortfolioForm';
+
+import CustomizedDialogs from './Components/Portfolio/Dialog';
+
+
 
 
 // *<Grow>; provides simple animation
@@ -20,6 +26,9 @@ const App = () => {
     return (
         <BrowserRouter>
             <Container maxWidth='xl'>
+                <CustomizedDialogs/>
+                <TreasuryRates/>
+                <FetchStockPrice/>
                 <Navbar/>
                 <Switch>
                     <Route path="/" exact component={() => <Redirect to="/posts" />} />
