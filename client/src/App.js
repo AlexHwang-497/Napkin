@@ -26,9 +26,9 @@ const App = () => {
     return (
         <BrowserRouter>
             <Container maxWidth='xl'>
-                <CustomizedDialogs/>
-                <TreasuryRates/>
-                <FetchStockPrice/>
+                {/* <CustomizedDialogs/> */}
+                {/* <TreasuryRates/> */}
+                {/* <FetchStockPrice/> */}
                 <Navbar/>
                 <Switch>
                     <Route path="/" exact component={() => <Redirect to="/posts" />} />

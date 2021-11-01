@@ -7,6 +7,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 import CommentSection from './CommentSection';
+import BasicTabs from './PostDetailsTabs';
+
 
 const PostDetails = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -42,6 +44,7 @@ const PostDetails = () => {
 
     return (
       <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+      <BasicTabs></BasicTabs>
         <div className={classes.card}>
           <div className={classes.section}>
             <Typography variant="h3" component="h2">{post.title}</Typography>

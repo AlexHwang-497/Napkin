@@ -1,14 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-// import Button from '@material/material/Button';
-// import { styled } from '@material/material/styles';
-// import Dialog from '@material/material/Dialog';
-// import DialogTitle from '@material/material/DialogTitle';
-// import DialogContent from '@material/material/DialogContent';
-// import DialogActions from '@material/material/DialogActions';
-// import IconButton from '@material/material/IconButton';
-// import CloseIcon from '@material/icons-material/Close';
-// import Typography from '@material/material/Typography';
+
 
 import { Avatar,IconButton, styled, DialogTitle,Button, Paper, Grid, Typography, Container,Dialog, DialogActions, DialogContent } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
