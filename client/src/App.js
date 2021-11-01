@@ -26,7 +26,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <Container maxWidth='xl'>
-                {/* <CustomizedDialogs/> */}
+                <CustomizedDialogs/>
                 {/* <TreasuryRates/> */}
                 {/* <FetchStockPrice/> */}
                 <Navbar/>
