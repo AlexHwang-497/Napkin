@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // import Typography from '@mui/material/Typography';
 // import Box from '@mui/material/Box';
 import {Box, Tab, Typography,Tabs} from '@material-ui/core'
+import PostDetails from './PostDetails';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +59,8 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+        <PostDetails/>
+        this is tiem 1
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

@@ -1,6 +1,6 @@
 import React from "react";
 // import TextField from "material-ui/TextField";
-import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core';
+import { Button,  TextField } from '@material-ui/core';
 
 export default class PortfolioInputForm extends React.Component {
   state = {
@@ -86,6 +86,7 @@ export default class PortfolioInputForm extends React.Component {
         />
         <br />
         <TextField
+          standard-basic
           name="lastName"
           hintText="Last Name"
           floatingLabelText="Last Name"

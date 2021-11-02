@@ -26,7 +26,7 @@ const FetchStockPrice= ()=>{
     const startDate='2000-10-21'
     const endDate='2021-10-25'
                 
-    const [stockList, setStockList] = useState(['AAPL','AMZN','GOOG','MSFT','TEAM','NFLX','PTON', 'FUTU', 'TIGR','NIO','SQ','TSM','PYPL','AMD','KKR','TSLA','PLTR','ASAN','SNOW','SE','ARES','LMND','BLDR','CRM','MA','INTU','Z','HD','V','FTNT','CNR','POOL','SNAP','PDD','OPEN','BABA','TWTR','ZM','BMBL','UPST'])
+    const [stockList, setStockList] = useState(['AAPL','AMZN','GOOG','NFLX'])
     const [stockData,editStockData] = useState([])
 
     
@@ -42,10 +42,39 @@ const FetchStockPrice= ()=>{
         editStockData(stocks);
         })
         );
-        }, [stockList]);
+        }, []);
 
-        console.log('this is the stockData',stockData)
-        // console.log('this is the stockData',stockData[2].historical)
+
+    useEffect(()=> {
+        if(stockData.length===0) return;
+        for(let j=0;j<stockList.length;j++){
+
+            const historicalData = stockData[j].historical
+            // console.log(historicalData)
+            
+            let sum = 0
+            for(let i=1; i<20;i++){
+                let cumReturn = historicalData[i].adjClose/historicalData[i-1].adjClose-1
+                // console.log(cumReturn)
+                sum +=cumReturn
+    
+            }
+            let average = sum/19
+            console.log('stockList[j]',j,'average:', average)
+        }
+
+
+
+    },[stockData])
+
+
+    
+
+
+
+
+        
+
 
     return (
         <div>

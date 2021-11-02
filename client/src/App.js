@@ -13,6 +13,8 @@ import TreasuryRates from './StockData/TreasuryRates';
 import CreatePortfolio from './Components/Portfolio/CreatePortfolioForm';
 
 import CustomizedDialogs from './Components/Portfolio/Dialog';
+import BasicTabs from './Components/PostDetails/PostDetailsTabs';
+
 
 
 
@@ -28,13 +30,13 @@ const App = () => {
             <Container maxWidth='xl'>
                 <CustomizedDialogs/>
                 {/* <TreasuryRates/> */}
-                {/* <FetchStockPrice/> */}
+                <FetchStockPrice/>
                 <Navbar/>
                 <Switch>
                     <Route path="/" exact component={() => <Redirect to="/posts" />} />
                     <Route path="/posts" exact component={Home} />
                     <Route path="/posts/search" exact component={Home} />
-                    <Route path="/posts/:id" exact component={PostDetails} />
+                    <Route path="/posts/:id" exact component={BasicTabs} />
                     <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
                 </Switch>
             </Container>
