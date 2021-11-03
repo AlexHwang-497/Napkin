@@ -1,11 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-// import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import Typography from '@mui/material/Typography';
-// import Box from '@mui/material/Box';
+import Holdings from '../Portfolio/Holdings';
+import TotalReturn from '../Portfolio/TotalReturn';
+import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis';
+import StatisticalSummary from '../Portfolio/StatisticalSummary';
+
 import {Box, Tab, Typography,Tabs} from '@material-ui/core'
 import PostDetails from './PostDetails';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,19 +62,20 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         <PostDetails/>
-        this is tiem 1
+        
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <Holdings/>
+        
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <TotalReturn/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+        <SeasonalAnalysis/>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Item Five
+        <StatisticalSummary/>
       </TabPanel>
     </Box>
   );

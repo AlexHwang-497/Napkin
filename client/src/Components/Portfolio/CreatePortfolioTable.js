@@ -2,14 +2,25 @@ import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid'
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'Security Name', width: 130 },
-  { field: 'lastName', headerName: '% of Portfolio', width: 130 },
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'firstName',
+    headerName: 'First name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'lastName',
+    headerName: 'Last name',
+    width: 150,
+    editable: true,
+  },
   {
     field: 'age',
     headerName: 'Age',
     type: 'number',
-    width: 90,
+    width: 110,
+    editable: true,
   },
   {
     field: 'fullName',
@@ -36,7 +47,7 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export default function DataTable() {
+export default function DataGridDemo() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -45,6 +56,7 @@ export default function DataTable() {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        disableSelectionOnClick
       />
     </div>
   );

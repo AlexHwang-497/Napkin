@@ -1,79 +1,91 @@
 import { useEffect,useState } from "react"
 import config from "./config"
 
+
 const FetchStockPrice= ()=>{
-    // console.log('this is the api key in fetchStock',api)
+    let cov = require( 'compute-covariance' );
     
-    // const url = `https://financialmodelingprep.com/api/v3/historical-price-full/AAPL?from=${startDate}&to=${endDate}&apikey=${api}`
-    
-    // const response = await fetch(url)
-    // console.log('this is response in fetchLatest',response)
-    // if(!response.ok){
-        //     throw new Error('Something went wrong!!!')
-        // }
-        // const responseData = await response.json()
-        // console.log(responseData)
-        // const loadQuote =[]
-        
-        // for(const key in responseData){
-            //     loadQuote.push({
-                //         symbol:responseData.symbol,
-                //         currentPrice:responseData.historical[0].date
-                //     })
-                // }
-                // console.log('loadQuote',loadQuote)
     const apiKey = config.FMP_API_KEY_ID
-    const startDate='2000-10-21'
-    const endDate='2021-10-25'
+    const startDate='2020-01-01'
+    const endDate='2021-10-01'
                 
-    const [stockList, setStockList] = useState(['AAPL','AMZN','GOOG','NFLX'])
+    // const [stockList, setStockList] = useState(['SPY','AAPL','AMZN','GOOG','NFLX','KKR'])
+    const [stockList, setStockList] = useState(['AAPL'])
     const [stockData,editStockData] = useState([])
+    const [stockWeight,setStockWeight]=useState([0,.20,.20,.20,.20,.20])
 
     
     useEffect(() => {
         Promise.all(
         stockList.map((stock) =>
         fetch(
-        `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`
-        )
-        )
-        ).then((results) =>
-        Promise.all(results.map((res) => res.json())).then((stocks) => {
-        editStockData(stocks);
+        `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
+        .then((results) =>
+            Promise.all(results.map((res) => res.json())).then((stocks) => {
+            editStockData(stocks);
         })
         );
         }, []);
 
-
+        
     useEffect(()=> {
+        let arrCumReturn=[]
         if(stockData.length===0) return;
+        // *this will iterate through the stoclist
         for(let j=0;j<stockList.length;j++){
-
-            const historicalData = stockData[j].historical
-            // console.log(historicalData)
-            
+            const historicalData = stockData[j].historical.reverse()
+            let currentStock =[]
+            let portfolioShares=[]
+            let stockValue = []
             let sum = 0
-            for(let i=1; i<20;i++){
-                let cumReturn = historicalData[i].adjClose/historicalData[i-1].adjClose-1
-                // console.log(cumReturn)
+            let openSum=0
+            //todo: we are calculating the average, the cumulative return and attain prices
+            for(let i=1; i<historicalData.length;i++){
+                let cumReturn = historicalData[i].open/historicalData[i-1].open-1
+                
+                // *this calculates the number of shares 
+                if(portfolioShares.length===0){
+                    portfolioShares.push(10000/historicalData[i].open)
+                    stockValue.push(10000)
+                } else {    
+                    let previousShare = portfolioShares[i-2]
+                    // let previousShare = portfolioShares[i-2]
+                    // console.log('previuosShare',previousShare)
+                    portfolioShares.push(previousShare*(1+cumReturn))
+                    stockValue.push(historicalData[i].open*portfolioShares[i-1])
+                    // console.log('portfolioShares',portfolioShares)
+                    console.log('stockValue',stockValue)
+                }
+                currentStock.push(cumReturn)
                 sum +=cumReturn
+                openSum+=historicalData[i].open
+                // console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
+                // console.log('j:',j,'symbol',stockData[j],'portfolioShares:',portfolioShares,'cumReturn:',cumReturn,'previousShare',previousShare)
     
             }
-            let average = sum/19
-            console.log('stockList[j]',j,'average:', average)
+            arrCumReturn.push(currentStock)
+            let n = historicalData.length-1
+            console.log('n',n)
+            let average =openSum/historicalData.length
+            // console.log('symbol:',stockList[j],'average: ', average,"sum",sum,'openSum',openSum)
+
+            let xMean= 0
+            let xMean2= 0
+            // todo: this is calculating stdDev
+            for(let i=1; i<historicalData.length;i++){
+
+                    xMean+=historicalData[i].open-average
+                    xMean2+=Math.pow(historicalData[i].open-average,2)
+                    // console.log(cumReturn)
+                    // console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'average',average,'xMean',xMean,'xMean^2',xMean2)
+                }
+            let stdDev=Math.sqrt(xMean2/n)
+            // console.log('Symbol',stockList[j],'stdDev',stdDev,'xMean',xMean,'xMean^2',xMean2)
         }
-
-
-
+        console.log(arrCumReturn)
+        // console.log(cov(arrCumReturn[0],arrCumReturn[1]))
     },[stockData])
 
-
-    
-
-
-
-
-        
 
 
     return (

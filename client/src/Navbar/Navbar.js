@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import fetchStockPrice from '../StockData/FetchStockPrices'; 
-
+import CustomizedDialogs from '../Components/Portfolio/Dialog';
 import memories from '../images/memories.png';
 import memoriesLogo from '../images/memoriesLogo.png';
 import memoriesText from '../images/memoriesText.png';
@@ -60,6 +60,7 @@ const Navbar = () =>{
         
       </Link>
       <Toolbar className={classes.toolbar}>
+        <CustomizedDialogs/>
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>

@@ -19,6 +19,9 @@ import BasicTabs from './Components/PostDetails/PostDetailsTabs';
 
 
 
+
+
+
 // *<Grow>; provides simple animation
 //*<Container maxWidth='xl'></Container>; changing this to xL will give us more posts on our page
 // *<Route path="/" exact component={() => <Redirect to="/posts" />} />; what the redirect does here is, it is going to redirect us to '/posts'
@@ -26,11 +29,12 @@ const App = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
     return (
+        
+
         <BrowserRouter>
             <Container maxWidth='xl'>
-                <CustomizedDialogs/>
-                {/* <TreasuryRates/> */}
-                <FetchStockPrice/>
+                
+
                 <Navbar/>
                 <Switch>
                     <Route path="/" exact component={() => <Redirect to="/posts" />} />
@@ -41,6 +45,7 @@ const App = () => {
                 </Switch>
             </Container>
         </BrowserRouter>
+        
     )
 }
 export default App
