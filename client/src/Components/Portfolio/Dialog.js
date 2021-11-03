@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import DataTable from './CreatePortfolioTable';
 import PortfolioInputForm from './CreatePortfolioInputForm';
+import InputForm from './InputForm/InputForm';
 
 
 
@@ -72,8 +73,9 @@ export default function CustomizedDialogs() {
           Exit 
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <PortfolioInputForm/>
-          <DataTable/>
+        <InputForm/>
+          
+          
           
           
           <Typography gutterBottom>
