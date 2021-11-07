@@ -11,3 +11,8 @@ export const START_LOADING = 'START_LOADING';
 
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
+
+// 
+export const AWAITING_SYMBOL = 'AWAITING_SYMBOL';
+export const SUCCESS_SYMBOL = 'SUCCESS_SYMBOL';
+export const REJECTED_SYMBOL = 'REJECTED_SYMBOL';

@@ -11,7 +11,7 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter a Symbol"
+          placeholder="Enter a name..."
           name="symbol"
           value={editFormData.symbol}
           onChange={handleEditFormChange}
@@ -21,8 +21,8 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter the % of your portfolio"
-          name="PortfolioBifurcation"
+          placeholder="Enter a %..."
+          name="address"
           value={editFormData.portfolioBifurcation}
           onChange={handleEditFormChange}
         ></input>

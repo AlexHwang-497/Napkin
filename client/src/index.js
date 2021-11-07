@@ -8,6 +8,7 @@ import { reducers } from './reducers';
 import App from './App';
 import './index.css';
 
+// !ask carlos what is the point of this 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(

@@ -4,6 +4,7 @@ import Holdings from '../Portfolio/Holdings';
 import TotalReturn from '../Portfolio/TotalReturn';
 import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis';
 import StatisticalSummary from '../Portfolio/StatisticalSummary';
+import PortfolioOverview from '../Portfolio/InputForm/PortfolioOverview';
 
 import {Box, Tab, Typography,Tabs} from '@material-ui/core'
 import PostDetails from './PostDetails';

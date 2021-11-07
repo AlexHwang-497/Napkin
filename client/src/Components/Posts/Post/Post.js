@@ -16,6 +16,9 @@ import useStyles from './Styles'
 // * post.tags.map((tag) => `#${tag} `); we are looping through our tags and putting "#" on them
 // *<Typography variant="h6">{post.name}</Typography>; this is now the id of the creator
 const Post = ({ post, setCurrentId }) => {
+    
+    
+    
     const dispatch = useDispatch();
     const classes = useStyles()
     const [likes, setLikes] = useState(post?.likes);
@@ -25,7 +28,6 @@ const Post = ({ post, setCurrentId }) => {
 
     const Likes = () => {
       if (post.likes.length > 0) {
-        
         return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
           ? (
             <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
@@ -37,8 +39,6 @@ const Post = ({ post, setCurrentId }) => {
     };
 
     const openPost = (e) => {
-      // dispatch(getPost(post._id, history));
-  
       history.push(`/posts/${post._id}`);
     };
 

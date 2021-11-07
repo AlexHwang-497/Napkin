@@ -22,6 +22,7 @@ import BasicTabs from './Components/PostDetails/PostDetailsTabs';
 
 
 
+
 // *<Grow>; provides simple animation
 //*<Container maxWidth='xl'></Container>; changing this to xL will give us more posts on our page
 // *<Route path="/" exact component={() => <Redirect to="/posts" />} />; what the redirect does here is, it is going to redirect us to '/posts'
@@ -41,6 +42,7 @@ const App = () => {
                     <Route path="/posts/:id" exact component={BasicTabs} />
                     <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
                 </Switch>
+                
             </Container>
         </BrowserRouter>
         

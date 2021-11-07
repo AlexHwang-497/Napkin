@@ -3,12 +3,12 @@ import mongoose  from "mongoose";
 // *we are speciygin that each post from our schemas should have the following.....
 const portfolioSchema = mongoose.Schema({
     userId: String,
-    Assets:[String],
-    Ownership:[Number],
-    DateCreated:Date
+    assets:[String],
+    ownership:[Number],
+    dateCreated:Date
 })
 
 // * this allows us to creat our model
-let Portfolio = mongoose.model('portfolio',portfolioSchema)
+let PostPortfolio = mongoose.model('PostPortfolio',portfolioSchema)
 
-export default Portfolio
+export default PostPortfolio

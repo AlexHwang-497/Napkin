@@ -8,10 +8,11 @@ import {getPosts} from '../actions/posts'
 import { getPostsBySearch } from '../actions/posts';
 import Pagination from '../Components/Pagination';
 import useStyles from './styles';
+import InputForm from '../Components/Portfolio/InputForm/InputForm'
+import PortfolioInputForm from '../Components/Portfolio/InputForm/PortfolioInput';
 // *this gives us floating bubbles in tags
 import ChipInput from 'material-ui-chip-input';
 // *this will provide us an idea of where our current location is 
-
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -36,7 +37,6 @@ const Home = () =>{
   
 
     const searchPost = () => {
-
       console.log('this is the search in searchPost',search)
       if (search.trim() || tags ) {
         console.log('this is the search in searchPost',search)
@@ -53,27 +53,7 @@ const Home = () =>{
         searchPost();
       }
     };
-    const currentValue = () =>{
-      // const poops = e.target.value
-
-      // console.log('this is the e.target.value in home.js',e.target.value)
-    }
-
-
-
-    // const searchPost = () => {
-    //   if (search.trim() || tags) {
-    //     dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-    //     //   *we are pushing this to a specific url
-        
-    //     history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
-    //     } else {
-    //       history.push('/');
-    //     }
-    //   };
-
-
-
+    
     const handleAddChip = (tag) => setTags([...tags, tag]);
       console.log('these are our tags in home.js',tags)
     //   *this allows us to delete our tags that we put in the tags serach bar
@@ -110,7 +90,15 @@ const Home = () =>{
                   <Pagination page={page} />
                 </Paper>
               )}
+
+
             </Grid>
+                <Paper className={classes.appBarSearch} position="static" color="inherit">
+                  <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} />
+                </Paper>
+                <Paper className={classes.appBarSearch} position="static" color="inherit">
+                  <InputForm/>
+                </Paper>
           </Grid>
         </Container>
       </Grow>
