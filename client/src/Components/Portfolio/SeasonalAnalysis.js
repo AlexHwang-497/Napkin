@@ -6,13 +6,13 @@ import CollapsibleTable from './CollapsableTable'
 function SeasonalAnalysis() {
     return (
         <Grid container>
-            <Grid item xs={6} >
+            <Grid item xs={8} >
                 <Paper>
                     <VerticalBar/>
                 </Paper>
             </Grid>
             
-            <Grid item xs={6} >
+            <Grid item xs={8} >
                 <Paper>
                     <CollapsibleTable/>
                 </Paper>

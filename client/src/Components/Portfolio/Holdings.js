@@ -5,6 +5,8 @@ import CollapsibleTable from './CollapsableTable'
 import VerticalBar from './Charts/BarChart'
 import PieChart from './Charts/PieChart'
 import LineChart from './Charts/LineChart'
+import BarGraph from './Charts/BarGraph'
+import PieGraph from './Charts/PieGraph'
 
 
 function Holdings() {
@@ -12,14 +14,14 @@ function Holdings() {
         <Grid container>
             <Grid item xs={6}>
                 <Paper>
-                    <PieChart/>
+                    <BarGraph/>
                 </Paper>
 
             </Grid>
 
             <Grid item xs={6} >
                 <Paper>
-                    <PieChart/>
+                    <PieGraph/>
                 </Paper>
             </Grid>
 
