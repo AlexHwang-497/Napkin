@@ -62,7 +62,7 @@ export const getPortfolios = async(req, res) => {
 export const createPortfolio = async(req,res) => {
     const post = req.body
 
-    const newPostMessage = new postPortfolio({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    const newPostMessage = new postPortfolio({ ...post, userId: req.userId, dateCreated: new Date().toISOString() })
 
     try{
         await newPostMessage.save();
@@ -74,31 +74,31 @@ export const createPortfolio = async(req,res) => {
     }
 }
 
-export const updatePost = async (req, res) => {
+export const updatePortfolio = async (req, res) => {
 
     const { id } = req.params;
-    const { title, message, creator, selectedFile, tags } = req.body;
-    console.log('this is everything req.body in updatepost of server/controlelrs/posts', req.body)
+    const { assets, ownership } = req.body;
+    console.log('this is everything req.body in updatePortfolio of server/controlelrs/posts', req.body)
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+    const updatedPortfolio = { assets,ownership };
 
-    await PostPortfolio.findByIdAndUpdate(id, updatedPost, { new: true });
+    const portfolio = await PostPortfolio.findByIdAndUpdate(id, updatedPortfolio, { new: true });
 
-    res.json(updatedPost);
+    res.json(portfolio);
     
 }
 
 
-export const deletePost = async (req, res) => {
+export const deletePortfolio = async (req, res) => {
     const { id } = req.params;
     console.log('this is what is given in deletePost in server/controllers/posts.js',req.params)
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id`);
 
     await PostPortfolio.findByIdAndRemove(id);
     console.log('we have reacahed delete in deletePost')
-    res.json({ message: "Post deleted successfully." });
+    res.json({ message: "Portfolio has been successfully deleted." });
 
 
 

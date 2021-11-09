@@ -33,11 +33,11 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 
 // *portfolio
 
-export const createPortfolio = (newPortfolio) => API.post('/posts', newPortfolio);
-export const fetchPortfolio = (id) => API.get(`/posts/${id}`);
-export const fetchPortfolios = (page) => API.get(`/posts?page=${page}`);
-export const fetchPortfoliosBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}` );
+export const createPortfolio = (newPortfolio) => API.post('/portfolio', newPortfolio);
+export const fetchPortfolio = (id) => API.get(`/portfolio/${id}`);
+export const fetchPortfolios = (page) => API.get(`/portfolio?page=${page}`);
+export const fetchPortfoliosBySearch = (searchQuery) => API.get(`/portfolio/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}` );
 // export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
-export const likePortfolio = (id) => API.patch(`/posts/${id}/likePost`);
+export const likePortfolio = (id) => API.patch(`/portfolio/${id}/likePost`);
 export const updatePortfolio = (id, updatedPortfolio) => API.patch(`/posts/${id}`, updatedPortfolio);
-export const deletePortfolio = (id) => API.delete(`/posts/${id}`);
+export const deletePortfolio = (id) => API.delete(`/portfolio/${id}`);

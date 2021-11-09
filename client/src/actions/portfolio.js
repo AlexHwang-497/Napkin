@@ -9,8 +9,8 @@ export const getPortfolios = (page) => async (dispatch) => {
     try{
         dispatch({ type: START_LOADING });
         // *requesting all the data from the API
-        const { data } = await api.fetchPosts(page);
-        console.log('this is the data that is given from getPortfolios in action/posts.js:', data)
+        const { data } = await api.fetchPortfolios(page);
+        console.log('this is the data that is given from getPortfolios in action/portfolio.js:', data)
         dispatch({ type: FETCH_ALL, payload: data });
         dispatch({ type: END_LOADING });
 
@@ -29,7 +29,7 @@ export const getPortfolio = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
 
-    const { data } = await api.fetchPost(id);
+    const { data } = await api.fetchPortfolio(id);
 
     dispatch({ type: FETCH_POST, payload: { post: data } });
   } catch (error) {
@@ -43,9 +43,9 @@ export const getPortfolio = (id) => async (dispatch) => {
 export const getPortfolioBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const { data:{data}} = await api.fetchPostsBySearch(searchQuery);
+    const { data:{data}} = await api.fetchPortfoliosBySearch(searchQuery);
     // const res = await api.fetchPostsBySearch(searchQuery);
-    console.log('this is the searchQuery in getPortfolioBySearch in client/actions/posts.js',searchQuery)
+    console.log('this is the searchQuery in getPortfolioBySearch in client/actions/portfolio.js',searchQuery)
     // console.log('this is the data for getPostsBySearch in client/actions/posts.js:',data)
 
     // dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
@@ -60,7 +60,7 @@ export const createPortfolio = (portfolio, history) => async (dispatch) => {
     try{
         dispatch({ type: START_LOADING });
         // *this is making a backend post to our server
-        const {data} = await  api.createPost(portfolio)
+        const {data} = await  api.createPortfolio(portfolio)
 
         dispatch({type: CREATE, payload:data})
         
@@ -73,8 +73,8 @@ export const createPortfolio = (portfolio, history) => async (dispatch) => {
 
 export const updatePortfolio = (id, post) => async (dispatch) => {
     try {
-      const { data } = await api.updatePost(id, post);
-      console.log('this is the data from updatePortfolio in actions/posts.js:',data)
+      const { data } = await api.updatePortfolio(id, post);
+      console.log('this is the data from updatePortfolio in actions/portfolio.js:',data)
   
       dispatch({ type: UPDATE, payload: data });
     } catch (error) {
@@ -87,7 +87,7 @@ export const updatePortfolio = (id, post) => async (dispatch) => {
 
   export const deletePortfolio = (id) => async (dispatch) => {
     try {
-      await api.deletePost(id);
+      await api.deletePortfolio(id);
   
       dispatch({ type: DELETE, payload: id });
     } catch (error) {
@@ -98,7 +98,7 @@ export const updatePortfolio = (id, post) => async (dispatch) => {
 
   export const likePortfolio = (id) => async (dispatch) => {
     try {
-      const { data } = await api.likePost(id);
+      const { data } = await api.likePortfolio(id);
       console.log('this is the data from likePortfolio in actions/posts.js:',data)
   
       dispatch({ type: LIKE, payload: data });

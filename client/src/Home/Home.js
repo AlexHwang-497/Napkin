@@ -91,7 +91,6 @@ const Home = () =>{
                 </Paper>
               )}
 
-
             </Grid>
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
                   <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} />

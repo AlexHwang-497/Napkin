@@ -8,6 +8,7 @@ import dotenv from 'dotenv'
 // ! why would you need a .js here?
 import postRoutes from './routes/posts.js';
 import userRoutes from "./routes/user.js";
+import portfolioRoutes from "./routes/portfolio.js";
 const app = express()
 dotenv.config()
 // *we are setting up the body parser to send our requests
@@ -21,6 +22,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 // *this adds the routes for the user
 app.use("/user", userRoutes);
+app.use('/portfolio', portfolioRoutes);
 
 app.get('/',(req,res)=>{
     res.send('Hello to memories API')
