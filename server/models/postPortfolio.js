@@ -5,7 +5,12 @@ const portfolioSchema = mongoose.Schema({
     userId: String,
     assets:[String],
     ownership:[Number],
-    dateCreated:Date
+    dateCreated:Date,
+    portfolioName:String,
+    likes: { type: [String], default: [] },
+    comments: { type: [String], default: [] },
+    tags: [String],
+    creator: String,
 })
 
 // * this allows us to creat our model

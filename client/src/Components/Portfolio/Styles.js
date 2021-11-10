@@ -6,6 +6,7 @@ export default makeStyles({
     paddingTop: '56.25%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: 'darken',
+    color: 'black',
   },
   border: {
     border: 'solid',
@@ -20,6 +21,7 @@ export default makeStyles({
     borderRadius: '15px',
     height: '100%',
     position: 'relative',
+    color: 'black',
   },
   overlay: {
     position: 'absolute',
@@ -40,9 +42,11 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     margin: '20px',
+    color: 'black',
   },
   title: {
     padding: '0 16px',
+    color: 'blue',
   },
   cardActions: {
     padding: '0 16px 8px 16px',

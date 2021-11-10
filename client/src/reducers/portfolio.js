@@ -2,9 +2,9 @@ import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING
 // *action.payload are our actual posts from dispatch({type:'FETCH_ALL', payload:[]})
 export default (state = { isLoading: true, portfolios: [{assets:['hello']}] }, action) => {
     switch(action.type) {
-        case 'START_LOADING':
+        case START_LOADING:
             return { ...state, isLoading: true };
-        case 'END_LOADING':
+        case END_LOADING:
             return { ...state, isLoading: false };
         case FETCH_ALL:
             console.log('inside portfolio reducer this is data',action.payload.data)

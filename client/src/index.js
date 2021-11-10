@@ -9,7 +9,10 @@ import App from './App';
 import './index.css';
 
 // !ask carlos what is the point of this 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const store = createStore(reducers, compose(applyMiddleware(thunk),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
 
 ReactDOM.render(
   <Provider store={store}>
