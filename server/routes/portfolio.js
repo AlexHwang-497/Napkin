@@ -1,6 +1,6 @@
 import express from 'express'
-import { getPosts, getPostsBySearch, createPost, updatePost, likePost, deletePost,getPost,commentPost } from '../controllers/posts.js';
-import { createPortfolio, deletePortfolio,updatePortfolio} from '../controllers/portfolio.js';
+// import { getPosts, getPostsBySearch, createPost, updatePost, likePost, deletePost,getPost,commentPost } from '../controllers/posts.js';
+import { createPortfolio,getPortfolios,getPortfolioBySearch, deletePortfolio,updatePortfolio,getPortfolio} from '../controllers/portfolio.js';
 
 const router = express.Router()
 
@@ -8,9 +8,10 @@ const router = express.Router()
 import auth from "../middleware/auth.js";
 
 
-router.get('/search', getPostsBySearch);
-router.get('/', getPosts);
-router.get('/:id', getPost);
+
+router.get('/search', getPortfolioBySearch);
+router.get('/', getPortfolios);
+router.get('/:id', getPortfolio);
 router.post('/',auth,  createPortfolio);
 // *managed on the frontend
 router.patch('/:id', auth, updatePortfolio);
@@ -18,9 +19,9 @@ router.patch('/:id', auth, updatePortfolio);
 router.delete('/:id', auth, deletePortfolio);
 // *this is a patch request because it involves us increasing the number of likes
     // *this will be managed on the backend
-router.patch('/:id/likePost', auth, likePost);
+// router.patch('/:id/likePost', auth, likePost);
 
-router.post('/:id/commentPost', auth, commentPost);
+// router.post('/:id/commentPost', auth, commentPost);
 
 export default router
 

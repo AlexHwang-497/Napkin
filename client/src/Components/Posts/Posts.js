@@ -11,7 +11,7 @@ const Posts = ({ setCurrentId }) => {
     // * how do we know that this is called posts?
         // * if you go in index.js and look at export const reducers=combineReducers({posts})
         
-        const { posts, isLoading } = useSelector((state) => state.posts);
+      const { posts, isLoading } = useSelector((state) => state.posts);
     const classes = useStyles()
 
     

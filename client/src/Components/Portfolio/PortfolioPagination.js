@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination, PaginationItem } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
-import { getPortfolios } from '../actions/portfolio';
 
-import { getPosts } from '../actions/posts';
-import useStyles from './styles';
+import { getPosts } from '../../actions/posts';
+import { getPortfolios } from '../../actions/portfolio';
+import useStyles from './Styles';
 
-const Paginate = ({ page }) => {
+const PortfolioPagination = ({ page }) => {
   const { numberOfPages } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
@@ -33,4 +33,4 @@ const Paginate = ({ page }) => {
   );
 };
 
-export default Paginate;
+export default PortfolioPagination;

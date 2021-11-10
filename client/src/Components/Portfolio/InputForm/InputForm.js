@@ -9,6 +9,9 @@ import { useHistory } from 'react-router-dom';
 import useStyles from './styles'
 import { createPost,updatePost } from "../../../actions/posts";
 
+// !! you need to copy the funciton of form.js to get this to work.  
+  // * in  the original fomr.js sends it into post.js
+
 function InputForm() {
   
   const [contacts, setContacts] = useState([]);

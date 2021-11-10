@@ -10,6 +10,8 @@ import Pagination from '../Components/Pagination';
 import useStyles from './styles';
 import InputForm from '../Components/Portfolio/InputForm/InputForm'
 import PortfolioInputForm from '../Components/Portfolio/InputForm/PortfolioInput';
+import PortfolioPosts from '../Components/Portfolio/PortfolioPosts'
+import PortfolioPagination from '../Components/Portfolio/PortfolioPagination';
 // *this gives us floating bubbles in tags
 import ChipInput from 'material-ui-chip-input';
 // *this will provide us an idea of where our current location is 
@@ -69,7 +71,8 @@ const Home = () =>{
         <Container maxWidth="xl">
           <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
             <Grid item xs={12} sm={6} md={9}>
-              <Posts setCurrentId={setCurrentId} />
+              {/* <Posts setCurrentId={setCurrentId} /> */}
+              <PortfolioPosts setCurrentId={setCurrentId}/>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <AppBar className={classes.appBarSearch} position="static" color="inherit">
@@ -88,15 +91,18 @@ const Home = () =>{
               {(!searchQuery && !tags.length) && (
                 <Paper className={classes.pagination} elevation={6}>
                   <Pagination page={page} />
+                  {/* <PortfolioPagination page={page} /> */}
                 </Paper>
               )}
 
             </Grid>
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
-                  <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} />
+                  {/* <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} /> */}
+
+                  <InputForm/>
                 </Paper>
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
-                  <InputForm/>
+                  
                 </Paper>
           </Grid>
         </Container>

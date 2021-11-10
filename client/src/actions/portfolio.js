@@ -16,7 +16,7 @@ export const getPortfolios = (page) => async (dispatch) => {
 
 
     } catch(error){
-        console.log('this is the error message in actions/posts.js',error.message)
+        console.log('this is the error message in actions/portfolio.js',error.message)
 
     }
     // *an action is an object that has a type and payload
