@@ -10,7 +10,7 @@ const portfolioSchema = mongoose.Schema({
     likes: { type: [String], default: [] },
     comments: { type: [String], default: [] },
     tags: [String],
-    creator: String,
+    
 })
 
 // * this allows us to creat our model

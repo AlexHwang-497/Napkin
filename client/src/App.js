@@ -40,6 +40,7 @@ const App = () => {
                     <Route path="/posts" exact component={Home} />
                     <Route path="/posts/search" exact component={Home} />
                     <Route path="/posts/:id" exact component={BasicTabs} />
+                    <Route path="/portfolio/:id" exact component={BasicTabs} />
                     <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
                 </Switch>
                 

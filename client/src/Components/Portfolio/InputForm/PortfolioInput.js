@@ -70,8 +70,8 @@ const PortfolioInputForm = ({ currentId, setCurrentId }) => {
         <Paper className={classes.paper} elevation={7}>
             <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{currentId ? `Editing "${post.assets}"` : 'Add a stock'}</Typography>
-                <TextField name="assets" variant="outlined" label="Symbol" fullWidth value ={postData.assets} onChange={(e)=> setPostData({...postData,assets:e.target.value})}/>
-                <TextField name="ownership" variant="outlined" label="% of Portfolio" fullWidth multiline rows={4} value={postData.ownership} onChange={(e) => setPostData({ ...postData, ownership: e.target.value })} />
+                <TextField name="assets" variant="outlined" label="Symbol"  value ={postData.assets} onChange={(e)=> setPostData({...postData,assets:e.target.value})}/>
+                <TextField name="ownership" variant="outlined" label="% of Portfolio"  value={postData.ownership} onChange={(e) => setPostData({ ...postData, ownership: e.target.value })} />
                 
                 <Button className={classes.buttonSubmit} variant='contained' color='primary' size='large' type='submit' fullWidth>Submit</Button>
                 <Button variant = 'contained' color='secondary' size ='small' onClick={clear} fullWidth>Clear</Button>

@@ -49,7 +49,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
+export default function EditCustomizedDialogs() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -62,7 +62,7 @@ export default function CustomizedDialogs() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Create Portfolio
+        Edit Portfolio
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -82,7 +82,7 @@ export default function CustomizedDialogs() {
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
-            Create Portfolio
+            Edit Portfolio
           </Button>
         </DialogActions>
       </BootstrapDialog>

@@ -12,6 +12,7 @@ import { deletePortfolio, likePortfolio } from '../../actions/portfolio';
 import { useHistory } from 'react-router-dom';
 
 import useStyles from './Styles'
+import EditCustomizedDialogs from './editPortfolioDialog';
 
 // *<CardMedia className={classes.media} image={post.selectedFile} title={post.title} />; the posts here are taken from props
 // *<Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>; this will tell us on our card like 5min or 5s ago
@@ -42,6 +43,10 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       history.push(`/posts/${post._id}`);
       // history.push(`/posts/${post._id}`);
     };
+    const editPost =() => {
+      <EditCustomizedDialogs/>
+
+    }
 
     return (
         <Card className={classes.card} raised elevation={6}>
@@ -73,6 +78,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
             <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
               <DeleteIcon fontSize="small" /> Delete
             </Button>
+
+            <EditCustomizedDialogs/>
 
           </CardActions>
 
