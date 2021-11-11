@@ -1,9 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Holdings from '../Portfolio/Holdings';
-import TotalReturn from '../Portfolio/TotalReturn';
+import TotalReturn from '../Portfolio/TotalReturn/TotalReturn';
 import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis';
-import StatisticalSummary from '../Portfolio/StatisticalSummary';
+import StatisticalSummary from '../Portfolio/StatisticalSummary/StatisticalSummary';
 import PortfolioOverview from '../Portfolio/InputForm/PortfolioOverview';
 
 import {Box, Tab, Typography,Tabs} from '@material-ui/core'

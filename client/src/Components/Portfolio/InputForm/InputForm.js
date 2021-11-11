@@ -37,7 +37,7 @@ function InputForm({currentId,setCurrentId}) {
   const [stockList, editStockList] = useState([]);
   const [pct, editPct] = useState([]);
   const limit = 100;
-  const [portfolioPercentage, setPortfolioPercentage] = useState([])
+  // const [portfolioPercentage, setPortfolioPercentage] = useState([])
   const [portfolioName, setPortfolioName] = useState('')
   
 
@@ -80,10 +80,10 @@ function InputForm({currentId,setCurrentId}) {
     Ownership:[],
     DateCreated:''
 });
-  const clear = () =>{
-    setCurrentId(null)
-    setPostData({ userId: '',assets:[],ownership:[],dateCreated:''});
-}
+//   const clear = () =>{
+//     setCurrentId(null)
+//     setPostData({ userId: '',assets:[],ownership:[],dateCreated:''});
+// }
 
 
 
@@ -97,7 +97,7 @@ const handleSubmit = async(e) =>{
   } else {
       dispatch(updatePortfolio(currentId, { ...postData, name: user?.result?.name }));
   }
-  clear()
+  // clear()
 }
 
 
@@ -121,7 +121,7 @@ const handleSubmit = async(e) =>{
               {stock}: {pct[i]}% : ${100*pct[i]}
             </li>
           ))}
-            <li>cash: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</li>
+            <li><h4>cash: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
         </ul>
       ) : (
         <p>Portfolio is empty</p>

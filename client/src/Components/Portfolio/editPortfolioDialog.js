@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import DataTable from './CreatePortfolioTable';
+import { useDispatch } from 'react-redux';
 import PortfolioInputForm from './CreatePortfolioInputForm';
 import InputForm from './InputForm/InputForm';
+import PaginationTable from './PaginationTable';
 
 
 
@@ -23,7 +26,9 @@ const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
+
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      
 
       {children}
       {onClose ? (
@@ -49,7 +54,9 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function EditCustomizedDialogs() {
+function EditCustomizedDialogs({currentId,post}) {
+  console.log('this is the currentId in EditCustomizedDialogs of editPortoflioDialog.js',currentId)
+  console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -74,6 +81,7 @@ export default function EditCustomizedDialogs() {
         </BootstrapDialogTitle>
         <DialogContent dividers>
         <InputForm/>
+        <PaginationTable post={post} currentId={currentId}/>
           
           
           
@@ -89,3 +97,4 @@ export default function EditCustomizedDialogs() {
     </div>
   );
 }
+export default  EditCustomizedDialogs

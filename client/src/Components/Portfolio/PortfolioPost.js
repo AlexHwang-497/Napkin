@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 
 import useStyles from './Styles'
 import EditCustomizedDialogs from './editPortfolioDialog';
+import { DEFAULT_GRID_PROPS_FROM_OPTIONS } from '@material-ui/data-grid';
 
 // *<CardMedia className={classes.media} image={post.selectedFile} title={post.title} />; the posts here are taken from props
 // *<Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>; this will tell us on our card like 5min or 5s ago
@@ -25,7 +26,22 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [likes, setLikes] = useState(post?.likes);
     const history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
-    console.log('this is user in client/portfolio/portfoli.js',user)
+    console.log('this is user in client/portfolio/portfolioPost.js',user)
+    console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
+    
+
+    const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post?.likes?.find((like) => like === userId);
+
+    const handleLike = async () => {
+      dispatch(likePost(post._id));
+  
+      if (hasLikedPost) {
+        setLikes(post.likes.filter((id) => id !== userId));
+      } else {
+        setLikes([...post.likes, userId]);
+      }
+    };
 
     const Likes = () => {
       if (post.likes.length > 0) {
@@ -44,7 +60,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       // history.push(`/posts/${post._id}`);
     };
     const editPost =() => {
-      <EditCustomizedDialogs/>
+      // setCurrentId()
+      <EditCustomizedDialogs currentId = {post._id}/>
 
     }
 
@@ -65,7 +82,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
             </div>
 
             <div className={classes.details}>
-              {/* <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
+              <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
             </div>
             <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.portfolioName}</Typography>
             <CardContent>
@@ -80,7 +97,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
               <DeleteIcon fontSize="small" /> Delete
             </Button>
 
-            <EditCustomizedDialogs/>
+            <EditCustomizedDialogs currentId={post._id} post={post}/>
 
           </CardActions>
 
