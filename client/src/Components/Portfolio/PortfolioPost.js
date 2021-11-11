@@ -50,15 +50,16 @@ const PortfolioPost = ({ post, setCurrentId }) => {
 
     return (
         <Card className={classes.card} raised elevation={6}>
-          <ButtonBase component ="span" name = "test"className={classes.cardActions} onClick={openPost}>
+          <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
             <CardMedia classesName ={classes.media} title ={post._id}/>
             <div className={classes.overlay}>
               {/* <Typography variant="h6">{post._id}</Typography> */}
+              
               <Typography className={classes.title} variant="body2">{moment(post.dateCreated).fromNow()}</Typography>
+              <Typography className={classes.title} variant="body2" color="textSecondary" component="p">{post.assets?post.assets.join(', '):''}</Typography>
+              <Typography className={classes.title} variant="body2" color="textSecondary" component="p">{post.ownership?post.ownership.join(', '):''}</Typography>
             </div>
 
-              <Typography className={classes.title} variant="body1" color="textSecondary" component="p">{post.assets?post.assets.join(', '):''}</Typography>
-              <Typography className={classes.title} variant="body1" color="textSecondary" component="p">{post.ownership?post.ownership.join(', '):''}</Typography>
             <div className={classes.overlay2}>
               <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="medium" /></Button>
             </div>
@@ -66,7 +67,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
             <div className={classes.details}>
               {/* <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
             </div>
-            <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post._id}</Typography>
+            <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.portfolioName}</Typography>
             <CardContent>
             </CardContent>
           </ButtonBase>
