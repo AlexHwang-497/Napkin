@@ -93,7 +93,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
               <Likes/>
             </Button>
 
-            <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
               <DeleteIcon fontSize="small" /> Delete
             </Button>
 

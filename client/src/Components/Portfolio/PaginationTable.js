@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
     IconButton,
     Table,
@@ -78,6 +79,8 @@ const subscribarList = [
 
 const PaginationTable = (post) => {
     console.log('this is the post in PaginationTable',post)
+    console.log('this is the post.post in PaginationTable',post.post)
+    console.log('this is the post.post.assets in PaginationTable',post.post.assets)
     
     const [rowsPerPage, setRowsPerPage] = React.useState(5)
     const [page, setPage] = React.useState(0)
@@ -89,6 +92,9 @@ const PaginationTable = (post) => {
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value)
         setPage(0)
+    }
+    const handling =() =>{
+        console.log('poop')
     }
 
     return (
@@ -104,28 +110,18 @@ const PaginationTable = (post) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {subscribarList
-                        .slice(
-                            page * rowsPerPage,
+                    {subscribarList.slice(page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
                         )
                         .map((subscriber, index) => (
                             <TableRow key={index}>
-                                <TableCell
-                                    className="px-0 capitalize"
-                                    align="left"
-                                >
-                                    {post.currentId}
-                                </TableCell>
-                            <TableCell className="px-8">
-                                <IconButton>
-                                    <Icon color="error">close</Icon>
-                                </IconButton>
-                            </TableCell>
-                                
-                                
+                                <TableCell className="px-0 capitalize" align="left">{post.currentId}</TableCell>
+                            <TableCell className="px-0"> <IconButton onclick={handling}> <Icon color="error">close</Icon> </IconButton> </TableCell>      
                             </TableRow>
                         ))}
+                        {/* {post.post.assets} */}
+                        {}
+                        
                 </TableBody>
             </Table>
 
