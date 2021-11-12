@@ -35,6 +35,7 @@ function InputForm({currentId,setCurrentId}) {
   const [errorState, setErrorState] = useState("");
   const [val, setVal] = useState(0);
   const [stockList, editStockList] = useState([]);
+  const [sector,setSector]=useState([])
   const [pct, editPct] = useState([]);
   const limit = 100;
   // const [portfolioPercentage, setPortfolioPercentage] = useState([])
@@ -44,14 +45,16 @@ function InputForm({currentId,setCurrentId}) {
   //! carlos code //////////////////////////////////////////////////////////////
   const symbolLookup = () => {
     fetch(
-      `https://financialmodelingprep.com/api/v3/quote/${symbol.toUpperCase()}?apikey=${'f69c6a774b0cfb6186868a361929fd36'}`
+      // `https://financialmodelingprep.com/api/v3/quote/${symbol.toUpperCase()}?apikey=${'f69c6a774b0cfb6186868a361929fd36'}`
+      `https://financialmodelingprep.com/api/v3/profile/${symbol.toUpperCase()}?apikey=f69c6a774b0cfb6186868a361929fd36`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('this is the data from symbolLookup ',data);
         if (data[0] && data[0].symbol) {
           editStockList(stockList.concat([symbol]));
           editPct(pct.concat([parseInt(val)]));
+          setSector(data[0].sector)
           setSymbol("");
           setVal(0);
         } else {
@@ -59,6 +62,7 @@ function InputForm({currentId,setCurrentId}) {
         }
       });
   };
+  console.log('this is the sector in inpuitForm:',sector)
 
   const currentAllowance = pct.reduce((acc, value) => acc + value, 0);
   console.log(
