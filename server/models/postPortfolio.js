@@ -10,7 +10,8 @@ const portfolioSchema = mongoose.Schema({
     likes: { type: [String], default: [] },
     comments: { type: [String], default: [] },
     tags: [String],
-    sector:[String]
+    sector:[String],
+    image:[String]
     
 })
 

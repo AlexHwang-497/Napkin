@@ -36,6 +36,8 @@ function InputForm({currentId,setCurrentId}) {
   const [val, setVal] = useState(0);
   const [stockList, editStockList] = useState([]);
   const [sector,setSector]=useState([])
+  const [image,setImage]=useState([])
+
   const [pct, editPct] = useState([]);
   const limit = 100;
   // const [portfolioPercentage, setPortfolioPercentage] = useState([])
@@ -54,7 +56,8 @@ function InputForm({currentId,setCurrentId}) {
         if (data[0] && data[0].symbol) {
           editStockList(stockList.concat([symbol]));
           editPct(pct.concat([parseInt(val)]));
-          setSector(data[0].sector)
+          setSector(sector.concat(data[0].sector))
+          setImage(image.concat(data[0].image))
           setSymbol("");
           setVal(0);
         } else {
@@ -63,6 +66,7 @@ function InputForm({currentId,setCurrentId}) {
       });
   };
   console.log('this is the sector in inpuitForm:',sector)
+  console.log('this is the image in inpuitForm:',image)
 
   const currentAllowance = pct.reduce((acc, value) => acc + value, 0);
   console.log(
@@ -96,7 +100,7 @@ const handleSubmit = async(e) =>{
   console.log('this is the currentID in handlesubmit', currentId)
   if (!currentId) {
       // console.log('this is the createPortfolio in inputForm.js',{assets:stockList,ownership:portfolioPercentage,portfolioName})
-      dispatch(createPortfolio({assets:stockList,ownership:val,portfolioName}, history));
+      dispatch(createPortfolio({assets:stockList,ownership:pct,portfolioName,sector,image}, history));
       
   } else {
       dispatch(updatePortfolio(currentId, { ...postData, name: user?.result?.name }));
