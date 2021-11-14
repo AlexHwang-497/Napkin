@@ -33,6 +33,7 @@ export default (state = { isLoading: true, portfolios: [{assets:['hello']}] }, a
             //* post._id !== action.payload; we will then remove it
             return { ...state, portfolios: state.portfolios.filter((portfolio) => portfolio._id !== action.payload) };
         case LIKE:
+            console.log('this is the LIKE in reducers/portfolio.js')
             return { ...state, portfolios: state.portfolios.map((portfolio) => (portfolio._id === action.payload._id ? action.payload : portfolio)) };
         case COMMENT:
             return {

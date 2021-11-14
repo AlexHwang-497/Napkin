@@ -9,6 +9,9 @@ import {
     TableCell,
     Icon,
     TablePagination,
+    Paper,
+    CardMedia,
+    ImageListItem
 } from '@material-ui/core'
 
 const subscribarList = [
@@ -93,7 +96,7 @@ const PaginationTable = (post) => {
         setRowsPerPage(+event.target.value)
         setPage(0)
     }
-    const handling =() =>{
+    const handling =(event) =>{
         console.log('poop')
     }
 
@@ -102,15 +105,17 @@ const PaginationTable = (post) => {
             <Table className="whitespace-pre">
                 <TableHead>
                     <TableRow>
+                        <TableCell className="px-0"></TableCell>
                         <TableCell className="px-0">Symbol</TableCell>
-                        <TableCell className="px-0">Portfolio%</TableCell>
+                        <TableCell className="px-0">Sector</TableCell>
+                        <TableCell className="px-0">Portfolio(%)</TableCell>
+                        <TableCell className="px-0">Portfolio($)</TableCell>
 
-                        <TableCell className="px-0">Amount</TableCell>
                         <TableCell className="px-0">Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {subscribarList.slice(page * rowsPerPage,
+                    {/* {subscribarList.slice(page * rowsPerPage,
                             page * rowsPerPage + rowsPerPage
                         )
                         .map((subscriber, index) => (
@@ -118,9 +123,21 @@ const PaginationTable = (post) => {
                                 <TableCell className="px-0 capitalize" align="left">{post.currentId}</TableCell>
                             <TableCell className="px-0"> <IconButton onclick={handling}> <Icon color="error">close</Icon> </IconButton> </TableCell>      
                             </TableRow>
-                        ))}
-                        {/* {post.post.assets} */}
-                        {}
+                        ))} */}
+                        {/* {post.post.assets[0]}
+                        {post.post.assets[1]} */}
+                        <TableRow >
+                                <TableCell>
+                                    <ImageListItem>
+                                        <img src={post.post.image[0]}/>
+                                    </ImageListItem>
+                                </TableCell>
+                                <TableCell className="px-0 capitalize" align="left">{post.post.assets[0]}</TableCell>
+                                <TableCell className="px-0 capitalize" align="left">{post.post.sector[0]}</TableCell>
+                                <TableCell className="px-0 capitalize" align="left">{post.post.ownership[0]}%</TableCell>
+                                <TableCell className="px-0 capitalize" align="left">${post.post.ownership[0]*100}</TableCell>
+                                <TableCell className="px-0"> <IconButton onclick={handling}> <Icon color="error">X</Icon> </IconButton> </TableCell>      
+                        </TableRow>
                         
                 </TableBody>
             </Table>

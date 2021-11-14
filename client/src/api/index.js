@@ -40,6 +40,6 @@ export const fetchPortfolio = (id) => API.get(`/portfolio/${id}`);
 export const fetchPortfolios = (page) => API.get(`/portfolio?page=${page}`);
 export const fetchPortfoliosBySearch = (searchQuery) => API.get(`/portfolio/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}` );
 // export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
-export const likePortfolio = (id) => API.patch(`/portfolio/${id}/likePost`);
+export const likePortfolio = (id) => API.patch(`/portfolio/${id}/likePortfolio`);
 export const updatePortfolio = (id, updatedPortfolio) => API.patch(`/posts/${id}`, updatedPortfolio);
 export const deletePortfolio = (id) => API.delete(`/portfolio/${id}`);

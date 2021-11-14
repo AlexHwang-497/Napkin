@@ -109,9 +109,9 @@ export const deletePortfolio = async (req, res) => {
 
 }
 
-export const likePost = async (req, res) => {
+export const likePortfolio = async (req, res) => {
     const { id } = req.params;
-    console.log('this is the req.params in like post of controllers/posts.js:', req.params)
+    console.log('this is the req.params in like post of controllers/likePortfolio.js:', req.params)
     
 
     if (!req.userId) {return res.json({ message: "Unauthenticated" });}
@@ -129,9 +129,9 @@ export const likePost = async (req, res) => {
         //   *this is going to return us the array of all the likes besides the person's current likes
         post.likes = post.likes.filter((id) => id !== String(req.userId));
       }
-    const updatedPost = await PostPortfolio.findByIdAndUpdate(id, post, { new: true });
+    const updatedPortfolio = await PostPortfolio.findByIdAndUpdate(id, post, { new: true });
       
-    res.json(updatedPost);
+    res.json(updatedPortfolio);
 }
 
 // *export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value }); this is from the API/index.js

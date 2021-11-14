@@ -12,6 +12,7 @@ import InputForm from '../Components/Portfolio/InputForm/InputForm'
 import PortfolioInputForm from '../Components/Portfolio/InputForm/PortfolioInput';
 import PortfolioPosts from '../Components/Portfolio/PortfolioPosts'
 import PortfolioPagination from '../Components/Portfolio/PortfolioPagination';
+import { PieChartData } from '../actions/PieChartData';
 // *this gives us floating bubbles in tags
 import ChipInput from 'material-ui-chip-input';
 // *this will provide us an idea of where our current location is 
@@ -104,6 +105,7 @@ const Home = () =>{
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
                   
                 </Paper>
+                <PieChartData/>
           </Grid>
         </Container>
       </Grow>

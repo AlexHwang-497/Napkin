@@ -9,6 +9,8 @@ import useStyles from './styles';
 
 const Paginate = ({ page }) => {
   const { numberOfPages } = useSelector((state) => state.posts);
+  // console.log('this is the stat.posts in paginate',state)
+  console.log('this is the numberofpages in paginate',numberOfPages)
   const dispatch = useDispatch();
 
   const classes = useStyles();

@@ -34,7 +34,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
   const hasLikedPost = post?.likes?.find((like) => like === userId);
 
     const handleLike = async () => {
-      dispatch(likePost(post._id));
+      dispatch(likePortfolio(post._id));
+      console.log('portfolio has been dispatch in handleLike of PortfolioPost.js')
   
       if (hasLikedPost) {
         setLikes(post.likes.filter((id) => id !== userId));
@@ -89,7 +90,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
             </CardContent>
           </ButtonBase>
           <CardActions className={classes.cardActions}>
-            `<Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+            `<Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
               <Likes/>
             </Button>
 
