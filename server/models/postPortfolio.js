@@ -11,7 +11,8 @@ const portfolioSchema = mongoose.Schema({
     comments: { type: [String], default: [] },
     tags: [String],
     sector:[String],
-    image:[String]
+    image:[String],
+    description: { type: [String], default: [] },
     
 })
 

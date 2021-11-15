@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 // import Post from "../Posts/Post/Post";
 import useStyles from '../Posts/styles'
 import PortfolioPost from "./PortfolioPost";
-
+import ComplexCards from "./Cards/ComplexCard";
 
 
 const PortfolioPosts = ({ setCurrentId }) => {
@@ -31,6 +31,8 @@ const PortfolioPosts = ({ setCurrentId }) => {
             {portfolios?.map((portfolio) => (
               <Grid key={portfolio._id} item xs={12} sm={6} md={6} lg={3}>
                 <PortfolioPost post={portfolio} setCurrentId={setCurrentId} />
+                
+
 
               </Grid>
             ))}

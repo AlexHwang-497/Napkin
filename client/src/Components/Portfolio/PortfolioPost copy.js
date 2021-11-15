@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton,   } from '@material-ui/core/';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { red } from '@material-ui/core/colors';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -20,17 +15,6 @@ import useStyles from './Styles'
 import EditCustomizedDialogs from './editPortfolioDialog';
 import { DEFAULT_GRID_PROPS_FROM_OPTIONS } from '@material-ui/data-grid';
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
 // *<CardMedia className={classes.media} image={post.selectedFile} title={post.title} />; the posts here are taken from props
 // *<Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>; this will tell us on our card like 5min or 5s ago
 // * post.tags.map((tag) => `#${tag} `); we are looping through our tags and putting "#" on them
@@ -40,7 +24,6 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
     const classes = useStyles()
     const [likes, setLikes] = useState(post?.likes);
-    const [expanded, setExpanded] = useState(false);
     const history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
     console.log('this is user in client/portfolio/portfolioPost.js',user)
@@ -80,80 +63,54 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       <EditCustomizedDialogs currentId = {post._id}/>
 
     }
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
 
     return (
-      <Card raised elevation ={6} sx={{ maxWidth: 345 }}>
-      <ButtonBase 
+        <Card className={classes.card} raised elevation={6}>
+          <ButtonBase 
             component ="span" 
             name = "test" 
             className={classes.cardActions} 
             onClick={openPost}
-          >        
-      </ButtonBase>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings" onClick={() => editPost}>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={post.portfolioName}
-          subheader={moment(post.dateCreated).fromNow()}
-        />
-        
-        <CardMedia
-          component="img"
-          height="194"
-          image="/static/images/cards/paella.jpg"
-          alt="Paella dish"
-        />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          #AAPL, #AMZN,#NFLX, # S&P500, #TECH
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
-          <Likes/>
-        </Button>
-        <Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
-          <DeleteIcon fontSize="small" /> Delete
-        </Button>
-        {/* <EditCustomizedDialogs size='small'  currentId={post._id} post={post}/> */}
-        
-        
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Securtities:</Typography>
-          <Typography h6>
-            {post.assets?post.assets.join(', '):''}
-            <Divider style={{ margin: '20px 0' }} />
-            <Typography paragraph>Portfolio%:</Typography>
-            {post.ownership?post.ownership.join(', '):''}
-          </Typography>
-          <Typography h6>
-            <Divider style={{ margin: '20px 0' }} />
-          </Typography> 
-        </CardContent>
-      </Collapse>
-    </Card>
+          >
+
+            <CardMedia classesName ={classes.media} title ={post._id}></CardMedia>
+            <div className={classes.overlay}>
+              
+              
+              
+              <Typography className={classes.title} variant="body1">{post.portfolioName}</Typography>
+              <Typography className={classes.title} variant="body2">{moment(post.dateCreated).fromNow()}</Typography>
+              <Typography className={classes.title} variant="body2" color="textSecondary" component="p">{post.assets?post.assets.join(', '):''}</Typography>
+              <Typography className={classes.title} variant="body2" color="textSecondary" component="p">{post.ownership?post.ownership.join(', '):''}</Typography>
+            </div>
+            
+            {/* this is for the edit button that used to be there */}
+            <div className={classes.overlay2}>
+              {/* <Button style={{ color: 'black' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="medium" /></Button> */}
+              {/* <Button style={{ color: 'black' }} size="small" onClick={editPost}><MoreHorizIcon fontSize="medium" /></Button> */}
+            </div>
+
+            <div className={classes.details}>
+              <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+            </div>
+            {/* <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.portfolioName}</Typography> */}
+            <CardContent>
+            </CardContent>
+          </ButtonBase>
+          <CardActions className={classes.cardActions}>
+            `<Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
+              <Likes/>
+            </Button>
+
+            <Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
+              <DeleteIcon fontSize="small" /> Delete
+            </Button>
+
+            <EditCustomizedDialogs size='small' currentId={post._id} post={post}/>
+
+          </CardActions>
       
+        </Card>
       );
     };
 

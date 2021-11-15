@@ -89,7 +89,7 @@ function EditCustomizedDialogs({currentId,post}) {
           
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button size='small' color='secondary' autoFocus onClick={handleClose}>
             Edit Portfolio
           </Button>
         </DialogActions>

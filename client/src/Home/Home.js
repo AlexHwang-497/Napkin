@@ -13,8 +13,10 @@ import PortfolioInputForm from '../Components/Portfolio/InputForm/PortfolioInput
 import PortfolioPosts from '../Components/Portfolio/PortfolioPosts'
 import PortfolioPagination from '../Components/Portfolio/PortfolioPagination';
 import { PieChartData } from '../actions/PieChartData';
+import ComplexCards from '../Components/Portfolio/Cards/ComplexCard';
 // *this gives us floating bubbles in tags
 import ChipInput from 'material-ui-chip-input';
+import PortfolioCards from '../Components/Portfolio/PortfolioCards';
 // *this will provide us an idea of where our current location is 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -88,7 +90,7 @@ const Home = () =>{
                 />
                 <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
               </AppBar>
-              {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
               {(!searchQuery && !tags.length) && (
                 <Paper className={classes.pagination} elevation={6}>
                   <Pagination page={page} />
@@ -104,8 +106,9 @@ const Home = () =>{
                 </Paper>
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
                   
+                  <ComplexCards/>
+                
                 </Paper>
-                <PieChartData/>
           </Grid>
         </Container>
       </Grow>
