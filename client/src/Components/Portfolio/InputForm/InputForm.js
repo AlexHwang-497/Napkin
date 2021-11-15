@@ -2,7 +2,7 @@ import React, {useState,useEffect,Fragment} from "react";
 import { nanoid } from 'nanoid'
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { TextField,Divider, Button, Typography, Paper } from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux'
 import FileBase from 'react-file-base64';
 import { useHistory } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { createPost,updatePost } from "../../../actions/posts";
 import Inputs from "../../../Auth/Input";
 import { createPortfolio,updatePortfolio } from "../../../actions/portfolio";
 import config from "../../../StockData/config";
+// import useStyles from './styles';
 
 // !! you need to copy the funciton of form.js to get this to work.  
   // * in  the original fomr.js sends it into post.js
@@ -18,19 +19,6 @@ import config from "../../../StockData/config";
 function InputForm({currentId,setCurrentId}) {
   const apiKey=config.FMP_API_KEY_ID
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null)); //!
-  
-  // const [contacts, setContacts] = useState([]);
-  // const [stockList, setStockList] = useState([])
-  // const [stockLists, editStockList] = useState([]);
-  // const [portfolioPercentage, setPortfolioPercentage] = useState([])
-  // const [portfolioName, setPortfolioName] = useState('')
-  // const [symbol,setSymbol] = useState([])
-  // const [errorState, setErrorState] = useState("");
-  // const [val, setVal] = useState(0);
-  // // const [stockList, editStockList] = useState([]);
-  // const [pct, editPct] = useState([]);
-  // const limit = 100;
-
   const [symbol, setSymbol] = useState("");
   const [errorState, setErrorState] = useState("");
   const [val, setVal] = useState(0);
@@ -40,8 +28,13 @@ function InputForm({currentId,setCurrentId}) {
 
   const [pct, editPct] = useState([]);
   const limit = 100;
-  // const [portfolioPercentage, setPortfolioPercentage] = useState([])
   const [portfolioName, setPortfolioName] = useState('')
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const [comment, setComment] = useState('');
+  const dispatch = useDispatch();
+  const [description, setDescription] = useState([]);
+  // const classes = useStyles();
+  // const commentsRef = useRef();
   
 
   //! carlos code //////////////////////////////////////////////////////////////
@@ -78,8 +71,8 @@ function InputForm({currentId,setCurrentId}) {
   //!  /// /////////////// taken from portfolioInput          ////////////////////////
   const classes = useStyles() //!
   const history = useHistory(); //!
-  const dispatch = useDispatch() //!
-  const user = JSON.parse(localStorage.getItem('profile')); //!
+  
+
 
 
   const [postData, setPostData] = useState({
@@ -100,13 +93,22 @@ const handleSubmit = async(e) =>{
   console.log('this is the currentID in handlesubmit', currentId)
   if (!currentId) {
       // console.log('this is the createPortfolio in inputForm.js',{assets:stockList,ownership:portfolioPercentage,portfolioName})
-      dispatch(createPortfolio({assets:stockList,ownership:pct,portfolioName,sector,image}, history));
+      dispatch(createPortfolio({assets:stockList,ownership:pct,portfolioName,sector,image,description}, history));
       
   } else {
       dispatch(updatePortfolio(currentId, { ...postData, name: user?.result?.name }));
   }
   // clear()
 }
+
+const handleComment = async () => {
+  // const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
+
+  setComment('');
+  // setComments(newComments);
+
+  // commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+};
 
 
 
@@ -122,6 +124,9 @@ const handleSubmit = async(e) =>{
       onChange={(e)=>setPortfolioName(e.target.value)}
       value ={portfolioName}
     />
+      <Divider style={{ margin: '20px 0' }} />
+      <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  onChange={(e) => setDescription(e.target.value)}/>
+      <Divider style={{ margin: '20px 0' }} />
       {stockList.length ? (
         <ul style={{ listStyle: "none", padding: 0 }}>
           {stockList.map((stock, i) => (
