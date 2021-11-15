@@ -79,7 +79,7 @@ const Home = () =>{
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <AppBar className={classes.appBarSearch} position="static" color="inherit">
-                <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Memories" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
+                <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Portfolio Securities" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
                 <ChipInput
                   style={{ margin: '10px 0' }}
                   value={tags}
@@ -90,14 +90,13 @@ const Home = () =>{
                 />
                 <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
               </AppBar>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
+              {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
               {(!searchQuery && !tags.length) && (
                 <Paper className={classes.pagination} elevation={6}>
                   <Pagination page={page} />
                   {/* <PortfolioPagination page={page} /> */}
                 </Paper>
               )}
-
             </Grid>
                   {/* <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} /> */}
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
@@ -105,9 +104,6 @@ const Home = () =>{
                   <InputForm currentId={currentId} setCurrentId={setCurrentId}/>
                 </Paper>
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
-                  
-                  <ComplexCards/>
-                
                 </Paper>
           </Grid>
         </Container>

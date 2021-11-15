@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton,   } from '@material-ui/core/';
+import { Card, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem  } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShareIcon from '@material-ui/icons/Share';
@@ -11,7 +11,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { deletePost, likePost } from '../../actions/posts';
+// import { deletePost, likePost } from '../../actions/posts';
 import { deletePortfolio, likePortfolio } from '../../actions/portfolio';
 
 import { useHistory } from 'react-router-dom';
@@ -43,6 +43,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [expanded, setExpanded] = useState(false);
     const history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [rowsPerPage, setRowsPerPage] = React.useState(5)
+    const [page, setPage] = React.useState(0)
     console.log('this is user in client/portfolio/portfolioPost.js',user)
     console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
     const userId = user?.result.googleId || user?.result?._id;
@@ -83,6 +85,19 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
+
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value)
+      setPage(0)
+  }
+  const handling =(event) =>{
+      console.log('poop')
+  }
+  console.log('this is the post in portfolioPost',post)
 
     return (
       <Card raised elevation ={6} sx={{ maxWidth: 345 }}>
@@ -140,7 +155,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Securtities:</Typography>
+          {/* <Typography paragraph>Securtities:</Typography>
           <Typography h6>
             {post.assets?post.assets.join(', '):''}
             <Divider style={{ margin: '20px 0' }} />
@@ -149,7 +164,27 @@ const PortfolioPost = ({ post, setCurrentId }) => {
           </Typography>
           <Typography h6>
             <Divider style={{ margin: '20px 0' }} />
-          </Typography> 
+          </Typography>  */}
+            <Table className="whitespace-pre">
+              <TableHead>
+                <TableRow>
+                  <TableCell className="px-0"></TableCell>
+                  <TableCell className="px-0">Symbol</TableCell>
+                  <TableCell className="px-0">Portfolio(%)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow >
+                  <TableCell>
+                    <ImageListItem width="300" margin="auto">
+                        <img src={post.image[0]}/>
+                    </ImageListItem>
+                  </TableCell>
+                  <TableCell className="px-0 capitalize" align="left">{post.assets[0]}</TableCell>
+                  <TableCell className="px-0 capitalize" align="left">{post.ownership[0]}%</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
         </CardContent>
       </Collapse>
     </Card>
