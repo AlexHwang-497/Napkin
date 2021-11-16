@@ -131,9 +131,9 @@ const PaginationTable = ({post}) => {
                             <TableRow key={i}>
 
                                     <TableCell>
-                                        <ImageListItem>
+                                        
                                             <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
-                                        </ImageListItem>
+                                        
                                     </TableCell>
                                     <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
                                     <TableCell className="px-0 capitalize" align="left">{post.sector[i]}</TableCell>

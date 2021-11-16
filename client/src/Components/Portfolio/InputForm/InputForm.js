@@ -11,7 +11,7 @@ import { createPost,updatePost } from "../../../actions/posts";
 import Inputs from "../../../Auth/Input";
 import { createPortfolio,updatePortfolio } from "../../../actions/portfolio";
 import config from "../../../StockData/config";
-// import useStyles from './styles';
+
 
 // !! you need to copy the funciton of form.js to get this to work.  
   // * in  the original fomr.js sends it into post.js

@@ -6,13 +6,12 @@ import { useDispatch } from 'react-redux';
 import PortfolioInputForm from './CreatePortfolioInputForm';
 import InputForm from './InputForm/InputForm';
 import PaginationTable from './PaginationTable';
-import { TextField } from '@material-ui/core';
 import { updatePortfolio } from '../../actions/portfolio';
 import { useHistory } from 'react-router-dom';
 import { useSelector} from 'react-redux'
-
-import { Avatar,IconButton, styled, DialogTitle,Button, Paper, Grid, Typography, Container,Dialog, DialogActions, DialogContent } from '@material-ui/core'
+import { Avatar,IconButton, styled, DialogTitle,Button, Paper, Grid, Typography, Container,Dialog, DialogActions, DialogContent, Divider, TextField} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
+import useStyles from './InputForm/styles'
 // import IconButton from '@material-ui/icons/Icon';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -69,6 +68,51 @@ function EditCustomizedDialogs({currentId,post}) {
   const [image, setImage] = useState(post.image || [])
   const dispatch = useDispatch();
   const history = useHistory(); //!
+
+
+  const [symbol, setSymbol] = useState("");
+  const [errorState, setErrorState] = useState("");
+  const [val, setVal] = useState(0);
+  const [stockList, editStockList] = useState([]);
+  const [pct, editPct] = useState([]);
+  const limit = 100;
+  const classes = useStyles() //!
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const [comment, setComment] = useState('');
+
+
+  const currentAllowance = pct.reduce((acc, value) => acc + value, 0);
+  console.log(
+    "Current Allowance: ",
+    pct.reduce((acc, value) => acc + value, 0)
+  );
+
+
+  const symbolLookup = () => {
+    fetch(
+      // `https://financialmodelingprep.com/api/v3/quote/${symbol.toUpperCase()}?apikey=${'f69c6a774b0cfb6186868a361929fd36'}`
+      `https://financialmodelingprep.com/api/v3/profile/${symbol.toUpperCase()}?apikey=f69c6a774b0cfb6186868a361929fd36`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('this is the data from symbolLookup ',data);
+        if (data[0] && data[0].symbol) {
+          editStockList(stockList.concat([symbol]));
+          editPct(pct.concat([parseInt(val)]));
+          setSector(sector.concat(data[0].sector))
+          setImage(image.concat(data[0].image))
+          setSymbol("");
+          setVal(0);
+        } else {
+          setErrorState("Please enter a valid stock symbol");
+        }
+      });
+  };
+
+  
+  const invalidInput = () => !symbol || !val || val > limit - currentAllowance;
+
   const deleteEntry =(index) =>{
       setAssets(assets.filter((asset,i)=>i!==index))
       setOwnership(ownership.filter((o,i)=>i!==index))
@@ -88,6 +132,27 @@ function EditCustomizedDialogs({currentId,post}) {
     console.log('this is the handleUpdatePortfolio in pagTable',currentId, {sector,image })
   }
 
+  const handleSubmit = async(e) =>{
+    e.preventDefault()
+    console.log('this is the currentID in handlesubmit', currentId)
+    if (!currentId) {
+        // console.log('this is the createPortfolio in inputForm.js',{assets:stockList,ownership:portfolioPercentage,portfolioName})
+        
+        
+    } else {
+        dispatch(updatePortfolio(currentId, {assets, ownership, sector,image }));
+    }
+    // clear()
+  }
+
+  
+  const [postData, setPostData] = useState({
+    userId: '',
+    Assets:[],
+    Ownership:[],
+    DateCreated:''
+});
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -98,24 +163,65 @@ function EditCustomizedDialogs({currentId,post}) {
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Exit 
+        <BootstrapDialogTitle id="customized-dialog-title" >
+          Update/Edit Portfolio
         </BootstrapDialogTitle>
         <DialogContent dividers>
 
         <TextField
-          variant='outlined'
-          placeholder='Please enter a portfolio name'
-          label= 'Portfolio Name'
-          required
-          fullWidth
-          onChange={(e)=>setPortfolioName(e.target.value)}
-          value ={portfolioName}
+      variant='outlined'
+      placeholder='Please enter a portfolio name'
+      label= 'Portfolio Name'
+      required
+      fullWidth
+      onChange={(e)=>setPortfolioName(e.target.value)}
+      value ={portfolioName}
+    />
+      <Divider style={{ margin: '20px 0' }} />
+      <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  value={description} onChange={(e) => setDescription(e.target.value)}/>
+      <Divider style={{ margin: '20px 0' }} />
+      {stockList.length ? (
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {stockList.map((stock, i) => (
+            <li key={i}>
+              {stock}: {pct[i]}% : ${100*pct[i]}
+            </li>
+          ))}
+            <li><h4>cash: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
+        </ul>
+      ) : (
+        <p>Portfolio is empty</p>
+      )}
+      <div>
+        <input
+          type="text"
+          placeholder="Enter Stock Symbol"
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value)}
+          onFocus={() => setErrorState("")}
         />
+        <input
+          type="number"
+          placeholder="Enter percentage amount"
+          value={val}
+          onChange={(e) => setVal(e.target.value)}
+          min={1}
+          max={limit - currentAllowance}
+        />
+        <button disabled={invalidInput()} onClick={symbolLookup}>
+          Add
+        </button>
+        <p style={{ marginTop: 0, color: "red" }}>
+          {errorState ? errorState : ""}
+        </p>
+      </div>
+      <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+        {/* <Paper>
+          <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Complete Portfolio</Button>
+          
+        </Paper> */}
+      </form>
 
-
-
-        <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  value= {description} onChange={(e) => setDescription(e.target.value)}></TextField>
         <PaginationTable post={{assets,ownership,sector,image,deleteEntry}} currentId={currentId}/>
           
           

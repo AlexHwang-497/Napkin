@@ -160,36 +160,49 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {/* <Typography paragraph>Securtities:</Typography>
-          <Typography h6>
-            {post.assets?post.assets.join(', '):''}
-            <Divider style={{ margin: '20px 0' }} />
-            <Typography paragraph>Portfolio%:</Typography>
-            {post.ownership?post.ownership.join(', '):''}
-          </Typography>
-          <Typography h6>
-            <Divider style={{ margin: '20px 0' }} />
-          </Typography>  */}
+        <div className="w-full overflow-auto">
             <Table className="whitespace-pre">
-              <TableHead>
-                <TableRow>
-                  <TableCell className="px-0"></TableCell>
-                  <TableCell className="px-0">Symbol</TableCell>
-                  <TableCell className="px-0">Portfolio(%)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow >
-                  <TableCell>
-                    <ImageListItem width="300" margin="auto">
-                        <img src={post.image[0]}/>
-                    </ImageListItem>
-                  </TableCell>
-                  <TableCell className="px-0 capitalize" align="left">{post.assets[0]}</TableCell>
-                  <TableCell className="px-0 capitalize" align="left">{post.ownership[0]}%</TableCell>
-                </TableRow>
-              </TableBody>
+                <TableHead>
+                    <TableRow>
+                        <TableCell className="px-0"></TableCell>
+                        <TableCell className="px-0">Symbol</TableCell>
+                        <TableCell className="px-0">Portfolio(%)</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                        {post.assets && post.assets.map((asset,i)=>(
+                            <TableRow key={i}>
+
+                                    <TableCell>
+                                        
+                                            <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
+                                        
+                                    </TableCell>
+                                    <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
+                                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
+                            </TableRow>
+                        ))}
+                        
+                </TableBody>
             </Table>
+
+            <TablePagination
+                className="px-4"
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={post.assets.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                backIconButtonProps={{
+                    'aria-label': 'Previous Page',
+                }}
+                nextIconButtonProps={{
+                    'aria-label': 'Next Page',
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+        </div>
         </CardContent>
       </Collapse>
     </Card>
