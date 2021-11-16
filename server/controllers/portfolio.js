@@ -79,12 +79,12 @@ export const createPortfolio = async(req,res) => {
 export const updatePortfolio = async (req, res) => {
 
     const { id } = req.params;
-    const { assets, ownership } = req.body;
+    const { assets, ownership,sector,image } = req.body;
     console.log('this is everything req.body in updatePortfolio of server/controlelrs/posts', req.body)
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPortfolio = { assets,ownership };
+    const updatedPortfolio = { assets, ownership,sector,image  };
 
     const portfolio = await PostPortfolio.findByIdAndUpdate(id, updatedPortfolio, { new: true });
 

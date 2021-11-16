@@ -17,6 +17,7 @@ import ComplexCards from '../Components/Portfolio/Cards/ComplexCard';
 // *this gives us floating bubbles in tags
 import ChipInput from 'material-ui-chip-input';
 import PortfolioCards from '../Components/Portfolio/PortfolioCards';
+import EditCustomizedDialogs from '../Components/Portfolio/editPortfolioDialog';
 // *this will provide us an idea of where our current location is 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -100,11 +101,9 @@ const Home = () =>{
             </Grid>
                   {/* <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} /> */}
                 <Paper className={classes.appBarSearch} position="static" color="inherit">
-
                   <InputForm currentId={currentId} setCurrentId={setCurrentId}/>
                 </Paper>
-                <Paper className={classes.appBarSearch} position="static" color="inherit">
-                </Paper>
+                
           </Grid>
         </Container>
       </Grow>

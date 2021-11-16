@@ -122,16 +122,22 @@ const PortfolioPost = ({ post, setCurrentId }) => {
           title={post.portfolioName}
           subheader={moment(post.dateCreated).fromNow()}
         />
-        
         <CardMedia
           component="img"
           height="194"
           image="/static/images/cards/paella.jpg"
           alt="Paella dish"
         />
+        <Divider style={{ margin: '20px 0' }} />
+        <Typography paragraph>Description:</Typography>
+        <Typography variant="body2">
+            {post.description}
+      <EditCustomizedDialogs size='small'  currentId={post._id} post={post}/>
+          </Typography>
+        <Divider style={{ margin: '20px 0' }} />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          #AAPL, #AMZN,#NFLX, # S&P500, #TECH
+          Tags: #AAPL, #AMZN,#NFLX, # S&P500, #TECH
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -141,7 +147,6 @@ const PortfolioPost = ({ post, setCurrentId }) => {
         <Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
           <DeleteIcon fontSize="small" /> Delete
         </Button>
-        {/* <EditCustomizedDialogs size='small'  currentId={post._id} post={post}/> */}
         
         
         <ExpandMore

@@ -1,4 +1,5 @@
 import React from 'react'
+import {useState} from 'react'
 
 import {
     IconButton,
@@ -80,13 +81,17 @@ const subscribarList = [
     },
 ]
 
-const PaginationTable = (post) => {
-    console.log('this is the post in PaginationTable',post)
-    console.log('this is the post.post in PaginationTable',post.post)
-    console.log('this is the post.post.assets in PaginationTable',post.post.assets)
+const PaginationTable = ({post}) => {
+    // console.log('this is the post in PaginationTable',post)
+    // console.log('this is the post.post in PaginationTable',post.post)
+    // console.log('this is the post.post.assets in PaginationTable',post.post.assets)
+    // const [assets, setAssets] = useState(post.post.assets || [])
+    // const [ownership, setOwnership] = useState(post.post.ownership || [])
+    // const [sector, setSector] = useState(post.post.sector || [])
+    // const [image, setImage] = useState(post.post.image || [])
     
-    const [rowsPerPage, setRowsPerPage] = React.useState(5)
-    const [page, setPage] = React.useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+    const [page, setPage] = useState(0)
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage)
@@ -96,9 +101,14 @@ const PaginationTable = (post) => {
         setRowsPerPage(+event.target.value)
         setPage(0)
     }
-    const handling =(event) =>{
-        console.log('poop')
-    }
+    // const deleteEntry =(index) =>{
+    //     setAssets(assets.filter((asset,i)=>i!==index))
+    //     setOwnership(ownership.filter((o,i)=>i!==index))
+    //     setSector(sector.filter((s,i)=>i!==index))
+    //     setImage(image.filter((img,i)=>i!==index))
+        
+        
+    // }
 
     return (
         <div className="w-full overflow-auto">
@@ -115,29 +125,23 @@ const PaginationTable = (post) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* {subscribarList.slice(page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage
-                        )
-                        .map((subscriber, index) => (
-                            <TableRow key={index}>
-                                <TableCell className="px-0 capitalize" align="left">{post.currentId}</TableCell>
-                            <TableCell className="px-0"> <IconButton onclick={handling}> <Icon color="error">close</Icon> </IconButton> </TableCell>      
+              
+                        
+                        {post.assets && post.assets.map((asset,i)=>(
+                            <TableRow key={i}>
+
+                                    <TableCell>
+                                        <ImageListItem>
+                                            <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
+                                        </ImageListItem>
+                                    </TableCell>
+                                    <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
+                                    <TableCell className="px-0 capitalize" align="left">{post.sector[i]}</TableCell>
+                                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
+                                    <TableCell className="px-0 capitalize" align="left">${post.ownership[i]*100}</TableCell>
+                                    <TableCell className="px-0"> <IconButton onClick={()=>post.deleteEntry(i)}> <Icon color="error">X</Icon> </IconButton> </TableCell>      
                             </TableRow>
-                        ))} */}
-                        {/* {post.post.assets[0]}
-                        {post.post.assets[1]} */}
-                        <TableRow >
-                                <TableCell>
-                                    <ImageListItem>
-                                        <img src={post.post.image[0]}/>
-                                    </ImageListItem>
-                                </TableCell>
-                                <TableCell className="px-0 capitalize" align="left">{post.post.assets[0]}</TableCell>
-                                <TableCell className="px-0 capitalize" align="left">{post.post.sector[0]}</TableCell>
-                                <TableCell className="px-0 capitalize" align="left">{post.post.ownership[0]}%</TableCell>
-                                <TableCell className="px-0 capitalize" align="left">${post.post.ownership[0]*100}</TableCell>
-                                <TableCell className="px-0"> <IconButton onclick={handling}> <Icon color="error">X</Icon> </IconButton> </TableCell>      
-                        </TableRow>
+                        ))}
                         
                 </TableBody>
             </Table>
