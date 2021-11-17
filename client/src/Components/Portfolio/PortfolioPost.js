@@ -188,7 +188,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
 
             <TablePagination
                 className="px-4"
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5, 10]}
                 component="div"
                 count={post.assets.length}
                 rowsPerPage={rowsPerPage}

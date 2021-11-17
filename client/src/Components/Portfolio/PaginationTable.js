@@ -148,7 +148,7 @@ const PaginationTable = ({post}) => {
 
             <TablePagination
                 className="px-4"
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5, 10]}
                 component="div"
                 count={subscribarList.length}
                 rowsPerPage={rowsPerPage}

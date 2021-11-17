@@ -82,11 +82,8 @@ function EditCustomizedDialogs({currentId,post}) {
   const [comment, setComment] = useState('');
 
 
-  const currentAllowance = pct.reduce((acc, value) => acc + value, 0);
-  console.log(
-    "Current Allowance: ",
-    pct.reduce((acc, value) => acc + value, 0)
-  );
+  const currentAllowance = ownership.reduce((acc, value) => acc + value, 0);
+  console.log("Current Allowance: ",currentId);
 
 
   const symbolLookup = () => {
@@ -98,8 +95,10 @@ function EditCustomizedDialogs({currentId,post}) {
       .then((data) => {
         console.log('this is the data from symbolLookup ',data);
         if (data[0] && data[0].symbol) {
-          editStockList(stockList.concat([symbol]));
-          editPct(pct.concat([parseInt(val)]));
+          setAssets(assets.concat([symbol]));  //!  //////////////
+          console.log('this is the assets in symbolLookup',assets)
+          setOwnership(ownership.concat([parseInt(val)]));   //!  //////////////
+          console.log('thisis the assets in symbolLookup',ownership)
           setSector(sector.concat(data[0].sector))
           setImage(image.concat(data[0].image))
           setSymbol("");
@@ -180,7 +179,7 @@ function EditCustomizedDialogs({currentId,post}) {
       <Divider style={{ margin: '20px 0' }} />
       <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  value={description} onChange={(e) => setDescription(e.target.value)}/>
       <Divider style={{ margin: '20px 0' }} />
-      {stockList.length ? (
+      
         <ul style={{ listStyle: "none", padding: 0 }}>
           {stockList.map((stock, i) => (
             <li key={i}>
@@ -188,10 +187,7 @@ function EditCustomizedDialogs({currentId,post}) {
             </li>
           ))}
             <li><h4>cash: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
-        </ul>
-      ) : (
-        <p>Portfolio is empty</p>
-      )}
+        </ul> 
       <div>
         <input
           type="text"
