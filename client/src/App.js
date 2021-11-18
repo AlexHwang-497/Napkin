@@ -30,8 +30,6 @@ const App = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
     return (
-        
-
         <BrowserRouter>
             <Container maxWidth='xl'>
                 <Navbar/>
@@ -46,7 +44,6 @@ const App = () => {
                 
             </Container>
         </BrowserRouter>
-        
     )
 }
 export default App

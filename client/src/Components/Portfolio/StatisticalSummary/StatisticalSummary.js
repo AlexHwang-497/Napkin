@@ -10,6 +10,7 @@ import { Grid, Card } from '@material-ui/core'
 function StatisticalSummary() {
     return (
         <Fragment>
+        <FetchStockPrice/>
         <div className="analytics m-sm-30 mt-6">
             <Grid container spacing={3}>
                 <Grid item lg={8} md={8} sm={12} xs={12}>

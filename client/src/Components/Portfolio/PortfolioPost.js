@@ -126,7 +126,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
           component="img"
           height="194"
           image="/static/images/cards/paella.jpg"
-          alt="Paella dish"
+          alt="this is where you are going to have a graph here of totalreturns"
         />
         <Divider style={{ margin: '20px 0' }} />
         <Typography paragraph>Description:</Typography>
@@ -170,19 +170,15 @@ const PortfolioPost = ({ post, setCurrentId }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                        {post.assets && post.assets.map((asset,i)=>(
-                            <TableRow key={i}>
-
-                                    <TableCell>
-                                        
-                                            <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
-                                        
-                                    </TableCell>
-                                    <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
-                                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
-                            </TableRow>
-                        ))}
-                        
+                  {post.assets && post.assets.map((asset,i)=>(
+                    <TableRow key={i}>
+                      <TableCell>
+                        <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
+                      </TableCell>
+                      <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
+                      <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
+                    </TableRow>
+                  ))}   
                 </TableBody>
             </Table>
 

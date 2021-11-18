@@ -12,6 +12,8 @@ import { useSelector} from 'react-redux'
 import { Avatar,IconButton, styled, DialogTitle,Button, Paper, Grid, Typography, Container,Dialog, DialogActions, DialogContent, Divider, TextField} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from './InputForm/styles'
+import EditableTable from './EditableTable'
+
 // import IconButton from '@material-ui/icons/Icon';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -219,10 +221,7 @@ function EditCustomizedDialogs({currentId,post}) {
       </form>
 
         <PaginationTable post={{assets,ownership,sector,image,deleteEntry}} currentId={currentId}/>
-          
-          
-          
-          
+        {/* <EditableTable post={{assets,ownership,sector,image,deleteEntry}} currentId={currentId}/> */}
           
         </DialogContent>
         <DialogActions>

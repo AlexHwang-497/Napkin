@@ -27,7 +27,7 @@ const FetchStockPrice= ()=>{
             editStockData(stocks);
         })
         );
-        }, []);
+    }, []);
 
         
     useEffect(()=> {

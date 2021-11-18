@@ -40,7 +40,7 @@ export const getPortfolio = (id) => async (dispatch) => {
 
 
 
-export const getPortfolioBySearch = (searchQuery) => async (dispatch) => {
+export const getPortfoliosBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data:{data}} = await api.fetchPortfoliosBySearch(searchQuery);

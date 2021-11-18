@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Holdings from '../Portfolio/Holdings';
 import TotalReturn from '../Portfolio/TotalReturn/TotalReturn';
 import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis';
 import StatisticalSummary from '../Portfolio/StatisticalSummary/StatisticalSummary';
 import PortfolioOverview from '../Portfolio/InputForm/PortfolioOverview';
-
+import { useParams, useHistory } from 'react-router-dom';
 import {Box, Tab, Typography,Tabs} from '@material-ui/core'
 import PostDetails from './PostDetails';
-
+import {useDispatch, useSelector} from 'react-redux'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,7 +44,21 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+  const {portfolios, isLoading} = useSelector((state) => state.portfolio);
+  const { id } = useParams();
+  const [value, setValue] = useState(0);
+  const selectedPortfolio = portfolios.find(portfolio => portfolio._id === id);
+  console.log('[DEBUG]', selectedPortfolio);
+  const [assets, setAssets ] = useState(selectedPortfolio?.assets || []);
+  const [ownership, setOwnership ] = useState(selectedPortfolio?.ownership || [])
+  const [portfolioName, setPortfolioName ] = useState(selectedPortfolio?.portfolioName || [])
+  const [sector, setSector ] = useState(selectedPortfolio?.sector || [])
+  ;
+  console.log('[DEBUG] portfolio assets: ',assets );
+  console.log('[DEBUG] portfolio ownership: ',ownership );
+  console.log('[DEBUG] portfolio portfolioName: ',portfolioName );
+  console.log('this is the portfolios in BasicTabs',portfolios)
+  console.log('this is id in basicTabs',id)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -62,21 +76,21 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PortfolioOverview/>
+        <PortfolioOverview assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
         
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Holdings/>
+        <Holdings assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
         
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TotalReturn/>
+        <TotalReturn assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <SeasonalAnalysis/>
+        <SeasonalAnalysis assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <StatisticalSummary/>
+        <StatisticalSummary assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
       </TabPanel>
     </Box>
   );
