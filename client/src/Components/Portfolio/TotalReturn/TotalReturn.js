@@ -28,45 +28,49 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
             <Grid item xs={6} >
                 <Paper>
                     <LineGraph 
+                    
                     endDate={endDate}
                     startDate={ytd}
                     assets={assets}
                     ownership={ownership}
-                    portfolioName={portfolioName}
+                    portfolioName={"Ytd Growth of $10,000"}
                     />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper>
                     <LineGraph 
+                        title='Total Return of 2018'
                         endDate={endDate}
                         startDate={ttm}
                         assets={assets}
                         ownership={ownership}
-                        portfolioName={portfolioName}
+                        portfolioName={"TTM Growth of $10,000"}
                     />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper>
                     <LineGraph 
+                        title='Total Return of 2018'
                         endDate={endDate}
                         startDate={'2019-02-20'}
                         assets={assets}
                         ownership={ownership}
-                        portfolioName={portfolioName}
+                        portfolioName={"5 Year Growth of $10,000"}
                     />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper>
-                    {/* <LineGraph 
+                    <LineGraph 
+                        title='Total Return of 2018'
                         endDate={endDate}
                         startDate={'2018-10-05'}
                         assets={assets}
                         ownership={ownership}
-                        portfolioName={portfolioName}
-                    /> */}
+                        portfolioName={"10 Year Growth of $10,000"}
+                    />
                 </Paper>
             </Grid>
         </Grid>

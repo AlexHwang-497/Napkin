@@ -11,6 +11,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
+import LineGraph from './Charts/LineGraph';
 // import { deletePost, likePost } from '../../actions/posts';
 import { deletePortfolio, likePortfolio } from '../../actions/portfolio';
 
@@ -101,13 +102,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
 
     return (
       <Card raised elevation ={6} sx={{ maxWidth: 345 }}>
-      <ButtonBase 
-            component ="span" 
-            name = "test" 
-            className={classes.cardActions} 
-            onClick={openPost}
-          >        
-      </ButtonBase>
+      
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -122,12 +117,15 @@ const PortfolioPost = ({ post, setCurrentId }) => {
           title={post.portfolioName}
           subheader={moment(post.dateCreated).fromNow()}
         />
-        <CardMedia
+        <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
+        <LineGraph assets={post.assets} portfolioName={"Ytd Growth of $10,000"} ownership={post.ownership} startDate={'2021-01-01'} endDate={'2021-11-14'}/>        
+      </ButtonBase>
+        {/* <CardMedia
           component="img"
           height="194"
           image="/static/images/cards/paella.jpg"
           alt="this is where you are going to have a graph here of totalreturns"
-        />
+        /> */}
         <Divider style={{ margin: '20px 0' }} />
         <Typography paragraph>Description:</Typography>
         <Typography variant="body2">

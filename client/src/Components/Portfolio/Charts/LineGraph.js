@@ -7,7 +7,7 @@ import config from '../../../StockData/config'
 import { Line } from 'react-chartjs-2';
 import { useDispatch, useSelector } from "react-redux";
 
-function LineGraph({endDate,startDate,assets,ownership,portfolioName}) {
+function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
   let cov = require( 'compute-covariance' );
   var Finance = require('financejs');
   var finance = new Finance();
@@ -19,26 +19,27 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName}) {
 
   const [labels,setLabels]=useState([])
   const [data,setData]=useState([])
-  console.log('these are the assets in lineGraph',assets)
-  console.log('these are the ownership in lineGraph',ownership)
-  console.log('these are the endDate in lineGraph',endDate)
-  console.log('these are the startDate in lineGraph',startDate)
-  console.log('these are the portfolioName in lineGraph',portfolioName)
+  // console.log('these are the assets in lineGraph',assets)
+  // console.log('these are the ownership in lineGraph',ownership)
+  // console.log('these are the endDate in lineGraph',endDate)
+  // console.log('these are the startDate in lineGraph',startDate)
+  // console.log('these are the portfolioName in lineGraph',portfolioName)
   
   
   useEffect(() => {
     Promise.all(
     stockList.map((stock) =>
     fetch(
-    // `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
-    `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
+    `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
+    // `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
     .then((results) =>
         Promise.all(results.map((res) => res.json())).then((stocks) => {
         editStockData(stocks);
     })
     );
   }, []);
-  console.log('this is in stockData of LineGraph',stockData)
+  // console.log('this is in stockData of LineGraph',stockData)
+  console.log('this is in stockData of LineGraph',stockData[0] || [])
   
   useEffect(()=> {
     let arrCumReturn=[]
@@ -73,15 +74,15 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName}) {
                 portfolioShares.push(previousShare*(1+cumReturn))
                 // *growth for 10k
                 stockValue.push(historicalData[i].open*portfolioShares[i-1]*ownership[j]/100)
-                console.log('portfolioShares',portfolioShares)
-                console.log('SYMBOL:',stockList[j],'investmentGrowth',stockValue)
+                // console.log('portfolioShares',portfolioShares)
+                // console.log('SYMBOL:',stockList[j],'investmentGrowth',stockValue)
             }
             // *pushing values for cumulative return array; we need this for covariance
             currentStock.push(cumReturn)
 
             sum +=cumReturn
             openSum+=historicalData[i].open
-            console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
+            // console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
             // console.log('j:',j,'symbol',stockData[j],'portfolioShares:',portfolioShares,'cumReturn:',cumReturn,'previousShare',previousShare)
         }
         totalPortfolioValue.push(stockValue)
@@ -148,13 +149,15 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName}) {
   
   const finalData = {
     labels: labels,
+    title: title,
     datasets: [
       {
         label: portfolioName,
         data: data,
         fill: false,
         backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
       },
     ],
   };

@@ -100,9 +100,9 @@ const Home = () =>{
               )}
             </Grid>
                   {/* <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} /> */}
-                <Paper className={classes.appBarSearch} position="static" color="inherit">
+                {/* <Paper className={classes.appBarSearch} position="static" color="inherit">
                   <InputForm currentId={currentId} setCurrentId={setCurrentId}/>
-                </Paper>
+                </Paper> */}
                 
           </Grid>
         </Container>
