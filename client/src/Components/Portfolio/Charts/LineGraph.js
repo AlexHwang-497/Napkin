@@ -30,7 +30,8 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName}) {
     Promise.all(
     stockList.map((stock) =>
     fetch(
-    `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
+    // `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
+    `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
     .then((results) =>
         Promise.all(results.map((res) => res.json())).then((stocks) => {
         editStockData(stocks);
@@ -80,7 +81,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName}) {
 
             sum +=cumReturn
             openSum+=historicalData[i].open
-            // console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
+            console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
             // console.log('j:',j,'symbol',stockData[j],'portfolioShares:',portfolioShares,'cumReturn:',cumReturn,'previousShare',previousShare)
         }
         totalPortfolioValue.push(stockValue)

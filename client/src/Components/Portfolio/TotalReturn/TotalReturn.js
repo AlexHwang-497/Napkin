@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, Paper} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
-import LineChart from '../Charts/LineChart'
+
 import LineGraph from '../Charts/LineGraph'
 import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom';

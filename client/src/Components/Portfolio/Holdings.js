@@ -4,10 +4,10 @@ import PostDetails from '../PostDetails/PostDetails'
 import CollapsibleTable from './CollapsableTable'
 import VerticalBar from './Charts/BarChart'
 import PieChart from './Charts/PieChart'
-import LineChart from './Charts/LineChart'
 import BarGraph from './Charts/BarGraph'
 import PieGraph from './Charts/PieGraph'
-
+import LineGraph from './Charts/LineGraph'
+import { Line } from 'react-chartjs-2'
 
 function Holdings() {
     return (
@@ -32,7 +32,7 @@ function Holdings() {
             </Grid>
             <Grid item xs={6} >
                 <Paper>
-                    <LineChart/>
+                    <LineGraph/>
                 </Paper>
             </Grid>
         </Grid>
