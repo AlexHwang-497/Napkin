@@ -26,7 +26,7 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
     return (
         <Grid container >
             <Grid item xs={6} >
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <LineGraph 
                     
                     endDate={endDate}
@@ -38,7 +38,7 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
                 </Paper>
             </Grid>
             <Grid item xs={6} >
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <LineGraph 
                         title='Total Return of 2018'
                         endDate={endDate}
@@ -50,7 +50,7 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
                 </Paper>
             </Grid>
             <Grid item xs={6} >
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <LineGraph 
                         title='Total Return of 2018'
                         endDate={endDate}
@@ -62,7 +62,7 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
                 </Paper>
             </Grid>
             <Grid item xs={6} >
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <LineGraph 
                         title='Total Return of 2018'
                         endDate={endDate}

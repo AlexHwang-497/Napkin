@@ -43,7 +43,8 @@ const RecommendedPosts = () => {
     console.log('recommendedPosts in recomnededPsots',recommendedPosts)
 
     return (
-        <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+        // <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+        <Paper >
         <div className={classes.card}>
             {!!recommendedPosts.length && (
             <div className={classes.section}>

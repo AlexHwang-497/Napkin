@@ -60,7 +60,7 @@ BootstrapDialogTitle.propTypes = {
 function EditCustomizedDialogs({currentId,post}) {
   console.log('this is the currentId in EditCustomizedDialogs of editPortoflioDialog.js',currentId)
   console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
-  console.log('this is the descriptoin in EditCustomizedDialogs of editPortoflioDialog.js',post.description)
+  // console.log('this is the descriptoin in EditCustomizedDialogs of editPortoflioDialog.js',post.description)
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState([post.description]);
   const [portfolioName, setPortfolioName] = useState(post.portfolioName)

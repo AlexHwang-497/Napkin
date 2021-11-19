@@ -16,27 +16,27 @@ function Holdings({sector,assets,ownership, portfolioName,image}) {
     return (
         <Grid container>
             <Grid item xs={6}>
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <DoughnutChart sector={sector} ownership={ownership}/>
                 </Paper>
 
             </Grid>
 
             <Grid item xs={6} >
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <DoughnutChart ownership={ownership} assets={assets}/>
                 </Paper>
             </Grid>
 
             <Grid item xs={6} >
-                <Paper>
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <SectorTable ownership={ownership} assets={assets} sector={sector} image={image}/>
                     
                 </Paper>
             </Grid>
             <Grid item xs={6} >
-                <Paper>
-                <Paper>
+
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <LineGraph 
                     title='Total Return of 2018'
                     endDate={'2021-11-14'}
@@ -46,7 +46,7 @@ function Holdings({sector,assets,ownership, portfolioName,image}) {
                     portfolioName={portfolioName}
                     />
                 </Paper>
-                </Paper>
+                
             </Grid>
         </Grid>
         

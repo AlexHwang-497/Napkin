@@ -6,6 +6,7 @@ import Posts from '../Components/Posts/Posts';
 import Form from '../Components/Forms/Form';
 import {getPosts} from '../actions/posts'
 import { getPostsBySearch } from '../actions/posts';
+import { getPortfoliosBySearch } from '../actions/portfolio';
 import Pagination from '../Components/Pagination';
 import useStyles from './styles';
 import InputForm from '../Components/Portfolio/InputForm/InputForm'

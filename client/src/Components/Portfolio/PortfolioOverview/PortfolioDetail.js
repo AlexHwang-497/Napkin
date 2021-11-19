@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
+import React, { Fragment, useEffect } from 'react';
+import { Paper, Typography, CircularProgress, Divider,Grid,Card,Fab } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 import CommentSection from '../../PostDetails/CommentSection';
 
-// import { getPost, getPostsBySearch } from '../../actions/posts';
+import PortfolioReturnTable from './PortfolioReturnTable';
 import { getPortfolio, getPortfoliosBySearch } from '../../../actions/portfolio';
 
 
@@ -18,7 +18,17 @@ function PortfolioDetail({currentId,assets,ownership,portfolioName,sector}) {
 //   const classes = useStyles();
   const { id } = useParams();
     return (
-        <CommentSection/>
+        <Fragment>
+          
+          
+          <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+            <PortfolioReturnTable post={posts}/>
+            <Divider style={{ margin: '20px 0' }} />
+            <CommentSection/>
+          </Paper>
+
+        </Fragment>
+        
         
     )
 }
