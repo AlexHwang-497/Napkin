@@ -112,7 +112,9 @@ export const updatePortfolio = (id, post) => async (dispatch) => {
 // *dispatch(commentPost(finalComment,post._id)); this is what is getting passed into value and id
   export const commentPortfolio = (value, id) => async (dispatch) => {
     try {
-      const { data } = await api.comment(value, id);
+      // ! 
+      // const { data } = await api.comment(value, id);
+      const { data } = await api.commentPortfolio(value, id);
       console.log('this the data from commentPortfolio in actions/posts',data)
   
       dispatch({ type: COMMENT, payload: data });

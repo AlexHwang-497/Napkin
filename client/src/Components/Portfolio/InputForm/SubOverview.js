@@ -15,6 +15,7 @@ import BarGraph from '../Charts/BarGraph';
 
 const SubOverview = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
+    console.log('this is the post in subOverview',post)
     const dispatch = useDispatch();
     const history = useHistory();
     const classes = useStyles();
@@ -47,7 +48,7 @@ const SubOverview = () => {
 
     return (
         
-            <CommentSection/>
+            <CommentSection post={post}/>
                     
         
 

@@ -1,6 +1,6 @@
 import express from 'express'
 // import { getPosts, getPostsBySearch, createPost, updatePost, likePost, deletePost,getPost,commentPost } from '../controllers/posts.js';
-import { createPortfolio,getPortfolios,getPortfolioBySearch, deletePortfolio,updatePortfolio,getPortfolio,likePortfolio} from '../controllers/portfolio.js';
+import { createPortfolio,getPortfolios,getPortfolioBySearch, deletePortfolio,updatePortfolio,getPortfolio,likePortfolio,commentPortfolio} from '../controllers/portfolio.js';
 
 const router = express.Router()
 
@@ -21,7 +21,7 @@ router.delete('/:id', auth, deletePortfolio);
     // *this will be managed on the backend
 router.patch('/:id/likePortfolio', auth, likePortfolio);
 
-// router.post('/:id/commentPost', auth, commentPost);
+router.post('/:id/commentPortfolio', auth, commentPortfolio);
 
 export default router
 
