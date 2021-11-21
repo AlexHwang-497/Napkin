@@ -21,28 +21,22 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
   const [data,setData]=useState([])
   const [spx,setSpx]=useState([])
   const [ndx,setNdx]=useState([])
-  // console.log('these are the assets in lineGraph',assets)
-  // console.log('these are the ownership in lineGraph',ownership)
-  // console.log('these are the endDate in lineGraph',endDate)
-  // console.log('these are the startDate in lineGraph',startDate)
-  // console.log('these are the portfolioName in lineGraph',portfolioName)
-  console.log('this is stockList in lineGraph',stockList)
-  
-  
+
+    
   useEffect(() => {
     Promise.all(
     stockList.map((stock) =>
     fetch(
-    `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
-    // `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
+    // `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
+    `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
     .then((results) =>
         Promise.all(results.map((res) => res.json())).then((stocks) => {
         editStockData(stocks);
     })
     );
   }, []);
-  // console.log('this is in stockData of LineGraph',stockData)
-  // console.log('this is in stockData of LineGraph',stockData[0] || [])
+  console.log('this is in stockData of LineGraph',stockData)
+  
   
   useEffect(()=> {
     let arrCumReturn=[]
@@ -51,7 +45,8 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
     if(stockData.length===0) return;
     // *iterate through the stoclist
     for(let j=0;j<stockList.length;j++){
-        const historicalData = stockData[j]?.historical?.reverse() || []
+        const historicalData = stockData[j]?.results?.reverse() || []
+        console.log('this is the historicalData in the innerLoop',historicalData)
         let currentStock =[]
         
         let portfolioShares=[]
@@ -60,14 +55,14 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
         let openSum=0
         //todo: we are calculating the average, the cumulative return and attain prices
         for(let i=1; i<historicalData.length;i++){
-            let startingPrice = historicalData[0].open
-            // console.log('startingprice',startingPrice)
+            let startingPrice = historicalData[0].o
+            console.log('startingprice',startingPrice)
 
-            let cumReturn = historicalData[i].open/historicalData[i-1].open-1
+            let cumReturn = historicalData[i].o/historicalData[i-1].o-1
             // *this calculates the number of shares for growth 10k
             if(portfolioShares.length===0){
                 // *setup initial shares
-                portfolioShares.push(10000/historicalData[i].open)
+                portfolioShares.push(10000/historicalData[i].o)
                 // *setup intial investment of 10k
                 stockValue.push(10000*ownership[j]/100)
             } else {    
@@ -76,16 +71,16 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
                 // *coumpounding shares
                 portfolioShares.push(previousShare*(1+cumReturn))
                 // *growth for 10k
-                stockValue.push(historicalData[i].open*portfolioShares[i-1]*ownership[j]/100)
-                console.log('portfolioShares',portfolioShares)
+                stockValue.push(historicalData[i].o*portfolioShares[i-1]*ownership[j]/100)
+                // console.log('portfolioShares',portfolioShares)
                 // console.log('SYMBOL:',stockList[j],'investmentGrowth',stockValue)
             }
             // *pushing values for cumulative return array; we need this for covariance
             currentStock.push(cumReturn)
 
             sum +=cumReturn
-            openSum+=historicalData[i].open
-            // console.log('i:',i,'date:',historicalData[i].date,'open:',historicalData[i].open,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
+            openSum+=historicalData[i].o
+            // console.log('i:',i,'date:',historicalData[i].formated,'open:',historicalData[i].o,'sum of openPrices',openSum,'cumReturn',cumReturn,'sum of CumReturn',sum)
             // console.log('j:',j,'symbol',stockData[j],'portfolioShares:',portfolioShares,'cumReturn:',cumReturn,'previousShare',previousShare)
         }
         totalPortfolioValue.push(stockValue)
@@ -121,19 +116,19 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
         // *this creates our dates
         let dates =[]
         for (let i=0; i<historicalData.length;i++){
-          dates.push(historicalData[i].date)
+          dates.push(historicalData[i].formated)
           
         }
         setLabels(dates)
     }
     // console.log(arrCumReturn)
-    // console.log(totalPortfolioValue)
+    console.log('this is the totalPortfolioValue',totalPortfolioValue)
     // aggregatePortfolioValue
 
 
 
     // *calculaitng the aggetae portfolio value
-    for(let i=1;i<totalPortfolioValue[0].length;i++){
+    for(let i=0;i<totalPortfolioValue[0].length;i++){
         let sum=0
         
       for(let j=0;j<totalPortfolioValue.length;j++){
@@ -142,13 +137,14 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
       
       aggregatePortfolioValue.push(sum)
     }
-    // console.log('aggetgatePortfolioValue',aggregatePortfolioValue)
+    console.log('aggetgatePortfolioValue',aggregatePortfolioValue)
     setData(aggregatePortfolioValue)
-},[stockData])
+  },[stockData])
+  
+  // console.log('this is the labels', labels)
+  
 
-// console.log('this is the labels', labels)
 
-console.log('this is the stockData in lineGraph',stockData)
   
   const finalData = {
     labels: labels,
