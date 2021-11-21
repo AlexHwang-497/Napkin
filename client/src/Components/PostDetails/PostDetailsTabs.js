@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Holdings from '../Holdings/Holdings';
 import TotalReturn from '../Portfolio/TotalReturn/TotalReturn';
-import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis';
+import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis/SeasonalAnalysis';
 import StatisticalSummary from '../Portfolio/StatisticalSummary/StatisticalSummary';
 import PortfolioOverview from '../Portfolio/PortfolioOverview/PortfolioOverview';
 import { useParams, useHistory } from 'react-router-dom';

@@ -20,8 +20,8 @@ export default function PortfolioOverviewTable({post}) {
     //   createData('Cupcake', 305, 3.7, 67, 4.3),
     //   createData('Gingerbread', 356, 16.0, 49, 3.9),
     // ];
-    console.log('this is the post',post)
-    console.log('this is the post.assets',post.assets)
+    // console.log('this is the post',post)
+    // console.log('this is the post.assets',post.assets ||[])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -39,7 +39,7 @@ export default function PortfolioOverviewTable({post}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {post.assets && post.assets.map((asset,i)=>(
+          {/* {post.assets && post.assets.map((asset,i)=>(
                 <TableRow key={i}>
                     <TableCell><img src={post.image[i]} style={{height:'30px',width:'30px'}}/></TableCell>
                     <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
@@ -49,7 +49,7 @@ export default function PortfolioOverviewTable({post}) {
                     <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}</TableCell>
                     <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}</TableCell>
                 </TableRow>
-            ))}
+            ))} */}
         </TableBody>
       </Table>
     </TableContainer>

@@ -45,14 +45,15 @@ export const getPortfolios = async(req, res) => {
     //! PARARMS-> /posts/:123 -> id =123
     export const getPortfolioBySearch = async (req, res) => {
         const { searchQuery, tags } = req.query;
-        console.log('this is the searchQuery in getPostsBySearch in server/controllers/posts.js',searchQuery)
-        console.log('this is the tags in getPostsBySearch in server/controllers/posts.js',tags)
+        console.log('this is the searchQuery in getPostsBySearch in server/controllers/portfolio.js',searchQuery)
+        console.log('this is the tags in getPostsBySearch in server/controllers/portfolio.js',tags)
     
         try {
             const title = new RegExp(searchQuery, "i");
+            console.log('this is the title in getPortfolioBySearch in controller/portfolio',title)
     
             const posts = await PostPortfolio.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
-            
+            console.log('this is the posts in getPortfolioBySearch in controller/portfolio',posts)
     
             res.json({ data: posts });
         } catch (error) {    

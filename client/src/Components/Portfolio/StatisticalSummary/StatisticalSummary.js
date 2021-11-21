@@ -18,11 +18,11 @@ function StatisticalSummary() {
                 </Grid>
 
                 <Grid item lg={4} md={4} sm={12} xs={12}>
-                    <Card className="px-6 py-4 mb-6">
+                    {/* <Card className="px-6 py-4 mb-6">
                         <div className="card-title">Traffic Sources</div>
                         <div className="card-subtitle">Last 30 days</div>
-                        <BarGraph/>
-                    </Card>
+                        
+                    </Card> */}
                 </Grid>
             </Grid>
         </div>

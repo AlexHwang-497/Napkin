@@ -12,18 +12,21 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
   var Finance = require('financejs');
   var finance = new Finance();
   const apiKey = config.FMP_API_KEY_ID
-  const [stockList, setStockList] = useState(assets || ['AAPL'])
+  const [stockList, setStockList] = useState([...assets] || ['AAPL'])
   const [stockData,editStockData] = useState([])
-  const [stockWeight,setStockWeight]=useState(ownership || [0])
+  const [stockWeight,setStockWeight]=useState([...ownership] || [0])
   const [aggregatePortfolio,setAggregatePortfolio]=useState([])
 
   const [labels,setLabels]=useState([])
   const [data,setData]=useState([])
+  const [spx,setSpx]=useState([])
+  const [ndx,setNdx]=useState([])
   // console.log('these are the assets in lineGraph',assets)
   // console.log('these are the ownership in lineGraph',ownership)
   // console.log('these are the endDate in lineGraph',endDate)
   // console.log('these are the startDate in lineGraph',startDate)
   // console.log('these are the portfolioName in lineGraph',portfolioName)
+  console.log('this is stockList in lineGraph',stockList)
   
   
   useEffect(() => {
@@ -39,7 +42,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
     );
   }, []);
   // console.log('this is in stockData of LineGraph',stockData)
-  console.log('this is in stockData of LineGraph',stockData[0] || [])
+  // console.log('this is in stockData of LineGraph',stockData[0] || [])
   
   useEffect(()=> {
     let arrCumReturn=[]
@@ -74,7 +77,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
                 portfolioShares.push(previousShare*(1+cumReturn))
                 // *growth for 10k
                 stockValue.push(historicalData[i].open*portfolioShares[i-1]*ownership[j]/100)
-                // console.log('portfolioShares',portfolioShares)
+                console.log('portfolioShares',portfolioShares)
                 // console.log('SYMBOL:',stockList[j],'investmentGrowth',stockValue)
             }
             // *pushing values for cumulative return array; we need this for covariance
@@ -130,7 +133,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
 
 
     // *calculaitng the aggetae portfolio value
-    for(let i=0;i<totalPortfolioValue[0].length;i++){
+    for(let i=1;i<totalPortfolioValue[0].length;i++){
         let sum=0
         
       for(let j=0;j<totalPortfolioValue.length;j++){
@@ -145,7 +148,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
 
 // console.log('this is the labels', labels)
 
-// console.log('this is the stockData in lineGraph',stockData)
+console.log('this is the stockData in lineGraph',stockData)
   
   const finalData = {
     labels: labels,
@@ -159,6 +162,22 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1
       },
+      // {
+      //   label: 'SPX',
+      //   data: spx,
+      //   fill: false,
+      //   backgroundColor: 'rgb(255, 99, 132)',
+      //   borderColor: 'rgb(75, 192, 192)',
+      //   tension: 0.1
+      // },
+      // {
+      //   label: 'NDX',
+      //   data: ndx,
+      //   fill: false,
+      //   backgroundColor: 'rgb(255, 99, 132)',
+      //   borderColor: 'rgb(75, 192, 192)',
+      //   tension: 0.1
+      // },
     ],
   };
   

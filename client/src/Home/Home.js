@@ -48,7 +48,7 @@ const Home = () =>{
       if (search.trim() || tags ) {
         console.log('this is the search in searchPost',search)
         console.log('these are the tags in searchPost in Home.js',tags)
-        dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+        dispatch(getPortfoliosBySearch({ search, tags: tags.join(',') }));
         history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
       } else {
         history.push('/');

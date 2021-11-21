@@ -42,6 +42,7 @@ export const getPortfolio = (id) => async (dispatch) => {
 
 export const getPortfoliosBySearch = (searchQuery) => async (dispatch) => {
   try {
+    console.log('this is the searchQuery in getPortfoliosBySearch',searchQuery)
     dispatch({ type: START_LOADING });
     const { data:{data}} = await api.fetchPortfoliosBySearch(searchQuery);
     // const res = await api.fetchPostsBySearch(searchQuery);
