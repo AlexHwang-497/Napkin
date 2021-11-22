@@ -29,7 +29,7 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <LineGraph 
                     endDate={endDate}
-                    startDate={ytd}
+                    startDate={'2020-01-01'}
                     assets={assets}
                     ownership={ownership}
                     portfolioName={"Ytd Growth of $10,000"}

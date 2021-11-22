@@ -137,7 +137,14 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
       
       aggregatePortfolioValue.push(sum)
     }
+    
     console.log('aggetgatePortfolioValue',aggregatePortfolioValue)
+    console.log('this is the aggregatePortfolioValue[0]',aggregatePortfolioValue[0])
+    console.log('this is aggregatePortfolioValue[aggregatePortfolioValue.length-1]',aggregatePortfolioValue[aggregatePortfolioValue.length-1])
+    console.log('# of months',aggregatePortfolioValue.length)
+    console.log('this is the cumulative return',aggregatePortfolioValue[aggregatePortfolioValue.length-1]/aggregatePortfolioValue[0]-1)
+    console.log('annualized Return:',(1+(aggregatePortfolioValue[aggregatePortfolioValue.length-1]/aggregatePortfolioValue[0]-1))^(12/aggregatePortfolioValue.length)-1)
+    
     setData(aggregatePortfolioValue)
   },[stockData])
   
