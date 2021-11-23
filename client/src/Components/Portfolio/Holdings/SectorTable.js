@@ -18,29 +18,15 @@ import { IconButton } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,} from '@material-ui/core'
-function createData(name, calories, fat, carbs, protein, price) {
+function createData(name, ownership, history ) {
   console.log('this is the name in createData in SectorTabale',name)
-  console.log('this is the calories in createData in SectorTabale',calories)
-  console.log('this is the fat in createData in SectorTabale',fat)
-  console.log('this is the carbs in createData in SectorTabale',carbs)
+  // console.log('this is the sector in createData in SectorTabale',sector)
+  console.log('this is the ownership in createData in SectorTabale',ownership)
+  
   return {
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    history: [
-      {
-        date: '2020-01-02',
-        customerId:'Anonymous',
-        amount: 1,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
+    ownership,
+    history,
   };
 }
 
@@ -63,10 +49,7 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        {/* <TableCell align="right">{row.calories}</TableCell> */}
-        {/* <TableCell align="right">{row.fat}</TableCell> */}
-        {/* <TableCell align="right">{row.carbs}</TableCell> */}
-        {/* <TableCell align="right">{row.protein}</TableCell> */}
+        
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -78,23 +61,19 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Symbol</TableCell>
+                    <TableCell >Sector</TableCell>
+                    <TableCell >Portfolio(%)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell  ><img src={historyRow.image} style={{height:'30px',width:'30px'}}/></TableCell>
+                      <TableCell >{historyRow.asset}</TableCell>
+                      <TableCell >{row.name}</TableCell>
+                      <TableCell >{historyRow.ownership}%</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -107,43 +86,35 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.number.isRequired,
-        date: PropTypes.number.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
+
 
 
 
 export default function SectorTable({ownership,assets,sector,image}) {
-  const rows = [
-    createData(sector[0],ownership[0],assets[0],image[0]),
-    createData(sector[1],ownership[1],assets[1],image[1]),
-    // createData(sector[2]),ownership[2],assets[2],image[2],
-  ];
+  const uniqueSectors={}
+
+  sector.map((s,i)=>{
+    if(!uniqueSectors[s]){
+      uniqueSectors[s]=[]
+    } 
+    uniqueSectors[s].push({asset:assets[i],ownership:ownership[i],image:image[i]})
+    
+  })
+
+  console.log('this is the uniqueSectors',uniqueSectors)
+
+
+  const individualSectors = Object.keys(uniqueSectors);
+  const rows =individualSectors.map((sector,i)=>createData(sector,ownership,uniqueSectors[sector]))
+  console.log('individualSectors:',individualSectors)
+  console.log('rows:',rows)
+  // createData(name,ownership[2],assets[2],image[2],
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            
-            {/* <TableCell align="right">Symbol</TableCell>
-            <TableCell align="right">Portfolio(%)</TableCell>
-            <TableCell align="right">Portfolio()(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>

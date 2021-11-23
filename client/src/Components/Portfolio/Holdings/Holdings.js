@@ -1,22 +1,27 @@
 import React from 'react'
 import {Grid, Paper} from '@material-ui/core'
-import PostDetails from '../PostDetails/PostDetails'
-import CollapsibleTable from '../Portfolio/CollapsableTable'
-import VerticalBar from '../Portfolio/Charts/BarChart'
-import BarGraph from '../Portfolio/Charts/BarGraph'
-import LineGraph from '../Portfolio/Charts/LineGraph'
+import PostDetails from '../../PostDetails/PostDetails'
+import CollapsibleTable from '../CollapsableTable'
+import VerticalBar from '../Charts/BarChart'
+import BarGraph from '../Charts/BarGraph'
+import LineGraph from '../Charts/LineGraph'
 import { Line } from 'react-chartjs-2'
-import DoughnutChart from '../Portfolio/Charts/DoughnutChart'
+import DoughnutChart from '../Charts/DoughnutChart'
 import SectorTable from './SectorTable'
+import {useDispatch, useSelector} from 'react-redux'
 
 
 function Holdings({sector,assets,ownership, portfolioName,image}) {
+    const {portfolios, isLoading} = useSelector((state) => state.portfolio);
+    console.log('this is the portfolio in holdings',portfolios)
     console.log('this is the sector in holdings', sector)
     console.log('this is the ownership in holdings', sector)
     return (
         <Grid container>
             <Grid item xs={6}>
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                    
+
                     <DoughnutChart sector={sector} ownership={ownership}/>
                 </Paper>
 
@@ -24,7 +29,7 @@ function Holdings({sector,assets,ownership, portfolioName,image}) {
 
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    <DoughnutChart ownership={ownership} assets={assets}/>
+                    {/* <DoughnutChart ownership={ownership} assets={assets}/> */}
                 </Paper>
             </Grid>
 

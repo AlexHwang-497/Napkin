@@ -9,7 +9,17 @@ import { Doughnut } from 'react-chartjs-2';
 import { useDispatch, useSelector } from "react-redux";
 
 function DoughnutChart({sector,assets,ownership}) {
-  let cov = require( 'compute-covariance' );
+  
+  
+  
+  // let obj={}
+  // for(let i=0;i<sector.length;i++){
+  //   obj[sector[i]]=ownership[i]
+
+  // }
+  // console.log('this is the obj in dooughnutchar',obj)
+  // return obj
+  
   var Finance = require('financejs');
   var finance = new Finance();
   const apiKey = config.FMP_API_KEY_ID

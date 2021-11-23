@@ -136,7 +136,7 @@ function EditableTable({post}) {
                 <TableRow key={i}>
 
                         <TableCell>
-                                <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
+                                < imgsrc={post.image[i]} style={{height:'30px',width:'30px'}}/>
                         </TableCell>
                         <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
                         <TableCell className="px-0 capitalize" align="left">{post.sector[i]}</TableCell>

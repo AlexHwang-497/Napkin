@@ -33,7 +33,8 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
                     assets={assets}
                     ownership={ownership}
                     portfolioName={"Ytd Growth of $10,000"}
-                    >Annualized Return</LineGraph>
+                    
+                    ></LineGraph>
                 </Paper>
             </Grid>
             <Grid item xs={6} >

@@ -30,6 +30,7 @@ const organizeByYear=(arr) => {
     let currentMonth = arr[i].date.split('-')[1]
     obj[monthMap[currentMonth]]=arr[i].cumReturn
   }
+  console.log('this is obj of Organizebyyear',obj)
   return obj
 
 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import Holdings from '../Holdings/Holdings';
+import Holdings from '..//Portfolio/Holdings/Holdings';
 import TotalReturn from '../Portfolio/TotalReturn/TotalReturn';
 import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis/SeasonalAnalysis';
 import StatisticalSummary from '../Portfolio/StatisticalSummary/StatisticalSummary';
@@ -48,20 +48,20 @@ export default function BasicTabs() {
   const { id } = useParams();
   const [value, setValue] = useState(0);
   const selectedPortfolio = portfolios.find(portfolio => portfolio._id === id);
-  console.log('[DEBUG]', selectedPortfolio);
+  // console.log('[DEBUG]', selectedPortfolio);
   const [assets, setAssets ] = useState(selectedPortfolio?.assets || []);
   const [ownership, setOwnership ] = useState(selectedPortfolio?.ownership || [])
   const [portfolioName, setPortfolioName ] = useState(selectedPortfolio?.portfolioName || [])
   const [sector, setSector ] = useState(selectedPortfolio?.sector || [])
   const [image, setImage ] = useState(selectedPortfolio?.image || [])
   ;
-  console.log('[DEBUG] portfolio assets: ',assets );
-  console.log('[DEBUG] portfolio ownership: ',ownership );
-  console.log('[DEBUG] portfolio portfolioName: ',portfolioName );
-  console.log('[DEBUG] portfolio sector: ',sector );
-  console.log('[DEBUG] portfolio image: ',image );
-  console.log('this is the selectedPortfolios in BasicTabs',selectedPortfolio)
-  console.log('this is id in basicTabs',id)
+  // console.log('[DEBUG] portfolio assets: ',assets );
+  // console.log('[DEBUG] portfolio ownership: ',ownership );
+  // console.log('[DEBUG] portfolio portfolioName: ',portfolioName );
+  // console.log('[DEBUG] portfolio sector: ',sector );
+  // console.log('[DEBUG] portfolio image: ',image );
+  // console.log('this is the selectedPortfolios in BasicTabs',selectedPortfolio)
+  // console.log('this is id in basicTabs',id)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -79,7 +79,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PortfolioOverview assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
+        <PortfolioOverview assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector} image={image}/>
         
       </TabPanel>
       <TabPanel value={value} index={1}>
