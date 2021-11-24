@@ -14,7 +14,7 @@ import useStyles from './styles';
 
 const Navbar = () =>{
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    console.log('this is the user from navbar.js',user)
+    // console.log('this is the user from navbar.js',user)
 
     const dispatch = useDispatch();
     // *we utilize this to deal with the change in our URL from '/auth' to '/'

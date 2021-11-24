@@ -46,14 +46,14 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const [rowsPerPage, setRowsPerPage] = React.useState(5)
     const [page, setPage] = React.useState(0)
-    console.log('this is user in client/portfolio/portfolioPost.js',user)
-    console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
+    // console.log('this is user in client/portfolio/portfolioPost.js',user)
+    // console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
     const userId = user?.result.googleId || user?.result?._id;
     const hasLikedPost = post?.likes?.find((like) => like === userId);
 
     const handleLike = async () => {
       dispatch(likePortfolio(post._id));
-      console.log('portfolio has been dispatch in handleLike of PortfolioPost.js')
+      // console.log('portfolio has been dispatch in handleLike of PortfolioPost.js')
   
       if (hasLikedPost) {
         setLikes(post.likes.filter((id) => id !== userId));
@@ -96,9 +96,9 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       setPage(0)
   }
   const handling =(event) =>{
-      console.log('poop')
+      // console.log('poop')
   }
-  console.log('this is the post in portfolioPost',post)
+  // console.log('this is the post in portfolioPost',post)
 
     return (
       <Card raised elevation ={6} sx={{ maxWidth: 345 }}>

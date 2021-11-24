@@ -27,6 +27,7 @@ function TotalReturn({id,assets,portfolioName,ownership}) {
         <Grid container >
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+
                     <LineGraph 
                     endDate={endDate}
                     startDate={'2020-01-01'}

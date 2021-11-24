@@ -12,7 +12,7 @@ class ApexTreeChart extends Component {
             {
               data: [
                 {
-                  x: 'INTC',
+                  x: props.assets[0],
                   y: 1.2
                 },
                 {

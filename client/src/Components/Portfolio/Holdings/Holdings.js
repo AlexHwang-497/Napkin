@@ -9,50 +9,35 @@ import { Line } from 'react-chartjs-2'
 import DoughnutChart from '../Charts/DoughnutChart'
 import SectorTable from './SectorTable'
 import {useDispatch, useSelector} from 'react-redux'
+import ApexTreeChart from '../PortfolioOverview/ApexTreeMap'
 
 
-function Holdings({sector,assets,ownership, portfolioName,image}) {
+function Holdings({sector,assets,ownership, portfolioName,image, stockData}) {
     const {portfolios, isLoading} = useSelector((state) => state.portfolio);
     console.log('this is the portfolio in holdings',portfolios)
     console.log('this is the sector in holdings', sector)
     console.log('this is the ownership in holdings', sector)
+    console.log('this is the stockdata in holdings',stockData)
     return (
         <Grid container>
             <Grid item xs={6}>
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    
-
-                    <DoughnutChart sector={sector} ownership={ownership}/>
-                </Paper>
-
-            </Grid>
-
-            <Grid item xs={6} >
-                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    {/* <DoughnutChart ownership={ownership} assets={assets}/> */}
-                </Paper>
-            </Grid>
-
-            <Grid item xs={6} >
-                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <SectorTable ownership={ownership} assets={assets} sector={sector} image={image}/>
-                    
-                </Paper>
-            </Grid>
-            <Grid item xs={6} >
 
-                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    <LineGraph 
-                    title='Total Return of 2018'
-                    endDate={'2021-11-14'}
-                    startDate={'2021-01-01'}
-                    assets={assets}
-                    ownership={ownership}
-                    portfolioName={portfolioName}
-                    />
+
                 </Paper>
-                
+
             </Grid>
+
+            <Grid item xs={6} >
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                    <ApexTreeChart assets={assets} ownership={ownership} sector={sector}/>
+            
+                </Paper>
+            </Grid>
+
+            
+            
         </Grid>
         
     )

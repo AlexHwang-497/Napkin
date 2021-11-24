@@ -58,8 +58,8 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function EditCustomizedDialogs({currentId,post}) {
-  console.log('this is the currentId in EditCustomizedDialogs of editPortoflioDialog.js',currentId)
-  console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
+  // console.log('this is the currentId in EditCustomizedDialogs of editPortoflioDialog.js',currentId)
+  // console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
   // console.log('this is the descriptoin in EditCustomizedDialogs of editPortoflioDialog.js',post.description)
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState([post.description]);
@@ -85,7 +85,7 @@ function EditCustomizedDialogs({currentId,post}) {
 
 
   const currentAllowance = ownership.reduce((acc, value) => acc + value, 0);
-  console.log("Current Allowance: ",currentId);
+  // console.log("Current Allowance: ",currentId);
 
 
   const symbolLookup = () => {
@@ -95,12 +95,12 @@ function EditCustomizedDialogs({currentId,post}) {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log('this is the data from symbolLookup ',data);
+        // console.log('this is the data from symbolLookup ',data);
         if (data[0] && data[0].symbol) {
           setAssets(assets.concat([symbol]));  //!  //////////////
           console.log('this is the assets in symbolLookup',assets)
           setOwnership(ownership.concat([parseInt(val)]));   //!  //////////////
-          console.log('thisis the assets in symbolLookup',ownership)
+          // console.log('thisis the assets in symbolLookup',ownership)
           setSector(sector.concat(data[0].sector))
           setImage(image.concat(data[0].image))
           setSymbol("");
@@ -130,7 +130,7 @@ function EditCustomizedDialogs({currentId,post}) {
   const handleUpdatePortfolio =() => {
     dispatch(updatePortfolio(currentId, {assets, ownership, sector,image }));
     setOpen(false)
-    console.log('this is the handleUpdatePortfolio in pagTable',currentId, {sector,image })
+    // console.log('this is the handleUpdatePortfolio in pagTable',currentId, {sector,image })
   }
 
   const handleSubmit = async(e) =>{

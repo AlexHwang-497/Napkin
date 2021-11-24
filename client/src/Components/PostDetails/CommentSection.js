@@ -10,9 +10,9 @@ import { useSelector } from 'react-redux';
 
 const CommentSection = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
-    console.log('this is the post in commentSection',posts)
+    // console.log('this is the post in commentSection',posts)
     const user = JSON.parse(localStorage.getItem('profile'));
-    console.log('this is the user in commentSection',user)
+    // console.log('this is the user in commentSection',user)
 
     const dispatch = useDispatch();
     const [comments, setComments] = useState(post?.comments);
@@ -23,9 +23,9 @@ const CommentSection = () => {
     const handleComment = async () => {
         const finalComment = () => `${user.result.name}:${comment}`
         // dispatch(commentPost(finalComment,post._id))
-        console.log('this is the finalComment in handleComment', finalComment)
-        console.log('this is the finalComment in handleComment', user?.result?.name)
-        console.log('this is the finalComment in handleComment', comment)
+        // console.log('this is the finalComment in handleComment', finalComment)
+        // console.log('this is the finalComment in handleComment', user?.result?.name)
+        // console.log('this is the finalComment in handleComment', comment)
         const newComments = await dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
     
         setComment('');

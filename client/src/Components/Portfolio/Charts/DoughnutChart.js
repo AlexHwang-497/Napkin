@@ -31,10 +31,10 @@ function DoughnutChart({sector,assets,ownership}) {
   const [labels,setLabels]=useState(sector || assets)
   const [data,setData]=useState(ownership)
 
-console.log('this is the labels in dougnutChart',labels)
-console.log('this is the labels in dougnutChart',sector)
-console.log('this is the data in dougnutChart',data)
-console.log('this is the data in dougnutChart',ownership)
+// console.log('this is the labels in dougnutChart',labels)
+// console.log('this is the labels in dougnutChart',sector)
+// console.log('this is the data in dougnutChart',data)
+// console.log('this is the data in dougnutChart',ownership)
 
 const finalData = {
     labels: 

@@ -35,7 +35,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
     })
     );
   }, []);
-  console.log('this is in stockData of LineGraph',stockData)
+  // console.log('this is in stockData of LineGraph',stockData)
   
   
   useEffect(()=> {
@@ -46,7 +46,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
     // *iterate through the stoclist
     for(let j=0;j<stockList.length;j++){
         const historicalData = stockData[j]?.results?.reverse() || []
-        console.log('this is the historicalData in the innerLoop',historicalData)
+        // console.log('this is the historicalData in the innerLoop',historicalData)
         let currentStock =[]
         
         let portfolioShares=[]
@@ -56,7 +56,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
         //todo: we are calculating the average, the cumulative return and attain prices
         for(let i=1; i<historicalData.length;i++){
             let startingPrice = historicalData[0].o
-            console.log('startingprice',startingPrice)
+            // console.log('startingprice',startingPrice)
 
             let cumReturn = historicalData[i].o/historicalData[i-1].o-1
             // *this calculates the number of shares for growth 10k
@@ -122,7 +122,7 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
         setLabels(dates)
     }
     // console.log(arrCumReturn)
-    console.log('this is the totalPortfolioValue',totalPortfolioValue)
+    // console.log('this is the totalPortfolioValue',totalPortfolioValue)
     // aggregatePortfolioValue
 
 
@@ -138,12 +138,12 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
       aggregatePortfolioValue.push(sum)
     }
     
-    console.log('aggetgatePortfolioValue',aggregatePortfolioValue)
-    console.log('this is the aggregatePortfolioValue[0]',aggregatePortfolioValue[0])
-    console.log('this is aggregatePortfolioValue[aggregatePortfolioValue.length-1]',aggregatePortfolioValue[aggregatePortfolioValue.length-1])
-    console.log('# of months',aggregatePortfolioValue.length)
-    console.log('this is the cumulative return',aggregatePortfolioValue[aggregatePortfolioValue.length-1]/aggregatePortfolioValue[0]-1)
-    console.log('annualized Return:',(1+(aggregatePortfolioValue[aggregatePortfolioValue.length-1]/aggregatePortfolioValue[0]-1))^(12/aggregatePortfolioValue.length)-1)
+    // console.log('aggetgatePortfolioValue',aggregatePortfolioValue)
+    // console.log('this is the aggregatePortfolioValue[0]',aggregatePortfolioValue[0])
+    // console.log('this is aggregatePortfolioValue[aggregatePortfolioValue.length-1]',aggregatePortfolioValue[aggregatePortfolioValue.length-1])
+    // console.log('# of months',aggregatePortfolioValue.length)
+    // console.log('this is the cumulative return',aggregatePortfolioValue[aggregatePortfolioValue.length-1]/aggregatePortfolioValue[0]-1)
+    // console.log('annualized Return:',(1+(aggregatePortfolioValue[aggregatePortfolioValue.length-1]/aggregatePortfolioValue[0]-1))^(12/aggregatePortfolioValue.length)-1)
     
     setData(aggregatePortfolioValue)
   },[stockData])
