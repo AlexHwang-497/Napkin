@@ -60,8 +60,11 @@ export default function BasicTabs() {
   const [portfolioName, setPortfolioName ] = useState(selectedPortfolio?.portfolioName || [])
   const [sector, setSector ] = useState(selectedPortfolio?.sector || [])
   const [image, setImage ] = useState(selectedPortfolio?.image || [])
+  const [arrForStartingDate, setArrForStartingDate ] = useState([])
+  const [begDate, setBegDate ] = useState()
   const [stockData,editStockData] = useState([])
   const [dummyStockData,editDummyStockData] = useState([])
+  const [data,setData] = useState([])
   const startDate='2011-11-01'
   const endDate='2021-11-01'
   const apiKey = config.FMP_API_KEY_ID
@@ -72,7 +75,7 @@ export default function BasicTabs() {
 
   useEffect(() => {
     Promise.all(
-    assets.map((stock) =>
+    [...assets,'SPY'].map((stock) =>
     fetch(
     `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
     .then((results) =>
@@ -106,36 +109,59 @@ export default function BasicTabs() {
       
     }
     aggCompanyDates.sort()
+    if(aggCompanyDates.length===0) return
+    let dateArrayNeeded = aggCompanyDates[0]
     console.log('aggCompanyDates',aggCompanyDates)
-    let dateArrayNeeded = aggCompanyDates[aggCompanyDates.length-1]
     console.log('dateArrayNeeded',dateArrayNeeded)
+    setArrForStartingDate(dateArrayNeeded)
+    let dateNeeded = dateArrayNeeded[dateArrayNeeded.length-1]
+    console.log('dateNeeded',dateNeeded)
+    if(!dateArrayNeeded){
+      return
+    } 
+    fetchDateRange(dateNeeded)
+  }, [stockData,dummyStockData])
+  
+  // setStartingDate()
+  console.log('arrForStartingDate',arrForStartingDate)
+  console.log('startingDate',begDate)
+  useEffect(()=>{
+    // setBegDate(arrForStartingDate[0])
+    
+    // console.log('this isthe arrforStartingDate[0]',arrForStartingDate[0])
+    // fetchDateRange(arrForStartingDate[0])
+    
     // let fetchStartingdateNeeded=dateArrayNeeded[0] 
     // console.log('fetchStartingdateNeeded',fetchStartingdateNeeded)
     
-    
-    
-    // fetchDateRange(fetchStartingdateNeeded )
-  }, [stockData])
-
-
-  
-  useEffect(()=>{
-    // console.log('this is the stockData in postDetailTab',stockData)
-    // console.log('this is the stockData.length in postDetailTab',stockData.length)
-    // console.log('this is the stockData[0].dates in postDetailTab',stockData[0].dates)
-    
-    // fetchDateRange('2019-01-01')
+    // fetchDateRange("2015-12-01")
   },[stockData])
 
   const fetchDateRange=(startingDate)=>{
+    let  finalFetchedArr=[]
     if(stockData.length===0)return;
+    stockData.reverse()
     const start=Date.parse(startingDate)
     const filteredDate=stockData.map((entry)=>entry.dates.filter((s)=>Date.parse(s.formated)>start))
-    console.log('filteredDate:',filteredDate)
-    return filteredDate
-    
-  }
+    console.log('filteredDate',filteredDate)
+    console.log('filteredDates.o',filteredDate.map((arr)=>arr.map((e)=>e.o)))
+    console.log('filteredDates.formated',filteredDate.map((arr)=>arr.map((e)=>e.formated)))
+    // const openPrices
+    let pricesNeeded=filteredDate.map((arr)=>arr.map((e)=>e.o))
+    let dateRangeNeeded =filteredDate.map((arr)=>arr.map((e)=>e.formated))[0]
 
+    console.log('pricesNeeded:',pricesNeeded)
+    console.log('dateRangeNeeded:',dateRangeNeeded)
+    let finalDataNeeded = [dateRangeNeeded,...pricesNeeded]
+    console.log('finalDataNeeded:',finalDataNeeded)
+    setData(finalDataNeeded)
+
+
+    // console.log('filteredDate:',filteredDate)
+    // return finalFetchedArr.push([arrForStartingDate,filteredDate])
+    // console.log('finalFetchedArr:',finalFetchedArr)
+    console.log('this is the filter/stockData',stockData)    
+  }
   // console.log('this is the stockData[0].dates in postDetailTab',stockData[0].dates)
 
 
@@ -152,7 +178,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PortfolioOverview stockData={stockData} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector} image={image}/>
+        <PortfolioOverview priceData={data} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector} image={image}/>
         
       </TabPanel>
       <TabPanel value={value} index={1}>

@@ -39,7 +39,7 @@ function PortfolioDetail({currentId,assets,ownership,portfolioName,sector,stockD
     let aggregatePortfolioValue=[]
     // *this array will be utilized to store the indivudal annualized returns of each stock
 
-    if(stockData.length===0) return;
+    if(!stockData || stockData.length===0) return;
 
     // *iterate through the stoclist
     for(let j=0;j<stockData.length;j++){

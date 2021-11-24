@@ -25,23 +25,18 @@ import ApexTreeChart from './ApexTreeMap'
 
 
 
-function PortfolioOverview({currentId,portfolioName,stockData,ownership}) {
+function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
-    // console.log('this is the currentId in portfolioOverview',currentId)
-    // console.log('this is the assets in portfolioOverview',assets)
-    // console.log('this is the ownership in portfolioOverview',ownership)
-    // console.log('this is the portfolioName in portfolioOverview',portfolioName)
-    // console.log('this is the sector in portfolioOverview',sector)
-    // console.log('this is the post in portfolioOverview',post)
-    console.log('this is the stockData in PortfolioOverview',stockData)
+    console.log('this is the data in portfolio Overview',priceData)
+    
 
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
     var finance = new Finance();
     const apiKey = config.FMP_API_KEY_ID
-    const [stockList, setStockList] = useState([stockData.symbol] || ['AAPL'])
+    const [stockList, setStockList] = useState(assets || ['AAPL'])
     
-    const [stockWeight,setStockWeight]=useState(ownership || [0])
+    const [stockWeight,setStockWeight]=useState(ownership || [])
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
   
@@ -60,7 +55,7 @@ function PortfolioOverview({currentId,portfolioName,stockData,ownership}) {
             <Grid item xs={6} >
                 <Paper>
                 {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioDetail stockData={stockData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={stockData.sector}/>    
+                    <PortfolioDetail  assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector}/>    
 
                 </Paper>
             </Grid>
@@ -80,7 +75,7 @@ function PortfolioOverview({currentId,portfolioName,stockData,ownership}) {
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioOverviewTable assets={stockList} image={stockData.image} totalPortfolioValue={totalPortfolioValue}/>
+                    <PortfolioOverviewTable assets={stockList} image={image} totalPortfolioValue={totalPortfolioValue}/>
                 </Paper>
             </Grid>
             <Grid item xs={6} >
