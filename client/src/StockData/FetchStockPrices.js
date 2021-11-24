@@ -57,9 +57,9 @@ function FetchStockPrices({assets}) {
     aggCompanyDates.sort()
     let dateArrayNeeded =aggCompanyDates[0] 
 
-    // console.log('this is the aggCompanyDates  fetchStockPrices',aggCompanyDates)
-    // console.log('this is the starting date in fetchStockPrices',dateArrayNeeded[dateArrayNeeded.length-1])
-    // console.log('this is the starting date in fetchStockPrices',dateArrayNeeded[dateArrayNeeded.length-1])
+    console.log('this is the aggCompanyDates  fetchStockPrices',aggCompanyDates)
+    console.log('this is the starting date in fetchStockPrices',dateArrayNeeded)
+    console.log('this is the starting date in fetchStockPrices',dateArrayNeeded[dateArrayNeeded.length-1])
     
     
     

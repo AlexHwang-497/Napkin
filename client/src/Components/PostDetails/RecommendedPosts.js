@@ -40,7 +40,7 @@ const RecommendedPosts = () => {
         );
       }
     const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
-    console.log('recommendedPosts in recomnededPsots',recommendedPosts)
+    // console.log('recommendedPosts in recomnededPsots',recommendedPosts)
 
     return (
         // <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>

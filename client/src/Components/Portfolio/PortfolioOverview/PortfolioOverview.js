@@ -25,7 +25,7 @@ import ApexTreeChart from './ApexTreeMap'
 
 
 
-function PortfolioOverview({currentId,portfolioName,stockData}) {
+function PortfolioOverview({currentId,portfolioName,stockData,ownership}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
     // console.log('this is the currentId in portfolioOverview',currentId)
     // console.log('this is the assets in portfolioOverview',assets)
@@ -33,6 +33,7 @@ function PortfolioOverview({currentId,portfolioName,stockData}) {
     // console.log('this is the portfolioName in portfolioOverview',portfolioName)
     // console.log('this is the sector in portfolioOverview',sector)
     // console.log('this is the post in portfolioOverview',post)
+    console.log('this is the stockData in PortfolioOverview',stockData)
 
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
@@ -40,7 +41,7 @@ function PortfolioOverview({currentId,portfolioName,stockData}) {
     const apiKey = config.FMP_API_KEY_ID
     const [stockList, setStockList] = useState([stockData.symbol] || ['AAPL'])
     
-    const [stockWeight,setStockWeight]=useState([stockData.ownership] || [0])
+    const [stockWeight,setStockWeight]=useState(ownership || [0])
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
   
@@ -59,7 +60,7 @@ function PortfolioOverview({currentId,portfolioName,stockData}) {
             <Grid item xs={6} >
                 <Paper>
                 {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioDetail assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={stockData.sector}/>    
+                    <PortfolioDetail stockData={stockData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={stockData.sector}/>    
 
                 </Paper>
             </Grid>

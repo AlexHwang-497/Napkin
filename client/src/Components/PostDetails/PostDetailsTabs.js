@@ -49,16 +49,19 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const {portfolios, isLoading} = useSelector((state) => state.portfolio);
+  
   const { id } = useParams();
   const [value, setValue] = useState(0);
   const selectedPortfolio = portfolios.find(portfolio => portfolio._id === id);
-  // console.log('[DEBUG]', selectedPortfolio);
+  console.log('[DEBUG]selectedPortfolio', selectedPortfolio);
   const [assets, setAssets ] = useState(selectedPortfolio?.assets || []);
   const [ownership, setOwnership ] = useState(selectedPortfolio?.ownership || [])
+  console.log('[DEBUG]ownership', ownership);
   const [portfolioName, setPortfolioName ] = useState(selectedPortfolio?.portfolioName || [])
   const [sector, setSector ] = useState(selectedPortfolio?.sector || [])
   const [image, setImage ] = useState(selectedPortfolio?.image || [])
   const [stockData,editStockData] = useState([])
+  const [dummyStockData,editDummyStockData] = useState([])
   const startDate='2011-11-01'
   const endDate='2021-11-01'
   const apiKey = config.FMP_API_KEY_ID
@@ -82,41 +85,46 @@ export default function BasicTabs() {
             image:image[i],
             sector:sector[i] 
           }))
-        editStockData(editedStocks);
-        
-    })
-    );
+        editDummyStockData(stocks)
+        editStockData(editedStocks)
+      }))
   }, [assets]);
 
-  console.log('this is the stockData in postDetailTab',stockData)
-  
-  useEffect(()=>{
+  console.log('this is the dummyStockData ',dummyStockData)
+// ! this is utilized to calculate our proper date range for filtering
+  useEffect(() => {
+    
+    
     let aggCompanyDates=[]
-    for(let j=0;j<stockData.length;j++){
+    for(let j=0;j<dummyStockData.length;j++){
       let companyDates=[]
-      // console.log(this is)
-      let historicalDates =stockData[j]?.results?.reverse() || []
+      let historicalDates =dummyStockData[j]?.results?.reverse() || []
       for(let i=0; i<historicalDates.length;i++){
         companyDates.push(historicalDates[i].formated.split(' ')[0])
       }
       aggCompanyDates.push(companyDates)
-      console.log('this is the companyDates in fetchStockPrices',companyDates)
+      
     }
     aggCompanyDates.sort()
-    let dateArrayNeeded =aggCompanyDates[0] 
+    console.log('aggCompanyDates',aggCompanyDates)
+    let dateArrayNeeded = aggCompanyDates[aggCompanyDates.length-1]
+    console.log('dateArrayNeeded',dateArrayNeeded)
+    // let fetchStartingdateNeeded=dateArrayNeeded[0] 
+    // console.log('fetchStartingdateNeeded',fetchStartingdateNeeded)
+    
+    
+    
+    // fetchDateRange(fetchStartingdateNeeded )
+  }, [stockData])
 
-    console.log('this is the aggCompanyDates  postDetailTabs',aggCompanyDates)
-    // console.log('this is the starting date in postDetailTabs',dateArrayNeeded[dateArrayNeeded.length-1])
-
-    
-    
-    
-  },[handleChange])
 
   
   useEffect(()=>{
     // console.log('this is the stockData in postDetailTab',stockData)
-    fetchDateRange('2019-01-01')
+    // console.log('this is the stockData.length in postDetailTab',stockData.length)
+    // console.log('this is the stockData[0].dates in postDetailTab',stockData[0].dates)
+    
+    // fetchDateRange('2019-01-01')
   },[stockData])
 
   const fetchDateRange=(startingDate)=>{
@@ -127,6 +135,9 @@ export default function BasicTabs() {
     return filteredDate
     
   }
+
+  // console.log('this is the stockData[0].dates in postDetailTab',stockData[0].dates)
+
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -145,7 +156,7 @@ export default function BasicTabs() {
         
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Holdings stockData={fetchDateRange('2021-01-01')} image={image}assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
+        <Holdings stockData={''} image={image} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
         
       </TabPanel>
       <TabPanel value={value} index={2}>
