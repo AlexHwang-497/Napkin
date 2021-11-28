@@ -1,6 +1,6 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING,FETCH_POST,COMMENT } from '../constants/actionTypes';
 // *action.payload are our actual posts from dispatch({type:'FETCH_ALL', payload:[]})
-export default (state = { isLoading: true, portfolios: [{assets:['hello']}] }, action) => {
+export default (state = { isLoading: true, portfolios: [{assets:[]}] }, action) => {
     switch(action.type) {
         case START_LOADING:
             return { ...state, isLoading: true };

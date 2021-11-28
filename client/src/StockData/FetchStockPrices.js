@@ -32,7 +32,7 @@ function FetchStockPrices({assets}) {
     Promise.all(
     stockList.map((stock) =>
     fetch(
-    // `https://financialmodelingprep.com/api/v3/historical-price-full/${stock}?from=${startDate}&to=${endDate}&apikey=${apiKey}`)))
+    
     `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
     .then((results) =>
         Promise.all(results.map((res) => res.json())).then((stocks) => {
@@ -42,6 +42,9 @@ function FetchStockPrices({assets}) {
     );
   }, []);
   // console.log('this is in stockData of FetchStockPrices',stockData)
+  // !!!!  this is waht you need to sort
+  console.log('this is no sort stockData of FetchStockPrices',stockData)
+  // console.log('this is sort stockData of FetchStockPrices',stockData.sort(function(a,b){return a.results.formated-b.results.formated}))
 // ! this useEffect will cacluate our date range 
   useEffect(()=>{
     let aggCompanyDates=[]
@@ -57,9 +60,9 @@ function FetchStockPrices({assets}) {
     aggCompanyDates.sort()
     let dateArrayNeeded =aggCompanyDates[0] 
 
-    console.log('this is the aggCompanyDates  fetchStockPrices',aggCompanyDates)
-    console.log('this is the starting date in fetchStockPrices',dateArrayNeeded)
-    console.log('this is the starting date in fetchStockPrices',dateArrayNeeded[dateArrayNeeded.length-1])
+    // console.log('this is the aggCompanyDates  fetchStockPrices',aggCompanyDates)
+    // console.log('this is the starting date in fetchStockPrices',dateArrayNeeded)
+    // console.log('this is the starting date in fetchStockPrices',dateArrayNeeded[dateArrayNeeded.length-1])
     
     
     

@@ -27,7 +27,7 @@ import ApexTreeChart from './ApexTreeMap'
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
-    console.log('this is the data in portfolio Overview',priceData)
+    console.log('this is the pricedata in portfolio Overview',priceData)
     
 
     let cov = require( 'compute-covariance' );
@@ -40,7 +40,7 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
   
-    const [labels,setLabels]=useState([])
+    const [labels,setLabels]=useState(priceData[0])
     const [data,setData]=useState([])
     const [spx,setSpx]=useState([])
     const [ndx,setNdx]=useState([])
@@ -48,7 +48,7 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const endDate ='2021-11-01'
     const yearRange = ['2019','2020','2021']
 
-
+console.log('this is the labels',labels)
 
     return (
         <Grid container >
