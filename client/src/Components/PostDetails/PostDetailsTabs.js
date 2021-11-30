@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
 import config from "../../StockData/config";
 import { NFLX, TEAM } from "../../Utilities/sampleData";
-import { OrganizeData, monthlyReturn,subSet } from "../../Utilities";
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation } from "../../Utilities";
 
 
 function TabPanel(props) {
@@ -103,9 +103,10 @@ export default function BasicTabs() {
     const fakeOwnership = [50, 30];
     const fakeResults = [NFLX, TEAM];
     const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership);
-    console.log('[monthlyReturn]',monthlyReturn(data.slice(0,36)))
+    console.log('[monthlyReturn]',monthlyReturn(data))
+    console.log('[monthlyReturn.STD]',getStandardDeviation(data))
     const ytd=subSet(data,'2021-01-01')
-    console.log('[ytd]',ytd)
+    // console.log('[monthlyReturn.ytd]',ytd)
     const startingDat='2020-01-01'
     let arr = []
 
