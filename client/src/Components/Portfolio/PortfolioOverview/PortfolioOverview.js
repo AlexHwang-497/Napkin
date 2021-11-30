@@ -21,6 +21,7 @@ import SecondApexLineChart from './secondApexLineChart'
 import ApexHeatChart from './ApexHeatmap'
 import ApexDonutChart from './apexDoughnutchart'
 import ApexTreeChart from './ApexTreeMap'
+import ApexLineChart from './apexLineChart'
 
 
 
@@ -39,6 +40,11 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const [stockWeight,setStockWeight]=useState(ownership || [])
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
+    const [sAndPPrice,setSAndPPrice]=useState(priceData[1])
+    const [ytd,setYtd]=useState()
+    console.log('this is the S&P',sAndPPrice)
+    
+    
   
     const [labels,setLabels]=useState(priceData[0])
     const [data,setData]=useState([])
@@ -55,36 +61,27 @@ console.log('this is the labels',labels)
             <Grid item xs={6} >
                 <Paper>
                 {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioDetail  assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector}/>    
+                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector}/>    
 
                 </Paper>
             </Grid>
             <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             {/*  this will need the portfolio' aggreagte value*/}
-                    {/* <LineGraph 
-                        endDate={'2021-11-14'}
-                        startDate={'2021-01-01'}
-                        assets={stockList}
-                        ownership={stockWeight}
-                        portfolioName={"Ytd Growth of $10,000"}
-                    /> */}
-                    <InventoryLineChart />
+                    
+                    <ApexLineChart date={priceData[0]} standPoorPrice={sAndPPrice}/>
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioOverviewTable assets={stockList} image={image} totalPortfolioValue={totalPortfolioValue}/>
+                    <PortfolioOverviewTable priceData={priceData} assets={stockList} image={image} totalPortfolioValue={totalPortfolioValue}/>
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <RecommendedPosts/>
-                    {/* <SecondApexLineChart/> */}
-                    {/* <ApexHeatChart/> */}
-                    {/* <ApexDonutChart/> */}
-                    {/* <ApexTreeChart/> */}
+
                 </Paper>
             </Grid>
         </Grid>

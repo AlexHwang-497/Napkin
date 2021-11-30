@@ -9,11 +9,12 @@ import { getPortfolio, getPortfoliosBySearch } from '../../../actions/portfolio'
 
 
 
-function PortfolioDetail({currentId,assets,ownership,portfolioName,sector,stockData}) {
+function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,sector,stockData}) {
   
   
   // console.log('this is the ownership in portfolioDetail',ownership)
   let cov = require( 'compute-covariance' );
+  console.log('this is priceData in portfolioDetail',priceData)
   const startDate='2011-11-01'
   const endDate='2021-11-01'
   var Finance = require('financejs');

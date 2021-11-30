@@ -88,21 +88,27 @@ export default function BasicTabs() {
             image:image[i],
             sector:sector[i] 
           }))
-        editDummyStockData(stocks)
-        editStockData(editedStocks.reverse())
+        editDummyStockData(stocks.map((entry)=>entry.results.reverse()))
+        editStockData(editedStocks)
       }))
-  }, [assets]);
+    }, [assets]);
 
-  console.log('this is the stockData ',stockData[0].dates.formated)
-  console.log('this is the dummyStockData ',dummyStockData)
-// ! this is utilized to calculate our proper date range for filtering
-  useEffect(() => {
+
+    useEffect(()=>{
+      // console.log('this is the dummyStockDatasorted ',dummyStockData.map((entry)=>entry.results.reverse()));
+  
+    },[dummyStockData])
+
+
+    // ! this is utilized to calculate our proper date range for filtering
+    useEffect(() => {
+      let aggCompanyDates=[]
+      console.log('this is the dummyStockData ',dummyStockData)
     
-    
-    let aggCompanyDates=[]
     for(let j=0;j<dummyStockData.length;j++){
       let companyDates=[]
-      let historicalDates =dummyStockData[j]?.results?.reverse() || []
+      let historicalDates =dummyStockData[j] || []
+      console.log('this is the historicalDates',historicalDates)
       for(let i=0; i<historicalDates.length;i++){
         companyDates.push(historicalDates[i].formated.split(' ')[0])
       }
@@ -111,11 +117,11 @@ export default function BasicTabs() {
     }
     aggCompanyDates.sort()
     if(aggCompanyDates.length===0) return
-    let dateArrayNeeded = aggCompanyDates[0]
+    let dateArrayNeeded = aggCompanyDates[aggCompanyDates.length-1]
     console.log('aggCompanyDates',aggCompanyDates)
     console.log('dateArrayNeeded',dateArrayNeeded)
     setArrForStartingDate(dateArrayNeeded)
-    let dateNeeded = dateArrayNeeded[dateArrayNeeded.length-1]
+    let dateNeeded = dateArrayNeeded[0]
     console.log('dateNeeded',dateNeeded)
     if(!dateArrayNeeded){
       return
@@ -124,8 +130,8 @@ export default function BasicTabs() {
   }, [stockData,dummyStockData])
   
   // setStartingDate()
-  // console.log('arrForStartingDate',arrForStartingDate)
-  // console.log('startingDate',begDate)
+  console.log('arrForStartingDate',arrForStartingDate)
+  console.log('startingDate',begDate)
   useEffect(()=>{
     // setBegDate(arrForStartingDate[0])
     
@@ -145,23 +151,23 @@ export default function BasicTabs() {
     const start=Date.parse(startingDate)
     const filteredDate=stockData.map((entry)=>entry.dates.filter((s)=>Date.parse(s.formated)>start))
     console.log('filteredDate',filteredDate)
-    // console.log('filteredDates.o',filteredDate.map((arr)=>arr.map((e)=>e.o)))
-    // console.log('filteredDates.formated',filteredDate.map((arr)=>arr.map((e)=>e.formated)))
+    console.log('filteredDates.o',filteredDate.map((arr)=>arr.map((e)=>e.o)))
+    console.log('filteredDates.formated',filteredDate.map((arr)=>arr.map((e)=>e.formated)))
     // const openPrices
     let pricesNeeded=filteredDate.map((arr)=>arr.map((e)=>e.o))
-    let dateRangeNeeded =filteredDate.map((arr)=>arr.map((e)=>e.formated))[0]
+    let dateRangeNeeded =filteredDate.map((arr)=>arr.map((e)=>e.formated.split(' ')[0]))[filteredDate.length-1]
 
-    // console.log('pricesNeeded:',pricesNeeded)
-    // console.log('dateRangeNeeded:',dateRangeNeeded)
+    console.log('pricesNeeded:',pricesNeeded)
+    console.log('dateRangeNeeded:',dateRangeNeeded)
     let finalDataNeeded = [dateRangeNeeded,...pricesNeeded]
-    // console.log('finalDataNeeded:',finalDataNeeded)
+    console.log('finalDataNeeded:',finalDataNeeded)
     setData(finalDataNeeded)
 
 
     // console.log('filteredDate:',filteredDate)
     // return finalFetchedArr.push([arrForStartingDate,filteredDate])
     // console.log('finalFetchedArr:',finalFetchedArr)
-    // console.log('this is the filter/stockData',stockData)    
+    console.log('this is the filter/stockData',stockData)    
   }
   // console.log('this is the stockData[0].dates in postDetailTab',stockData[0].dates)
 
@@ -183,17 +189,17 @@ export default function BasicTabs() {
         
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Holdings stockData={''} image={image} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
+        <Holdings priceData={data} image={image} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
         
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TotalReturn stockData={stockData} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
+        <TotalReturn priceData={data} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <SeasonalAnalysis stockData={stockData} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
+        <SeasonalAnalysis priceData={data} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <StatisticalSummary assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
+        <StatisticalSummary priceData={data} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
       </TabPanel>
     </Box>
   );
