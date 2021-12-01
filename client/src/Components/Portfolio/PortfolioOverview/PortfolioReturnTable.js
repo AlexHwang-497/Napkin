@@ -11,15 +11,17 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-  createData('1yr', 159, 6.0, 24, 4.0),
-  createData('3yr', 237, 9.0, 37, 4.3),
-  createData('5yr', 262, 16.0, 24, 6.0),
-  createData('10yr', 305, 3.7, 67, 4.3),
-  
-];
 
-export default function PortfolioReturnTable() {
+export default function PortfolioReturnTable({annReturn}) {
+  // const rows = [
+  //   createData(...annReturn[0]),
+  //   // createData('3yr', 237, 9.0, 37, 4.3),
+  //   // createData('5yr', 262, 16.0, 24, 6.0),
+  //   // createData('10yr', 305, 3.7, 67, 4.3),
+    
+  // ];
+
+  const rows =annReturn.map((entry,key)=>createData(...entry))
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

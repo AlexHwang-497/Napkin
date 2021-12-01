@@ -32,6 +32,7 @@ Data model:
 // ! arr = results above
 let Finance = require('financejs');  
 let finance = new Finance();
+
 export const OrganizeData = (arr, assets, ownership) => {
   const min = arr.reduce(
     // *this caluclautes the smalles sampling of data
@@ -62,8 +63,8 @@ export const monthlyReturn =(data)=> {
     let firstPrice= asset.dates[asset.dates.length-1].price
     console.log('[monthlyReturn.firstPrice',firstPrice)
     // let arrOfShares=[10000/firstPrice]
-    let shareGrowth=[10000/firstPrice]
-    let investmentValue=[10000]
+    let shareGrowth=[(10000/firstPrice)*asset.ownership/100]
+    let investmentValue=[10000*asset.ownership/100]
     asset.dates.reverse()
     let finalCumulativeReturn=0
     let annualizedReturn=0
@@ -85,7 +86,7 @@ export const monthlyReturn =(data)=> {
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
     }
     let finalInvestmentValue = investmentValue[investmentValue.length-1]
-    finalCumulativeReturn=finalInvestmentValue/10000
+    finalCumulativeReturn=(finalInvestmentValue/10000)
     annualizedReturn=finance.CAGR(10000,finalInvestmentValue,investmentValue.length/12)/100
     
     return {
@@ -94,6 +95,35 @@ export const monthlyReturn =(data)=> {
   })
   return results
 }
+
+export const totalPortfolioValue = (data) => {
+  if(!data || data.length===0 || !data[0].investmentValue) return
+  let aggValue = []
+  let annualizedReturn = 0
+  for(let i=0;i<data.length;i++){
+    console.log('[monthly this is the sliced value',data[i].investmentValue.slice(0,5))
+
+  }
+
+  for(let i=0; i<data[0].investmentValue.length;i++){
+    let sum =0
+    for(let j=0; j<data.length;j++){
+      sum+=data[j].investmentValue[i]
+      
+    }
+    aggValue.push(sum)
+  }
+  
+  console.log('[monthly this is the annualized return in totalportfolioValue',annualizedReturn)
+  return aggValue
+  
+  
+}
+
+export const calculateAnnualizedReturn = (aggValue) =>{
+  return finance.CAGR(aggValue[0],aggValue[aggValue.length-1],aggValue.length/12)/100
+}
+
 
 export const  getStandardDeviation = (data) => {
   // const results = data.map((asset)=>{

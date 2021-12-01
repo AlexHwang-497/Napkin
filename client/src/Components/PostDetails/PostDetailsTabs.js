@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
 import config from "../../StockData/config";
 import { NFLX, TEAM } from "../../Utilities/sampleData";
-import { OrganizeData, monthlyReturn,subSet,getStandardDeviation } from "../../Utilities";
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 
 
 function TabPanel(props) {
@@ -70,6 +70,7 @@ export default function BasicTabs() {
   const [stockData, editStockData] = useState([]);
   const [dummyStockData, editDummyStockData] = useState([]);
   const [data, setData] = useState([]);
+  const [pracData, setPracData] = useState([])
   const startDate = "2011-11-01";
   const endDate = "2021-11-01";
   const apiKey = config.FMP_API_KEY_ID;
@@ -103,15 +104,19 @@ export default function BasicTabs() {
     const fakeOwnership = [50, 30];
     const fakeResults = [NFLX, TEAM];
     const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership);
-    console.log('[monthlyReturn]',monthlyReturn(data))
-    console.log('[monthlyReturn.STD]',getStandardDeviation(data))
+    setPracData(data)
+    // let totalPortfolioValueResults = monthlyReturn(data)
+    // console.log('[monthlyReturn.totalPortfolioValueResults]',totalPortfolioValueResults)
+    // console.log('[monthlyReturn]',monthlyReturn(data))
+    // console.log('[monthlyReturn.totalPortfolioValue]',totalPortfolioValue(totalPortfolioValueResults))
+    // console.log('[monthlyReturn.STD]',getStandardDeviation(data))
     const ytd=subSet(data,'2021-01-01')
     // console.log('[monthlyReturn.ytd]',ytd)
     const startingDat='2020-01-01'
     let arr = []
 
-    const praca=data.map((entry)=>entry.dates.reverse())
-    const filtered = data.map((entry)=>entry.dates.filter((s)=>s.date>'2020-01-01'))
+    // const praca=data.map((entry)=>entry.dates.reverse())
+    // const filtered = data.map((entry)=>entry.dates.filter((s)=>s.date>'2020-01-01'))
   //   const praca =data.map((entry) =>
   //   entry.dates.filter((s) => Date.parse(s.formated) > starting)
   // );
@@ -212,7 +217,7 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         <PortfolioOverview
-          priceData={data}
+          priceData={pracData}
           assets={assets}
           currentId={id}
           ownership={ownership}

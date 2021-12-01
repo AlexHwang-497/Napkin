@@ -22,13 +22,18 @@ import ApexHeatChart from './ApexHeatmap'
 import ApexDonutChart from './apexDoughnutchart'
 import ApexTreeChart from './ApexTreeMap'
 import ApexLineChart from './apexLineChart'
-
+// import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../../Utilities";
 
 
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
-    console.log('this is the pricedata in portfolio Overview',priceData)
+    // console.log('this is the pricedata in portfolio Overview',priceData)
+    // console.log('[prac this is the pricedata in portfolio Overview',priceData)
+    // ! this is making a deep copy
+    // const ttmData = JSON.parse(JSON.stringify(subSet(priceData,'2020-12-01')))
+    // monthlyReturn(ttmData)
+    // console.log('[prac this is the ttmData in portfolio Overview',ttmData)
     
 
     let cov = require( 'compute-covariance' );
