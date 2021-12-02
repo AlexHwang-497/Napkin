@@ -11,7 +11,7 @@ import PostDetails from "./PostDetails";
 import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
 import config from "../../StockData/config";
-import { NFLX, TEAM } from "../../Utilities/sampleData";
+import { NFLX, TEAM, SPY } from "../../Utilities/sampleData";
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 
 
@@ -100,9 +100,9 @@ export default function BasicTabs() {
   // }, [assets]);
 
   useEffect(() => {
-    const fakeAssets = ["NFLX", "TEAM"];
-    const fakeOwnership = [50, 30];
-    const fakeResults = [NFLX, TEAM];
+    const fakeAssets = ['SPY',"NFLX", "TEAM"];
+    const fakeOwnership = [0,50, 30];
+    const fakeResults = [SPY,NFLX, TEAM];
     const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership);
     setPracData(data)
     // let totalPortfolioValueResults = monthlyReturn(data)

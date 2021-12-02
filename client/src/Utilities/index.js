@@ -1,3 +1,4 @@
+import React, { useEffect,useState } from 'react';
 /* Data comes in the following format: 
 {
   symbol: "symbol", //stock symbol
@@ -29,129 +30,156 @@ Data model:
   ] 
 }
 */
+
+
+
+
 // ! arr = results above
-let Finance = require('financejs');  
+let Finance = require("financejs");
 let finance = new Finance();
+let cov = require( 'compute-covariance' );
+
 
 export const OrganizeData = (arr, assets, ownership) => {
+  
   const min = arr.reduce(
     // *this caluclautes the smalles sampling of data
     (acc, entry) => (acc > entry.totalResults ? entry.totalResults : acc),
     Infinity
-    );
-    return arr.map((entry) => {
-      console.log('this is the entry in organizeData',entry)
-      const index = assets.indexOf(entry.symbol);
-      console.log('this is the index in organizeData',index)
-      return {
-        symbol: entry.symbol,
-        ownership: ownership[index],
-        dates: entry.results
+  );
+  return arr.map((entry) => {
+    console.log("this is the entry in organizeData", entry);
+    const index = assets.indexOf(entry.symbol);
+    console.log("this is the index in organizeData", index);
+    return {
+      symbol: entry.symbol,
+      ownership: ownership[index],
+      dates: entry.results
         .map((d) => ({
           price: d.o,
           date: d.formated.split(" ")[0],
         }))
         .slice(0, min),
-      };
-    });
-  };
+    };
+  });
+};
 
-export const monthlyReturn =(data)=> {
+export const monthlyReturn = (data) => {
   // console.log('[this is the data in monthlyReturn',data)
-  const results=data.map((asset)=>{
+  const results = data.map((asset) => {
     // console.log('[monthlyReturn.asset',asset)
-    let firstPrice= asset.dates[asset.dates.length-1].price
-    console.log('[monthlyReturn.firstPrice',firstPrice)
+    let firstPrice = asset.dates[asset.dates.length - 1].price;
+    // console.log("[monthlyReturn.firstPrice", firstPrice);
     // let arrOfShares=[10000/firstPrice]
-    let shareGrowth=[(10000/firstPrice)*asset.ownership/100]
-    let investmentValue=[10000*asset.ownership/100]
-    asset.dates.reverse()
-    let finalCumulativeReturn=0
-    let annualizedReturn=0
+    let shareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
+    let investmentValue = [(10000 * asset.ownership) / 100];
+    asset.dates.reverse();
+    let finalCumulativeReturn = 0;
+    let annualizedReturn = 0;
+    let arrPeriodReturn=[1]
 
-    asset.dates[0].periodReturn=1
+    asset.dates[0].periodReturn = 1;
 
-    for(let i=1;i<asset.dates.length;i++){
-      // 
-      let endingPrice=(asset.dates[i].price/asset.dates[i-1].price)
+    for (let i = 1; i < asset.dates.length; i++) {
+      //
+      let endingPrice = asset.dates[i].price / asset.dates[i - 1].price;
       // *this provides us our daily%/monthly%/annual% cumulative return
-      let timeReturns = (endingPrice-1)
-      asset.dates[i].periodReturn=timeReturns
+      let timeReturns = endingPrice - 1;
+      asset.dates[i].periodReturn = timeReturns;
+      arrPeriodReturn.push(timeReturns)
+
 
       // *creates the shares compounding
-      shareGrowth.push(shareGrowth[i-1]*((1+timeReturns)))
-      
+      shareGrowth.push(shareGrowth[i - 1] * (1 + timeReturns));
+
       // *provides the $10K value of the investment
-      investmentValue.push(shareGrowth[i]*asset.dates[i].price)
+      investmentValue.push(shareGrowth[i] * asset.dates[i].price);
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
     }
-    let finalInvestmentValue = investmentValue[investmentValue.length-1]
-    finalCumulativeReturn=(finalInvestmentValue/10000)
-    annualizedReturn=finance.CAGR(10000,finalInvestmentValue,investmentValue.length/12)/100
-    
+    let finalInvestmentValue = investmentValue[investmentValue.length - 1];
+    finalCumulativeReturn = finalInvestmentValue / 10000;
+    annualizedReturn =
+      finance.CAGR(10000, finalInvestmentValue, investmentValue.length / 12) /
+      100;
+
     return {
-      ...asset, shareGrowth,investmentValue,finalCumulativeReturn,annualizedReturn
-    }
-  })
-  return results
-}
+      ...asset,
+      shareGrowth,
+      investmentValue,
+      finalCumulativeReturn,
+      annualizedReturn,
+      arrPeriodReturn
+    };
+  });
+  return results;
+};
 
 export const totalPortfolioValue = (data) => {
-  if(!data || data.length===0 || !data[0].investmentValue) return
-  let aggValue = []
-  let annualizedReturn = 0
-  for(let i=0;i<data.length;i++){
-    console.log('[monthly this is the sliced value',data[i].investmentValue.slice(0,5))
+  if (!data || data.length === 0 || !data[0].investmentValue) return;
+  let aggValue = [];
+  let annualizedReturn = 0;
 
-  }
-
-  for(let i=0; i<data[0].investmentValue.length;i++){
-    let sum =0
-    for(let j=0; j<data.length;j++){
-      sum+=data[j].investmentValue[i]
-      
+  for (let i = 0; i < data[0].investmentValue.length; i++) {
+    let sum = 0;
+    for (let j = 0; j < data.length; j++) {
+      sum += data[j].investmentValue[i];
     }
-    aggValue.push(sum)
+    aggValue.push(sum);
   }
-  
-  console.log('[monthly this is the annualized return in totalportfolioValue',annualizedReturn)
-  return aggValue
-  
-  
-}
+  return aggValue;
+};
 
-export const calculateAnnualizedReturn = (aggValue) =>{
-  return finance.CAGR(aggValue[0],aggValue[aggValue.length-1],aggValue.length/12)/100
-}
+export const calculateAnnualizedReturn = (aggValue) => {
+  if (!aggValue || aggValue.length === 0) return;
+  return (
+    finance.CAGR(
+      aggValue[0],
+      aggValue[aggValue.length - 1],
+      aggValue.length / 12
+    ) / 100
+  );
+};
 
+export const getStandardDeviation = (data) => {
 
-export const  getStandardDeviation = (data) => {
-  // const results = data.map((asset)=>{
-  //   console.log('[monthlyReturn this si the data in STDDEv',asset.dates.price)
-  //   let n = asset.dates.length
-    console.log('[monthlyReturn this is the n in STdDev',data)
-  //   asset.dates.price.reduce((acc, {price}) => acc += price, 0)
-  //   // console.log('[monthlyReturn this is the mean in STdDev',mean)
-  // })
-  const results = data.map((asset)=>{
-    console.log('[monthlyReturn this is the asset',asset)
-    let sum=asset.dates.reduce((acc, {price}) => acc += price, 0)
-    let n = asset.dates.length
-    let mean = sum/n
-    console.log('[monthlyReturn this is the sum',sum)
-    console.log('[monthlyReturn this is the mean',mean)
-    let stDev= Math.sqrt(asset.dates.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
-    console.log('[monthlyReturn this is the stDev',stDev)
-    
-  })
+  // console.log("[monthlyReturn this is the n in STdDev", data);
+  const results = data.map((asset) => {
+    console.log("[getStdDev this is the asset", asset);
+    let sum = asset.dates.reduce((acc, { price }) => (acc += price), 0);
+    let n = asset.dates.length;
+    let mean = sum / n;
+    // console.log("[monthlyReturn this is the sum", sum);
+    // console.log("[monthlyReturn this is the mean", mean);
+    let stDev = Math.sqrt(
+      asset.dates.map(({price}) => Math.pow(price - mean, 2)).reduce((a, b) => a + b) / n
+    );
+    console.log("[getStdDev this is the stDev", stDev);
+    return stDev;
+  });
+  //Results is an array of standard deviation values for each asset - do we take the avg?
+  return results.reduce((sum, st)=> sum + st, 0) / results.length;
   // const mean = array.reduce((a, b) => a + b) / n
+};
+
+export const calcCovariance = (data) => {
+  if(!data || data.length===0) return;
+  console.log('[calcCovariance: this is the data',data)
+  const result = data.map((entry)=>
+    entry.arrPeriodReturn
+  )
+  
+  console.log('[calcCovariance: this is the spResult',result)
+  let covResult=cov(result[0].slice(1),result[2].slice(1))
+  console.log('[calcCovariance: this is the covResult',covResult)
+
+
 }
 
-export const subSet = (data,minDate) => {
-  return data.map((asset)=>({
+export const subSet = (data, minDate) => {
+  return data.map((asset) => ({
     ...asset,
-    dates:asset.dates.filter(({date})=>Date.parse(date)>=Date.parse(minDate)),
-  }))
-
-}
-
+    dates: asset.dates.filter(
+      ({ date }) => Date.parse(date) >= Date.parse(minDate)
+    ),
+  }));
+};

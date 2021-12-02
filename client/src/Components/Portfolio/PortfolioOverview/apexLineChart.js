@@ -6,12 +6,12 @@ const ApexLineChart = ({date,standPoorPrice}) => {
     console.log('this is the s&p in apex',standPoorPrice)
     const series = [
         {
-            name: 'S&P',
-            data: standPoorPrice,
+            // name: 'S&P',
+            // data: standPoorPrice,
             
         },{
-        //   name: "Page Views",
-        //   data: [3, 14, 26, 24, 13, 18, 29, 30, 36, 15, 33, 37]
+          name: "Page Views",
+          data: [3, 14, 26, 24, 13, 18, 29, 30, 36, 15, 33, 37]
         },
     ]
 
