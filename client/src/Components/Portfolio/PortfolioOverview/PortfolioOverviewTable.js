@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {Fragment, useState,useEffect} from 'react'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -6,31 +6,49 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
+import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
 
-export default function PortfolioOverviewTable({totalPortfolioValue, post}) {
-    // const rows = [
-    //   createData(<img>{post.image[0]}</img>, 159, 6.0, 24, 4.0),
-    //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    //   createData('Eclair', 262, 16.0, 24, 6.0),
-    //   createData('Cupcake', 305, 3.7, 67, 4.3),
-    //   createData('Gingerbread', 356, 16.0, 49, 3.9),
-    // ];
-    // console.log('this is the post',post)
-    // console.log('this is the post.assets',post.assets ||[])
+ function PortfolioOverviewTable({priceData}) {
+   let key = 2
+  const [data,setData] = useState()
+  const dateLabels = ['1yr', '3yr', '5yr'];
+  const dates = dateLabels.map(label => {
+    const yearNumber = parseInt(label.split('yr')[0]);
+    return generateHistoricalDate(yearNumber);
+  });
+  
 
-    console.log('this is the totalportfolio value in portfolioOverviewTable',totalPortfolioValue)
-    // console.log('number of months in portfolioOverviewTable',totalPortfolioValue[0].length)
-    // console.log('this is the totalPortfolioValue[0] cumulative return in portfolioOverviewTable',totalPortfolioValue[0][totalPortfolioValue.length-1]/totalPortfolioValue[0][0]-1)
-    // console.log('annualized return in portfolioOverviewTable',(totalPortfolioValue[0][totalPortfolioValue.length-1]/totalPortfolioValue[0][0]))
-
+  const calculations = dates.map((date, index) => {
+    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     
+    
+    const monReturn = monthlyReturn(range)
+    console.log('[PortfolioOverviewTable.monReturn',monReturn)
+    // const assetCov = calcCovariance(monReturn)
+    return monReturn
+    
+  })
 
+  console.log('[PortfolioOverviewTable.calculations',calculations)
 
+  // const rows = [
+  //   createData(...annReturn[0]),
+  //   // createData('3yr', 237, 9.0, 37, 4.3),
+  //   // createData('5yr', 262, 16.0, 24, 6.0),
+  //   // createData('10yr', 305, 3.7, 67, 4.3),
+    
+  // ];
+  console.log('[PortfolioOverviewTable.pricedata',priceData)
+  // Number.parseFloat(annualizedReturn*100).toPrecision(4)
+
+  // const rows =annReturn.map((entry,key)=>createData(...entry))
+  const rows=calculations.map((entry)=>entry.slice(1))
+  console.log('[PortfolioOverviewTable.rows',rows[0])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -38,29 +56,34 @@ export default function PortfolioOverviewTable({totalPortfolioValue, post}) {
           <TableRow>
             <TableCell></TableCell>
             <TableCell align="right">Symbol</TableCell>
-            <TableCell align="right">Portfolio(%)</TableCell>
-            <TableCell align="right">Cum Return</TableCell>
-            <TableCell align="right">Ann. Return</TableCell>
+            <TableCell align="right">CumReturn(%)</TableCell>
+            <TableCell align="right">AnnReturn(%)</TableCell>
             <TableCell align="right">StdDev</TableCell>
-            <TableCell align="right">Sharpe</TableCell>
-            <TableCell align="right">Alpha</TableCell>
             <TableCell align="right">Beta</TableCell>
+            <TableCell align="right">Alpha</TableCell>
+            
           </TableRow>
         </TableHead>
         <TableBody>
-          {post?.assets && post?.assets.map((asset,i)=>(
-                <TableRow key={i}>
-                    <TableCell><img src={post.image[i]} style={{height:'30px',width:'30px'}}/></TableCell>
-                    <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
-                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
-                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
-                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
-                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}</TableCell>
-                    <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}</TableCell>
-                </TableRow>
-            ))}
+          {rows[key].map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              {/* <TableCell><img src={row.images} style={{height:'30px',width:'30px'}}/></TableCell> */}
+              <TableCell component="th" scope="row" ><img src={row.images} style={{height:'30px',width:'30px'}}/></TableCell>
+              <TableCell align="right">{row.symbol}</TableCell>
+              <TableCell align="right">{Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)}%</TableCell>
+              <TableCell align="right">{Number.parseFloat(row.annualizedReturn).toPrecision(4)}%</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.carbs}</TableCell>
+            
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
+export default PortfolioOverviewTable

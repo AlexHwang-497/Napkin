@@ -39,14 +39,6 @@ function createReturnsTableData(year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,no
     return { year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec };
   }
   
-  
-  // const rows = [
-    
-  //   // createReturnsTableData('2019', 6, 6.0, 2, 4.0, 6, 6.0, 2, 4.0, 6, 6.0, 2, 4.0),
-  //   // createReturnsTableData('2020', 2,3,7, 9,0, 3,7, 4,3,1,4,5),
-  //   // createReturnsTableData('2021', 2,3,7, 9,0, 3,7, 4,3,1,4,5),
-    
-  // ];
   export default function ReturnsTable({data=[[]]}) {
     console.log('this is the data in returnsTable',data)
     const tableObject=data

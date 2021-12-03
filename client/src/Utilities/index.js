@@ -40,7 +40,7 @@ let finance = new Finance();
 let cov = require( 'compute-covariance' );
 
 
-export const OrganizeData = (arr, assets, ownership) => {
+export const OrganizeData = (arr, assets, ownership,images,sector) => {
   
   const min = arr.reduce(
     // *this caluclautes the smalles sampling of data
@@ -54,6 +54,8 @@ export const OrganizeData = (arr, assets, ownership) => {
     return {
       symbol: entry.symbol,
       ownership: ownership[index],
+      images:images[index],
+      sector:sector[index],
       dates: entry.results
         .map((d) => ({
           price: d.o,
@@ -69,10 +71,13 @@ export const monthlyReturn = (data) => {
   const results = data.map((asset) => {
     // console.log('[monthlyReturn.asset',asset)
     let firstPrice = asset.dates[asset.dates.length - 1].price;
-    // console.log("[monthlyReturn.firstPrice", firstPrice);
-    // let arrOfShares=[10000/firstPrice]
-    let shareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
-    let investmentValue = [(10000 * asset.ownership) / 100];
+    
+    let portoflioShareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
+    // let securityShareGrowth = [((10000 / firstPrice)  / 100];
+    // let shareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
+    let securityShareGrowth = [10000 / firstPrice];
+    let securityGrowthValue = [10000]
+    let portfolioValue = [(10000 * asset.ownership) / 100];
     asset.dates.reverse();
     let finalCumulativeReturn = 0;
     let annualizedReturn = 0;
@@ -90,39 +95,41 @@ export const monthlyReturn = (data) => {
 
 
       // *creates the shares compounding
-      shareGrowth.push(shareGrowth[i - 1] * (1 + timeReturns));
+      portoflioShareGrowth.push(portoflioShareGrowth[i - 1] * (1 + timeReturns));
+      securityShareGrowth.push(securityShareGrowth[i - 1] * (1 + timeReturns));
 
       // *provides the $10K value of the investment
-      investmentValue.push(shareGrowth[i] * asset.dates[i].price);
+      portfolioValue.push(portoflioShareGrowth[i] * asset.dates[i].price);
+      securityGrowthValue.push(securityShareGrowth[i]*asset.dates[i].price)
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
     }
-    let finalInvestmentValue = investmentValue[investmentValue.length - 1];
-    finalCumulativeReturn = finalInvestmentValue / 10000;
+    let finalportfolioValue = portfolioValue[portfolioValue.length - 1];
+    finalCumulativeReturn = finalportfolioValue / 10000;
     annualizedReturn =
-      finance.CAGR(10000, finalInvestmentValue, investmentValue.length / 12) /
-      100;
+      finance.CAGR(10000, finalportfolioValue, portfolioValue.length / 12) ;
 
     return {
       ...asset,
-      shareGrowth,
-      investmentValue,
+      portoflioShareGrowth,
+      portfolioValue,
       finalCumulativeReturn,
       annualizedReturn,
-      arrPeriodReturn
+      arrPeriodReturn,
+      securityGrowthValue
     };
   });
   return results;
 };
 
 export const totalPortfolioValue = (data) => {
-  if (!data || data.length === 0 || !data[0].investmentValue) return;
+  if (!data || data.length === 0 || !data[0].portfolioValue) return;
   let aggValue = [];
   let annualizedReturn = 0;
 
-  for (let i = 0; i < data[0].investmentValue.length; i++) {
+  for (let i = 0; i < data[0].portfolioValue.length; i++) {
     let sum = 0;
     for (let j = 0; j < data.length; j++) {
-      sum += data[j].investmentValue[i];
+      sum += data[j].portfolioValue[i];
     }
     aggValue.push(sum);
   }

@@ -43,7 +43,7 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
     const monReturn = monthlyReturn(range)
     const assetCov = calcCovariance(monReturn)
     // return [dateLabels[index], annualizedReturn, standardDeviation, 24]
-    return [dateLabels[index], Number.parseFloat(annualizedReturn).toPrecision(4), Number.parseFloat(standardDeviation).toPrecision(2), 24]
+    return [dateLabels[index], Number.parseFloat(annualizedReturn*100).toPrecision(4), Number.parseFloat(standardDeviation).toPrecision(2), 24]
     // return [dateLabels[index], annualizedReturn.toFixed(2), standardDeviation.toFixed(2), 24]
   })
   let cov = require( 'compute-covariance' );

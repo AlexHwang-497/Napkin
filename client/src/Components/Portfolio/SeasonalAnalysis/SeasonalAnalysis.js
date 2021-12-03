@@ -6,8 +6,9 @@ import ReturnsTable from './ReturnsTable'
 import React, {useEffect, useState} from 'react';
 import config from '../../../StockData/config'
 import { useDispatch, useSelector } from "react-redux"
+import SeasonalBarChart from './SeasonalBarChart'
 
-function SeasonalAnalysis({assets,ownership,portfolioName,title}) {
+function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
     var finance = new Finance();
@@ -145,7 +146,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title}) {
         <Grid container >
         <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                <VerticalBar/>
+            <SeasonalBarChart priceData={priceData}/>
             </Paper>
         </Grid>
         <Grid item xs={6} >

@@ -2,23 +2,23 @@ import React, {useState,useEffect,Fragment} from "react";
 import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-const ApexTreeMap = ({priceData}) => {
+const SeasonalBarChart = ({priceData}) => {
   
     const dateLabels = ['1yr', '3yr', '5yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
     });
-    console.log('[ApexTreeChart.dates',dates)
+    console.log('[ApexBarChart.dates',dates)
 
     const calculations = dates.map((date, index) => {
-        console.log('[ApexTreeChart.calculations.date',date)
+        console.log('[ApexBarChart.calculations.date',date)
 
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const monReturn = monthlyReturn(range)
-    console.log('[ApexTreeChart.calculations.monReturn',monReturn)
+    console.log('[ApexBarChart.calculations.monReturn',monReturn)
     const dataNeeded = monReturn.map((entry)=>entry.securityGrowthValue)
-    console.log('[ApexTreeChart.calculations.dataNeeded',dataNeeded)
+    console.log('[ApexBarChart.calculations.dataNeeded',dataNeeded)
     return dataNeeded
     // return dateArr
     
@@ -26,18 +26,18 @@ const ApexTreeMap = ({priceData}) => {
     const monthlyDataData = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const monReturn = monthlyReturn(range)
-    console.log('[ApexTreeChart.monthlyData.monReturn.entry',monReturn.map((entry)=>entry))
-    console.log('[ApexTreeChart.monthlyData.monReturn',monReturn.map((entry)=>{return {'x':entry.symbol,'y':entry.portfolioValue[entry.portfolioValue.length-1]}}))
+    console.log('[ApexBarChart.monthlyData.monReturn.entry',monReturn.map((entry)=>entry))
+    console.log('[ApexBarChart.monthlyData.monReturn',monReturn.map((entry)=>{return {'x':entry.symbol,'y':entry.portfolioValue[entry.portfolioValue.length-1]}}))
     return monReturn.map((entry)=>{return {'x':entry.symbol,'y':entry.portfolioValue[entry.portfolioValue.length-1]}})
     
     
   })
-  console.log('[ApexTreeChart.monthlyData.monthlyDataData.final',monthlyDataData[0].slice(1))
+  console.log('[ApexBarChart.monthlyData.monthlyDataData.final',monthlyDataData[0].slice(1))
 
   
-  // console.log('[ApexTreeChart.monthlyData.symbol',monthlyDataData[0].map((entry)=>entry.symbol))
+  // console.log('[ApexBarChart.monthlyData.symbol',monthlyDataData[0].map((entry)=>entry.symbol))
   // const symbolNeeded=monthlyDataData[0].map((entry)=>entry.symbol).slice(1)
-  // console.log('[ApexTreeChart.monthlyData.entry',monthlyDataData[0].map((entry)=>entry.portfolioValue[entry.portfolioValue.length-1]).slice(1))
+  // console.log('[ApexBarChart.monthlyData.entry',monthlyDataData[0].map((entry)=>entry.portfolioValue[entry.portfolioValue.length-1]).slice(1))
   // const values = monthlyDataData[0].map((entry)=>entry.portfolioValue[entry.portfolioValue.length-1]).slice(1)
     
     const series = [
@@ -97,7 +97,7 @@ const ApexTreeMap = ({priceData}) => {
     
     return(
       <Fragment>
-        <Chart options={options} series={series} type="treemap" height={400} />
+        <Chart options={options} series={series} type="bar" height={400} />
         
 
       </Fragment>
@@ -105,7 +105,7 @@ const ApexTreeMap = ({priceData}) => {
     )
 }
 
-export default ApexTreeMap
+export default SeasonalBarChart
 
 //   data:[
       //     {

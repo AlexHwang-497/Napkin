@@ -22,8 +22,8 @@ import ApexHeatChart from './ApexHeatmap'
 import ApexDonutChart from './apexDoughnutchart'
 import ApexTreeChart from './ApexTreeMap'
 import ApexLineChart from './apexLineChart'
-// import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../../Utilities";
-
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../../Utilities";
+import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
@@ -60,6 +60,11 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const yearRange = ['2019','2020','2021']
 
 console.log('this is the labels',labels)
+const dateLabels = ['1yr', '3yr', '5yr'];
+const dates = dateLabels.map(label => {
+    const yearNumber = parseInt(label.split('yr')[0]);
+    return generateHistoricalDate(yearNumber);
+});
 
     return (
         <Grid container >
@@ -74,13 +79,13 @@ console.log('this is the labels',labels)
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             {/*  this will need the portfolio' aggreagte value*/}
                     
-                    <ApexLineChart date={priceData[0]} standPoorPrice={sAndPPrice}/>
+                    <ApexLineChart priceData={priceData} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioOverviewTable priceData={priceData} assets={stockList} image={image} totalPortfolioValue={totalPortfolioValue}/>
+                    <PortfolioOverviewTable priceData={priceData} assets={stockList} image={image} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >

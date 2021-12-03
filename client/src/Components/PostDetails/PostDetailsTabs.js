@@ -101,9 +101,12 @@ export default function BasicTabs() {
 
   useEffect(() => {
     const fakeAssets = ['SPY',"NFLX", "TEAM"];
-    const fakeOwnership = [0,50, 30];
+    const fakeOwnership = [0,50, 40];
     const fakeResults = [SPY,NFLX, TEAM];
-    const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership);
+    const fakeImages = ["https://financialmodelingprep.com/image-stock/SPY.png","https://financialmodelingprep.com/image-stock/NFLX.png","https://financialmodelingprep.com/image-stock/TEAM.png"]
+    const fakeSector = ['INDEX','Communication Services','Technology']
+    
+    const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership,fakeImages,fakeSector);
     setPracData(data)
     // let totalPortfolioValueResults = monthlyReturn(data)
     // console.log('[monthlyReturn.totalPortfolioValueResults]',totalPortfolioValueResults)
@@ -228,6 +231,7 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Holdings
+          priceData={pracData}
           stockData={""}
           image={image}
           assets={assets}
@@ -239,6 +243,7 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <TotalReturn
+          priceData={pracData}
           stockData={stockData}
           assets={assets}
           currentId={id}
@@ -248,6 +253,7 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <SeasonalAnalysis
+          priceData={pracData}
           stockData={stockData}
           assets={assets}
           currentId={id}

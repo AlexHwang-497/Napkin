@@ -16,22 +16,17 @@ const ApexLineChart = ({priceData}) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const monReturn = monthlyReturn(range)
     console.log('[ApexLineChart.calculations.monReturn',monReturn)
-    const dataNeeded = monReturn.map((entry)=>entry.securityGrowthValue)
-    console.log('[ApexLineChart.calculations.dataNeeded',dataNeeded)
-    return dataNeeded
+    const dateArr = monReturn.map((entry)=>entry.dates.map((el)=>el.date))
+    return dateArr
     // return dateArr
+    // console.log('[ApexLineChart.calculations.dateArr',dateArr)
     
   })
-  console.log('[ApexLineChart.calculations',calculations)
-  console.log('[ApexLineChart.calculations.spx',calculations[0][0])
-  console.log('[ApexLineChart.calculations.nflx',calculations[0][1])
-  console.log('[ApexLineChart.calculations.team',calculations[0][2])
 
   const datesNeeded=dates.map((date,index)=>{
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const dateArr=monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))
     // console.log('[ApexLineChart.datesNeeded.dateArr',dateArr)
-    
     return dateArr[0]
   })
 
@@ -43,19 +38,15 @@ const ApexLineChart = ({priceData}) => {
     
     const series = [
         {
-          name: "S&P",
-          data: calculations[0][0]
-        },
-        {
-          name: "NFLX",
-          data: calculations[0][1]
-        },
-        {
-          name: "TEAM",
-          data: calculations[0][2]
+            // name: 'S&P',
+            // data: standPoorPrice,
+            
+        },{
+          name: "Page Views",
+          data: [3, 14, 26, 24, 13, 18, 29, 30, 36, 15, 33, 37]
         },
     ]
-    
+
     const options = {
         chart: {
             height: 350,
@@ -69,10 +60,10 @@ const ApexLineChart = ({priceData}) => {
                 opacity: 0.2,
             },
             toolbar: {
-                autoSelected: 'zoom'
+              autoSelected: 'zoom'
             },
         },
-        colors: ['#5d78ff', '#fbaf0f','#acaf0f'],
+        colors: ['#5d78ff', '#fbaf0f'],
         dataLabels: {
             enabled: false,
         },
@@ -87,8 +78,8 @@ const ApexLineChart = ({priceData}) => {
         grid: {
             borderColor: "#fff",
             row: {
-                colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-                opacity: 0.5,
+              colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+              opacity: 0.5,
             },
         },
         markers: {
@@ -98,7 +89,7 @@ const ApexLineChart = ({priceData}) => {
             },
         },
         xaxis: {
-            categories:  datesNeeded[0],
+            categories: datesNeeded[0],
             title: {
                 text: 'YTD',
             },
@@ -113,8 +104,8 @@ const ApexLineChart = ({priceData}) => {
             axisBorder: {
                 show: true,
             },
-            min: 8000,
-            max: 42000,
+            min: 5,
+            max: 500,
         },
         legend: {
             position: 'top',
@@ -126,15 +117,8 @@ const ApexLineChart = ({priceData}) => {
     }
     
     
-    
+
     return <Chart options={options} series={series} type="line" height={400} />
 }
 
 export default ApexLineChart
-
-// const series = [
-//     {
-//       name: "Page Views",
-//       data: [10000, 20000, 26, 24, 13, 18, 29, 30, 36, 15, 33, 37]
-//     },
-// ]
