@@ -21,6 +21,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     const [stockWeight,setStockWeight]=useState([...ownership] || [0])
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     // const [aggPortfolio,setAggPortfolio]=useState([])
+    const [returnsTableData,setReturnsTableData] = useState([])
   
     const [labels,setLabels]=useState([])
     const [data,setData]=useState([])
@@ -203,22 +204,24 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
         console.log('[seasonalAnalysis.totalPortoflioValue',totalPortoflioValue)
         console.log('[seasonalAnalysis.totalPortoflioValueReturn.final',totalPortoflioValueReturn[2])
         const tableReturnsData = [dateArr[2],totalPortoflioValueReturn[2]]
-        function finalTableOrg  (tableReturnsData) {
-            
+
+
+        const  finalTableOrg = (tableReturnsData)=> {
             let result=[]
             for(let i=0;i<tableReturnsData[0].length;i++){
                 result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})
-                // console.log('[seasonalAnalysis.finalTableOrg.result',result)
             }
-            
+            console.log('[seasonalAnalysis.finalTableOrg.result',result)
             return result
+            
         }
-        
+        finalTableOrg(tableReturnsData)
         
 
         
     
         console.log('[seasonalAnalysis.tableReturnsData',tableReturnsData)
+        console.log('[seasonalAnalysis.finalTableOrg',finalTableOrg)
         
         const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
 
