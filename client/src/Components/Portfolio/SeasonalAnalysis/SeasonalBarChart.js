@@ -3,123 +3,111 @@ import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 const SeasonalBarChart = ({priceData}) => {
-  
     const dateLabels = ['1yr', '3yr', '5yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
     });
-    console.log('[ApexBarChart.dates',dates)
+    console.log('[ApexLineChart.dates',dates)
 
     const calculations = dates.map((date, index) => {
-        console.log('[ApexBarChart.calculations.date',date)
+        console.log('[ApexLineChart.calculations.date',date)
 
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const monReturn = monthlyReturn(range)
-    console.log('[ApexBarChart.calculations.monReturn',monReturn)
+    console.log('[ApexLineChart.calculations.monReturn',monReturn)
     const dataNeeded = monReturn.map((entry)=>entry.securityGrowthValue)
-    console.log('[ApexBarChart.calculations.dataNeeded',dataNeeded)
+    console.log('[ApexLineChart.calculations.dataNeeded',dataNeeded)
     return dataNeeded
     // return dateArr
     
   })
-    const monthlyDataData = dates.map((date, index) => {
-    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-    const monReturn = monthlyReturn(range)
-    console.log('[ApexBarChart.monthlyData.monReturn.entry',monReturn.map((entry)=>entry))
-    console.log('[ApexBarChart.monthlyData.monReturn',monReturn.map((entry)=>{return {'x':entry.symbol,'y':entry.portfolioValue[entry.portfolioValue.length-1]}}))
-    return monReturn.map((entry)=>{return {'x':entry.symbol,'y':entry.portfolioValue[entry.portfolioValue.length-1]}})
-    
-    
-  })
-  console.log('[ApexBarChart.monthlyData.monthlyDataData.final',monthlyDataData[0].slice(1))
+  console.log('[ApexLineChart.calculations',calculations)
+  console.log('[ApexLineChart.calculations.spx',calculations[0][0])
+  console.log('[ApexLineChart.calculations.nflx',calculations[0][1])
+  console.log('[ApexLineChart.calculations.team',calculations[0][2])
 
-  
-  // console.log('[ApexBarChart.monthlyData.symbol',monthlyDataData[0].map((entry)=>entry.symbol))
-  // const symbolNeeded=monthlyDataData[0].map((entry)=>entry.symbol).slice(1)
-  // console.log('[ApexBarChart.monthlyData.entry',monthlyDataData[0].map((entry)=>entry.portfolioValue[entry.portfolioValue.length-1]).slice(1))
-  // const values = monthlyDataData[0].map((entry)=>entry.portfolioValue[entry.portfolioValue.length-1]).slice(1)
+  const datesNeeded=dates.map((date,index)=>{
+    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+    const dateArr=monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))
+    // console.log('[ApexLineChart.datesNeeded.dateArr',dateArr)
+    
+    return dateArr[0]
+  })
+
+    console.log('[ApexLineChart.datesNeeded',datesNeeded[0])
+
+
+    // console.log('[ApexLineChart.calculations--',calculations)
+//     console.log('[ApexLineChart.priceData in apex',priceData)
     
     const series = [
-      {
-        data:monthlyDataData[0].slice(1)
-      }
-      
         
+        {
+        name: 'Cash Flow',
+        data: [1.45, 5.42, 5.9, -0.42, -12.6, -18.1, -18.2, -14.16, -11.1, -6.09, 0.34, 3.88, 13.07,
+          5.8, 2, 7.37, 8.1, 13.57, 15.75, 17.1, 19.8, -27.03, -54.4, -47.2, -43.3, -18.6, -
+          48.6, -41.1, -39.6, -37.6, -29.4, -21.4, -2.4
+        ]
+        },
     ]
     
     const options = {
-      legend: {
-        show: false
-      },
       chart: {
-        height: 350,
-        type: 'treemap'
-      },
-      title: {
-        text: 'Current Portfolio'
-      },
-      dataLabels: {
-        enabled: true,
-        style: {
-          fontSize: '12px',
-        },
-        formatter: function(text, op) {
-          return [text, op.value]
-        },
-        offsetY: -4
+        type: 'bar',
+        height: 350
       },
       plotOptions: {
-        treemap: {
-          enableShades: true,
-          shadeIntensity: 0.5,
-          reverseNegativeShade: true,
-          distributed: true,
-          colorScale: {
-            ranges: [
-              {
-                from: -6,
-                to: 10000,
-                color: '#CD363A'
-              },
-              {
-                from: 10000.5,
-                to: 1000000,
-                color: '#52B12C'
-              }
-            ]
+        bar: {
+          colors: {
+            ranges: [{
+              from: -100,
+              to: -46,
+              color: '#F15B46'
+            }, {
+              from: -45,
+              to: 0,
+              color: '#FEB019'
+            }]
+          },
+          columnWidth: '80%',
+        }
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      yaxis: {
+        title: {
+          text: 'Growth',
+        },
+        labels: {
+          formatter: function (y) {
+            return y.toFixed(0) + "%";
           }
+        }
+      },
+      xaxis: {
+        type: 'datetime',
+        categories: [
+          '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01', '2011-05-01', '2011-06-01',
+          '2011-07-01', '2011-08-01', '2011-09-01', '2011-10-01', '2011-11-01', '2011-12-01',
+          '2012-01-01', '2012-02-01', '2012-03-01', '2012-04-01', '2012-05-01', '2012-06-01',
+          '2012-07-01', '2012-08-01', '2012-09-01', '2012-10-01', '2012-11-01', '2012-12-01',
+          '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01',
+          '2013-07-01', '2013-08-01', '2013-09-01'
+        ],
+        labels: {
+          rotate: -90
         }
       }
     }
     
-    
-    
-    return(
+    return (
       <Fragment>
         <Chart options={options} series={series} type="bar" height={400} />
-        
-
       </Fragment>
-      
     )
+
 }
 
 export default SeasonalBarChart
-
-//   data:[
-      //     {
-      //       x:'new Delhi',
-      //       y:218,
-      //     },
-      //     {
-      //       x:'new york',
-      //       y:100,
-      //     },
-      //     {
-      //       x:'los Angels',
-      //       y:100,
-      //     },
-      //   ]
-      
-      // }
