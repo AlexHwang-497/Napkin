@@ -101,7 +101,7 @@ export default function BasicTabs() {
 
   useEffect(() => {
     const fakeAssets = ['SPY',"NFLX", "TEAM"];
-    const fakeOwnership = [0,50, 40];
+    const fakeOwnership = [0,60, 40];
     const fakeResults = [SPY,NFLX, TEAM];
     const fakeImages = ["https://financialmodelingprep.com/image-stock/SPY.png","https://financialmodelingprep.com/image-stock/NFLX.png","https://financialmodelingprep.com/image-stock/TEAM.png"]
     const fakeSector = ['INDEX','Communication Services','Technology']

@@ -102,12 +102,13 @@ export const monthlyReturn = (data) => {
       portfolioValue.push(portoflioShareGrowth[i] * asset.dates[i].price);
       securityGrowthValue.push(securityShareGrowth[i]*asset.dates[i].price)
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
+      // Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)
     }
     let finalportfolioValue = portfolioValue[portfolioValue.length - 1];
     finalCumulativeReturn = finalportfolioValue / 10000;
     annualizedReturn =
       finance.CAGR(10000, finalportfolioValue, portfolioValue.length / 12) ;
-
+    
     return {
       ...asset,
       portoflioShareGrowth,
@@ -115,13 +116,27 @@ export const monthlyReturn = (data) => {
       finalCumulativeReturn,
       annualizedReturn,
       arrPeriodReturn,
-      securityGrowthValue
+      securityGrowthValue,
     };
   });
   return results;
 };
 
 export const totalPortfolioValue = (data) => {
+  if (!data || data.length === 0 || !data[0].portfolioValue) return;
+  let aggValue = [];
+  let annualizedReturn = 0;
+
+  for (let i = 0; i < data[0].portfolioValue.length; i++) {
+    let sum = 0;
+    for (let j = 0; j < data.length; j++) {
+      sum += data[j].portfolioValue[i];
+    }
+    aggValue.push(sum);
+  }
+  return aggValue;
+};
+export const totalPortfolioValueReturns = (data) => {
   if (!data || data.length === 0 || !data[0].portfolioValue) return;
   let aggValue = [];
   let annualizedReturn = 0;

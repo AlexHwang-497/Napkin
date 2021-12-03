@@ -24,7 +24,7 @@ import ApexTreeChart from './ApexTreeMap'
 import ApexLineChart from './apexLineChart'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-
+import TRLineChart from '../Charts/TotalReturnLine'
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -44,7 +44,7 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     
     const [stockWeight,setStockWeight]=useState(ownership || [])
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
-    const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
+    // const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
     const [sAndPPrice,setSAndPPrice]=useState(priceData[1])
     const [ytd,setYtd]=useState()
     console.log('this is the S&P',sAndPPrice)
@@ -61,10 +61,36 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
 
 console.log('this is the labels',labels)
 const dateLabels = ['1yr', '3yr', '5yr'];
-const dates = dateLabels.map(label => {
-    const yearNumber = parseInt(label.split('yr')[0]);
-    return generateHistoricalDate(yearNumber);
-});
+    const dates = dateLabels.map(label => {
+        const yearNumber = parseInt(label.split('yr')[0]);
+        return generateHistoricalDate(yearNumber);
+    });
+    console.log('[ApexLineChart.dates',dates)
+
+  
+    const spxValue = dates.map((date, index) => {
+        const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+        const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
+        console.log('[TotalReturn.spxValue.monReturn',data)
+        return data
+    })
+    const totalPortoflioValue = dates.map((date, index) => {
+        console.log('[TotalReturn.calculations.date',date)
+    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+    const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
+    console.log('[TotalReturn.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
+    return aggPortfolioValue
+    
+  })
+    const dateArr = dates.map((date, index) => {
+        console.log('[TotalReturn.calculations.date',date)
+    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+    const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
+    console.log('[TotalReturn.dateArr.data',data)
+    return data
+    
+  })
+  const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
 
     return (
         <Grid container >
@@ -79,7 +105,7 @@ const dates = dateLabels.map(label => {
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             {/*  this will need the portfolio' aggreagte value*/}
                     
-                    <ApexLineChart priceData={priceData} />
+                <TRLineChart priceData={ytdData} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >

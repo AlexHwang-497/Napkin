@@ -1,6 +1,6 @@
 import React, {useState,useEffect,Fragment} from "react";
 import Chart from 'react-apexcharts'
-import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance,totalPortfolioValueReturns } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 const SeasonalBarChart = ({priceData}) => {
     const dateLabels = ['1yr', '3yr', '5yr'];
@@ -11,21 +11,19 @@ const SeasonalBarChart = ({priceData}) => {
     console.log('[ApexLineChart.dates',dates)
 
     const calculations = dates.map((date, index) => {
-        console.log('[ApexLineChart.calculations.date',date)
+        console.log('[SeasonalBarChart.calculations.date',date)
 
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-    const monReturn = monthlyReturn(range)
-    console.log('[ApexLineChart.calculations.monReturn',monReturn)
-    const dataNeeded = monReturn.map((entry)=>entry.securityGrowthValue)
-    console.log('[ApexLineChart.calculations.dataNeeded',dataNeeded)
-    return dataNeeded
+    const months = monthlyReturn(range)
+    console.log('[SeasonalBarChart.calculations.months',months)
+    const totalPortfolio = totalPortfolioValueReturns(monthlyReturn(range))
+    // console.log('[SeasonalBarChart.calculations.annualizedReturn',annualizedReturn)
+    console.log('[SeasonalBarChart.calculations.totalPortfolio',totalPortfolio)
+    
     // return dateArr
     
   })
-  console.log('[ApexLineChart.calculations',calculations)
-  console.log('[ApexLineChart.calculations.spx',calculations[0][0])
-  console.log('[ApexLineChart.calculations.nflx',calculations[0][1])
-  console.log('[ApexLineChart.calculations.team',calculations[0][2])
+  
 
   const datesNeeded=dates.map((date,index)=>{
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -35,11 +33,7 @@ const SeasonalBarChart = ({priceData}) => {
     return dateArr[0]
   })
 
-    console.log('[ApexLineChart.datesNeeded',datesNeeded[0])
-
-
-    // console.log('[ApexLineChart.calculations--',calculations)
-//     console.log('[ApexLineChart.priceData in apex',priceData)
+    
     
     const series = [
         

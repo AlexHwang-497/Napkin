@@ -12,6 +12,7 @@ import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import LineGraph from './Charts/LineGraph';
+import ApexLineChart from '../Portfolio/PortfolioOverview/apexLineChart'
 // import { deletePost, likePost } from '../../actions/posts';
 import { deletePortfolio, likePortfolio } from '../../actions/portfolio';
 

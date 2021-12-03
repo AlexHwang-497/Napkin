@@ -28,13 +28,13 @@ const organizeByYear=(arr) => {
     // console.log('this is the arr in organizeByYear',arr[i])
 
     let currentMonth = arr[i].date.split('-')[1]
-    obj[monthMap[currentMonth]]=arr[i].cumReturn
+    obj[monthMap[currentMonth]]=Number.parseFloat(arr[i].cumReturn*100).toPrecision(2)+'%'
   }
   console.log('this is obj of Organizebyyear',obj)
   return obj
 
 }
-
+// Number.parseFloat(annualizedReturn*100).toPrecision(4)
 function createReturnsTableData(year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec) {
     return { year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec };
   }
