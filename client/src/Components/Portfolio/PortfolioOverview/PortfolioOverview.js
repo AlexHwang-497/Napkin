@@ -103,9 +103,9 @@ const dateLabels = ['1yr', '3yr', '5yr'];
             </Grid>
             <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-            {/*  this will need the portfolio' aggreagte value*/}
+                {/*  this will need the portfolio' aggreagte value*/}
                     
-                <TRLineChart priceData={ytdData} />
+                {/* <TRLineChart priceData={ytdData} /> */}
                 </Paper>
             </Grid>
             <Grid item xs={6} >

@@ -40,6 +40,7 @@ let finance = new Finance();
 let cov = require( 'compute-covariance' );
 
 
+
 export const OrganizeData = (arr, assets, ownership,images,sector) => {
   
   const min = arr.reduce(
@@ -126,29 +127,43 @@ export const totalPortfolioValue = (data) => {
   if (!data || data.length === 0 || !data[0].portfolioValue) return;
   let aggValue = [];
   let annualizedReturn = 0;
+  // console.log('[index',data)
 
   for (let i = 0; i < data[0].portfolioValue.length; i++) {
     let sum = 0;
     for (let j = 0; j < data.length; j++) {
       sum += data[j].portfolioValue[i];
+      // console.log('[index.sum',sum)
     }
     aggValue.push(sum);
+    // console.log('[index.aggValue',aggValue,'[index.sum',sum)
   }
   return aggValue;
 };
 export const totalPortfolioValueReturns = (data) => {
   if (!data || data.length === 0 || !data[0].portfolioValue) return;
   let aggValue = [];
-  let annualizedReturn = 0;
-
+  let arrCumReturn = [1];
+  let cumReturn=0 
+  // console.log('[index.totalPortfolioValueReturns.data',data)
   for (let i = 0; i < data[0].portfolioValue.length; i++) {
     let sum = 0;
     for (let j = 0; j < data.length; j++) {
       sum += data[j].portfolioValue[i];
+      let cumReturn = data[j]/data[j-1]
     }
+    arrCumReturn.push(cumReturn)
     aggValue.push(sum);
+    
+    console.log('[index.totalPortfolioValueReturns.aggValue',aggValue)
+    console.log('[index.totalPortfolioValueReturns.arrCumReturn',arrCumReturn)
   }
+  // console.log('agg')
   return aggValue;
+  
+
+
+  
 };
 
 export const calculateAnnualizedReturn = (aggValue) => {
