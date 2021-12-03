@@ -29,7 +29,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     const [ndx,setNdx]=useState([])
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
-    const yearRange = ['2019','2020','2021']
+    const yearRange = ['2014','2015','2016','2017','2018','2019','2020','2021']
 
     useEffect(() => {
         Promise.all(
@@ -212,18 +212,24 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
                 result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})
             }
             console.log('[seasonalAnalysis.finalTableOrg.result',result)
-            return result
+            // return result
+
+            const dataNeeded = yearRange.map((year)=>(
+                result.filter((entry)=>entry.date.includes(year))
+            ))
+            console.log('[seasonalAnalysis.finalTableOrg.dataNeeded',dataNeeded)
             
         }
         finalTableOrg(tableReturnsData)
-        
+        const dataNeeded =finalTableOrg(tableReturnsData)
+        console.log('[seasonalAnalysis.dataneeded',dataNeeded)
 
         
     
         console.log('[seasonalAnalysis.tableReturnsData',tableReturnsData)
-        console.log('[seasonalAnalysis.finalTableOrg',finalTableOrg)
         
         const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
+        console.log('[seasonalAnalysis.finalTableOrg',finalTableOrg)
 
     return (
         <Grid container >
