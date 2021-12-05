@@ -96,6 +96,11 @@ const TRLineChart = ({priceData}) => {
             },
             min: minValue,
             max: maxValue,
+            labels: {
+                formatter: function (y) {
+                  return '$'+y.toFixed(1);
+                }
+              }
         },
         legend: {
             position: 'top',

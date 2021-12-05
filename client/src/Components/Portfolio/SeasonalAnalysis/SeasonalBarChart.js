@@ -13,7 +13,7 @@ const SeasonalBarChart = ({data}) => {
     const series = [
         
         {
-        name: 'Cash Flow',
+        name: 'Return %',
         data: valuesArr
         },
     ]
@@ -36,7 +36,7 @@ const SeasonalBarChart = ({data}) => {
               color: '#FEB019'
             }]
           },
-          columnWidth: '80%',
+          columnWidth: '90%',
         }
       },
       dataLabels: {
@@ -48,7 +48,7 @@ const SeasonalBarChart = ({data}) => {
         },
         labels: {
           formatter: function (y) {
-            return y.toFixed(0) + "%";
+            return y.toFixed(2)*100 + "%";
           }
         }
       },

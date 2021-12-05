@@ -65,7 +65,7 @@ const ApexTreeMap = ({priceData}) => {
           fontSize: '12px',
         },
         formatter: function(text, op) {
-          return [text, op.value]
+          return [text, op.value.toFixed(2)]
         },
         offsetY: -4
       },
