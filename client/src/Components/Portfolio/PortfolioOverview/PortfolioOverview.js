@@ -60,20 +60,29 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const yearRange = ['2019','2020','2021']
 
 console.log('this is the labels',labels)
-const dateLabels = ['1yr', '3yr', '5yr'];
+const dateLabels = ['1yr', '3yr', '5yr','7yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
     });
-    console.log('[ApexLineChart.dates',dates)
+
 
   
     const spxValue = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
         console.log('[TotalReturn.spxValue.monReturn',data)
+        console.log('[PortfolioOverview.spxValue.monReturn',data)
         return data
     })
+    const pracsValue = dates.map((date, index) => {
+        const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+        const data = monthlyReturn(range).map((entry)=>entry)
+        // console.log('[TotalReturn.pracsValue.monReturn',data)
+        console.log('[PortfolioOverview.pracsValue.monReturn',data)
+        return data
+    })
+    console.log('[PortfolioOverview.pracsValue',pracsValue[3])
     const totalPortoflioValue = dates.map((date, index) => {
         console.log('[TotalReturn.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -91,6 +100,8 @@ const dateLabels = ['1yr', '3yr', '5yr'];
     
   })
   const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
+//   console.log('[PortfolioOverview.ytdDAta',monthlyReturn(date))
+
 
     return (
         <Grid container >

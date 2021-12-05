@@ -1,4 +1,5 @@
 import React, { useEffect,useState } from 'react';
+import PortfolioOverview from '../Components/Portfolio/PortfolioOverview/PortfolioOverview';
 /* Data comes in the following format: 
 {
   symbol: "symbol", //stock symbol
@@ -70,6 +71,8 @@ export const OrganizeData = (arr, assets, ownership,images,sector) => {
 export const monthlyReturn = (data) => {
   // console.log('[this is the data in monthlyReturn',data)
   const results = data.map((asset) => {
+    let aggPeriodReturn=[]
+
     // console.log('[monthlyReturn.asset',asset)
     let firstPrice = asset.dates[asset.dates.length - 1].price;
     
@@ -83,16 +86,23 @@ export const monthlyReturn = (data) => {
     let finalCumulativeReturn = 0;
     let annualizedReturn = 0;
     let arrPeriodReturn=[1]
+    let returnMean=0
+    let priceMean=0
+    
+    let sumPeriodReturn=0
+    let sumPriceReturn=firstPrice
 
     asset.dates[0].periodReturn = 1;
 
     for (let i = 1; i < asset.dates.length; i++) {
       //
       let endingPrice = asset.dates[i].price / asset.dates[i - 1].price;
+      sumPriceReturn+= asset.dates[i].price
       // *this provides us our daily%/monthly%/annual% cumulative return
       let timeReturns = endingPrice - 1;
       asset.dates[i].periodReturn = timeReturns;
       arrPeriodReturn.push(timeReturns)
+      sumPeriodReturn+=timeReturns
 
 
       // *creates the shares compounding
@@ -105,11 +115,23 @@ export const monthlyReturn = (data) => {
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
       // Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)
     }
-    let finalportfolioValue = portfolioValue[portfolioValue.length - 1];
-    finalCumulativeReturn = finalportfolioValue / 10000;
-    annualizedReturn =
-      finance.CAGR(10000, finalportfolioValue, portfolioValue.length / 12) ;
-    
+    // aggPeriodReturn.push(arrPeriodReturn)
+    let finalportfolioValue = portfolioValue[portfolioValue.length -1];
+    finalCumulativeReturn = (portfolioValue[portfolioValue.length-1]/portfolioValue[0])-1;
+    annualizedReturn =finance.CAGR(10000, finalportfolioValue, portfolioValue.length / 12) ;
+    returnMean=sumPeriodReturn/(arrPeriodReturn.length-1)
+    priceMean=sumPriceReturn/(arrPeriodReturn.length-1)
+    let n = arrPeriodReturn.length-1
+    // *returns stdDev
+    let returnStDev = Math.sqrt(
+      asset.dates.map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b) / n
+    );
+    // * returns pricesStDev
+    let priceStDev = Math.sqrt(
+      asset.dates.map(({price}) => Math.pow(price - priceMean, 2)).reduce((a, b) => a + b) / n
+    );
+    // console.log('[portfoliooverview.pracs.stDev',returnStDev)
+    // console.log('[portfoliooverview.pracs.aggPeriodReturn',aggPeriodReturn)
     return {
       ...asset,
       portoflioShareGrowth,
@@ -118,8 +140,17 @@ export const monthlyReturn = (data) => {
       annualizedReturn,
       arrPeriodReturn,
       securityGrowthValue,
+      returnStDev,
+      returnMean,
+      priceStDev,
+      sumPriceReturn,
+      firstPrice,
+      aggPeriodReturn
     };
   });
+  // console.log('[PortfolioOverview.pracs.index.finalPortfolioValue]',finalportfolioValue)
+  // const mean = results.arrPeriodReturn((acc,curr)=>acc+=curr)
+  
   return results;
 };
 
@@ -154,9 +185,7 @@ export const totalPortfolioValueReturns = (data) => {
     }
     arrCumReturn.push(cumReturn)
     aggValue.push(sum);
-    
-    console.log('[index.totalPortfolioValueReturns.aggValue',aggValue)
-    console.log('[index.totalPortfolioValueReturns.arrCumReturn',arrCumReturn)
+
   }
   // console.log('agg')
   return aggValue;
@@ -197,6 +226,7 @@ export const getStandardDeviation = (data) => {
   return results.reduce((sum, st)=> sum + st, 0) / results.length;
   // const mean = array.reduce((a, b) => a + b) / n
 };
+console.log('[index.getStandardDeviation',getStandardDeviation)
 
 export const calcCovariance = (data) => {
   if(!data || data.length===0) return;
