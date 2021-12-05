@@ -66,25 +66,25 @@ function TotalReturn({id,assets,portfolioName,ownership,priceData}) {
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <h3>YTD</h3>
-                  {/* <TRLineChart priceData={ytdData} /> */}
+                  <TRLineChart priceData={ytdData} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <h3>TTM</h3>
-                    {/* <TRLineChart priceData={ytdData} /> */}
+                    <TRLineChart priceData={ytdData} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <h3>3YR</h3>
-                    {/* <TRLineChart priceData={threeYearData} /> */}
+                    <TRLineChart priceData={threeYearData} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <h3>5yr</h3>
-                    {/* <TRLineChart priceData={fiveYearData} /> */}
+                    <TRLineChart priceData={fiveYearData} />
                 </Paper>
             </Grid>
         </Grid>

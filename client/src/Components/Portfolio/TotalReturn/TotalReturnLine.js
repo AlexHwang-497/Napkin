@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 const TRLineChart = ({priceData}) => {
+    if(priceData.length===0 || !priceData) return
     const combinedArr=[...priceData[1],...priceData[2]].sort()
     const maxValue = Math.max(...combinedArr)
     const minValue = Math.min(...combinedArr)

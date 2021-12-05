@@ -21,6 +21,7 @@ const monthMap={
   '12':'dec',
 }
 const organizeByYear=(arr) => {
+  console.log('[returnsTable.organizeByYear.arr',arr)
   if(!arr || arr.length===0) return;
   const obj ={}
   obj.year=arr[0]
@@ -28,9 +29,9 @@ const organizeByYear=(arr) => {
     // console.log('this is the arr in organizeByYear',arr[i])
 
     let currentMonth = arr[i].date.split('-')[1]
-    obj[monthMap[currentMonth]]=Number.parseFloat(arr[i].cumReturn*100).toPrecision(2)+'%'
+    obj[monthMap[currentMonth]]=Number.parseFloat(arr[i].value*100).toPrecision(2)+'%'
   }
-  console.log('this is obj of Organizebyyear',obj)
+  console.log('[returnsTable.organizeByYear.obj',obj)
   return obj
 
 }
@@ -39,8 +40,10 @@ function createReturnsTableData(year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,no
     return { year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec };
   }
   
-  export default function ReturnsTable({data=[[]]}) {
-    console.log('this is the data in returnsTable',data)
+  export default function ReturnsTable({data=[[]],dataNeeded=[[]]}) {
+    console.log('[returnsTable.data',data)
+    console.log('[returnsTable.dataNeeded',dataNeeded)
+    // const tableObject=data
     const tableObject=data
 
     return (

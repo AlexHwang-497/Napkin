@@ -19,6 +19,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     const [stockList, setStockList] = useState([...assets] || ['AAPL'])
     const [stockData,editStockData] = useState([])
     const [stockWeight,setStockWeight]=useState([...ownership] || [0])
+    
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     // const [aggPortfolio,setAggPortfolio]=useState([])
     const [returnsTableData,setReturnsTableData] = useState([])
@@ -93,6 +94,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
             yearRange.map((year,i)=>returnsByYear[i].unshift(year))
 
             // console.log('returns by year',returnsByYear)
+            
             console.log('[SeasonalAnalysis.returnByYear',returnsByYear)
             console.log('[SeasonalAnalysis.currentStock',currentStock)
 
@@ -211,36 +213,58 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
             for(let i=0;i<tableReturnsData[0].length;i++){
                 result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})
             }
+            // setSeasonalBarChartData(result)
             console.log('[seasonalAnalysis.finalTableOrg.result',result)
             // return result
-
-            const dataNeeded = yearRange.map((year)=>(
-                result.filter((entry)=>entry.date.includes(year))
-            ))
-            console.log('[seasonalAnalysis.finalTableOrg.dataNeeded',dataNeeded)
             
-        }
-        finalTableOrg(tableReturnsData)
-        const dataNeeded =finalTableOrg(tableReturnsData)
-        console.log('[seasonalAnalysis.dataneeded',dataNeeded)
+            const returnsByYear=yearRange.map((year)=>(
+              result.slice(1).filter((entry)=>entry.date.includes(year))
+              ))
+          yearRange.map((year,i)=>returnsByYear[i].unshift(year))
+            console.log('[seasonalAnalysis.finalTableOrg.dataNeeded',returnsByYear)
+          //   const returnByYear=yearRange.map((year)=>(
+          //     dataNeeded.filter((entry)=>entry.date.includes(year))
+          // ))
+            // const newArr=yearRange.map((year,i)=>dataNeeded[i].unshift(year))
+            // return newArr
+            return returnsByYear
+            
+          }
+        const  seasonalBarChartData = (tableReturnsData)=> {
+            let result=[]
+            for(let i=0;i<tableReturnsData[0].length;i++){
+                result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})
+            }
+            // setSeasonalBarChartData(result)
+            console.log('[seasonalAnalysis.finalTableOrg.result',result)
+            return result
+            
+            
+          }
+          // finalTableOrg(tableReturnsData)
+          const dataNeeded =finalTableOrg(tableReturnsData)
+          const barChartdataNeeded =seasonalBarChartData(tableReturnsData)
+
+        console.log('[seasonalAnalysis.finalTableOrg',dataNeeded)
+        console.log('[seasonalAnalysis.seasonalBarchartData',barChartdataNeeded)
 
         
     
-        console.log('[seasonalAnalysis.tableReturnsData',tableReturnsData)
+        
         
         const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
-        console.log('[seasonalAnalysis.finalTableOrg',finalTableOrg)
+        
 
     return (
         <Grid container >
         <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-            <SeasonalBarChart priceData={priceData}/>
+            <SeasonalBarChart data={barChartdataNeeded}/>
             </Paper>
         </Grid>
         <Grid item xs={6} >
         <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                <ReturnsTable data={data}/>
+                <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/>
 
             </Paper>
         </Grid>
