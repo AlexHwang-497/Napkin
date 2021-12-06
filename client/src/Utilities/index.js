@@ -116,9 +116,9 @@ export const monthlyReturn = (data) => {
       // Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)
     }
     // aggPeriodReturn.push(arrPeriodReturn)
-    let finalportfolioValue = portfolioValue[portfolioValue.length -1];
+    let finalPortfolioValue = portfolioValue[portfolioValue.length -1];
     finalCumulativeReturn = (portfolioValue[portfolioValue.length-1]/portfolioValue[0])-1;
-    annualizedReturn =finance.CAGR(10000, finalportfolioValue, portfolioValue.length / 12) ;
+    annualizedReturn =finance.CAGR(10000, finalPortfolioValue, portfolioValue.length / 12) ;
     returnMean=sumPeriodReturn/(arrPeriodReturn.length-1)
     priceMean=sumPriceReturn/(arrPeriodReturn.length-1)
     let n = arrPeriodReturn.length-1
@@ -130,6 +130,7 @@ export const monthlyReturn = (data) => {
     let priceStDev = Math.sqrt(
       asset.dates.map(({price}) => Math.pow(price - priceMean, 2)).reduce((a, b) => a + b) / n
     );
+    
     // console.log('[portfoliooverview.pracs.stDev',returnStDev)
     // console.log('[portfoliooverview.pracs.aggPeriodReturn',aggPeriodReturn)
     return {
@@ -145,7 +146,8 @@ export const monthlyReturn = (data) => {
       priceStDev,
       sumPriceReturn,
       firstPrice,
-      aggPeriodReturn
+      aggPeriodReturn,
+      finalPortfolioValue
     };
   });
   // console.log('[PortfolioOverview.pracs.index.finalPortfolioValue]',finalportfolioValue)

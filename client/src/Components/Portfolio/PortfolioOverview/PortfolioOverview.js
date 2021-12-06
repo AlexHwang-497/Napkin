@@ -154,16 +154,16 @@ const dateLabels = ['1yr', '3yr', '5yr','7yr'];
                         <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={'age'}
+                        value={selectedLineChartData}
                         onChange={lineChartHandler}
                         label="Date"
                         >
                         <MenuItem value="">
                             
                         </MenuItem>
-                        <MenuItem value={'ytd'}>ytd</MenuItem>
-                        <MenuItem value={'3yr'}>3yr</MenuItem>
-                        <MenuItem value={'5yr'}>5yr</MenuItem>
+                        <MenuItem value={'ytd'}>YTD</MenuItem>
+                        <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                        <MenuItem value={'5yr'}>5-Yr</MenuItem>
                         </Select>
                     </FormControl>
                     <TRLineChart priceData={lineChartData} />
@@ -177,15 +177,15 @@ const dateLabels = ['1yr', '3yr', '5yr','7yr'];
                         <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={'age'}
+                        value={selectedLineChartData}
                         onChange={portfolioOverviewHandler}
                         label="Date"
                         >
                         <MenuItem value="">
                         </MenuItem>
-                        <MenuItem value={'ytd'}>ytd</MenuItem>
-                        <MenuItem value={'3yr'}>3yr</MenuItem>
-                        <MenuItem value={'5yr'}>5yr</MenuItem>
+                        <MenuItem value={'ytd'}>YTD</MenuItem>
+                        <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                        <MenuItem value={'5yr'}>5-Yr</MenuItem>
                         </Select>
                     </FormControl>
                   

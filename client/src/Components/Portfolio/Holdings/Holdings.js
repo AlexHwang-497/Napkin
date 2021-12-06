@@ -1,5 +1,5 @@
-import React from 'react'
-import {Grid, Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box} from '@material-ui/core'
+import React, {Fragment, useState,useEffect} from 'react'
+import {Grid, Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box, Divider} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import CollapsibleTable from '../CollapsableTable'
 import VerticalBar from '../Charts/BarChart'
@@ -15,27 +15,100 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
 function Holdings({sector,assets,ownership, portfolioName,image, stockData,priceData}) {
-    const {portfolios, isLoading} = useSelector((state) => state.portfolio);
+    const [selectedLineChartData,setSelectedLineChartData] = useState('ytd')
+    const [selectedPortfolioOverviewtData,setSelectedPortfolioOverviewtData] = useState('ytd')
+    const [holdingsType,setHoldingsType] = useState('sector')
+    const [dateType,setDateType] = useState('ytd')
+    // const [dateIndex,setDateIndex] = useState(0)
     
-    console.log('[holdings.pricedata]',priceData)
+    const dateLabels = ['1yr', '3yr', '5yr','7yr'];
+        const dates = dateLabels.map(label => {
+            const yearNumber = parseInt(label.split('yr')[0]);
+            return generateHistoricalDate(yearNumber);
+        });
+    
+    
+      
+        const spxValue = dates.map((date, index) => {
+            const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+            const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
+            // console.log('[Holdings.spxValue.monReturn',data)
+            // console.log('[Holdings.spxValue.monReturn',data)
+            return data
+        })
+        const securityData = dates.map((date, index) => {
+            const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+            const data = monthlyReturn(range).map((entry)=>entry)
+            // console.log('[TotalReturn.pracsValue.monReturn',data)
+            // console.log('[Holdings.pracsValue.monReturn',data)
+            return data
+        })
+        
+        const totalPortoflioValue = dates.map((date, index) => {
+            // console.log('[Holdings.calculations.date',date)
+        const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+        const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
+        // console.log('[Holdings.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
+        return aggPortfolioValue
+        
+      })
+        const dateArr = dates.map((date, index) => {
+            // console.log('[TotalReturn.calculations.date',date)
+        const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+        const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
+        // console.log('[Holdings.dateArr.data',data)
+        return data
+        
+      })
+    console.log('[Holdings.securityData',securityData)
+    let treeMapData;
+    // let dateIndex = 0
 
-const dateLabels = ['1yr', '3yr', '5yr'];
-  const dates = dateLabels.map(label => {
-    const yearNumber = parseInt(label.split('yr')[0]);
-    return generateHistoricalDate(yearNumber);
-  });
-  const calculations = dates.map((date, index) => {
-    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-    // const annualizedReturn = calculateAnnualizedReturn(totalPortfolioValue(monthlyReturn(range)));
-    // const standardDeviation = getStandardDeviation(range);
-    const monReturn = monthlyReturn(range)
-    return monReturn
-    // const assetCov = calcCovariance(monReturn)
-    // return [dateLabels[index], annualizedReturn, standardDeviation, 24]
-    // return [dateLabels[index], Number.parseFloat(annualizedReturn*100).toPrecision(4), Number.parseFloat(standardDeviation).toPrecision(2), 24]
-    // return [dateLabels[index], annualizedReturn.toFixed(2), standardDeviation.toFixed(2), 24]
-  })
-  console.log('[holdings.calculations]',calculations)
+
+    const holdingsDataHandler = (e) => {
+        setDateType(e.target.value)
+    
+      }
+      console.log('[Holdings.holdingsData',securityData)
+    switch(holdingsType){
+        case 'portfolioValue':
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalPortfolioValue}}).slice(1))
+
+            break;
+        case 'cumulativeReturn':
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalCumulativeReturn}}).slice(1))
+            break;
+        case 'annualizedReturn':
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.annualizedReturn}}).slice(1))
+            break;
+        case 'priceStandardDeviation':
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.priceStDev}}).slice(1))
+            break;
+        case 'returnStandardDeviation':
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.returnStDev}}).slice(1))
+            break;
+            
+        default:
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))
+    }
+    let dateIndex=0
+    switch(dateType){
+        case '3yr':
+            dateIndex=1
+            break;
+        case '5yr':
+            dateIndex=2
+            break;
+        default:
+            dateIndex=0
+    }
+
+    const dateTypeHandler = (e) => {
+        setHoldingsType(e.target.value)
+    
+      }
+    console.log('[Holdings.holdingsType',holdingsType)
+    console.log('[Holdings.treeMapData',treeMapData)
     return (
         <Grid container>
             <Grid item xs={6}>
@@ -50,40 +123,44 @@ const dateLabels = ['1yr', '3yr', '5yr'];
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
                         <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={'age'}
-                        onChange={'portfolioOverviewHandler'}
-                        label="Date"
-                        >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={''}>ytd</MenuItem>
-                        <MenuItem value={''}>3yr</MenuItem>
-                        <MenuItem value={''}>5yr</MenuItem>
+                            
+                            
+                            value={dateType}
+                            onChange={holdingsDataHandler}
+                            label="Date"
+                            >
+                            <MenuItem value={'ytd'}>YTD</MenuItem>
+                            <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                            <MenuItem value={'5yr'}>5-Yr</MenuItem>
                         </Select>
                     </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
                         <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={'age'}
-                        onChange={'portfolioOverviewHandler'}
-                        label="Date"
-                        >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={''}>ytd</MenuItem>
-                        <MenuItem value={''}>3yr</MenuItem>
-                        <MenuItem value={''}>5yr</MenuItem>
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={holdingsType}
+                            onChange={holdingsDataHandler}
+                            label="Date"
+                            >
+                            <MenuItem value={'sector'}>Sector</MenuItem>
+                            <Divider style={{ margin: '20px 0' }} />
+                            <MenuItem value={'portfolioValue'}>Portfolio Value</MenuItem>
+                            <Divider style={{ margin: '20px 0' }} />
+                            <MenuItem value={'cumulativeReturn'}>Cumulative Return(%)</MenuItem>
+                            <MenuItem value={'annualizedReturn'}>Annualized Return(%)</MenuItem>
+                            <Divider style={{ margin: '20px 0' }} />
+                            <MenuItem value={'priceStandardDeviation'}>Price Standard Deviation($)</MenuItem>
+                            <MenuItem value={'returnStandardDeviation'}>Return Standard Deviation(%)</MenuItem>
+                            <Divider style={{ margin: '20px 0' }} />
+                            {/* <MenuItem value={''}>Beta</MenuItem>
+                            <MenuItem value={''}>Alpha</MenuItem> */}
+                        
                         </Select>
                     </FormControl>
-                    <ApexTreeChart priceData ={priceData}/>
-            
+                    <ApexTreeChart priceData ={priceData} treeMapData={treeMapData} dateIndex={dateIndex}/>
                 </Paper>
+            
             </Grid>
 
             
@@ -94,3 +171,58 @@ const dateLabels = ['1yr', '3yr', '5yr'];
 }
 
 export default Holdings
+
+
+//   const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
+    //   const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+    // //   console.log('[Holdings.threeYrData',threeYrData)
+    // //   console.log('[Holdings.fiveYrData',fiveYrData)
+    //   let lineChartData;
+    //   if(selectedLineChartData==='ytd'){
+    //     lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
+          
+    //     } else if(selectedLineChartData==='3yr'){
+    //         lineChartData=dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
+    //     } else {
+    //         lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+    //     }
+    //     console.log('[Holdings.lineChartData',lineChartData)
+        
+    //     const lineChartHandler = (e) => {
+    //         setSelectedLineChartData(e.target.value)
+            
+    //     }
+    // // ?    ///////////////////////////////////////////////////////////////////////////////////////////
+    //     let portfolioOverviewData;
+    //     if(selectedPortfolioOverviewtData==='ytd'){
+    //         portfolioOverviewData = securityData[0].sector
+            
+    //       } else if(selectedPortfolioOverviewtData==='3yr'){
+    //         portfolioOverviewData=securityData[2].sector
+    //       } else {
+    //         portfolioOverviewData=securityData[3].sector
+    //       }
+    //       console.log('[Holdings.portfolioOverviewData',portfolioOverviewData)
+    
+    
+    //   const portfolioOverviewHandler = (e) => {
+    //     setSelectedPortfolioOverviewtData(e.target.value)
+    
+    //   }
+    // // ?    ///////////////////////////////////////////////////////////////////////////////////////////
+    //     let selectedHoldingsType;
+    //     if(selectedPortfolioOverviewtData==='ytd'){
+    //         portfolioOverviewData = securityData[0]
+            
+    //       } else if(selectedPortfolioOverviewtData==='3yr'){
+    //         portfolioOverviewData=securityData[2]
+    //       } else {
+    //         portfolioOverviewData=securityData[3]
+    //       }
+    //       console.log('[Holdings.portfolioOverviewData',portfolioOverviewData)
+    
+    
+    //   const holdingsTypeHandler = (e) => {
+    //     setHoldingsData(e.target.value)
+    
+    //   }

@@ -65,6 +65,8 @@ function Row(props) {
                     <TableCell>Symbol</TableCell>
                     <TableCell >Sector</TableCell>
                     <TableCell >Portfolio(%)</TableCell>
+                    <TableCell >CumulativeReturn(%)</TableCell>
+                    <TableCell >AnnualizedReturn(%)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

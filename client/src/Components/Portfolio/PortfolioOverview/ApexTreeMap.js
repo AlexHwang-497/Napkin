@@ -2,7 +2,7 @@ import React, {useState,useEffect,Fragment} from "react";
 import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-const ApexTreeMap = ({priceData}) => {
+const ApexTreeMap = ({priceData,treeMapData,dateIndex}) => {
   
     const dateLabels = ['1yr', '3yr', '5yr'];
     const dates = dateLabels.map(label => {
@@ -33,6 +33,7 @@ const ApexTreeMap = ({priceData}) => {
     
   })
   console.log('[ApexTreeChart.monthlyData.monthlyDataData.final',monthlyDataData[0].slice(1))
+  console.log('[ApexTreeChart.monthlyData.monthlyDataData.treemapdata',treeMapData)
 
   
   // console.log('[ApexTreeChart.monthlyData.symbol',monthlyDataData[0].map((entry)=>entry.symbol))
@@ -41,8 +42,11 @@ const ApexTreeMap = ({priceData}) => {
   // const values = monthlyDataData[0].map((entry)=>entry.portfolioValue[entry.portfolioValue.length-1]).slice(1)
     
     const series = [
+      // {
+      //   data:monthlyDataData[0].slice(1)
+      // },
       {
-        data:monthlyDataData[0].slice(1)
+        data:treeMapData[dateIndex]
       }
       
         
@@ -65,7 +69,7 @@ const ApexTreeMap = ({priceData}) => {
           fontSize: '12px',
         },
         formatter: function(text, op) {
-          return [text, op.value.toFixed(2)]
+          return [text, '$'+op.value.toFixed(2),op.value.toFixed(2)/100000*100+'%']
         },
         offsetY: -4
       },

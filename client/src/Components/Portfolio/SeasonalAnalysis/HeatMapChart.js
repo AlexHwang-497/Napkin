@@ -1,84 +1,105 @@
-import React from 'react'
-import Chart from 'react-apexcharts'
-import {ReactApexChart} from 'react-apexcharts'
-import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
-import {generateHistoricalDate} from '../../../Utilities/DateRanges'
+import React from "react";
+import ReactApexChart from "react-apexcharts";
 
-class HeatMapChart extends React.Component {
+export default class ApexChart extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-    
       series: [
         {
-          name: 'Metric1',
-          data: ([4,5,6], {
-            min: 0,
-            max: 90
-          })
+          name: "Metric1",
+          data: [0, 1, 2, 3, 4, 5]
         },
+        {
+          name: "Metric2",
+          data: [0, 1, 2, 3, 4, 5]
+        },
+        {
+          name: "Metric3",
+          data: [0, 1, 2, 3, 4, 5]
+        },
+        {
+          name: "Metric4",
+          data: [0, 1, 20, 30, 40, 500]
+        },
+        {
+          name: "Metric5",
+          data: [0, 1, 2, 3, 4, 5]
+        },
+        {
+          name: "Metric6",
+          data: [0, 1, 2, 3, 4, 5]
+        },
+        {
+          name: "Metric7",
+          data: [0, 1, 2, 3, 4, 5]
+        },
+        {
+          name: "Metric8",
+          data: [0, 1, 2, 3, 4, 5]
+        },
+        {
+          name: "Metric8",
+          data: [0, 1, 2, 3, 4, 5]
+        }
       ],
       options: {
         chart: {
-          height: 350,
-          type: 'heatmap',
+          height: 400,
+          type: "heatmap"
         },
         stroke: {
           width: 0
         },
         plotOptions: {
           heatmap: {
-            radius: 30,
+            radius: 100,
             enableShades: false,
             colorScale: {
-              ranges: [{
+              ranges: [
+                {
                   from: 0,
                   to: 50,
-                  color: '#008FFB'
+                  color: "#CD363A"
                 },
                 {
                   from: 51,
-                  to: 100,
-                  color: '#00E396'
-                },
-              ],
-            },
-        
+                  to: 10000,
+                  color: "#66DA26"
+                }
+              ]
+            }
           }
         },
         dataLabels: {
           enabled: true,
           style: {
-            colors: ['#fff']
+            colors: ["#fff"]
           }
         },
         xaxis: {
-          type: 'category',
+          type: "category"
         },
         title: {
-          text: 'Rounded (Range without Shades)'
-        },
-      },
-    
-    
+          text: "Rounded (Range without Shades)"
+        }
+      }
     };
   }
 
-
+  componentDidMount() {
+    console.log(this.state);
+  }
 
   render() {
     return (
-      
-
-<div id="chart">
-<ReactApexChart options={this.state.options} series={this.state.series} type="heatmap" height={350} />
-</div>
-
-
+      <ReactApexChart
+        options={this.state.options}
+        series={this.state.series}
+        type="heatmap"
+        height={400}
+      />
     );
   }
 }
-
-export default HeatMapChart
-
