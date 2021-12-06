@@ -85,7 +85,7 @@ const ApexTreeMap = ({priceData}) => {
               {
                 from: 10000.5,
                 to: 1000000,
-                color: '#52B12C'
+                color: '#66DA26'
               }
             ]
           }

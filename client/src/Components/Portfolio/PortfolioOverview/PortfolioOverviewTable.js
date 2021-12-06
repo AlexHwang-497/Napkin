@@ -13,42 +13,17 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 
- function PortfolioOverviewTable({priceData}) {
-   let key = 2
-  const [data,setData] = useState()
-  const dateLabels = ['1yr', '3yr', '5yr'];
-  const dates = dateLabels.map(label => {
-    const yearNumber = parseInt(label.split('yr')[0]);
-    return generateHistoricalDate(yearNumber);
-  });
+ function PortfolioOverviewTable({portfolioOverviewData}) {
+  
+  
+  console.log('[PortfolioOverviewTable.portfolioOverviewData',portfolioOverviewData.slice(1))
   
 
-  const calculations = dates.map((date, index) => {
-    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-    
-    
-    const monReturn = monthlyReturn(range)
-    console.log('[PortfolioOverviewTable.monReturn',monReturn)
-    // const assetCov = calcCovariance(monReturn)
-    return monReturn
-    
-  })
-
-  console.log('[PortfolioOverviewTable.calculations',calculations)
-
-  // const rows = [
-  //   createData(...annReturn[0]),
-  //   // createData('3yr', 237, 9.0, 37, 4.3),
-  //   // createData('5yr', 262, 16.0, 24, 6.0),
-  //   // createData('10yr', 305, 3.7, 67, 4.3),
-    
-  // ];
-  console.log('[PortfolioOverviewTable.pricedata',priceData)
-  // Number.parseFloat(annualizedReturn*100).toPrecision(4)
-
-  // const rows =annReturn.map((entry,key)=>createData(...entry))
-  const rows=calculations.map((entry)=>entry.slice(1))
-  console.log('[PortfolioOverviewTable.rows',rows[0])
+  const rows=portfolioOverviewData.slice(1).map((entry)=>entry)
+  
+  
+  console.log('[PortfolioOverviewTable.rows',rows)
+  
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -65,7 +40,7 @@ function createData(name, calories, fat, carbs, protein) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows[key].map((row) => (
+          {rows.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -75,9 +50,7 @@ function createData(name, calories, fat, carbs, protein) {
               <TableCell align="right">{row.symbol}</TableCell>
               <TableCell align="right">{Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)}%</TableCell>
               <TableCell align="right">{Number.parseFloat(row.annualizedReturn).toPrecision(4)}%</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-            
+              <TableCell align="right">{Number.parseFloat(row.returnStDev).toPrecision(4)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

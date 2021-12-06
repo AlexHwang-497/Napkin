@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Paper} from '@material-ui/core'
+import {Grid, Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import CollapsibleTable from '../CollapsableTable'
 import VerticalBar from '../Charts/BarChart'
@@ -47,6 +47,40 @@ const dateLabels = ['1yr', '3yr', '5yr'];
 
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={'age'}
+                        onChange={'portfolioOverviewHandler'}
+                        label="Date"
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={''}>ytd</MenuItem>
+                        <MenuItem value={''}>3yr</MenuItem>
+                        <MenuItem value={''}>5yr</MenuItem>
+                        </Select>
+                    </FormControl>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={'age'}
+                        onChange={'portfolioOverviewHandler'}
+                        label="Date"
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={''}>ytd</MenuItem>
+                        <MenuItem value={''}>3yr</MenuItem>
+                        <MenuItem value={''}>5yr</MenuItem>
+                        </Select>
+                    </FormControl>
                     <ApexTreeChart priceData ={priceData}/>
             
                 </Paper>

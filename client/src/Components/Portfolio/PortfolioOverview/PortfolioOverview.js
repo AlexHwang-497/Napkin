@@ -1,5 +1,5 @@
 import React, {Fragment, useState,useEffect} from 'react'
-import {Grid, Paper,Card, Icon, Fab} from '@material-ui/core'
+import {Grid, Paper,Card, Icon, Fab, Select,MenuItem,FormControl,InputLabel, Box} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import CollapsibleTable from '../CollapsableTable'
 import LineGraph from '../Charts/LineGraph'
@@ -28,8 +28,8 @@ import TRLineChart from '../Charts/TotalReturnLine'
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
-    // console.log('this is the pricedata in portfolio Overview',priceData)
-    // console.log('[prac this is the pricedata in portfolio Overview',priceData)
+    console.log('[ PortfolioOverview.priceData',priceData)
+    
     // ! this is making a deep copy
     // const ttmData = JSON.parse(JSON.stringify(subSet(priceData,'2020-12-01')))
     // monthlyReturn(ttmData)
@@ -47,6 +47,8 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     // const [totalPortfolioValue,setTotalAggregatePortfolio]=useState([])
     const [sAndPPrice,setSAndPPrice]=useState(priceData[1])
     const [ytd,setYtd]=useState()
+    const [selectedLineChartData,setSelectedLineChartData] = useState('ytd')
+    const [selectedPortfolioOverviewtData,setSelectedPortfolioOverviewtData] = useState('ytd')
     console.log('this is the S&P',sAndPPrice)
     
     
@@ -71,23 +73,23 @@ const dateLabels = ['1yr', '3yr', '5yr','7yr'];
     const spxValue = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-        console.log('[TotalReturn.spxValue.monReturn',data)
+        console.log('[PortfolioOverview.spxValue.monReturn',data)
         console.log('[PortfolioOverview.spxValue.monReturn',data)
         return data
     })
-    const pracsValue = dates.map((date, index) => {
+    const securityData = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry)
         // console.log('[TotalReturn.pracsValue.monReturn',data)
         console.log('[PortfolioOverview.pracsValue.monReturn',data)
         return data
     })
-    console.log('[PortfolioOverview.pracsValue',pracsValue[3])
+    console.log('[PortfolioOverview.securityData',securityData)
     const totalPortoflioValue = dates.map((date, index) => {
-        console.log('[TotalReturn.calculations.date',date)
+        console.log('[PortfolioOverview.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-    console.log('[TotalReturn.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
+    console.log('[PortfolioOverview.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
     return aggPortfolioValue
     
   })
@@ -95,13 +97,46 @@ const dateLabels = ['1yr', '3yr', '5yr','7yr'];
         console.log('[TotalReturn.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
-    console.log('[TotalReturn.dateArr.data',data)
+    console.log('[PortfolioOverview.dateArr.data',data)
     return data
     
   })
-  const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
-//   console.log('[PortfolioOverview.ytdDAta',monthlyReturn(date))
+  const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
+  const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+  console.log('[PortfolioOverview.threeYrData',threeYrData)
+  console.log('[PortfolioOverview.fiveYrData',fiveYrData)
+  let lineChartData;
+  if(selectedLineChartData==='ytd'){
+    lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
+      
+    } else if(selectedLineChartData==='3yr'){
+        lineChartData=dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
+    } else {
+        lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+    }
+    console.log('[PortfolioOverview.lineChartData',lineChartData)
+    
+    const lineChartHandler = (e) => {
+        setSelectedLineChartData(e.target.value)
+        
+    }
+// ?    ///////////////////////////////////////////////////////////////////////////////////////////
+    let portfolioOverviewData;
+    if(selectedPortfolioOverviewtData==='ytd'){
+        portfolioOverviewData = securityData[0]
+        
+      } else if(selectedPortfolioOverviewtData==='3yr'){
+        portfolioOverviewData=securityData[2]
+      } else {
+        portfolioOverviewData=securityData[3]
+      }
+      console.log('[PortfolioOverview.portfolioOverviewData',portfolioOverviewData)
 
+
+  const portfolioOverviewHandler = (e) => {
+    setSelectedPortfolioOverviewtData(e.target.value)
+
+  }
 
     return (
         <Grid container >
@@ -113,16 +148,50 @@ const dateLabels = ['1yr', '3yr', '5yr','7yr'];
                 </Paper>
             </Grid>
             <Grid item xs={6} >
-            <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                {/*  this will need the portfolio' aggreagte value*/}
-                    
-                {/* <TRLineChart priceData={ytdData} /> */}
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={'age'}
+                        onChange={lineChartHandler}
+                        label="Date"
+                        >
+                        <MenuItem value="">
+                            
+                        </MenuItem>
+                        <MenuItem value={'ytd'}>ytd</MenuItem>
+                        <MenuItem value={'3yr'}>3yr</MenuItem>
+                        <MenuItem value={'5yr'}>5yr</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <TRLineChart priceData={lineChartData} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioOverviewTable priceData={priceData} assets={stockList} image={image} />
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={'age'}
+                        onChange={portfolioOverviewHandler}
+                        label="Date"
+                        >
+                        <MenuItem value="">
+                        </MenuItem>
+                        <MenuItem value={'ytd'}>ytd</MenuItem>
+                        <MenuItem value={'3yr'}>3yr</MenuItem>
+                        <MenuItem value={'5yr'}>5yr</MenuItem>
+                        </Select>
+                    </FormControl>
+                  
+                    <PortfolioOverviewTable portfolioOverviewData={portfolioOverviewData} />
+                    
+                
                 </Paper>
             </Grid>
             <Grid item xs={6} >
@@ -130,6 +199,7 @@ const dateLabels = ['1yr', '3yr', '5yr','7yr'];
                     <RecommendedPosts/>
 
                 </Paper>
+                
             </Grid>
         </Grid>
 

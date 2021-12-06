@@ -2,8 +2,9 @@ import React from 'react'
 import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-const TRLineChart = ({priceData}) => {
-    if(priceData.length===0 || !priceData) return;
+const TRLineChart = ({priceData,title}) => {
+    console.log('[TRLineChart.priceData',priceData)
+    if(!priceData || priceData.length===0) return (<div></div>);
     
     const combinedArr=[...priceData[1],...priceData[2]].sort()
     const maxValue = Math.max(...combinedArr)
@@ -11,6 +12,7 @@ const TRLineChart = ({priceData}) => {
     console.log('[TRLineChart.combinedArr',combinedArr)
     console.log('[TRLineChart.maxValue',maxValue)
     console.log('[TRLineChart.minValue',minValue)
+    console.log('[TRLineChart.title',title)
  
     const series = [
         
@@ -62,14 +64,14 @@ const TRLineChart = ({priceData}) => {
             dashArray: 8
         },
         title: {
-            text: '',
-            align: 'left',
+            text: title,
+            align: 'center',
         },
         grid: {
             borderColor: "#fff",
             row: {
                 colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-                opacity: 0.5,
+                opacity: 1.0,
             },
         },
         markers: {
