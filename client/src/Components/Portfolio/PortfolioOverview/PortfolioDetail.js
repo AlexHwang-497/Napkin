@@ -11,27 +11,8 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
 function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,sector,stockData}) {
-  // ! this is making a deep copy
-  // const ttmData = JSON.parse(JSON.stringify(subSet(priceData,'2020-12-01')))
-    // const ttmMontlyReturn =monthlyReturn(ttmData)
-    // const ttmAggValue = totalPortfolioValue(ttmMontlyReturn)
-    // const ttmAnnReturn = calculateAnnualizedReturn(ttmAggValue)
-    
-    // console.log('[prac this is the ttmData in portfolioDetail',ttmData)
-    // console.log('[prac this is the ttmMontlyReturn in portfolioDetail',ttmMontlyReturn)
-    // console.log('[prac this is the ttmAggValue in portfolioDetail',ttmAggValue)
-    // console.log('[prac this is the ttmAnnReturn in portfolioDetail',ttmAnnReturn)
-    
-    // const twoYearData = JSON.parse(JSON.stringify(subSet(priceData,'2019-12-01')))
-    // console.log('[prac this is the twoYearData in portfolioDetail',twoYearData)
-    // const twoYearMontlyReturn =monthlyReturn(twoYearData)
-    // console.log('[prac this is the twoYearMontlyReturn in portfolioDetail',twoYearMontlyReturn)
-    // const twoYearAggValue = totalPortfolioValue(twoYearMontlyReturn)
-    // console.log('[prac this is the twoYearAggValue in portfolioDetail',twoYearAggValue)
-    // const twoYearAnnReturn = calculateAnnualizedReturn(twoYearAggValue)
-    // console.log('[prac this is the twoYearAnnReturn in portfolioDetail',twoYearAnnReturn)
-  // console.log('this is the ownership in portfolioDetail',ownership)
-  const dateLabels = ['1yr', '3yr', '5yr'];
+
+  const dateLabels = ['1yr', '3yr', '5yr','6yr'];
   const dates = dateLabels.map(label => {
     const yearNumber = parseInt(label.split('yr')[0]);
     return generateHistoricalDate(yearNumber);
@@ -39,11 +20,12 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
   const calculations = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const annualizedReturn = calculateAnnualizedReturn(totalPortfolioValue(monthlyReturn(range)));
-    const standardDeviation = getStandardDeviation(range);
+    // const standardDeviation = getStandardDeviation(range);
     const monReturn = monthlyReturn(range)
     const assetCov = calcCovariance(monReturn)
     // return [dateLabels[index], annualizedReturn, standardDeviation, 24]
-    return [dateLabels[index], Number.parseFloat(annualizedReturn*100).toPrecision(4), Number.parseFloat(standardDeviation).toPrecision(2), 24]
+    // return [dateLabels[index], Number.parseFloat(annualizedReturn*100).toPrecision(4), Number.parseFloat(standardDeviation).toPrecision(2), 24]
+    return [dateLabels[index], Number.parseFloat(annualizedReturn*100).toPrecision(4),  24]
     // return [dateLabels[index], annualizedReturn.toFixed(2), standardDeviation.toFixed(2), 24]
   })
   let cov = require( 'compute-covariance' );

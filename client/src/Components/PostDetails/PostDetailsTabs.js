@@ -108,43 +108,10 @@ export default function BasicTabs() {
     
     const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership,fakeImages,fakeSector);
     setPracData(data)
-    // let totalPortfolioValueResults = monthlyReturn(data)
-    // console.log('[monthlyReturn.totalPortfolioValueResults]',totalPortfolioValueResults)
-    // console.log('[monthlyReturn]',monthlyReturn(data))
-    // console.log('[monthlyReturn.totalPortfolioValue]',totalPortfolioValue(totalPortfolioValueResults))
-    // console.log('[monthlyReturn.STD]',getStandardDeviation(data))
+    
     const ytd=subSet(data,'2021-01-01')
     // console.log('[monthlyReturn.ytd]',ytd)
     const startingDat='2020-01-01'
-    let arr = []
-
-    // const praca=data.map((entry)=>entry.dates.reverse())
-    // const filtered = data.map((entry)=>entry.dates.filter((s)=>s.date>'2020-01-01'))
-  //   const praca =data.map((entry) =>
-  //   entry.dates.filter((s) => Date.parse(s.formated) > starting)
-  // );
-  // console.log("[data]", data);
-  // console.log("[praca]", praca);
-  // // console.log("[praca.filter]", data.map((entry)=>entry.dates.filter((s)=>s.date>'2020-01-01')))
-  // console.log("[praca.filter]", filtered)
-  // console.log("[DEBUG]", data.map((entry)=>entry.dates));
-  // console.log("[praca.reduce]", data.map(entry => entry.dates.reduce((acc, {price}) => acc += price, 0)))
-  // console.log("[praca.filter.reduce]", data.map(entry => entry.dates.filter((s)=>s.date>'2020-01-01').reduce((acc, {price}) => acc += price, 0)))
-  // console.log("[praca.filter.reduce 10k shares]", data.map(entry => entry.dates.filter((s)=>s.date>'2020-01-01')
-  //                                                                   .reduce((acc, {price}) => {
-  //                                                                       acc.push(10000/price)
-  //                                                                       return acc
-  //                                                                   },[])))
-                                                                   
-                                                                    
-  // console.log("[praca.filter.reduce cumulative ]", data.map(entry => entry.dates.filter((s)=>s.date>'2020-01-01')
-  //                                                                   .reduce((acc, {price},i) => {
-  //                                                                       arr.push(price)
-  //                                                                       return arr
-  //                                                                   },[])))
-  // console.log('[filtered]',filtered.reduce((acc,{price}=>{arr.push(price) return arr})))
-  
-  
   
   
   

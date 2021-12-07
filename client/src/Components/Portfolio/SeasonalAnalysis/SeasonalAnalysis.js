@@ -166,40 +166,29 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
               return data
           })
           const totalPortoflioValue = dates.map((date, index) => {
-              console.log('[TotalReturn.calculations.date',date)
-          const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-          const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-        //   console.log('[seasonalAnalysis.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
-          
-          return aggPortfolioValue
-        })
+            const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+            const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))  
+            return aggPortfolioValue
+          })
           const totalPortoflioValueReturn = dates.map((date, index) => {
               console.log('[SeasonalAnalysis.totalPortoflioValueReturn.date',date)
-          const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-          const arrPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-        //   console.log('[seasonalAnalysis.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
-        let arrCumulativeReturns=[1]
-        for(let i=1;i<arrPortfolioValue.length;i++){
-            // console.log('[seasonalAnalysis.totalPortoflioValueReturn.',arrPortfolioValue.length)
-            arrCumulativeReturns.push((arrPortfolioValue[i]/arrPortfolioValue[i-1])-1)
-            
-            // arrCumulativeReturns.push(pracs)
-
-        }
-          
-          return arrCumulativeReturns
+            const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+            const arrPortfolioValue = totalPortfolioValue(monthlyReturn(range))
+        
+            let arrCumulativeReturns=[1]
+            for(let i=1;i<arrPortfolioValue.length;i++){
+                arrCumulativeReturns.push((arrPortfolioValue[i]/arrPortfolioValue[i-1])-1)
+            }  
+            return arrCumulativeReturns
         })
         
 
           
           const dateArr = dates.map((date, index) => {
-            //   console.log('[TotalReturn.calculations.date',date)
-          const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-          const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
-        //   console.log('[TotalReturn.dateArr.data',data)
-          return data
-          
-        })
+            const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+            const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
+            return data
+          })
         
         
         

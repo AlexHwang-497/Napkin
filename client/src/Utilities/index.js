@@ -1,38 +1,5 @@
 import React, { useEffect,useState } from 'react';
 import PortfolioOverview from '../Components/Portfolio/PortfolioOverview/PortfolioOverview';
-/* Data comes in the following format: 
-{
-  symbol: "symbol", //stock symbol
-  totalResults: 120, //total results
-  results: [
-      {
-      o: 689.06,
-      h: 700.9894,
-      c: 665.64,
-      l: 642.11,
-      v: 56394908,
-      t: 1635739200000,
-      formated: "2021-11-01 00:00:00",
-    }
-  ]
-}
-Data model:
-{
-  symbol,
-  ownership,
-  image,
-  sector,
-  benchmark ?,
-  dates :[
-    {
-      price,
-      date
-    }
-  ] 
-}
-*/
-
-
 
 
 // ! arr = results above
@@ -89,6 +56,7 @@ export const monthlyReturn = (data) => {
     let returnMean=0
     let priceMean=0
     
+    
     let sumPeriodReturn=0
     let sumPriceReturn=firstPrice
 
@@ -118,14 +86,19 @@ export const monthlyReturn = (data) => {
     // aggPeriodReturn.push(arrPeriodReturn)
     let finalPortfolioValue = portfolioValue[portfolioValue.length -1];
     finalCumulativeReturn = (portfolioValue[portfolioValue.length-1]/portfolioValue[0])-1;
-    annualizedReturn =finance.CAGR(10000, finalPortfolioValue, portfolioValue.length / 12) ;
+    let portfolioValueLength = portfolioValue.length
+    let initialPortfolioValue=portfolioValue[0]
+    annualizedReturn =finance.CAGR(initialPortfolioValue, finalPortfolioValue, portfolioValue.length / 12) ;
     returnMean=sumPeriodReturn/(arrPeriodReturn.length-1)
     priceMean=sumPriceReturn/(arrPeriodReturn.length-1)
     let n = arrPeriodReturn.length-1
     // *returns stdDev
+    let returnsXsubMean = asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b)
+    let returnsVariance = returnsXsubMean/71 
     let returnStDev = Math.sqrt(
-      asset.dates.map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b) / n
+      asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b) / n
     );
+    // let beta = 
     // * returns pricesStDev
     let priceStDev = Math.sqrt(
       asset.dates.map(({price}) => Math.pow(price - priceMean, 2)).reduce((a, b) => a + b) / n
@@ -133,6 +106,7 @@ export const monthlyReturn = (data) => {
     
     // console.log('[portfoliooverview.pracs.stDev',returnStDev)
     // console.log('[portfoliooverview.pracs.aggPeriodReturn',aggPeriodReturn)
+    
     return {
       ...asset,
       portoflioShareGrowth,
@@ -147,53 +121,64 @@ export const monthlyReturn = (data) => {
       sumPriceReturn,
       firstPrice,
       aggPeriodReturn,
-      finalPortfolioValue
+      finalPortfolioValue,
+      portfolioValueLength,
+      initialPortfolioValue,
+      returnsXsubMean,
+      returnsVariance
+
     };
   });
   // console.log('[PortfolioOverview.pracs.index.finalPortfolioValue]',finalportfolioValue)
   // const mean = results.arrPeriodReturn((acc,curr)=>acc+=curr)
-  
+  const spy=results[0]
+  // console.log('[PortfolioOverview.spy]',spy)
+// * covaraince calcualtion
+  for(let i =1; i<results.length;i++){
+    let covariance = cov(spy.arrPeriodReturn.slice(1),results[i].arrPeriodReturn.slice(1))
+    results[i].covariance = covariance 
+    
+  }
   return results;
 };
 
 export const totalPortfolioValue = (data) => {
   if (!data || data.length === 0 || !data[0].portfolioValue) return;
   let aggValue = [];
-  let annualizedReturn = 0;
-  // console.log('[index',data)
-
+  
+  
   for (let i = 0; i < data[0].portfolioValue.length; i++) {
     let sum = 0;
     for (let j = 0; j < data.length; j++) {
       sum += data[j].portfolioValue[i];
-      // console.log('[index.sum',sum)
+    
     }
     aggValue.push(sum);
-    // console.log('[index.aggValue',aggValue,'[index.sum',sum)
+    
   }
   return aggValue;
 };
 export const totalPortfolioValueReturns = (data) => {
   if (!data || data.length === 0 || !data[0].portfolioValue) return;
-  let aggValue = [];
-  let arrCumReturn = [1];
+  console.log('[index.totalPortfolioValueReturns.data',data)
+  let aggValue = [10000];
   let cumReturn=0 
-  // console.log('[index.totalPortfolioValueReturns.data',data)
-  for (let i = 0; i < data[0].portfolioValue.length; i++) {
+  let arrCumReturn = [1];
+  console.log('[index.data[0].portfolioValue.length',data[0].portfolioValue.length)
+  for (let i = 1; i < data[0].portfolioValue.length; i++) {
+    
     let sum = 0;
-    for (let j = 0; j < data.length; j++) {
+    for (let j = 1; j < data.length; j++) {
       sum += data[j].portfolioValue[i];
-      let cumReturn = data[j]/data[j-1]
+  
     }
-    arrCumReturn.push(cumReturn)
+    let cumReturn = (sum/aggValue[i-1])-1
     aggValue.push(sum);
+  
+    arrCumReturn.push(cumReturn)
 
   }
-  // console.log('agg')
-  return aggValue;
-  
-
-
+  return arrCumReturn;
   
 };
 
@@ -208,27 +193,38 @@ export const calculateAnnualizedReturn = (aggValue) => {
   );
 };
 
-export const getStandardDeviation = (data) => {
+// export const getStandardDeviation = (arr) => {
+// if(!arr || arr.length===0) return;
+//   console.log("[getStandardDeviation.arr", arr);
+//     let reducer = (prev,curr) =>prev+=curr
+//     let sum = arr.slice(1).reduce(reducer);
 
-  // console.log("[monthlyReturn this is the n in STdDev", data);
-  const results = data.map((asset) => {
-    console.log("[getStdDev this is the asset", asset);
-    let sum = asset.dates.reduce((acc, { price }) => (acc += price), 0);
-    let n = asset.dates.length;
-    let mean = sum / n;
-    // console.log("[monthlyReturn this is the sum", sum);
-    // console.log("[monthlyReturn this is the mean", mean);
-    let stDev = Math.sqrt(
-      asset.dates.map(({price}) => Math.pow(price - mean, 2)).reduce((a, b) => a + b) / n
-    );
-    console.log("[getStdDev this is the stDev", stDev);
-    return stDev;
-  });
-  //Results is an array of standard deviation values for each asset - do we take the avg?
-  return results.reduce((sum, st)=> sum + st, 0) / results.length;
+//     console.log("[getStandardDeviation.sum", sum);
+// };
+export const getStandardDeviation = (data) => {
+if(!data || data.length===0) return [];
+  console.log("[getStandardDeviation.data", data);
+    let sum = data.map((entry)=>entry.reduce((acc,curr)=>acc+=curr),0)
+    console.log("[getStandardDeviation.sum", sum);
+    
+    let n = data.map((entry)=>entry.length)
+    console.log("[getStandardDeviation.n", n);
+    let mean = (data.map((entry)=>entry.reduce((acc,curr)=>acc+=curr),0))/(data.map((entry)=>entry.length))
+    console.log("[getStandardDeviation.mean", mean);
+    // return mean
+  //   // console.log("[monthlyReturn this is the sum", sum);
+  //   // console.log("[monthlyReturn this is the mean", mean);
+  //   let stDev = Math.sqrt(
+  //     data.map((returns) => Math.pow(returns - mean, 2)).reduce((a, b) => a + b) / n
+  //     );
+  // //   console.log("[getStdDev this is the stDev", stDev);
+  //   return stDev;
+  // // });
+  // //Results is an array of standard deviation values for each asset - do we take the avg?
+  // return results.reduce((sum, st)=> sum + st, 0) / results.length;
   // const mean = array.reduce((a, b) => a + b) / n
 };
-console.log('[index.getStandardDeviation',getStandardDeviation)
+
 
 export const calcCovariance = (data) => {
   if(!data || data.length===0) return;

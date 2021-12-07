@@ -21,7 +21,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     const [dateType,setDateType] = useState('ytd')
     // const [dateIndex,setDateIndex] = useState(0)
     
-    const dateLabels = ['1yr', '3yr', '5yr','7yr'];
+    const dateLabels = ['1yr', '3yr', '5yr','6yr'];
         const dates = dateLabels.map(label => {
             const yearNumber = parseInt(label.split('yr')[0]);
             return generateHistoricalDate(yearNumber);
@@ -61,18 +61,46 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
         
       })
     console.log('[Holdings.securityData',securityData)
+
+    let dateIndex=0
+    switch(dateType){
+        case '3yr':
+            dateIndex=1
+            break;
+        case '5yr':
+            dateIndex=2
+            break;
+        case '6yr':
+            dateIndex=3
+            break;
+        default:
+            dateIndex=0
+    }
+
+    const dateTypeHandler = (e) => {
+        
+        setDateType(e.target.value)
+    }
+    
+    
+    
+    
     let treeMapData;
     // let dateIndex = 0
-
-
+    
+    
     const holdingsDataHandler = (e) => {
-        setDateType(e.target.value)
+        setHoldingsType(e.target.value)
     
       }
       console.log('[Holdings.holdingsData',securityData)
     switch(holdingsType){
-        case 'portfolioValue':
+        case 'currentPortfolioValue':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalPortfolioValue}}).slice(1))
+
+            break;
+        case 'initialPortfolioValue':
+            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.initialPortfolioValue}}).slice(1))
 
             break;
         case 'cumulativeReturn':
@@ -91,22 +119,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
         default:
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))
     }
-    let dateIndex=0
-    switch(dateType){
-        case '3yr':
-            dateIndex=1
-            break;
-        case '5yr':
-            dateIndex=2
-            break;
-        default:
-            dateIndex=0
-    }
-
-    const dateTypeHandler = (e) => {
-        setHoldingsType(e.target.value)
     
-      }
     console.log('[Holdings.holdingsType',holdingsType)
     console.log('[Holdings.treeMapData',treeMapData)
     return (
@@ -123,29 +136,27 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
                         <Select
-                            
-                            
                             value={dateType}
-                            onChange={holdingsDataHandler}
+                            onChange={dateTypeHandler}
                             label="Date"
                             >
                             <MenuItem value={'ytd'}>YTD</MenuItem>
                             <MenuItem value={'3yr'}>3-Yr</MenuItem>
                             <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                            <MenuItem value={'6yr'}>5-Yr</MenuItem>
                         </Select>
                     </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
                         <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
                             value={holdingsType}
                             onChange={holdingsDataHandler}
                             label="Date"
                             >
                             <MenuItem value={'sector'}>Sector</MenuItem>
                             <Divider style={{ margin: '20px 0' }} />
-                            <MenuItem value={'portfolioValue'}>Portfolio Value</MenuItem>
+                            <MenuItem value={'currentPortfolioValue'}>Current Portfolio Value($)</MenuItem>
+                            <MenuItem value={'initialPortfolioValue'}>Initial Portfolio Value($)</MenuItem>
                             <Divider style={{ margin: '20px 0' }} />
                             <MenuItem value={'cumulativeReturn'}>Cumulative Return(%)</MenuItem>
                             <MenuItem value={'annualizedReturn'}>Annualized Return(%)</MenuItem>
