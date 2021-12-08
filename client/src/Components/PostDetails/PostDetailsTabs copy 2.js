@@ -101,7 +101,7 @@ export default function BasicTabs() {
   useEffect(() => {
     if (!selectedPortfolio) return;
     Promise.all(
-      ["SPY",...assets].map((stock) =>
+      [...assets, "SPY"].map((stock) =>
         fetch(
           `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`
         )
@@ -117,10 +117,9 @@ export default function BasicTabs() {
         );
         setPracData(portfolioData);
         console.log('[postDetailTabs.portfolioData',portfolioData)
-    })
+      })
       );
     }, [assets]);
-    console.log('[postDetailTabs.pracData',pracData)
   // useEffect(() => {
   //   const fakeAssets = ['SPY',"NFLX", "TEAM"];
   //   const fakeOwnership = [0,60, 40];
@@ -136,8 +135,58 @@ export default function BasicTabs() {
   
   // }, [assets]);
 
-  
-  
+  // ! this is utilized to calculate our proper date range for filtering
+  useEffect(() => {
+    let aggCompanyDates = [];
+    for (let j = 0; j < dummyStockData.length; j++) {
+      let companyDates = [];
+      let historicalDates = dummyStockData[j]?.results?.reverse() || [];
+      for (let i = 0; i < historicalDates.length; i++) {
+        companyDates.push(historicalDates[i].formated.split(" ")[0]);
+      }
+      aggCompanyDates.push(companyDates);
+    }
+    aggCompanyDates.sort();
+    if (aggCompanyDates.length === 0) return;
+    let dateArrayNeeded = aggCompanyDates[0];
+    setArrForStartingDate(dateArrayNeeded);
+    let dateNeeded = dateArrayNeeded[dateArrayNeeded.length - 1];
+    if (!dateArrayNeeded) {
+      return;
+    }
+    fetchDateRange(dateNeeded);
+  }, [stockData, dummyStockData]);
+
+  // setStartingDate()
+  useEffect(() => {
+    // setBegDate(arrForStartingDate[0])
+    // console.log('this isthe arrforStartingDate[0]',arrForStartingDate[0])
+    // fetchDateRange(arrForStartingDate[0])
+    // let fetchStartingdateNeeded=dateArrayNeeded[0]
+    // console.log('fetchStartingdateNeeded',fetchStartingdateNeeded)
+    // fetchDateRange("2015-12-01")
+  }, [stockData]);
+
+  const fetchDateRange = (startingDate) => {
+    let finalFetchedArr = [];
+    if (stockData.length === 0) return;
+    stockData.reverse();
+    const start = Date.parse(startingDate);
+    const filteredDate = stockData.map((entry) =>
+      entry.dates.filter((s) => Date.parse(s.formated) > start)
+    );
+    console.log('[fiteredDate]',filteredDate)
+    // const openPrices
+    let pricesNeeded = filteredDate.map((arr) => arr.map((e) => e.o));
+    let dateRangeNeeded = filteredDate.map((arr) =>
+      arr.map((e) => e.formated)
+    )[0];
+    let finalDataNeeded = [dateRangeNeeded, ...pricesNeeded];
+    setData(finalDataNeeded);
+
+    // return finalFetchedArr.push([arrForStartingDate,filteredDate])
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -48,9 +48,10 @@ function createData(name, calories, fat, carbs, protein) {
               {/* <TableCell><img src={row.images} style={{height:'30px',width:'30px'}}/></TableCell> */}
               <TableCell component="th" scope="row" ><img src={row.images} style={{height:'30px',width:'30px'}}/></TableCell>
               <TableCell align="right">{row.symbol}</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)}%</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.annualizedReturn).toPrecision(4)}%</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.returnStDev).toPrecision(4)}</TableCell>
+              <TableCell align="right">{Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(3)}%</TableCell>
+              <TableCell align="right">{Number.parseFloat(row.annualizedReturn).toPrecision(3)}%</TableCell>
+              <TableCell align="right">{Number.parseFloat(row.returnStDev*100).toPrecision(3)}%</TableCell>
+              <TableCell align="right">{Number.parseFloat(row.beta).toPrecision(3)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

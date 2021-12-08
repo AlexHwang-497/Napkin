@@ -80,7 +80,7 @@ export const monthlyReturn = (data) => {
       securityShareGrowth.push(securityShareGrowth[i - 1] * (1 + timeReturns));
 
       // *provides the $10K value of the investment
-      portfolioValue.push(portoflioShareGrowth[i] * asset.dates[0].price);
+      portfolioValue.push(portoflioShareGrowth[i] * asset.dates[i].price);
       securityGrowthValue.push(securityShareGrowth[i]*asset.dates[i].price)
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
       // Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)
@@ -96,7 +96,7 @@ export const monthlyReturn = (data) => {
     let n = arrPeriodReturn.length-1
     // *returns stdDev
     let returnsXsubMean = asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b)
-    let returnsVariance = returnsXsubMean/n 
+    let returnsVariance = returnsXsubMean/71 
     let returnStDev = Math.sqrt(
       asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b) / n
     );

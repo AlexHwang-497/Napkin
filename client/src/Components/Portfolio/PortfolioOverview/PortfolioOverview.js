@@ -61,7 +61,7 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const yearRange = ['2019','2020','2021']
 
 console.log('this is the labels',labels)
-const dateLabels = ['1yr', '3yr', '5yr','6yr'];
+const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
@@ -124,7 +124,7 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr'];
     } else if(selectedLineChartData==='3yr'){
         lineChartData=dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
     } else if(selectedLineChartData==='5yr'){
-        lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+        lineChartData=dateArr[5] && spxValue[5] && totalPortoflioValue[2] ?[dateArr[5],spxValue[5],totalPortoflioValue[5]]:[]
     } else {
         lineChartData=dateArr[3] && spxValue[3] && totalPortoflioValue[3] ?[dateArr[3],spxValue[3],totalPortoflioValue[3]]:[]
     }
