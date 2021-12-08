@@ -7,7 +7,7 @@ import React, {useEffect, useState} from 'react';
 import config from '../../../StockData/config'
 import { useDispatch, useSelector } from "react-redux"
 import SeasonalBarChart from './SeasonalBarChart'
-import HeatMapChart from './HeatMapChart'
+import HeatMapChart from '../Charts/HeatMapChart'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance,totalPortfolioValueReturns } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
@@ -258,7 +258,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
             </Paper>
         <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
-                <HeatMapChart/>
+                <HeatMapChart dataNeeded={dataNeeded}/>
 
             </Paper>
         </Grid>

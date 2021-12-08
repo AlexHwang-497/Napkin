@@ -143,7 +143,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                             <MenuItem value={'ytd'}>YTD</MenuItem>
                             <MenuItem value={'3yr'}>3-Yr</MenuItem>
                             <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                            <MenuItem value={'6yr'}>5-Yr</MenuItem>
+                            <MenuItem value={'6yr'}>6-Yr</MenuItem>
                         </Select>
                     </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>

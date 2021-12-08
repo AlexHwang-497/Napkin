@@ -136,9 +136,13 @@ export const monthlyReturn = (data) => {
 // * covaraince calcualtion
   for(let i =1; i<results.length;i++){
     let covariance = cov(spy.arrPeriodReturn.slice(1),results[i].arrPeriodReturn.slice(1))
-    results[i].covariance = covariance 
-    
+    results[i].covariance = covariance[0][1]
+    results[i].beta=results[i].covariance/results[i].returnsVariance
   }
+
+
+
+
   return results;
 };
 
@@ -202,28 +206,23 @@ export const calculateAnnualizedReturn = (aggValue) => {
 //     console.log("[getStandardDeviation.sum", sum);
 // };
 export const getStandardDeviation = (data) => {
-if(!data || data.length===0) return [];
+if(!data || data.length===0 || data[0]===undefined) return ;
   console.log("[getStandardDeviation.data", data);
-    let sum = data.map((entry)=>entry.reduce((acc,curr)=>acc+=curr),0)
+    let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
     console.log("[getStandardDeviation.sum", sum);
     
-    let n = data.map((entry)=>entry.length)
+    let n = data.map((entry)=>entry.length-1)
     console.log("[getStandardDeviation.n", n);
-    let mean = (data.map((entry)=>entry.reduce((acc,curr)=>acc+=curr),0))/(data.map((entry)=>entry.length))
+    let mean = sum.map((entry,index)=>entry/n[index])
     console.log("[getStandardDeviation.mean", mean);
-    // return mean
-  //   // console.log("[monthlyReturn this is the sum", sum);
-  //   // console.log("[monthlyReturn this is the mean", mean);
-  //   let stDev = Math.sqrt(
-  //     data.map((returns) => Math.pow(returns - mean, 2)).reduce((a, b) => a + b) / n
-  //     );
-  // //   console.log("[getStdDev this is the stDev", stDev);
-  //   return stDev;
-  // // });
-  // //Results is an array of standard deviation values for each asset - do we take the avg?
-  // return results.reduce((sum, st)=> sum + st, 0) / results.length;
-  // const mean = array.reduce((a, b) => a + b) / n
+    const variance = data.map((returns,index)=>returns.slice(1).map((entry)=>Math.pow(entry-mean[index],2)).reduce((a,b)=>a+b,0)).map((el,i)=>el/n[i])
+    const stdDev=variance.map((entry)=>Math.sqrt(entry))
+    
+    console.log("[getStandardDeviation.variance", variance);
+    return {stdDev,variance}
 };
+
+
 
 
 export const calcCovariance = (data) => {
