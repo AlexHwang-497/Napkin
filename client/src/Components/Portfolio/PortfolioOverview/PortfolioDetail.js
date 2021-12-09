@@ -44,7 +44,7 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
 if(!arrPortfolioReturns || arrPortfolioReturns.length===0) return;
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
 
-const portfolioCov = calcCovariance(arrPortfolioReturns,spxValue)
+// const portfolioCov = calcCovariance(arrPortfolioReturns,spxValue)
 
 const calculations =portfolioAnnualizeReturn
 // let dataNeeded=calculations.map((el,i)=>el.concat(portfolioStdDev[i],'Hello'))
