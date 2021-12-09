@@ -19,7 +19,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,} from '@material-ui/core'
 function createData(name, ownership, history ) {
-  console.log('this is the name in createData in SectorTabale',name)
+  console.log('[SectorTable.createData.name',name)
   // console.log('this is the sector in createData in SectorTabale',sector)
   console.log('this is the ownership in createData in SectorTabale',ownership)
   

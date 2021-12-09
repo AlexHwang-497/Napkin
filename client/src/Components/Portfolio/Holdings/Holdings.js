@@ -122,6 +122,8 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     
     console.log('[Holdings.holdingsType',holdingsType)
     console.log('[Holdings.treeMapData',treeMapData)
+    console.log('[Holdings.treeMapData.sum',treeMapData[0].reduce((all, {category: c, amount: a}) =>
+    ({...all, [c]: (all[c] || 0) + a }), {}))
     return (
         <Grid container>
             <Grid item xs={6}>

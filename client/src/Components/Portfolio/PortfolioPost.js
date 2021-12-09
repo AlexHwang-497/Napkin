@@ -17,10 +17,13 @@ import ApexLineChart from '../Portfolio/PortfolioOverview/apexLineChart'
 import { deletePortfolio, likePortfolio } from '../../actions/portfolio';
 
 import { useHistory } from 'react-router-dom';
-
+import PortfolioPostTable from './Charts/PortfolioPostTable';
 import useStyles from './Styles'
 import EditCustomizedDialogs from './editPortfolioDialog';
 import { DEFAULT_GRID_PROPS_FROM_OPTIONS } from '@material-ui/data-grid';
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance,totalPortfolioValueReturns } from "../../Utilities";
+import {generateHistoricalDate} from '../../Utilities/DateRanges'
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,6 +35,8 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
+
+
 
 // *<CardMedia className={classes.media} image={post.selectedFile} title={post.title} />; the posts here are taken from props
 // *<Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>; this will tell us on our card like 5min or 5s ago
@@ -99,7 +104,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
   const handling =(event) =>{
       // console.log('poop')
   }
-  // console.log('this is the post in portfolioPost',post)
+  console.log('[portfolioPost',post)
 
     return (
       <Card raised elevation ={6} sx={{ maxWidth: 345 }}>
@@ -159,7 +164,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-        <div className="w-full overflow-auto">
+        {/* <div className="w-full overflow-auto">
             <Table className="whitespace-pre">
                 <TableHead>
                     <TableRow>
@@ -197,7 +202,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-        </div>
+        </div> */}
+          <PortfolioPostTable data ={post}/>
         </CardContent>
       </Collapse>
     </Card>

@@ -31,7 +31,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     const [ndx,setNdx]=useState([])
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
-    const yearRange = ['2014','2015','2016','2017','2018','2019','2020','2021']
+    const yearRange = ['2013','2014','2015','2016','2017','2018','2019','2020','2021']
 
     useEffect(() => {
         Promise.all(

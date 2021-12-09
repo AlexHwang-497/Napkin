@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import PortfolioOverview from '../Components/Portfolio/PortfolioOverview/PortfolioOverview';
-
+import millify from "millify";
 
 // ! arr = results above
 let Finance = require("financejs");
