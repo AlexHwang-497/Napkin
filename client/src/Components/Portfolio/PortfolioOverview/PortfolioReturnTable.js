@@ -7,19 +7,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(year, annualizedReturn, stdDev, beta, alpha) {
+  return { year, annualizedReturn, stdDev, beta, alpha };
 }
 
 
 export default function PortfolioReturnTable({annReturn}) {
-  // const rows = [
-  //   createData(...annReturn[0]),
-  //   // createData('3yr', 237, 9.0, 37, 4.3),
-  //   // createData('5yr', 262, 16.0, 24, 6.0),
-  //   // createData('10yr', 305, 3.7, 67, 4.3),
-    
-  // ];
+  if(!annReturn || annReturn.length===0 || annReturn[0]===undefined) return ;
+
+  console.log('[[PortfolioDetail.PortfolioReturnTable.annReturn',annReturn)
 
   const rows =annReturn.map((entry,key)=>createData(...entry))
   return (
@@ -41,12 +37,12 @@ export default function PortfolioReturnTable({annReturn}) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.year}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-            
+              <TableCell align="right">{row.annualizedReturn}</TableCell>
+              <TableCell align="right">{row.stdDev}</TableCell>
+              <TableCell align="right">{row.beta}</TableCell>
+              <TableCell align="right">{row.alpha}</TableCell>           
             </TableRow>
           ))}
         </TableBody>

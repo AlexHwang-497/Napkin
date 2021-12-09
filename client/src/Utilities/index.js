@@ -17,11 +17,7 @@ export const OrganizeData = (arr, assets, ownership, images, sector) => {
     Infinity
   );
   return arr.map((entry) => {
-    console.log("this is the assets in organizeData", entry);
-    console.log("this is the entry in organizeData", entry);
-    console.log("this is the entry.symbol in organizeData", entry.symbol);
     const index = assets.indexOf(entry.symbol);
-    console.log("this is the index in organizeData", index);
     return {
       symbol: entry.symbol,
       ownership: ownership[index],
@@ -199,14 +195,7 @@ export const calculateAnnualizedReturn = (aggValue) => {
   );
 };
 
-// export const getStandardDeviation = (arr) => {
-// if(!arr || arr.length===0) return;
-//   console.log("[getStandardDeviation.arr", arr);
-//     let reducer = (prev,curr) =>prev+=curr
-//     let sum = arr.slice(1).reduce(reducer);
 
-//     console.log("[getStandardDeviation.sum", sum);
-// };
 export const getStandardDeviation = (data) => {
 if(!data || data.length===0 || data[0]===undefined) return ;
   console.log("[getStandardDeviation.data", data);
@@ -221,22 +210,39 @@ if(!data || data.length===0 || data[0]===undefined) return ;
     const stdDev=variance.map((entry)=>Math.sqrt(entry))
     
     console.log("[getStandardDeviation.variance", variance);
-    return {stdDev,variance}
+    return stdDev
+};
+
+export const getVariance = (data) => {
+if(!data || data.length===0 || data[0]===undefined) return ;
+  console.log("[getStandardDeviation.data", data);
+    let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
+    console.log("[getStandardDeviation.sum", sum);
+    
+    let n = data.map((entry)=>entry.length-1)
+    console.log("[getStandardDeviation.n", n);
+    let mean = sum.map((entry,index)=>entry/n[index])
+    console.log("[getStandardDeviation.mean", mean);
+    const variance = data.map((returns,index)=>returns.slice(1).map((entry)=>Math.pow(entry-mean[index],2)).reduce((a,b)=>a+b,0)).map((el,i)=>el/n[i])
+    
+
+    return {variance}
 };
 
 
 
 
-export const calcCovariance = (data) => {
-  if(!data || data.length===0) return;
-  console.log('[calcCovariance: this is the data',data)
-  const result = data.map((entry)=>
-    entry.arrPeriodReturn
-  )
+export const calcCovariance = (data,spxReturns) => {
+  if(!data || data.length===0 || !spxReturns || data.length===0 ) return;
+  // console.log('[calcCovariance.data',data)
+  console.log('[calcCovariance.spxReturns',spxReturns)
+  const dataResult = data.map((entry)=>entry.slice(1))
+  const spxResult = spxReturns.map((entry)=>entry.slice(1))
   
-  console.log('[calcCovariance: this is the spResult',result)
-  let covResult=cov(result[0].slice(1),result[2].slice(1))
-  console.log('[calcCovariance: this is the covResult',covResult)
+  console.log('[calcCovariance.dataResult',dataResult)
+  console.log('[calcCovariance.spxResult',spxResult)
+  let covResult=cov(spxResult[3],dataResult[3])[0][1]
+  console.log('[calcCovariance.covResult',covResult)
 
 
 }
@@ -249,3 +255,5 @@ export const subSet = (data, minDate) => {
     ),
   }));
 };
+
+

@@ -255,12 +255,12 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
         <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/>
 
-            </Paper>
-        <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+          </Paper>
+        
                 {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
-                <HeatMapChart dataNeeded={dataNeeded}/>
+                {/* <HeatMapChart dataNeeded={dataNeeded}/> */}
 
-            </Paper>
+        
         </Grid>
     </Grid>
         
