@@ -10,6 +10,8 @@ const ApexTreeMap = ({treeMapData,dateIndex,format}) => {
   let max =  Math.max(...arr)
   console.log('[holdings.apexTreeMax.max',max)
   console.log('[holdings.apexTreeMax.min',min)
+  console.log('[holdings.apexTreeMax.max-min*.5',((max-min)*.5)+min)
+  console.log('[holdings.apexTreeMax.max-min*.5.01',((max-min)*.5)+min+.01)
   console.log('[holdings.apexTreeMax.format',format)
     
     const series = [
@@ -61,12 +63,12 @@ const ApexTreeMap = ({treeMapData,dateIndex,format}) => {
             ranges: [
               {
                 from: -Math.abs(min),
-                to: (max-min)*.5,
+                to: ((max-min)*.5)+min,
                 color: '#CD363A'
               },
               {
-                from: (max-min)*.5+1,
-                to:max ,
+                from: ((max-min)*.5)+min+.000001,
+                to:max,
                 color: '#66DA26'
               }
             ]

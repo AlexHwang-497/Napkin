@@ -29,7 +29,7 @@ const organizeByYear=(arr) => {
     // console.log('[returnsTable.organizeByYear.arr[i]',arr[i])
 
     let currentMonth = arr[i].date.split('-')[1]
-    obj[monthMap[currentMonth]]=Number.parseFloat(arr[i].value*100).toPrecision(2)+'%'
+    obj[monthMap[currentMonth]]=Number(arr[i].value*100).toFixed(1)+'%'
   }
   // console.log('[returnsTable.organizeByYear.obj',obj)
   return obj

@@ -103,43 +103,29 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
         case 'currentPortfolioValue':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalPortfolioValue}}).slice(1))
             format ='$'
-
-    
-            
-
             break;
         case 'initialPortfolioValue':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.initialPortfolioValue}}).slice(1))
             format ='$'
-            
-
-
             break;
         case 'cumulativeReturn':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalCumulativeReturn}}).slice(1))
             format ='%'
-
-
             break;
         case 'annualizedReturn':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.annualizedReturn}}).slice(1))
             format ='annual'
-
             break;
         case 'priceStandardDeviation':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.priceStDev}}).slice(1))
             format ='$'
-
-
             break;
         case 'returnStandardDeviation':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.returnStDev}}).slice(1))
             format ='%'
-
             break;
             
         default:
-
               treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))            
               format ='$'
               break;
