@@ -31,7 +31,7 @@ const organizeByYear=(arr) => {
     let currentMonth = arr[i].date.split('-')[1]
     obj[monthMap[currentMonth]]=Number(arr[i].value*100).toFixed(1)+'%'
   }
-  // console.log('[returnsTable.organizeByYear.obj',obj)
+  console.log('[returnsTable.organizeByYear.obj',obj)
   return obj
 
 }
@@ -41,10 +41,10 @@ function createReturnsTableData(year, jan,feb,mar,apr,may,jun,jul,aug,sep,oct,no
   }
   
   export default function ReturnsTable({data=[[]],dataNeeded=[[]]}) {
-    // console.log('[returnsTable.data',data.filter((el)=>{return el.length>1}))
+    console.log('[returnsTable.data',data.filter((el)=>{return el.length>1}))
     
     let filteredData = data.filter((el)=>{return el.length>1})
-    
+    console.log('[returnsTable.filteredData',data.filter((el)=>{return el.length>1}))
 
     return (
       <TableContainer component={Paper}>

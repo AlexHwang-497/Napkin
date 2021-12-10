@@ -11,6 +11,7 @@ import HeatMapChart from '../Charts/HeatMapChart'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance,totalPortfolioValueReturns } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import PortfolioPostTable from '../Charts/PortfolioPostTable'
+import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
 
 function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     let cov = require( 'compute-covariance' );
@@ -148,6 +149,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
                 {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
                 {/* <HeatMapChart dataNeeded={dataNeeded}/> */}
                 {/* <PortfolioPostTable dataNeeded={monthlyData}/> */}
+                <SeasonalAnalysisTable data={dataNeeded}/>
         
         </Grid>
     </Grid>
