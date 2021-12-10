@@ -164,45 +164,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-        {/* <div className="w-full overflow-auto">
-            <Table className="whitespace-pre">
-                <TableHead>
-                    <TableRow>
-                        <TableCell className="px-0"></TableCell>
-                        <TableCell className="px-0">Symbol</TableCell>
-                        <TableCell className="px-0">Portfolio(%)</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                  {post.assets && post.assets.map((asset,i)=>(
-                    <TableRow key={i}>
-                      <TableCell>
-                        <img src={post.image[i]} style={{height:'30px',width:'30px'}}/>
-                      </TableCell>
-                      <TableCell className="px-0 capitalize" align="left">{asset}</TableCell>
-                      <TableCell className="px-0 capitalize" align="left">{post.ownership[i]}%</TableCell>
-                    </TableRow>
-                  ))}   
-                </TableBody>
-            </Table>
-
-            <TablePagination
-                className="px-4"
-                rowsPerPageOptions={[5, 10]}
-                component="div"
-                count={post.assets.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                backIconButtonProps={{
-                    'aria-label': 'Previous Page',
-                }}
-                nextIconButtonProps={{
-                    'aria-label': 'Next Page',
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-        </div> */}
+        <Divider style={{ margin: '20px 0' }} />
+        
           <PortfolioPostTable data ={post}/>
         </CardContent>
       </Collapse>

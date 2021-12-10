@@ -3,7 +3,6 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import fetchStockPrice from '../StockData/FetchStockPrices'; 
 import CustomizedDialogs from '../Components/Portfolio/Dialog';
 import memories from '../images/memories.png';
 import memoriesLogo from '../images/memoriesLogo.png';

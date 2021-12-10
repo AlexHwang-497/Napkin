@@ -27,7 +27,7 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
   const spxValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry)=>entry.arrPeriodReturn)[0]
-    console.log('[SeasonalAnalysis.spxValue.monReturn',data)
+    // console.log('[SeasonalAnalysis.spxValue.monReturn',data)
     return data
   })
 

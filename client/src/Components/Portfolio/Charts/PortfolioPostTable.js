@@ -6,20 +6,25 @@ const columns = [
     field: "image",
     headerName: "",
     width: 50,
+    // sortingMode={false}
     // height: 100,
     renderCell: (params) => <img src={params.value}  style={{height:'30px',width:'30px'}}/>
   },
   {
     field: 'symbol',
     headerName: 'Symbol',
-    width: 150,
+    minWidth: 50,
     // editable: true,
   },
   {
     field: 'ownership',
     headerName: 'Ownership',
     type: 'number',
-    width: 150,
+    minWidth: 50,
+    valueFormatter: (params) => {
+      const valueFormatted = Number(params.value).toLocaleString();
+      return `${valueFormatted} %`;
+    },
     // editable: true,
   },
   
@@ -39,16 +44,20 @@ export default function PortfolioPostTable({data}) {
     obj.symbol=data.assets.map((el)=>el)
     obj.images=data.image
     obj.ownership=data.ownership
-    console.log('[PortfolioPostTable.obj',obj)
-    console.log('[PortfolioPostTable.obj.map',obj.symbol.map((el,i)=>{return {'id':i,'symbol':el, 'images':obj.images[i],'ownership':obj.ownership[i]}}))
+    // console.log('[PortfolioPostTable.obj',obj)
+    // console.log('[PortfolioPostTable.obj.map',obj.symbol.map((el,i)=>{return {'id':i,'symbol':el, 'images':obj.images[i],'ownership':obj.ownership[i]}}))
     const row = obj.symbol.map((el,i)=>{return {'id':i,'symbol':el, 'image':obj.images[i],'ownership':obj.ownership[i]}})
   return (
-    <div style={{ height: 350 }}>
+    <div style={{ height: 350, width: '100%' }}>
       <DataGrid
         rows={row}
-        columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
+        columns={columns}
+        disableColumnMenu={true}
+        // initialState={{ pinnedColumns: { left: ['name'], right: ['actions'] } }}
+
+        // sortingMode={false}
         // disableSelectionOnClick
       />
     </div>

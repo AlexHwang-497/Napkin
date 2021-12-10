@@ -67,7 +67,7 @@ const CustomTableCell = ({ row, name, onChange }) => {
 };
 
 function EditableTable({post}) {
-    console.log('this is the post in EditableTable',post)
+    // console.log('this is the post in EditableTable',post)
   const [rows, setRows] = React.useState([
     createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
     createData("Ice cream sandwich", 237, 9.0, 37, 4.3),

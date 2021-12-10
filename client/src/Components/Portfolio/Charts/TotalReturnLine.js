@@ -3,16 +3,16 @@ import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 const TRLineChart = ({priceData,title}) => {
-    console.log('[TRLineChart.priceData',priceData)
+    // console.log('[TRLineChart.priceData',priceData)
     if(!priceData || priceData.length===0) return (<div></div>);
     
     const combinedArr=[...priceData[1],...priceData[2]].sort()
     const maxValue = Math.max(...combinedArr)
     const minValue = Math.min(...combinedArr)
-    console.log('[TRLineChart.combinedArr',combinedArr)
-    console.log('[TRLineChart.maxValue',maxValue)
-    console.log('[TRLineChart.minValue',minValue)
-    console.log('[TRLineChart.title',title)
+    // console.log('[TRLineChart.combinedArr',combinedArr)
+    // console.log('[TRLineChart.maxValue',maxValue)
+    // console.log('[TRLineChart.minValue',minValue)
+    // console.log('[TRLineChart.title',title)
  
     const series = [
         
@@ -100,7 +100,7 @@ const TRLineChart = ({priceData,title}) => {
             max: maxValue,
             labels: {
                 formatter: function (y) {
-                  return '$'+y.toFixed(1);
+                  return '$'+Number(y).toFixed(2);
                 }
               }
         },

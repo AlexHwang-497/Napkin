@@ -9,7 +9,7 @@ import {getData} from '../../../actions/SecuritiesPrice'
 function BarGraph({endDate,startDate}) {
   const dispatch = useDispatch();
   const state = useSelector(state => state.SecuritiesPriceReducer)
-  console.log('this is the state in BarGraph.js',state)
+  
   // const [num, setNum] = React.useState(5);
   // const aaaa = endDate
   // console.log('this is the endDate or aaaa in BarGraph',endDate)

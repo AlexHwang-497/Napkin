@@ -162,11 +162,11 @@ export const totalPortfolioValue = (data) => {
 };
 export const totalPortfolioValueReturns = (data) => {
   if (!data || data.length === 0 || !data[0].portfolioValue) return;
-  console.log('[index.totalPortfolioValueReturns.data',data)
+  // console.log('[index.totalPortfolioValueReturns.data',data)
   let aggValue = [10000];
   let cumReturn=0 
   let arrCumReturn = [1];
-  console.log('[index.data[0].portfolioValue.length',data[0].portfolioValue.length)
+  // console.log('[index.data[0].portfolioValue.length',data[0].portfolioValue.length)
   for (let i = 1; i < data[0].portfolioValue.length; i++) {
     
     let sum = 0;
@@ -198,31 +198,31 @@ export const calculateAnnualizedReturn = (aggValue) => {
 
 export const getStandardDeviation = (data) => {
 if(!data || data.length===0 || data[0]===undefined) return ;
-  console.log("[getStandardDeviation.data", data);
+  // console.log("[getStandardDeviation.data", data);
     let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
-    console.log("[getStandardDeviation.sum", sum);
+    // console.log("[getStandardDeviation.sum", sum);
     
     let n = data.map((entry)=>entry.length-1)
-    console.log("[getStandardDeviation.n", n);
+    // console.log("[getStandardDeviation.n", n);
     let mean = sum.map((entry,index)=>entry/n[index])
-    console.log("[getStandardDeviation.mean", mean);
+    // console.log("[getStandardDeviation.mean", mean);
     const variance = data.map((returns,index)=>returns.slice(1).map((entry)=>Math.pow(entry-mean[index],2)).reduce((a,b)=>a+b,0)).map((el,i)=>el/n[i])
     const stdDev=variance.map((entry)=>Math.sqrt(entry))
     
-    console.log("[getStandardDeviation.variance", variance);
+    // console.log("[getStandardDeviation.variance", variance);
     return stdDev
 };
 
 export const getVariance = (data) => {
 if(!data || data.length===0 || data[0]===undefined) return ;
-  console.log("[getStandardDeviation.data", data);
+  // console.log("[getStandardDeviation.data", data);
     let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
-    console.log("[getStandardDeviation.sum", sum);
+    // console.log("[getStandardDeviation.sum", sum);
     
     let n = data.map((entry)=>entry.length-1)
-    console.log("[getStandardDeviation.n", n);
+    // console.log("[getStandardDeviation.n", n);
     let mean = sum.map((entry,index)=>entry/n[index])
-    console.log("[getStandardDeviation.mean", mean);
+    // console.log("[getStandardDeviation.mean", mean);
     const variance = data.map((returns,index)=>returns.slice(1).map((entry)=>Math.pow(entry-mean[index],2)).reduce((a,b)=>a+b,0)).map((el,i)=>el/n[i])
     
 
@@ -235,14 +235,14 @@ if(!data || data.length===0 || data[0]===undefined) return ;
 export const calcCovariance = (data,spxReturns) => {
   if(!data || data.length===0 || !spxReturns || data.length===0 ) return;
   // console.log('[calcCovariance.data',data)
-  console.log('[calcCovariance.spxReturns',spxReturns)
+  // console.log('[calcCovariance.spxReturns',spxReturns)
   const dataResult = data.map((entry)=>entry.slice(1))
   const spxResult = spxReturns.map((entry)=>entry.slice(1))
   
-  console.log('[calcCovariance.dataResult',dataResult)
-  console.log('[calcCovariance.spxResult',spxResult)
+  // console.log('[calcCovariance.dataResult',dataResult)
+  // console.log('[calcCovariance.spxResult',spxResult)
   let covResult=cov(spxResult[3],dataResult[3])[0][1]
-  console.log('[calcCovariance.covResult',covResult)
+  // console.log('[calcCovariance.covResult',covResult)
 
 
 }

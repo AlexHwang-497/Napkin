@@ -8,10 +8,10 @@ const ApexLineChart = ({priceData}) => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
     });
-    console.log('[ApexLineChart.dates',dates)
+    // console.log('[ApexLineChart.dates',dates)
 
     const calculations = dates.map((date, index) => {
-        console.log('[ApexLineChart.calculations.date',date)
+        // console.log('[ApexLineChart.calculations.date',date)
 
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const monReturn = monthlyReturn(range)
@@ -30,7 +30,7 @@ const ApexLineChart = ({priceData}) => {
     return dateArr[0]
   })
 
-    console.log('[ApexLineChart.datesNeeded',datesNeeded[0])
+    // console.log('[ApexLineChart.datesNeeded',datesNeeded[0])
 
 
     // console.log('[ApexLineChart.calculations--',calculations)

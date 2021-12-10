@@ -40,7 +40,6 @@ function InputForm({currentId,setCurrentId}) {
   //! carlos code //////////////////////////////////////////////////////////////
   const symbolLookup = () => {
     fetch(
-      // `https://financialmodelingprep.com/api/v3/quote/${symbol.toUpperCase()}?apikey=${'f69c6a774b0cfb6186868a361929fd36'}`
       `https://financialmodelingprep.com/api/v3/profile/${symbol.toUpperCase()}?apikey=f69c6a774b0cfb6186868a361929fd36`
     )
       .then((res) => res.json())
@@ -58,8 +57,8 @@ function InputForm({currentId,setCurrentId}) {
         }
       });
   };
-  console.log('this is the sector in inpuitForm:',sector)
-  console.log('this is the image in inpuitForm:',image)
+  // console.log('this is the sector in inpuitForm:',sector)
+  // console.log('this is the image in inpuitForm:',image)
 
   const currentAllowance = pct.reduce((acc, value) => acc + value, 0);
   console.log(
@@ -90,7 +89,7 @@ function InputForm({currentId,setCurrentId}) {
 
 const handleSubmit = async(e) =>{
   e.preventDefault()
-  console.log('this is the currentID in handlesubmit', currentId)
+  // console.log('this is the currentID in handlesubmit', currentId)
   if (!currentId) {
       // console.log('this is the createPortfolio in inputForm.js',{assets:stockList,ownership:portfolioPercentage,portfolioName})
       dispatch(createPortfolio({assets:stockList,ownership:pct,portfolioName,sector,image,description}, history));

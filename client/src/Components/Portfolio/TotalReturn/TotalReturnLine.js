@@ -7,9 +7,9 @@ const TRLineChart = ({priceData}) => {
     const combinedArr=[...priceData[1],...priceData[2]].sort()
     const maxValue = Math.max(...combinedArr)
     const minValue = Math.min(...combinedArr)
-    console.log('[TRLineChart.combinedArr',combinedArr)
-    console.log('[TRLineChart.maxValue',maxValue)
-    console.log('[TRLineChart.minValue',minValue)
+    // console.log('[TRLineChart.combinedArr',combinedArr)
+    // console.log('[TRLineChart.maxValue',maxValue)
+    // console.log('[TRLineChart.minValue',minValue)
  
     const series = [
         

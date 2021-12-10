@@ -60,7 +60,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
         return data
         
       })
-    console.log('[Holdings.securityData',securityData)
+    // console.log('[Holdings.securityData',securityData)
 
     let dateIndex=0
     switch(dateType){
@@ -93,37 +93,75 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
         setHoldingsType(e.target.value)
     
       }
-      console.log('[Holdings.holdingsData',securityData)
+    //   console.log('[Holdings.holdingsData',securityData)
+    
+    let format
+    let text =''
+    let op = 0
+    
     switch(holdingsType){
         case 'currentPortfolioValue':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalPortfolioValue}}).slice(1))
+            format ='$'
+
+    
+            
 
             break;
         case 'initialPortfolioValue':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.initialPortfolioValue}}).slice(1))
+            format ='$'
+            
+
 
             break;
         case 'cumulativeReturn':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalCumulativeReturn}}).slice(1))
+            format ='%'
+
+
             break;
         case 'annualizedReturn':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.annualizedReturn}}).slice(1))
+            format ='annual'
+
             break;
         case 'priceStandardDeviation':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.priceStDev}}).slice(1))
+            format ='$'
+
+
             break;
         case 'returnStandardDeviation':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.returnStDev}}).slice(1))
+            format ='%'
+
             break;
             
         default:
-            treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))
-    }
+
+              treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))            
+              format ='$'
+              break;
+            }
+            
+             console.log('[Holdings.treeMapData',treeMapData)
+            //  console.log('[Holdings.max',max)
+            //  console.log('[Holdings.min',max)
+    // console.log('[Holdings.holdingsType',holdingsType)
     
-    console.log('[Holdings.holdingsType',holdingsType)
-    console.log('[Holdings.treeMapData',treeMapData)
-    console.log('[Holdings.treeMapData.sum',treeMapData[0].reduce((all, {category: c, amount: a}) =>
-    ({...all, [c]: (all[c] || 0) + a }), {}))
+    
+    // console.log('[Holdings.treeMapData.reduce',treeMapData.map((el)=>el.reduce((acc,curr)=>{
+    //     if (!acc[curr.x]) {
+    //         acc[curr.x] = { x: curr.x, y: 0 };
+    //         result.push(acc[curr.x])
+    //       }
+    //       acc[curr.x].y += curr.y;
+    //       return acc;
+
+    // },{})))
+    
+    
     return (
         <Grid container>
             <Grid item xs={6}>
@@ -171,7 +209,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                         
                         </Select>
                     </FormControl>
-                    <ApexTreeChart priceData ={priceData} treeMapData={treeMapData} dateIndex={dateIndex}/>
+                    <ApexTreeChart format={format} treeMapData={treeMapData} dateIndex={dateIndex}/>
                 </Paper>
             
             </Grid>
@@ -186,56 +224,3 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
 export default Holdings
 
 
-//   const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
-    //   const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
-    // //   console.log('[Holdings.threeYrData',threeYrData)
-    // //   console.log('[Holdings.fiveYrData',fiveYrData)
-    //   let lineChartData;
-    //   if(selectedLineChartData==='ytd'){
-    //     lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
-          
-    //     } else if(selectedLineChartData==='3yr'){
-    //         lineChartData=dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
-    //     } else {
-    //         lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
-    //     }
-    //     console.log('[Holdings.lineChartData',lineChartData)
-        
-    //     const lineChartHandler = (e) => {
-    //         setSelectedLineChartData(e.target.value)
-            
-    //     }
-    // // ?    ///////////////////////////////////////////////////////////////////////////////////////////
-    //     let portfolioOverviewData;
-    //     if(selectedPortfolioOverviewtData==='ytd'){
-    //         portfolioOverviewData = securityData[0].sector
-            
-    //       } else if(selectedPortfolioOverviewtData==='3yr'){
-    //         portfolioOverviewData=securityData[2].sector
-    //       } else {
-    //         portfolioOverviewData=securityData[3].sector
-    //       }
-    //       console.log('[Holdings.portfolioOverviewData',portfolioOverviewData)
-    
-    
-    //   const portfolioOverviewHandler = (e) => {
-    //     setSelectedPortfolioOverviewtData(e.target.value)
-    
-    //   }
-    // // ?    ///////////////////////////////////////////////////////////////////////////////////////////
-    //     let selectedHoldingsType;
-    //     if(selectedPortfolioOverviewtData==='ytd'){
-    //         portfolioOverviewData = securityData[0]
-            
-    //       } else if(selectedPortfolioOverviewtData==='3yr'){
-    //         portfolioOverviewData=securityData[2]
-    //       } else {
-    //         portfolioOverviewData=securityData[3]
-    //       }
-    //       console.log('[Holdings.portfolioOverviewData',portfolioOverviewData)
-    
-    
-    //   const holdingsTypeHandler = (e) => {
-    //     setHoldingsData(e.target.value)
-    
-    //   }

@@ -8,14 +8,13 @@ const SeasonalBarChart = ({priceData}) => {
       const yearNumber = parseInt(label.split('yr')[0]);
       return generateHistoricalDate(yearNumber);
   });
-  console.log('[ApexLineChart.dates',dates)
+//   console.log('[ApexLineChart.dates',dates)
 
   const calculations = dates.map((date, index) => {
-      console.log('[ApexLineChart.calculations.date',date)
 
   const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
   const monReturn = monthlyReturn(range)
-  console.log('[ApexLineChart.calculations.monReturn',monReturn)
+//   console.log('[ApexLineChart.calculations.monReturn',monReturn)
   const dateArr = monReturn.map((entry)=>entry.dates.map((el)=>el.date))
   return dateArr
   // return dateArr
@@ -30,7 +29,7 @@ const datesNeeded=dates.map((date,index)=>{
   return dateArr[0]
 })
 
-  console.log('[ApexLineChart.datesNeeded',datesNeeded[0])
+//   console.log('[ApexLineChart.datesNeeded',datesNeeded[0])
 
 
   // console.log('[ApexLineChart.calculations--',calculations)

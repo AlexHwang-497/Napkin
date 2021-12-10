@@ -14,17 +14,17 @@ const PortfolioInputForm = ({ currentId, setCurrentId }) => {
         DateCreated:''
     });
 
-    console.log('this is the currentId in portfolioInputForm',currentId)
+    // console.log('this is the currentId in portfolioInputForm',currentId)
     // *this allows us to get our id# that we want to update our post
     const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
-    console.log('this is post in Form.js',post)
+    // console.log('this is post in Form.js',post)
     const classes = useStyles()
     const history = useHistory();
     const dispatch = useDispatch()
     // * this allows us to get our user
     const user = JSON.parse(localStorage.getItem('profile'));
 
-    console.log('this is user in PortfolioInputFrom.js',user)
+    // console.log('this is user in PortfolioInputFrom.js',user)
     useEffect(() => {
         if (post) setPostData(post);
       }, [post]);

@@ -43,7 +43,7 @@ function FetchStockPrices({assets}) {
   }, []);
   // console.log('this is in stockData of FetchStockPrices',stockData)
   // !!!!  this is waht you need to sort
-  console.log('this is no sort stockData of FetchStockPrices',stockData)
+  // console.log('this is no sort stockData of FetchStockPrices',stockData)
   // console.log('this is sort stockData of FetchStockPrices',stockData.sort(function(a,b){return a.results.formated-b.results.formated}))
 // ! this useEffect will cacluate our date range 
   useEffect(()=>{

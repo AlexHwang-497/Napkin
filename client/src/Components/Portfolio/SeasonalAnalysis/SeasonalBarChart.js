@@ -5,9 +5,9 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 const SeasonalBarChart = ({data}) => {
     const valuesArr = data.slice(1).map((entry)=>{return entry.value})
     const dateArr = data.slice(1).map((entry)=>{return entry.date})
-    console.log('[SeasonalBarChart.data',data)
-    console.log('[SeasonalBarChart.valuesArr',valuesArr)
-    console.log('[SeasonalBarChart.dateArr',dateArr)
+    // console.log('[SeasonalBarChart.data',data)
+    // console.log('[SeasonalBarChart.valuesArr',valuesArr)
+    // console.log('[SeasonalBarChart.dateArr',dateArr)
 
     
     const series = [

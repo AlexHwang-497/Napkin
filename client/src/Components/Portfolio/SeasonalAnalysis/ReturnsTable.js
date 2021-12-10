@@ -21,7 +21,7 @@ const monthMap={
   '12':'dec',
 }
 const organizeByYear=(arr) => {
-  console.log('[returnsTable.organizeByYear.arr',arr)
+  // console.log('[returnsTable.organizeByYear.arr',arr)
   if(!arr || arr.length===0) return;
   const obj ={}
   obj.year=arr[0]
@@ -31,7 +31,7 @@ const organizeByYear=(arr) => {
     let currentMonth = arr[i].date.split('-')[1]
     obj[monthMap[currentMonth]]=Number.parseFloat(arr[i].value*100).toPrecision(2)+'%'
   }
-  console.log('[returnsTable.organizeByYear.obj',obj)
+  // console.log('[returnsTable.organizeByYear.obj',obj)
   return obj
 
 }

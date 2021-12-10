@@ -27,7 +27,7 @@ import TRLineChart from '../Charts/TotalReturnLine'
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
-    console.log('[ PortfolioOverview.priceData',priceData)
+    // console.log('[ PortfolioOverview.priceData',priceData)
     
     // ! this is making a deep copy
     // const ttmData = JSON.parse(JSON.stringify(subSet(priceData,'2020-12-01')))
@@ -60,7 +60,7 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const endDate ='2021-11-01'
     const yearRange = ['2019','2020','2021']
 
-console.log('this is the labels',labels)
+// console.log('this is the labels',labels)
 const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
@@ -72,21 +72,21 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
     const spxValue = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-        console.log('[PortfolioOverview.spxValue.monReturn',data)
+        // console.log('[PortfolioOverview.spxValue.monReturn',data)
         return data
     })
     const securityData = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry)
         // console.log('[TotalReturn.pracsValue.monReturn',data)
-        console.log('[PortfolioOverview.pracsValue.monReturn',data)
+        // console.log('[PortfolioOverview.pracsValue.monReturn',data)
         return data
     })
-    console.log('[PortfolioOverview.securityData',securityData)
+    // console.log('[PortfolioOverview.securityData',securityData)
 
 
     const totalPortoflioValue = dates.map((date, index) => {
-        console.log('[PortfolioOverview.calculations.date',date)
+        // console.log('[PortfolioOverview.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
     const portfolioAnnualizeReturn = calculateAnnualizedReturn(aggPortfolioValue)
@@ -99,24 +99,24 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
         return aggPortfolioValueReturns
   })
 
-  console.log('[getStandardDeviation.arrPortfolioReturns',arrPortfolioReturns)
+//   console.log('[getStandardDeviation.arrPortfolioReturns',arrPortfolioReturns)
     const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
-    console.log('[getStandardDeviation.portfolioStdDev',portfolioStdDev)
+    // console.log('[getStandardDeviation.portfolioStdDev',portfolioStdDev)
 
   
   
     const dateArr = dates.map((date, index) => {
-        console.log('[TotalReturn.calculations.date',date)
+        // console.log('[TotalReturn.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
-    console.log('[PortfolioOverview.dateArr.data',data)
+    // console.log('[PortfolioOverview.dateArr.data',data)
     return data
     
   })
   const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
   const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
-  console.log('[PortfolioOverview.threeYrData',threeYrData)
-  console.log('[PortfolioOverview.fiveYrData',fiveYrData)
+//   console.log('[PortfolioOverview.threeYrData',threeYrData)
+//   console.log('[PortfolioOverview.fiveYrData',fiveYrData)
   let lineChartData;
   if(selectedLineChartData==='ytd'){
         lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
@@ -128,7 +128,7 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
     } else {
         lineChartData=dateArr[3] && spxValue[3] && totalPortoflioValue[3] ?[dateArr[3],spxValue[3],totalPortoflioValue[3]]:[]
     }
-    console.log('[PortfolioOverview.lineChartData',lineChartData)
+    // console.log('[PortfolioOverview.lineChartData',lineChartData)
     
     const lineChartHandler = (e) => {
         setSelectedLineChartData(e.target.value)
@@ -144,7 +144,7 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
       } else {
         portfolioOverviewData=securityData[3]
       }
-      console.log('[PortfolioOverview.portfolioOverviewData',portfolioOverviewData)
+    //   console.log('[PortfolioOverview.portfolioOverviewData',portfolioOverviewData)
 
 
   const portfolioOverviewHandler = (e) => {

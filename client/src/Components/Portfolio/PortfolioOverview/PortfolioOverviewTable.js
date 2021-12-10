@@ -16,13 +16,13 @@ function createData(name, calories, fat, carbs, protein) {
  function PortfolioOverviewTable({portfolioOverviewData}) {
   
   
-  console.log('[PortfolioOverviewTable.portfolioOverviewData',portfolioOverviewData.slice(1))
+  // console.log('[PortfolioOverviewTable.portfolioOverviewData',portfolioOverviewData.slice(1))
   
 
   const rows=portfolioOverviewData.slice(1).map((entry)=>entry)
   
   
-  console.log('[PortfolioOverviewTable.rows',rows)
+  // console.log('[PortfolioOverviewTable.rows',rows)
   
   return (
     <TableContainer component={Paper}>
@@ -48,10 +48,10 @@ function createData(name, calories, fat, carbs, protein) {
               {/* <TableCell><img src={row.images} style={{height:'30px',width:'30px'}}/></TableCell> */}
               <TableCell component="th" scope="row" ><img src={row.images} style={{height:'30px',width:'30px'}}/></TableCell>
               <TableCell align="right">{row.symbol}</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(3)}%</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.annualizedReturn).toPrecision(3)}%</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.returnStDev*100).toPrecision(3)}%</TableCell>
-              <TableCell align="right">{Number.parseFloat(row.beta).toPrecision(3)}</TableCell>
+              <TableCell align="right">{Number(row.finalCumulativeReturn*100).toFixed(2)}%</TableCell>
+              <TableCell align="right">{Number(row.annualizedReturn).toFixed(2)}%</TableCell>
+              <TableCell align="right">{Number(row.returnStDev*100).toFixed(2)}%</TableCell>
+              <TableCell align="right">{Number(row.beta).toFixed(2)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -15,7 +15,7 @@ function createData(year, annualizedReturn, stdDev, beta, alpha) {
 export default function PortfolioReturnTable({annReturn}) {
   if(!annReturn || annReturn.length===0 || annReturn[0]===undefined) return ;
 
-  console.log('[[PortfolioDetail.PortfolioReturnTable.annReturn',annReturn)
+  // console.log('[[PortfolioDetail.PortfolioReturnTable.annReturn',annReturn)
 
   const rows =annReturn.map((entry,key)=>createData(...entry))
   return (
@@ -39,7 +39,7 @@ export default function PortfolioReturnTable({annReturn}) {
               <TableCell component="th" scope="row">
                 {row.year}
               </TableCell>
-              <TableCell align="right">{row.annualizedReturn}</TableCell>
+              <TableCell align="right">{Number(row.annualizedReturn).toFixed(2)}%</TableCell>
               <TableCell align="right">{row.stdDev}</TableCell>
               <TableCell align="right">{row.beta}</TableCell>
               <TableCell align="right">{row.alpha}</TableCell>           
