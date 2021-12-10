@@ -24,6 +24,7 @@ import ApexLineChart from './apexLineChart'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, totalPortfolioValueReturns, calculateAnnualizedReturn } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import TRLineChart from '../Charts/TotalReturnLine'
+import PortfolioOverviewPagTable from '../Charts/PortfolioOverviewPagTable'
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -203,7 +204,9 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
                         </Select>
                     </FormControl>
                   
-                    <PortfolioOverviewTable portfolioOverviewData={portfolioOverviewData} />
+                    {/* <PortfolioOverviewTable portfolioOverviewData={portfolioOverviewData} /> */}
+
+                    <PortfolioOverviewPagTable dataNeeded={portfolioOverviewData}/>
                     
                 
                 </Paper>
