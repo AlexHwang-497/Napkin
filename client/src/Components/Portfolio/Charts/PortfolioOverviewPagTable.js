@@ -29,20 +29,21 @@ const columns = [
   {
     field: "image",
     headerName: "",
-    width: 50,
+    width: 20,
     // height: 100,
     renderCell: (params) => <img src={params.value}  style={{height:'30px',width:'30px'}}/>
   },
   {
     field: 'symbol',
     headerName: 'Symbol',
-    width: 150,
+    width: 130,
     editable: false,
   },
   {
     field: 'sector',
     headerName: 'Sector',
-    width: 150,
+    width: 120,
+    // flex:1
     // editable: true,
   },
   {
@@ -122,6 +123,7 @@ export default function PortfolioOverviewPagTable({dataNeeded}) {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        
         rows={row}
         columns={columns}
         pageSize={5}

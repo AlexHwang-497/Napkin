@@ -214,38 +214,61 @@ if(!data || data.length===0 || data[0]===undefined) return ;
 };
 
 export const getVariance = (data) => {
-if(!data || data.length===0 || data[0]===undefined) return ;
-  // console.log("[getStandardDeviation.data", data);
+  console.log("[getVariance.data", data);
+if(!data || data.length===0 || data[0]===undefined || (data.length>0 && data[0]===undefined)) return ;
     let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
-    // console.log("[getStandardDeviation.sum", sum);
+    // console.log("[getVariance.sum", sum);
     
     let n = data.map((entry)=>entry.length-1)
-    // console.log("[getStandardDeviation.n", n);
+    // console.log("[getVariance.n", n);
     let mean = sum.map((entry,index)=>entry/n[index])
-    // console.log("[getStandardDeviation.mean", mean);
+    // console.log("[getVariance.mean", mean);
     const variance = data.map((returns,index)=>returns.slice(1).map((entry)=>Math.pow(entry-mean[index],2)).reduce((a,b)=>a+b,0)).map((el,i)=>el/n[i])
     
 
-    return {variance}
+    return variance
 };
 
 
 
 
 export const calcCovariance = (data,spxReturns) => {
-  if(!data || data.length===0 || !spxReturns || data.length===0 ) return;
-  // console.log('[calcCovariance.data',data)
-  // console.log('[calcCovariance.spxReturns',spxReturns)
+  console.log('[calcCovariance.data',data)
+  if(!data || data.length===0 || !spxReturns || spxReturns.length===0 || (data.length>0 && data[0]===undefined) ) return;
+  console.log('[calcCovariance.spxReturns',spxReturns)
   const dataResult = data.map((entry)=>entry.slice(1))
   const spxResult = spxReturns.map((entry)=>entry.slice(1))
   
-  // console.log('[calcCovariance.dataResult',dataResult)
-  // console.log('[calcCovariance.spxResult',spxResult)
-  let covResult=cov(spxResult[3],dataResult[3])[0][1]
-  // console.log('[calcCovariance.covResult',covResult)
+  console.log('[calcCovariance.dataResult',dataResult)
+  console.log('[calcCovariance.spxResult',spxResult)
+  let covResult=dataResult.map((entry,i)=>cov(spxResult[i],entry)).reduce((acc,curr)=>[...acc,curr[1][0]],[])
+  // let covResult=cov(spxResult[3],dataResult[3])
+  console.log('[calcCovariance.covResult',covResult)
+  return covResult
 
 
 }
+export const calcBeta = (variance,coVariance) => {
+  if(!variance || !coVariance) return
+  console.log('[calcBeta.vairance',variance)
+  console.log('[calcBeta.coVariance',coVariance)
+  return coVariance.map((entry,i)=>entry/variance[i])
+}
+// export const calcBeta = (data,spxReturns) => {
+//   if(!data || data.length===0 || !spxReturns || spxReturns.length===0 || (data.length>0 && data[0]===undefined) ) return;
+//   // let variance = data.map((entry)=>getVariance(entry))
+//   console.log('[portfolioBeta.data',data)
+//   // console.log('[portfolioBeta.variance',variance)
+//   console.log('[portfolioBeta.spxReturns',spxReturns)
+//   const dataResult = data.map((entry)=>entry.slice(1))
+//   const spxResult = spxReturns.map((entry)=>entry.slice(1))
+  
+//   console.log('[portfolioBeta.dataResult',dataResult)
+//   console.log('[portfolioBeta.spxResult',spxResult)
+//   let covResult=cov(spxResult[3],dataResult[3])[0][1]
+//   console.log('[portfolioBeta.covResult',covResult)
+  
+// }
 
 export const subSet = (data, minDate) => {
   return data.map((asset) => ({

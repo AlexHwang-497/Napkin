@@ -6,11 +6,13 @@ import { useParams, useHistory } from 'react-router-dom';
 import CommentSection from '../../PostDetails/CommentSection';
 import PortfolioReturnTable from './PortfolioReturnTable';
 import { getPortfolio, getPortfoliosBySearch } from '../../../actions/portfolio';
-import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue,totalPortfolioValueReturns, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
+import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDeviation, totalPortfolioValue,totalPortfolioValueReturns, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
 function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,sector,stockData}) {
+  let calculations = []
+  
 
   const dateLabels = ['1yr', '3yr', '5yr','6yr'];
   const dates = dateLabels.map(label => {
@@ -20,9 +22,11 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
   const portfolioAnnualizeReturn = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const annualizedReturn = calculateAnnualizedReturn(totalPortfolioValue(monthlyReturn(range)));
-    return [dateLabels[index], Number.parseFloat(annualizedReturn*100).toPrecision(4)]
+    // return Number.parseFloat(annualizedReturn*100).toPrecision(4)
+    return [dateLabels[index], Number(annualizedReturn*100).toLocaleString()]
     
   })
+  calculations = calculations.concat(portfolioAnnualizeReturn)
 
   const spxValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -41,17 +45,25 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
     const aggPortfolioValueReturns = totalPortfolioValueReturns(monthlyReturn(range))
     return aggPortfolioValueReturns
 })
-if(!arrPortfolioReturns || arrPortfolioReturns.length===0) return;
+const portfolioVariance = getVariance(arrPortfolioReturns)
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
+const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
+const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
+if(portfolioStdDev && portfolioStdDev.length>0) {
+  calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i]])
+}
 
-// const portfolioCov = calcCovariance(arrPortfolioReturns,spxValue)
+// const calculations =dateLabels.map((entry,i)=>[entry,portfolioAnnualizeReturn[i],portfolioStdDev[i]])
 
-const calculations =portfolioAnnualizeReturn
 // let dataNeeded=calculations.map((el,i)=>el.concat(portfolioStdDev[i],'Hello'))
 // if(!dataNeeded || dataNeeded.length===0 || dataNeeded[0]===undefined) return ;
 // if(!calculations || calculations.length===0 || calculations[0]===undefined) return ;
 // const calculations1 =[portfolioAnnualizeReturn.map((entry)=>entry.push(portfolioStdDev.map((el,index)=>el[index])))]
-// console.log('[PortfolioDetail.portfolioStdDev',portfolioStdDev)
+console.log('[PortfolioDetail.portfolioStdDev',portfolioStdDev)
+console.log('[PortfolioDetail.calculations',calculations)
+console.log('[PortfolioDetail.portfolioBeta',portfolioBeta)
+console.log('[PortfolioDetail.portfolioVariance',portfolioBeta)
+// console.log('[PortfolioDetail.portfolioCov',portfolioCov)
 // console.log('[PortfolioDetail.arrPortfolioReturns',arrPortfolioReturns)
 // console.log('[PortfolioDetail.dataNeeded',dataNeeded)
 // console.log('[PortfolioDetail.calculations',calculations.map((el,i)=>el.concat(portfolioStdDev[i])))
