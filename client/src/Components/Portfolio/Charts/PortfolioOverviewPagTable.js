@@ -88,6 +88,13 @@ const columns = [
     width: 150,
     // editable: true,
   },
+  {
+    field: 'alpha',
+    headerName: 'Alpha',
+    type: 'number',
+    width: 150,
+    // editable: true,
+  },
   
 ];
 
@@ -111,12 +118,14 @@ export default function PortfolioOverviewPagTable({dataNeeded}) {
     'image':entry.images,
     'symbol':entry.symbol,
     'sector':entry.sector,
-    'ownership':Number(entry.ownership).toLocaleString()+'%',
-    'cumulativeReturn':Number(entry.finalCumulativeReturn*100),
-    'annualizedReturn':Number(entry.annualizedReturn),
-    'priceStdv':Number(entry.priceStDev),
-    'returnStd':Number(entry.returnStDev),
-    'beta':entry.beta
+    'ownership':Number(entry.ownership).toFixed(2)+'%',
+    'cumulativeReturn':Number(entry.finalCumulativeReturn*100).toFixed(2)+'%',
+    'annualizedReturn':Number(entry.annualizedReturn).toFixed(2)+'%',
+    'priceStdv':'$'+Number(entry.priceStDev).toFixed(2),
+    'returnStd':Number(entry.returnStDev*100).toFixed(2)+'%',
+    'beta':Number(entry.beta).toFixed(2),
+    'alpha':Number(entry.alpha*100).toFixed(2)+'%'
+    
   }}).slice(1)
   console.log('[PortfolioOverviewPagTable.row',row)
 //  console.log('[PortfolioPostTable.row',row)

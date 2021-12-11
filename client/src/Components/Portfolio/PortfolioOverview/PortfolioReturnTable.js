@@ -27,6 +27,7 @@ export default function PortfolioReturnTable({annReturn}) {
             <TableCell align="right">AnnualizedReturn(%)</TableCell>
             <TableCell align="right">StdDev</TableCell>
             <TableCell align="right">Beta</TableCell>
+            <TableCell align="right">Alpha</TableCell>
             
           </TableRow>
         </TableHead>
@@ -40,8 +41,8 @@ export default function PortfolioReturnTable({annReturn}) {
                 {row.year}
               </TableCell>
               <TableCell align="right">{Number(row.annualizedReturn).toFixed(2)}%</TableCell>
-              <TableCell align="right">{row.stdDev}</TableCell>
-              <TableCell align="right">{row.beta}</TableCell>
+              <TableCell align="right">{Number(row.stdDev*100).toFixed(2)}%</TableCell>
+              <TableCell align="right">{Number(row.beta).toFixed(2)}</TableCell>
               <TableCell align="right">{row.alpha}</TableCell>           
             </TableRow>
           ))}

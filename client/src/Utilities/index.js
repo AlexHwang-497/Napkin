@@ -77,7 +77,7 @@ export const monthlyReturn = (data) => {
 
       // *provides the $10K value of the investment
       portfolioValue.push(portoflioShareGrowth[i] * asset.dates[0].price);
-      securityGrowthValue.push(securityShareGrowth[i]*asset.dates[i].price)
+      securityGrowthValue.push(securityShareGrowth[i]*asset.dates[0].price)
       // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
       // Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)
     }
@@ -90,6 +90,7 @@ export const monthlyReturn = (data) => {
     returnMean=sumPeriodReturn/(arrPeriodReturn.length-1)
     priceMean=sumPriceReturn/(arrPeriodReturn.length-1)
     let n = arrPeriodReturn.length-1
+    let securityCumulativeReturn = (securityGrowthValue[securityGrowthValue.length-1]/securityGrowthValue[0])-1
     // *returns stdDev
     let returnsXsubMean = asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b)
     let returnsVariance = returnsXsubMean/n 
@@ -123,7 +124,8 @@ export const monthlyReturn = (data) => {
       portfolioValueLength,
       initialPortfolioValue,
       returnsXsubMean,
-      returnsVariance
+      returnsVariance,
+      securityCumulativeReturn
 
     };
   });
@@ -132,10 +134,13 @@ export const monthlyReturn = (data) => {
   const spy=results[0]
   // console.log('[PortfolioOverview.spy]',spy)
 // * covaraince calcualtion
+let riskfree = .0235
   for(let i =1; i<results.length;i++){
     let covariance = cov(spy.arrPeriodReturn.slice(1),results[i].arrPeriodReturn.slice(1))
     results[i].covariance = covariance[0][1]
     results[i].beta=results[i].covariance/results[i].returnsVariance
+    results[i].alpha=results[i].finalCumulativeReturn-(riskfree + results[i].beta*(results[0].securityCumulativeReturn-riskfree))
+    
   }
 
 
@@ -194,6 +199,12 @@ export const calculateAnnualizedReturn = (aggValue) => {
     ) / 100
   );
 };
+export const calculateCumulativeReturn = (aggValue) => {
+  if (!aggValue || aggValue.length === 0) return;
+  // console.log('[PortfolioDetail.calculateCumulativeReturn.aggValue',aggValue)
+  return (aggValue[aggValue.length-1]/aggValue[0])-1
+  
+};
 
 
 export const getStandardDeviation = (data) => {
@@ -214,7 +225,7 @@ if(!data || data.length===0 || data[0]===undefined) return ;
 };
 
 export const getVariance = (data) => {
-  console.log("[getVariance.data", data);
+  // console.log("[getVariance.data", data);
 if(!data || data.length===0 || data[0]===undefined || (data.length>0 && data[0]===undefined)) return ;
     let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
     // console.log("[getVariance.sum", sum);
@@ -233,42 +244,39 @@ if(!data || data.length===0 || data[0]===undefined || (data.length>0 && data[0]=
 
 
 export const calcCovariance = (data,spxReturns) => {
-  console.log('[calcCovariance.data',data)
+  // console.log('[calcCovariance.data',data)
   if(!data || data.length===0 || !spxReturns || spxReturns.length===0 || (data.length>0 && data[0]===undefined) ) return;
-  console.log('[calcCovariance.spxReturns',spxReturns)
+  // console.log('[calcCovariance.spxReturns',spxReturns)
   const dataResult = data.map((entry)=>entry.slice(1))
   const spxResult = spxReturns.map((entry)=>entry.slice(1))
   
-  console.log('[calcCovariance.dataResult',dataResult)
-  console.log('[calcCovariance.spxResult',spxResult)
+  // console.log('[calcCovariance.dataResult',dataResult)
+  // console.log('[calcCovariance.spxResult',spxResult)
   let covResult=dataResult.map((entry,i)=>cov(spxResult[i],entry)).reduce((acc,curr)=>[...acc,curr[1][0]],[])
   // let covResult=cov(spxResult[3],dataResult[3])
-  console.log('[calcCovariance.covResult',covResult)
+  // console.log('[calcCovariance.covResult',covResult)
   return covResult
 
 
 }
 export const calcBeta = (variance,coVariance) => {
   if(!variance || !coVariance) return
-  console.log('[calcBeta.vairance',variance)
-  console.log('[calcBeta.coVariance',coVariance)
+  // console.log('[calcBeta.vairance',variance)
+  // console.log('[calcBeta.coVariance',coVariance)
   return coVariance.map((entry,i)=>entry/variance[i])
 }
-// export const calcBeta = (data,spxReturns) => {
-//   if(!data || data.length===0 || !spxReturns || spxReturns.length===0 || (data.length>0 && data[0]===undefined) ) return;
-//   // let variance = data.map((entry)=>getVariance(entry))
-//   console.log('[portfolioBeta.data',data)
-//   // console.log('[portfolioBeta.variance',variance)
-//   console.log('[portfolioBeta.spxReturns',spxReturns)
-//   const dataResult = data.map((entry)=>entry.slice(1))
-//   const spxResult = spxReturns.map((entry)=>entry.slice(1))
+export const calcAlpha = (beta,riskFree,cumulativeReturn,benchmarkCumulativeReturn) => {
+  if(!beta || !riskFree ||!cumulativeReturn ||!benchmarkCumulativeReturn) return
+  // console.log('[PortfolioDetail.calcAlpha.beta',beta)
+  // console.log('[PortfolioDetail.calcAlpha.riskFree',riskFree)
+  // console.log('[PortfolioDetail.calcAlpha.cumulativeReturn',cumulativeReturn)
+  // console.log('[PortfolioDetail.calcAlpha.benchmarkCumulativeReturn',benchmarkCumulativeReturn)
+  let calc = cumulativeReturn.map((el,i)=>el-(riskFree+beta[i]*(benchmarkCumulativeReturn[i]-riskFree)))
+  // let calc = beta.map((el)=>el)
+  // console.log('[PortfolioDetail.calcAlpha.calc',calc)
+}
   
-//   console.log('[portfolioBeta.dataResult',dataResult)
-//   console.log('[portfolioBeta.spxResult',spxResult)
-//   let covResult=cov(spxResult[3],dataResult[3])[0][1]
-//   console.log('[portfolioBeta.covResult',covResult)
-  
-// }
+
 
 export const subSet = (data, minDate) => {
   return data.map((asset) => ({
