@@ -141,17 +141,16 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
             </Paper>
         </Grid>
         <Grid item xs={6} >
-        <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/>
-
+          <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+            {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
+            <SeasonalAnalysisTable data={dataNeeded}/>
           </Paper>
-        
-                {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
-                {/* <HeatMapChart dataNeeded={dataNeeded}/> */}
-                {/* <PortfolioPostTable dataNeeded={monthlyData}/> */}
-                <SeasonalAnalysisTable data={dataNeeded}/>
-        
         </Grid>
+        {/* <Grid item xs={6} >
+          <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                <SeasonalAnalysisTable data={dataNeeded}/>
+          </Paper>
+        </Grid> */}
     </Grid>
         
     )

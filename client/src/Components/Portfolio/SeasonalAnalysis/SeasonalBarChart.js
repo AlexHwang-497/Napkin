@@ -48,7 +48,7 @@ const SeasonalBarChart = ({data}) => {
         },
         labels: {
           formatter: function (y) {
-            return y.toFixed(2)*100 + "%";
+            return y.toFixed(1)*100 + "%";
           }
         }
       },
