@@ -65,9 +65,9 @@ const portfolioVariance = getVariance(arrPortfolioReturns)
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
 const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
 const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
-const portfolioAlpha = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeReturn,spxCumulativeReturnValue):[]
+const portfolioAlpha = calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeReturn,spxCumulativeReturnValue)
 if(portfolioStdDev && portfolioStdDev.length>0) {
-  calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i]])
+  calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i],portfolioAlpha[i]])
 }
 
 console.log('[PortfolioDetail.portfolioStdDev',portfolioStdDev)

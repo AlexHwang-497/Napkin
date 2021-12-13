@@ -10,19 +10,21 @@ const columns = [
   { 
     field: 'jan', 
     type: 'number', 
+    width: 100,
+    filterable: false,
     valueFormatter: ({ value }) => `${value}%` 
   },
-  { field: 'feb', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'mar', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'apr', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'may', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'jun', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'jul', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'aug', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'sep', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'oct', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'nov', type: 'number', valueFormatter: ({ value }) => `${value}%` },
-  { field: 'dec', type: 'number', valueFormatter: ({ value }) => `${value}%` },
+  { field: 'feb', type: 'number', width: 100,  filterable: false, valueFormatter: ({ value }) => `${value}%` },
+  { field: 'mar', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'apr', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'may', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'jun', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'jul', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'aug', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'sep', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'oct', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'nov', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { field: 'dec', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
 ];
 
 const rows = [
@@ -100,6 +102,8 @@ export default function SeasonalAnalysisTable({data}) {
       <DataGrid
         rows={newData}
         columns={columns}
+        // columnBuffer={2} 
+        // columnThreshold={2}
         getCellClassName={(params) => {
           if (params.field === 'year') {
             return '';

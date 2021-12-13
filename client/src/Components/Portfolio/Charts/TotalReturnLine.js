@@ -113,7 +113,7 @@ const TRLineChart = ({priceData,title}) => {
         },
     }
     
-    return <Chart options={options} series={series} type="line" height={400} />
+    return <Chart options={options} series={series} type="line" height={300} />
 }
 
 export default TRLineChart

@@ -267,13 +267,11 @@ export const calcBeta = (variance,coVariance) => {
 }
 export const calcAlpha = (beta,riskFree,cumulativeReturn,benchmarkCumulativeReturn) => {
   if(!beta || !riskFree ||!cumulativeReturn ||!benchmarkCumulativeReturn) return
-  // console.log('[PortfolioDetail.calcAlpha.beta',beta)
-  // console.log('[PortfolioDetail.calcAlpha.riskFree',riskFree)
-  // console.log('[PortfolioDetail.calcAlpha.cumulativeReturn',cumulativeReturn)
-  // console.log('[PortfolioDetail.calcAlpha.benchmarkCumulativeReturn',benchmarkCumulativeReturn)
+  
   let calc = cumulativeReturn.map((el,i)=>el-(riskFree+beta[i]*(benchmarkCumulativeReturn[i]-riskFree)))
   // let calc = beta.map((el)=>el)
-  // console.log('[PortfolioDetail.calcAlpha.calc',calc)
+  console.log('[PortfolioDetail.calcAlpha.calc',calc)
+  return calc
 }
   
 

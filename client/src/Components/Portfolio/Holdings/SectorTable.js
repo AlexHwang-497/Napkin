@@ -5,10 +5,6 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,} from '@material-ui/core'
 function createData(name, ownership, history ) {
-  console.log('[SectorTable.createData.name',name)
-  // console.log('this is the sector in createData in SectorTabale',sector)
-  console.log('this is the ownership in createData in SectorTabale',ownership)
-  
   return {
     name,
     ownership,
@@ -51,6 +47,7 @@ function Row(props) {
                     <TableCell >Portfolio(%)</TableCell>
                     <TableCell >CumulativeReturn(%)</TableCell>
                     <TableCell >AnnualizedReturn(%)</TableCell>
+                    <TableCell >AnnualizedReturn(%)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -58,7 +55,7 @@ function Row(props) {
                     <TableRow key={historyRow.date}>
                       <TableCell  ><img src={historyRow.image} style={{height:'30px',width:'30px'}}/></TableCell>
                       <TableCell >{historyRow.asset}</TableCell>
-                      <TableCell >{row.name}</TableCell>
+                      {/* <TableCell >{row.name}</TableCell> */}
                       <TableCell >{historyRow.ownership}%</TableCell>
                     </TableRow>
                   ))}
@@ -76,24 +73,32 @@ function Row(props) {
 
 
 
-export default function SectorTable({ownership,assets,sector,image}) {
+export default function SectorTable({ownership,assets,sector,image, data,dateIndex }) {
   const uniqueSectors={}
+  console.log('[SectorTable.data',data[dateIndex])
+  const dataNeeded = data[dateIndex].map((el,i)=>el.sector).slice(1)
+  console.log('[SectorTable.dataNeeded',dataNeeded)
+  console.log('[SectorTable.sector',sector)
+  const pracs = dataNeeded
+  console.log('[SectorTable.pracs',pracs)
+
 
   sector.map((s,i)=>{
     if(!uniqueSectors[s]){
       uniqueSectors[s]=[]
     } 
     uniqueSectors[s].push({asset:assets[i],ownership:ownership[i],image:image[i]})
+    // uniqueSectors[s].push(dataNeeded)
     
   })
 
-  console.log('this is the uniqueSectors',uniqueSectors)
+  console.log('[SectorTable.uniqueSectors',uniqueSectors)
 
 
   const individualSectors = Object.keys(uniqueSectors);
   const rows =individualSectors.map((sector,i)=>createData(sector,ownership,uniqueSectors[sector]))
-  console.log('individualSectors:',individualSectors)
-  console.log('rows:',rows)
+  console.log('[SectorTable.individualSectors:',individualSectors)
+  console.log('[SectorTable.rows:',rows)
   // createData(name,ownership[2],assets[2],image[2],
   return (
     <TableContainer component={Paper}>

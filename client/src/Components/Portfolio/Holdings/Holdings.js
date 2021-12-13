@@ -85,7 +85,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     
     
     
-    let treeMapData;
+    let treeMapData=[]
     // let dateIndex = 0
     
     
@@ -98,7 +98,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     let format
     let text =''
     let op = 0
-    
+    let result=[]
     switch(holdingsType){
         case 'currentPortfolioValue':
             treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.symbol,'y':el.finalPortfolioValue}}).slice(1))
@@ -126,8 +126,20 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
             break;
             
         default:
-              treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))            
+            // console.log('[Holdings.securityData',securityData)
+            //   treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))
+              treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1).reduce((acc,curr)=>{
+                    if (!acc[curr.x]) {
+                        acc[curr.x] = { x: curr.x, y: 0 };
+                        result.push(acc[curr.x])
+                      }
+                      acc[curr.x].y += curr.y;
+                      return acc;
+            
+                },{}))
+                treeMapData=treeMapData.map((obj)=>Object.keys(obj).map((key)=>({x:key,y:obj[key].y})))
               format ='$'
+            //   console.log('[Holdings.treeMapData',treeMapData)
               break;
             }
             
@@ -152,7 +164,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
         <Grid container>
             <Grid item xs={6}>
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    <SectorTable ownership={ownership} assets={assets} sector={sector} image={image}/>
+                    <SectorTable ownership={ownership} data={securityData} assets={assets} dateIndex={dateIndex} sector={sector} image={image}/>
                 </Paper>
 
             </Grid>
