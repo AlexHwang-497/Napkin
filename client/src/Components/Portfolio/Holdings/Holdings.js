@@ -126,8 +126,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
             break;
             
         default:
-            // console.log('[Holdings.securityData',securityData)
-            //   treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1))
+
               treeMapData=securityData.map((entry)=>entry.map((el)=>{return {x:el.sector,'y':el.finalPortfolioValue}}).slice(1).reduce((acc,curr)=>{
                     if (!acc[curr.x]) {
                         acc[curr.x] = { x: curr.x, y: 0 };
@@ -139,25 +138,12 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                 },{}))
                 treeMapData=treeMapData.map((obj)=>Object.keys(obj).map((key)=>({x:key,y:obj[key].y})))
               format ='$'
-            //   console.log('[Holdings.treeMapData',treeMapData)
+
               break;
             }
             
              console.log('[Holdings.treeMapData',treeMapData)
-            //  console.log('[Holdings.max',max)
-            //  console.log('[Holdings.min',max)
-    // console.log('[Holdings.holdingsType',holdingsType)
-    
-    
-    // console.log('[Holdings.treeMapData.reduce',treeMapData.map((el)=>el.reduce((acc,curr)=>{
-    //     if (!acc[curr.x]) {
-    //         acc[curr.x] = { x: curr.x, y: 0 };
-    //         result.push(acc[curr.x])
-    //       }
-    //       acc[curr.x].y += curr.y;
-    //       return acc;
 
-    // },{})))
     
     
     return (

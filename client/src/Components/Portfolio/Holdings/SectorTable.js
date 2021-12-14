@@ -43,11 +43,14 @@ function Row(props) {
                   <TableRow>
                     <TableCell></TableCell>
                     <TableCell>Symbol</TableCell>
-                    <TableCell >Sector</TableCell>
+                    {/* <TableCell >Sector</TableCell> */}
                     <TableCell >Portfolio(%)</TableCell>
-                    <TableCell >CumulativeReturn(%)</TableCell>
-                    <TableCell >AnnualizedReturn(%)</TableCell>
-                    <TableCell >AnnualizedReturn(%)</TableCell>
+                    <TableCell >CumReturn(%)</TableCell>
+                    <TableCell >AnnReturn(%)</TableCell>
+                    <TableCell >PriceStdDev($)</TableCell>
+                    <TableCell >RetStdDev(%)</TableCell>
+                    <TableCell >Beta</TableCell>
+                    <TableCell >Alpha</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -57,6 +60,12 @@ function Row(props) {
                       <TableCell >{historyRow.asset}</TableCell>
                       {/* <TableCell >{row.name}</TableCell> */}
                       <TableCell >{historyRow.ownership}%</TableCell>
+                      <TableCell >{Number(historyRow.cumulativeReturn*100).toFixed(2)}%</TableCell>
+                      <TableCell >{historyRow.annualizedReturn}%</TableCell>
+                      <TableCell >${historyRow.priceStdDev}</TableCell>
+                      <TableCell >{historyRow.returnStdDev}%</TableCell>
+                      <TableCell >{historyRow.beta}</TableCell>
+                      <TableCell >{historyRow.alpha}%</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -79,27 +88,47 @@ export default function SectorTable({ownership,assets,sector,image, data,dateInd
   const dataNeeded = data[dateIndex].map((el,i)=>el.sector).slice(1)
   console.log('[SectorTable.dataNeeded',dataNeeded)
   console.log('[SectorTable.sector',sector)
-  const pracs = dataNeeded
+  const pracs = data[dateIndex].map((el,i)=>{return {
+    asset:el.symbol,
+    ownership:el.ownership,
+    image:el.images,
+    annualizedReturn:el.annualizedReturn,
+    cumulativeReturn:el.finalCumulativeReturn,
+    alpha:Number(el.alpha*100).toFixed(2),
+    beta:Number(el.beta).toFixed(2),
+    returnStdDev:Number(el.returnStDev*100).toFixed(2),
+    priceStdDev:Number(el.priceStDev).toFixed(2)
+
+  }}).slice(1)
   console.log('[SectorTable.pracs',pracs)
 
 
-  sector.map((s,i)=>{
+  dataNeeded.map((s,i)=>{
     if(!uniqueSectors[s]){
       uniqueSectors[s]=[]
     } 
-    uniqueSectors[s].push({asset:assets[i],ownership:ownership[i],image:image[i]})
-    // uniqueSectors[s].push(dataNeeded)
+    // uniqueSectors[s].push({asset:assets[i],ownership:ownership[i],image:image[i]})
+    uniqueSectors[s].push(pracs[i])
     
   })
+  // sector.map((s,i)=>{
+  //   if(!uniqueSectors[s]){
+  //     uniqueSectors[s]=[]
+  //   } 
+  //   uniqueSectors[s].push({asset:assets[i],ownership:ownership[i],image:image[i]})
+  //   // uniqueSectors[s].push(dataNeeded)
+    
+  // })
 
   console.log('[SectorTable.uniqueSectors',uniqueSectors)
 
 
   const individualSectors = Object.keys(uniqueSectors);
-  const rows =individualSectors.map((sector,i)=>createData(sector,ownership,uniqueSectors[sector]))
   console.log('[SectorTable.individualSectors:',individualSectors)
+  const rows =individualSectors.map((sector,i)=>createData(sector,ownership,uniqueSectors[sector]))
   console.log('[SectorTable.rows:',rows)
-  // createData(name,ownership[2],assets[2],image[2],
+  // const rows =individualSectors.map((sector,i)=>createData(sector,ownership,uniqueSectors[sector]))
+  
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
