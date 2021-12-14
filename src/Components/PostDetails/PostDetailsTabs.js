@@ -6,7 +6,9 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs,  } from "@material-ui/core";
+// import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
+
 import PostDetails from "./PostDetails";
 import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
@@ -74,7 +76,7 @@ export default function BasicTabs() {
   const [data, setData] = useState([]);
   const [pracData, setPracData] = useState([])
   const startDate = "2011-11-01";
-  const endDate = "2021-11-01";
+  const endDate = "2021-12-01";
   const apiKey = config.FMP_API_KEY_ID;
 
   const handleChange = (event, newValue) => {
@@ -139,6 +141,7 @@ export default function BasicTabs() {
   
   
   return (
+    
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
@@ -154,7 +157,15 @@ export default function BasicTabs() {
           <FetchStockPrices assets={assets} ownership={ownership} />
         </Tabs>
       </Box>
+      
       <TabPanel value={value} index={0}>
+      {/* <DesktopDatePicker
+          label="Date desktop"
+          inputFormat="MM/dd/yyyy"
+          value={value}
+          onChange={handleChange}
+          // renderInput={'(params) => <TextField {...params} />'}
+        /> */}
         <PortfolioOverview
           priceData={pracData}
           assets={assets}

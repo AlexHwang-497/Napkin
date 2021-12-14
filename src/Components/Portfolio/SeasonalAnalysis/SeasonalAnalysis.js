@@ -1,4 +1,4 @@
-import {Grid, Paper} from '@material-ui/core'
+import {Grid, Paper, TextField,Box} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import VerticalBar from '../Charts/BarChart'
 import CollapsibleTable from '../CollapsableTable'
@@ -21,6 +21,8 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     const [stockList, setStockList] = useState([...assets] || ['AAPL'])
     const [stockData,editStockData] = useState([])
     const [stockWeight,setStockWeight]=useState([...ownership] || [0])
+    const [greaterNumber,setGreaterNumber] = useState(0)
+    const [lessNumber,setLessNumber] = useState(0)
     
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     // const [aggPortfolio,setAggPortfolio]=useState([])
@@ -131,7 +133,18 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
         
         
         const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
+
+        const greaterNumberHandler = (e) => {
+          setGreaterNumber(e.target.value)
+          console.log('[SeasonalAnalysis.greaterNumber',e.target.value)
+        }
+        const lessNumberHandler = (e) => {
+          setLessNumber(e.target.value)
+          
+        }
         
+        console.log('[SeasonalAnalysis.greaterNumber',greaterNumber)
+        console.log('[SeasonalAnalysis.lessNumber',lessNumber)
 
     return (
         <Grid container >
@@ -142,8 +155,20 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
         </Grid>
         <Grid item xs={6} >
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+              <TextField  
+                color='string' 
+                label="greater then(>)%" 
+                variant="filled"
+                onChange={greaterNumberHandler}
+              />
+              <TextField  
+                color='secondary' 
+                label="Less then(<)%" 
+                variant="filled" 
+                onChange={lessNumberHandler}
+              />
             {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
-            <SeasonalAnalysisTable data={dataNeeded}/>
+            <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>
           </Paper>
         </Grid>
         {/* <Grid item xs={6} >
