@@ -79,7 +79,7 @@ const organizeByYear=(arr) => {
     return obj
   
   }
-export default function SeasonalAnalysisTable({data}) {
+export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber}) {
     let obj ={}
     const classes = useStyles();
     console.log('[SeasonalAnalysisTable.data',data)
@@ -95,6 +95,7 @@ export default function SeasonalAnalysisTable({data}) {
         return row
     })
     console.log('[SeasonalAnalysisTable.newData',newData)
+    console.log('[SeasonalAnalysisTable.greaterNumber',greaterNumber)
     // console.log('[returnsTable.SeasonalAnalysis.newData',newData)
     
   return (
@@ -108,7 +109,14 @@ export default function SeasonalAnalysisTable({data}) {
           if (params.field === 'year') {
             return '';
           }
-          return params.value >= 0 ? 'hot' : 'cold';
+          // return params.value >= greaterNumber/100 || params.value <lessNumber/100 ? 'hot' : 'cold';
+          if(params.value >= greaterNumber){
+            return 'hot'
+          } else if(params.value <lessNumber){
+            return 'cold'
+          } else {
+            return 
+          }
         }}
       />
     </div>
