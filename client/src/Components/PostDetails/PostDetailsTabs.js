@@ -6,7 +6,9 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField  } from "@material-ui/core";
+// import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
+
 import PostDetails from "./PostDetails";
 import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
@@ -73,8 +75,9 @@ export default function BasicTabs() {
   const [dummyStockData, editDummyStockData] = useState([]);
   const [data, setData] = useState([]);
   const [pracData, setPracData] = useState([])
+  const [endDate, setEndDate] = useState("2021-12-01")
   const startDate = "2011-11-01";
-  const endDate = "2021-11-01";
+  // const endDate = "2021-12-01";
   const apiKey = config.FMP_API_KEY_ID;
 
   const handleChange = (event, newValue) => {
@@ -119,26 +122,20 @@ export default function BasicTabs() {
         console.log('[postDetailTabs.portfolioData',portfolioData)
     })
       );
-    }, [assets]);
-    console.log('[postDetailTabs.pracData',pracData)
-  // useEffect(() => {
-  //   const fakeAssets = ['SPY',"NFLX", "TEAM"];
-  //   const fakeOwnership = [0,60, 40];
-  //   const fakeResults = [SPY,NFLX, TEAM];
-  //   const fakeImages = ["https://financialmodelingprep.com/image-stock/SPY.png","https://financialmodelingprep.com/image-stock/NFLX.png","https://financialmodelingprep.com/image-stock/TEAM.png"]
-  //   const fakeSector = ['INDEX','Communication Services','Technology']
-    
-  //   const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership,fakeImages,fakeSector);
-  //   setPracData(data)
-    
-  //   // console.log('[monthlyReturn.ytd]',ytd)
-  //   const startingDat='2020-01-01'
+    }, [assets,endDate]);
+
+    const endDateHandler = (e) => {
+      setEndDate(e.target.value)
+    };
   
-  // }, [assets]);
+    console.log('[postDetailTabs.pracData',pracData)
+    console.log('[postDetailTabs.endDate',endDate)
+  
 
   
   
   return (
+    
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
@@ -153,8 +150,13 @@ export default function BasicTabs() {
           <Tab label="Statistical Summary" {...a11yProps(4)} />
           <FetchStockPrices assets={assets} ownership={ownership} />
         </Tabs>
+        <Box>
+
+      <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue="" sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
+        </Box>
       </Box>
       <TabPanel value={value} index={0}>
+      
         <PortfolioOverview
           priceData={pracData}
           assets={assets}
@@ -204,6 +206,10 @@ export default function BasicTabs() {
           ownership={ownership}
           portfolioName={portfolioName}
         />
+      </TabPanel>
+      <TabPanel >
+        
+          {/* <TextField id="date" label="End Date" type="date" defaultValue="2017-05-24" sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
       </TabPanel>
     </Box>
   );
