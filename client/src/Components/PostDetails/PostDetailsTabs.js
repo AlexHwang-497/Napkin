@@ -75,7 +75,9 @@ export default function BasicTabs() {
   const [dummyStockData, editDummyStockData] = useState([]);
   const [data, setData] = useState([]);
   const [pracData, setPracData] = useState([])
-  const [endDate, setEndDate] = useState("2021-12-01")
+  let currentDate = new Date().toISOString().slice(0, 10)
+
+  const [endDate, setEndDate] = useState(currentDate)
   const startDate = "2011-11-01";
   // const endDate = "2021-12-01";
   const apiKey = config.FMP_API_KEY_ID;
@@ -152,7 +154,7 @@ export default function BasicTabs() {
         </Tabs>
         <Box>
 
-      <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue="" sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
+      <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
         </Box>
       </Box>
       <TabPanel value={value} index={0}>

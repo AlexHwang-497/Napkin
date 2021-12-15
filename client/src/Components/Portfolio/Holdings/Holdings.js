@@ -1,5 +1,5 @@
 import React, {Fragment, useState,useEffect} from 'react'
-import {Grid, Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box, Divider} from '@material-ui/core'
+import {Grid, Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box, Divider,TextField} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import CollapsibleTable from '../CollapsableTable'
 import VerticalBar from '../Charts/BarChart'
@@ -19,6 +19,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     const [selectedPortfolioOverviewtData,setSelectedPortfolioOverviewtData] = useState('ytd')
     const [holdingsType,setHoldingsType] = useState('sector')
     const [dateType,setDateType] = useState('ytd')
+    const [percentile,setPercentile] = useState(.50)
     // const [dateIndex,setDateIndex] = useState(0)
     
     const dateLabels = ['1yr', '3yr', '5yr','6yr'];
@@ -144,7 +145,11 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
             
              console.log('[Holdings.treeMapData',treeMapData)
 
-    
+    const percentileHandler = (e) => {
+        setPercentile((e.target.value)/100)
+
+    }
+    console.log('[Holdings.percentileHandler',percentile)
     
     return (
         <Grid container>
@@ -169,6 +174,12 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                             <MenuItem value={'5yr'}>5-Yr</MenuItem>
                             <MenuItem value={'6yr'}>6-Yr</MenuItem>
                         </Select>
+                        <TextField  
+                            color='string' 
+                            label="Percentile" 
+                            variant="filled"
+                            onChange={percentileHandler}
+                        />
                     </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
@@ -193,7 +204,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                         
                         </Select>
                     </FormControl>
-                    <ApexTreeChart format={format} treeMapData={treeMapData} dateIndex={dateIndex}/>
+                    <ApexTreeChart format={format} treeMapData={treeMapData} dateIndex={dateIndex} percentile={percentile}/>
                 </Paper>
             
             </Grid>

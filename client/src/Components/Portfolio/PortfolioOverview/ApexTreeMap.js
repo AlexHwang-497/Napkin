@@ -2,7 +2,7 @@ import React, {useState,useEffect,Fragment} from "react";
 import Chart from 'react-apexcharts'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-const ApexTreeMap = ({treeMapData,dateIndex,format}) => {
+const ApexTreeMap = ({treeMapData,dateIndex,format,percentile}) => {
 
   console.log('[holdings.apexTreeMax.treeMapData',treeMapData[dateIndex].map((el)=>el.y))
   const arr=  treeMapData[dateIndex].map((el)=>el.y)
@@ -63,11 +63,11 @@ const ApexTreeMap = ({treeMapData,dateIndex,format}) => {
             ranges: [
               {
                 from: -Math.abs(min),
-                to: ((max-min)*.5)+min,
+                to: ((max-min)*percentile)+min,
                 color: '#CD363A'
               },
               {
-                from: ((max-min)*.5)+min+.000001,
+                from: ((max-min)*percentile)+min+.000001,
                 to:max,
                 color: '#66DA26'
               }
