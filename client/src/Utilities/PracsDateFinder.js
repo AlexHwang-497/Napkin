@@ -374,12 +374,15 @@ const dateLoop = arr => {
     let obj ={}
     let result =[]
     let ytd = arr[11].date
+    // let tenYears = ytd.setMonth(d.getMonth() - 120)
     console.log(ytd)
+    // console.log(tenYears)
     // *get ytd
-    for(let i=0; i<pracsData.length; i=i+12){
-        result.push(pracsData[i].date)
+    for(let i=0; i<arr.length; i=i+12){
+        result.push(arr[i].date)
         // obj[pracsData[i].date.slice(2)]=pracsData[i].date
     }
+    console.log(typeof result)
     console.log(result)
     // console.log(obj)
     return [ytd,...result]
@@ -387,38 +390,53 @@ const dateLoop = arr => {
 
 console.log('this is the date loop',dateLoop(pracsData))
 
-var d = new Date("2021-11-01");
-console.log(d.toISOString().slice(0, 10));
-const trailing24=d.setMonth(d.getMonth() - 24)
-console.log(d.toISOString().slice(0, 10));
+var endDate = new Date("2020-11-01");
+console.log(endDate.toString());
+console.log(endDate.toISOString().slice(0, 10));
+const trailing24=endDate.setMonth(endDate.getMonth() - 120)
+console.log(trailing24)
+let fuckinDate = endDate.toISOString().slice(0, 10)
+console.log(fuckinDate);
 
 
 
 let currentDate = new Date().toISOString().slice(0, 10)
+console.log(currentDate)
 
 const pracsss = pracsData.map((el)=>el)
-const filtered = pracsss.filter((el,i)=>el.date)
+const filtered = pracsss.filter((el,i)=>el.date>=fuckinDate)
+const mappedAgain = filtered.map((el)=>el.date.split('-')[0])
+const distinct = [...new Set(mappedAgain)].sort()
+
+
 
 // console.log(pracsss)
-console.log(filtered)
-
-
-
-
-// var log = function(val){document.body.innerHTML+='<div></pre>'+val+'</pre></div>'} 
-
-let oldArr = [0,1,2,3,4,5,6,7,8,9,10]
-let arr = [];
-
-let maxVal = 5;
-
-let delta = Math.floor( oldArr.length / maxVal );
-
-
-for (let i = 0; i < oldArr.length; i=i+3) {
-  arr.push(oldArr[i]);
+console.log('this is the filtered:',filtered)
+console.log('this is the mappedAgain:',mappedAgain)
+console.log('this is the distinct:',distinct)
+let dateObj = {
+    '0':'1yr',
+    '1':'2yr',
+    '2':'3yr',
+    '3':'4yr',
+    '4':'5yr',
+    '5':'6yr',
+    '6':'7yr',
+    '7':'8yr',
+    '8':'9yr',
+    '9':'10yr'
 }
 
 
-console.log('delta : ' + delta + ' length = ' + oldArr.length) ;
-console.log(arr);
+const yearForSelection = (arr) => {
+    console.log('ppp',arr)
+    let obj ={}
+    for(let i=0;i<arr.length;i++){
+        obj[i] = dateObj[i]
+    }
+    return obj
+}
+
+console.log(yearForSelection(distinct))
+
+

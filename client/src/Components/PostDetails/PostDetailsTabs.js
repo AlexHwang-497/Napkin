@@ -70,15 +70,32 @@ export default function BasicTabs() {
   const [sector, setSector] = useState(selectedPortfolio?.sector || []);
   const [image, setImage] = useState(selectedPortfolio?.image || []);
   const [arrForStartingDate, setArrForStartingDate] = useState([]);
-  const [begDate, setBegDate] = useState();
+  
   const [stockData, editStockData] = useState([]);
   const [dummyStockData, editDummyStockData] = useState([]);
   const [data, setData] = useState([]);
   const [pracData, setPracData] = useState([])
+  const [yearRange,setYearRange] = useState([])
   let currentDate = new Date().toISOString().slice(0, 10)
+ 
+
+  let dateObj = {
+    '0':'1yr',
+    '1':'2yr',
+    '2':'3yr',
+    '3':'4yr',
+    '4':'5yr',
+    '5':'6yr',
+    '6':'7yr',
+    '7':'8yr',
+    '8':'9yr',
+    '9':'10yr'
+}
 
   const [endDate, setEndDate] = useState(currentDate)
-  const startDate = "2011-11-01";
+  const [startDate,setStartDate] = useState('2009-11-01')
+
+  // const startDate = "2011-11-01";
   // const endDate = "2021-12-01";
   const apiKey = config.FMP_API_KEY_ID;
 
@@ -127,11 +144,53 @@ export default function BasicTabs() {
     }, [assets,endDate]);
 
     const endDateHandler = (e) => {
-      setEndDate(e.target.value)
+      setEndDate(e.target.value)      
     };
+
+  
+    // const pracsDates = pracData[0].dates.map((el)=>el.date.split('-')[0])
+    // const distinctYears = [...new Set(pracsDates)].sort()
+    // const yearForSelection = (arr) => {
+    //   console.log('ppp',arr)
+    //   let obj ={}
+    //   for(let i=0;i<arr.length;i++){
+    //       obj[i] = dateObj[i]
+    //   }
+    //   return obj
+    // }
+    // const yearArray = yearForSelection(distinctYears)
+
+
+  //   const dateLoop = arr => {
+  //     let obj ={}
+  //     let result =[]
+  //     let ytd = arr[11].date
+  //     // let tenYears = ytd.setMonth(d.getMonth() - 120)
+  //     console.log(ytd)
+  //     // console.log(tenYears)
+  //     // *get ytd
+  //     for(let i=0; i<arr.length; i=i+12){
+  //         result.push(arr[i].date)
+  //         // obj[pracsData[i].date.slice(2)]=pracsData[i].date
+  //     }
+  //     console.log(typeof result)
+  //     console.log(result)
+  //     // console.log(obj)
+  //     return [ytd,...result]
+  // }
+  
+
+
+
+
+
   
     console.log('[postDetailTabs.pracData',pracData)
     console.log('[postDetailTabs.endDate',endDate)
+    console.log('[postDetailTabs.startDate',startDate)
+    // console.log('[postDetailTabs.pracsDates',pracsDates)
+    // console.log('[postDetailTabs.distinctYears',distinctYears)
+    // console.log('[postDetailTabs.yearArray',yearArray)
   
 
   
