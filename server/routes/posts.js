@@ -9,7 +9,7 @@ import auth from "../middleware/auth.js";
 
 router.get('/search', getPostsBySearch);
 router.get('/', getPosts);
-// router.get('/test',auth, getPosts);
+
 router.get('/:id', getPost);
 router.post('/',auth,  createPost);
 // *managed on the frontend

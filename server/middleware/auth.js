@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
   //   next()
 
   // }
-
+  // console.log('[server/auth.req',req)
   try {
     console.log('this is the req.headers in auth of middleware/auth.js',req.headers)
     const token = req.headers.authorization.split(" ")[1];

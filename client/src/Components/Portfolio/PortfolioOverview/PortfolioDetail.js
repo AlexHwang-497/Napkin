@@ -11,6 +11,8 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
 function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,sector,stockData}) {
+  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  console.log('[PortfolioDetail.post',post)
   let calculations = []
   let [spxCumulativeReturn,setSpxCumulativeReturn] =useState()
   
@@ -85,7 +87,7 @@ console.log('[PortfolioDetail.portfolioCumulativeReturn',portfolioCumulativeRetu
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             <PortfolioReturnTable  annReturn={calculations}/>
             <Divider style={{ margin: '20px 0' }} />
-            <CommentSection/>
+            <CommentSection post={post}/>
           </Paper>
 
         </Fragment>

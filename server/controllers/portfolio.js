@@ -138,6 +138,7 @@ export const likePortfolio = async (req, res) => {
 // *export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value }); this is from the API/index.js
     // ! this is waht is poulating this post
 export const commentPortfolio = async (req, res) => {
+    console.log('[Server/portfolio.commentPost',req)
     const { id } = req.params;
     const { value } = req.body;
     // *we are getting the post from the database
