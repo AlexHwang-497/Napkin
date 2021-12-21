@@ -2,7 +2,8 @@ import axios from 'axios'
 
 // *we are creating this base URL with axios
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });   //this is the orginal
+const API = axios.create({ baseURL: 'https://portfoliobuildertool-server.herokuapp.com' });  //this is the heroku
 
 
 // *this is going to be a function that happens on each one of our requests

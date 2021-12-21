@@ -19,16 +19,19 @@ export const getPost = async (req, res) => {
 }
 
 export const getPosts = async(req, res) => {
-    const { page } = req.query;
+    let { page } = req.query;
+    if(!page){
+        page=1
+    }
     try{
         const LIMIT = 8;
         const startIndex = (Number(page) - 1) * LIMIT; //! get the starting index of every page
         
         // *we are counting up all thedocuents so we know how many posts we have
         const total = await PostMessage.countDocuments({});
-        
+        console.log('[server/controllers.getPosts.startIndex',startIndex)
         // * we are retrieving all the messages in the database
-        const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        const posts = await PostMessage.find().sort({ _id: 0 }).limit(LIMIT).skip(startIndex);
 
         res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
     } catch (error){
