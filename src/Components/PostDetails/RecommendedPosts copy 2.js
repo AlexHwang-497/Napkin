@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
@@ -54,7 +54,7 @@ const RecommendedPosts = () => {
                 <Divider />
                 <div className={classes.recommendedPosts}>
                 {recommendedPosts.map(({ portfolioName, description, message, likes, _id }) => (
-                  <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} >
+                  <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
                     <Typography gutterBottom variant="h6">{portfolioName}</Typography>
                     <Divider />
                     <Typography gutterBottom variant="subtitle2">{description}</Typography>

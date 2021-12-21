@@ -6,7 +6,7 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs,  } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField  } from "@material-ui/core";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
 
 import PostDetails from "./PostDetails";
@@ -70,13 +70,33 @@ export default function BasicTabs() {
   const [sector, setSector] = useState(selectedPortfolio?.sector || []);
   const [image, setImage] = useState(selectedPortfolio?.image || []);
   const [arrForStartingDate, setArrForStartingDate] = useState([]);
-  const [begDate, setBegDate] = useState();
+  
   const [stockData, editStockData] = useState([]);
   const [dummyStockData, editDummyStockData] = useState([]);
   const [data, setData] = useState([]);
   const [pracData, setPracData] = useState([])
-  const startDate = "2011-11-01";
-  const endDate = "2021-12-01";
+  const [yearRange,setYearRange] = useState([])
+  let currentDate = new Date().toISOString().slice(0, 10)
+ 
+
+  let dateObj = {
+    '0':'1yr',
+    '1':'2yr',
+    '2':'3yr',
+    '3':'4yr',
+    '4':'5yr',
+    '5':'6yr',
+    '6':'7yr',
+    '7':'8yr',
+    '8':'9yr',
+    '9':'10yr'
+}
+
+  const [endDate, setEndDate] = useState(currentDate)
+  const [startDate,setStartDate] = useState('2009-11-01')
+
+  // const startDate = "2011-11-01";
+  // const endDate = "2021-12-01";
   const apiKey = config.FMP_API_KEY_ID;
 
   const handleChange = (event, newValue) => {
@@ -121,22 +141,57 @@ export default function BasicTabs() {
         console.log('[postDetailTabs.portfolioData',portfolioData)
     })
       );
-    }, [assets]);
-    console.log('[postDetailTabs.pracData',pracData)
-  // useEffect(() => {
-  //   const fakeAssets = ['SPY',"NFLX", "TEAM"];
-  //   const fakeOwnership = [0,60, 40];
-  //   const fakeResults = [SPY,NFLX, TEAM];
-  //   const fakeImages = ["https://financialmodelingprep.com/image-stock/SPY.png","https://financialmodelingprep.com/image-stock/NFLX.png","https://financialmodelingprep.com/image-stock/TEAM.png"]
-  //   const fakeSector = ['INDEX','Communication Services','Technology']
-    
-  //   const data = OrganizeData(fakeResults, fakeAssets, fakeOwnership,fakeImages,fakeSector);
-  //   setPracData(data)
-    
-  //   // console.log('[monthlyReturn.ytd]',ytd)
-  //   const startingDat='2020-01-01'
+    }, [assets,endDate]);
+
+    const endDateHandler = (e) => {
+      setEndDate(e.target.value)      
+    };
+
   
-  // }, [assets]);
+    // const pracsDates = pracData[0].dates.map((el)=>el.date.split('-')[0])
+    // const distinctYears = [...new Set(pracsDates)].sort()
+    // const yearForSelection = (arr) => {
+    //   console.log('ppp',arr)
+    //   let obj ={}
+    //   for(let i=0;i<arr.length;i++){
+    //       obj[i] = dateObj[i]
+    //   }
+    //   return obj
+    // }
+    // const yearArray = yearForSelection(distinctYears)
+
+
+  //   const dateLoop = arr => {
+  //     let obj ={}
+  //     let result =[]
+  //     let ytd = arr[11].date
+  //     // let tenYears = ytd.setMonth(d.getMonth() - 120)
+  //     console.log(ytd)
+  //     // console.log(tenYears)
+  //     // *get ytd
+  //     for(let i=0; i<arr.length; i=i+12){
+  //         result.push(arr[i].date)
+  //         // obj[pracsData[i].date.slice(2)]=pracsData[i].date
+  //     }
+  //     console.log(typeof result)
+  //     console.log(result)
+  //     // console.log(obj)
+  //     return [ytd,...result]
+  // }
+  
+
+
+
+
+
+  
+    console.log('[postDetailTabs.pracData',pracData)
+    console.log('[postDetailTabs.endDate',endDate)
+    console.log('[postDetailTabs.startDate',startDate)
+    // console.log('[postDetailTabs.pracsDates',pracsDates)
+    // console.log('[postDetailTabs.distinctYears',distinctYears)
+    // console.log('[postDetailTabs.yearArray',yearArray)
+  
 
   
   
@@ -156,16 +211,13 @@ export default function BasicTabs() {
           <Tab label="Statistical Summary" {...a11yProps(4)} />
           <FetchStockPrices assets={assets} ownership={ownership} />
         </Tabs>
+        <Box>
+
+      <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
+        </Box>
       </Box>
-      
       <TabPanel value={value} index={0}>
-      {/* <DesktopDatePicker
-          label="Date desktop"
-          inputFormat="MM/dd/yyyy"
-          value={value}
-          onChange={handleChange}
-          // renderInput={'(params) => <TextField {...params} />'}
-        /> */}
+      
         <PortfolioOverview
           priceData={pracData}
           assets={assets}
@@ -215,6 +267,10 @@ export default function BasicTabs() {
           ownership={ownership}
           portfolioName={portfolioName}
         />
+      </TabPanel>
+      <TabPanel >
+        
+          {/* <TextField id="date" label="End Date" type="date" defaultValue="2017-05-24" sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
       </TabPanel>
     </Box>
   );
