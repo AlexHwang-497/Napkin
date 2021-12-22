@@ -76,21 +76,11 @@ export default function BasicTabs() {
   const [data, setData] = useState([]);
   const [pracData, setPracData] = useState([])
   const [yearRange,setYearRange] = useState([])
+  const [dateArr,setDateArr] = useState([])
   let currentDate = new Date().toISOString().slice(0, 10)
  
 
-  let dateObj = {
-    '0':'1yr',
-    '1':'2yr',
-    '2':'3yr',
-    '3':'4yr',
-    '4':'5yr',
-    '5':'6yr',
-    '6':'7yr',
-    '7':'8yr',
-    '8':'9yr',
-    '9':'10yr'
-}
+  
 
   const [endDate, setEndDate] = useState(currentDate)
   const [startDate,setStartDate] = useState('2009-11-01')
@@ -138,50 +128,71 @@ export default function BasicTabs() {
           ["", ...selectedPortfolio.sector]
         );
         setPracData(portfolioData);
+        setDateArr(portfolioData[0].dates.map((el)=>el.date))
         console.log('[postDetailTabs.portfolioData',portfolioData)
+        // console.log('[postDetailTabs.portfolioData.pracs',portfolioData[0].dates.map((el)=>el.date))
     })
       );
     }, [assets,endDate]);
+
+
 
     const endDateHandler = (e) => {
       setEndDate(e.target.value)      
     };
 
+    let dateObj = {
+      '0':'ytd',
+      '1':'1yr',
+      '2':'2yr',
+      '3':'3yr',
+      '4':'4yr',
+      '5':'5yr',
+      '6':'6yr',
+      '7':'7yr',
+      '8':'8yr',
+      '9':'9yr',
+      '10':'10yr'
+  }
+
+    const ytd = dateArr.slice(11,12)
+    const ttm = dateArr.slice(11,12)
+    const twoYear = dateArr.slice(23,24)
+    const threeYear = dateArr.slice(35,36)
+    const fourYear = dateArr.slice(47,48)
+    const fiveYear = dateArr.slice(59,60)
+    const sixYear = dateArr.slice(71,72)
+    const sevenYear = dateArr.slice(83,84)
+    const eightYear = dateArr.slice(95,96)
+    const nineYear = dateArr.slice(107,108)
+    const tenYear = dateArr.slice(119,120)
+    const combinedDatesArr = [...ytd,...ttm,...twoYear,...threeYear,...fourYear,...fiveYear,...sixYear,...sevenYear,...eightYear,...nineYear,...tenYear]
+
+    const yearForSelection = (arr) => {
+      let obj ={}
+      for(let i=0;i<arr.length;i++){
+          obj[i] = dateObj[i]
+      }
+      return obj
+  }
+
+    let someArr = yearForSelection(combinedDatesArr)
+    console.log('[postDetailTabs.ttm',ttm)
+    console.log('[postDetailTabs.twoYear',twoYear)
+    console.log('[postDetailTabs.twoYear',threeYear)
+    console.log('[postDetailTabs.fourYear',fourYear)
+    console.log('[postDetailTabs.fiveYear',fiveYear)
+    console.log('[postDetailTabs.sixYear',sixYear)
+    console.log('[postDetailTabs.sevenYear',sevenYear)
+    console.log('[postDetailTabs.eightYear',eightYear)
+    console.log('[postDetailTabs.nineYear',nineYear)
+    console.log('[postDetailTabs.tenYear',tenYear)
+    console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
+    console.log('[postDetailTabs.yearForSelection',someArr)
+
+
   
-    // const pracsDates = pracData[0].dates.map((el)=>el.date.split('-')[0])
-    // const distinctYears = [...new Set(pracsDates)].sort()
-    // const yearForSelection = (arr) => {
-    //   console.log('ppp',arr)
-    //   let obj ={}
-    //   for(let i=0;i<arr.length;i++){
-    //       obj[i] = dateObj[i]
-    //   }
-    //   return obj
-    // }
-    // const yearArray = yearForSelection(distinctYears)
-
-
-  //   const dateLoop = arr => {
-  //     let obj ={}
-  //     let result =[]
-  //     let ytd = arr[11].date
-  //     // let tenYears = ytd.setMonth(d.getMonth() - 120)
-  //     console.log(ytd)
-  //     // console.log(tenYears)
-  //     // *get ytd
-  //     for(let i=0; i<arr.length; i=i+12){
-  //         result.push(arr[i].date)
-  //         // obj[pracsData[i].date.slice(2)]=pracsData[i].date
-  //     }
-  //     console.log(typeof result)
-  //     console.log(result)
-  //     // console.log(obj)
-  //     return [ytd,...result]
-  // }
   
-
-
-
 
 
   

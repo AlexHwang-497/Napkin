@@ -13,7 +13,7 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 function TotalReturn({id,assets,portfolioName,ownership,priceData}) {
 
-    const dateLabels = ['1yr', '3yr', '5yr'];
+    const dateLabels = ['1yr', '3yr', '5yr','10yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
