@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Card, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem  } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -52,6 +52,8 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const [rowsPerPage, setRowsPerPage] = React.useState(5)
     const [page, setPage] = React.useState(0)
+    const [openState,setOpenState] = useState(false)
+    console.log('[PortfolioPost.post',post)
     // console.log('this is user in client/portfolio/portfolioPost.js',user)
     // console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
     const userId = user?.result.googleId || user?.result?._id;
@@ -86,9 +88,11 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     };
     const editPost =() => {
       // setCurrentId()
-      <EditCustomizedDialogs currentId = {post._id}/>
+      // <EditCustomizedDialogs currentId = {post._id}/>
+      setOpenState(true)
 
     }
+    
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
@@ -106,6 +110,11 @@ const PortfolioPost = ({ post, setCurrentId }) => {
   }
   console.log('[portfolioPost',post)
 
+  useEffect(()=>{
+    console.log('[PortfolioPost.openState',openState)
+
+  },[openState])
+
     return (
       <Card raised elevation ={6} sx={{ maxWidth: 345 }}>
       
@@ -116,7 +125,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="settings" onClick={() => editPost}>
+            <IconButton aria-label="settings" onClick={() => setOpenState(true)}>
               <MoreVertIcon />
             </IconButton>
           }
@@ -136,12 +145,13 @@ const PortfolioPost = ({ post, setCurrentId }) => {
         <Typography paragraph>Description:</Typography>
         <Typography variant="body2">
             {post.description}
-      <EditCustomizedDialogs size='small'  currentId={post._id} post={post}/>
+      <EditCustomizedDialogs size='small'  currentId={post._id} post={post} openState={openState}/>
           </Typography>
         <Divider style={{ margin: '20px 0' }} />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Tags: #AAPL, #AMZN,#NFLX, # S&P500, #TECH
+          {/* Tags: #AAPL, #AMZN,#NFLX, # S&P500, #TECH */}
+          {/* Tags:{post.tags} */}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

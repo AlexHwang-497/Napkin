@@ -24,7 +24,7 @@ export const getPortfolios = async(req, res) => {
     const { page } = req.query;
     console.log('this is the req.query in getPortfolios',req.query)
     try{
-        const LIMIT = 8;
+        const LIMIT = 4;
         const startIndex = (Number(page) - 1) * LIMIT; //! get the starting index of every page
         
         // *we are counting up all thedocuents so we know how many posts we have
@@ -52,8 +52,10 @@ export const getPortfolios = async(req, res) => {
             const title = new RegExp(searchQuery, "i");
             console.log('this is the title in getPortfolioBySearch in controller/portfolio',title)
     
-            const posts = await PostPortfolio.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
-            console.log('this is the posts in getPortfolioBySearch in controller/portfolio',posts)
+            const posts = await PostPortfolio.find({ $or: [ { 'portfolioName':{$regex:title} }, { 'assets': { $in: tags.split(',').map(e=>new RegExp(e,'i')) } } ]});
+            // const posts = await PostPortfolio.find({ $or: [ {'portfolioName':{$regex:title}} ]});
+            
+            // console.log('this is the posts in getPortfolioBySearch in controller/portfolio',posts)
     
             res.json({ data: posts });
         } catch (error) {    

@@ -10,14 +10,16 @@ import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDevi
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
-function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,sector,stockData}) {
+function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,sector,stockData,yearArr}) {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   console.log('[PortfolioDetail.post',post)
+  console.log('[PortfolioDetail.yearArr',yearArr)
   let calculations = []
   let [spxCumulativeReturn,setSpxCumulativeReturn] =useState()
   
-
-  const dateLabels = ['1yr', '3yr', '5yr','6yr'];
+  if(yearArr.length===0 || !yearArr) return []
+  // const dateLabels = ['1yr', '3yr', '5yr','6yr'];
+  const dateLabels = yearArr.slice(1);
   const dates = dateLabels.map(label => {
     const yearNumber = parseInt(label.split('yr')[0]);
     return generateHistoricalDate(yearNumber);

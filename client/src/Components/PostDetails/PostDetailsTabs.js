@@ -155,7 +155,9 @@ export default function BasicTabs() {
       '10':'10yr'
   }
 
-    const ytd = dateArr.slice(11,12)
+  // console.log('[postDetailTabs.endDatefuck',endDate.split('-')[1])
+    const ytdMonth  = endDate.split('-')[1]
+    const ytd = dateArr.slice(ytdMonth-1,ytdMonth)
     const ttm = dateArr.slice(11,12)
     const twoYear = dateArr.slice(23,24)
     const threeYear = dateArr.slice(35,36)
@@ -167,16 +169,23 @@ export default function BasicTabs() {
     const nineYear = dateArr.slice(107,108)
     const tenYear = dateArr.slice(119,120)
     const combinedDatesArr = [...ytd,...ttm,...twoYear,...threeYear,...fourYear,...fiveYear,...sixYear,...sevenYear,...eightYear,...nineYear,...tenYear]
+    const SeasonalAnalysisYearArr =combinedDatesArr.map((el)=>el.split('-')[0]).sort()
 
     const yearForSelection = (arr) => {
       let obj ={}
+      let result = []
       for(let i=0;i<arr.length;i++){
-          obj[i] = dateObj[i]
+          // obj[i] = dateObj[i]
+          result.push(dateObj[i])
+
       }
-      return obj
+      // return obj
+      return result
   }
 
-    let someArr = yearForSelection(combinedDatesArr)
+    let yearArr = yearForSelection(combinedDatesArr)
+    console.log('[postDetailTabs.ytdMonth',ytdMonth)
+    console.log('[postDetailTabs.ytd',ytd)
     console.log('[postDetailTabs.ttm',ttm)
     console.log('[postDetailTabs.twoYear',twoYear)
     console.log('[postDetailTabs.twoYear',threeYear)
@@ -188,7 +197,8 @@ export default function BasicTabs() {
     console.log('[postDetailTabs.nineYear',nineYear)
     console.log('[postDetailTabs.tenYear',tenYear)
     console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
-    console.log('[postDetailTabs.yearForSelection',someArr)
+    console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
+    console.log('[postDetailTabs.yearArr',yearArr)
 
 
   
@@ -230,6 +240,7 @@ export default function BasicTabs() {
       <TabPanel value={value} index={0}>
       
         <PortfolioOverview
+          yearArr={yearArr}
           priceData={pracData}
           assets={assets}
           currentId={id}
@@ -241,6 +252,7 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Holdings
+          yearArr={yearArr}
           priceData={pracData}
           stockData={""}
           image={image}
@@ -253,6 +265,7 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <TotalReturn
+          yearArr={yearArr}
           priceData={pracData}
           stockData={stockData}
           assets={assets}
@@ -263,6 +276,8 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <SeasonalAnalysis
+          yearArr={yearArr}
+          SeasonalAnalysisYearArr={SeasonalAnalysisYearArr}
           priceData={pracData}
           stockData={stockData}
           assets={assets}
@@ -273,16 +288,15 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={4}>
         <StatisticalSummary
+          yearArr={yearArr}
+          priceData={pracData}
           assets={assets}
           currentId={id}
           ownership={ownership}
           portfolioName={portfolioName}
         />
       </TabPanel>
-      <TabPanel >
-        
-          {/* <TextField id="date" label="End Date" type="date" defaultValue="2017-05-24" sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
-      </TabPanel>
+
     </Box>
   );
 }

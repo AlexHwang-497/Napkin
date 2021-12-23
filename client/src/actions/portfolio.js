@@ -42,15 +42,17 @@ export const getPortfolio = (id) => async (dispatch) => {
 
 export const getPortfoliosBySearch = (searchQuery) => async (dispatch) => {
   try {
-    console.log('this is the searchQuery in getPortfoliosBySearch',searchQuery)
+    console.log('[Home.getPortfoliosBySearch.searchQuery',searchQuery)
     dispatch({ type: START_LOADING });
     const { data:{data}} = await api.fetchPortfoliosBySearch(searchQuery);
+    console.log('[Home.portfolio.getPortfoliosBySearch.data',data)
     // const res = await api.fetchPostsBySearch(searchQuery);
-    console.log('this is the searchQuery in getPortfolioBySearch in client/actions/portfolio.js',searchQuery)
+    // console.log('this is the searchQuery in getPortfolioBySearch in client/actions/portfolio.js',searchQuery)
     // console.log('this is the data for getPostsBySearch in client/actions/posts.js:',data)
 
     // dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
     dispatch({ type: FETCH_BY_SEARCH, payload:  data  });
+    // console.log('[Home.posts.getPortfoliosBySearch.fetchPortfoliosBySearch.data',data)
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

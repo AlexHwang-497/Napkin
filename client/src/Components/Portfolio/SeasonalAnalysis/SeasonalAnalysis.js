@@ -13,7 +13,7 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import PortfolioPostTable from '../Charts/PortfolioPostTable'
 import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
 
-function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
+function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearArr,SeasonalAnalysisYearArr}) {
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
     var finance = new Finance();
@@ -34,21 +34,25 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
     const [ndx,setNdx]=useState([])
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
-    const yearRange = ['2013','2014','2015','2016','2017','2018','2019','2020','2021']
+    console.log('[SeasonalAnalysis.SeasonalAnalysisYearArr',SeasonalAnalysisYearArr)
+    
+    const yearRange = SeasonalAnalysisYearArr
 
       console.log('this is the labels',labels)
-      const dateLabels = ['1yr', '3yr', '5yr'];
+      if(yearArr.length===0 || !yearArr) return []
+      // const dateLabels = ['1yr', '3yr', '5yr'];
+      const dateLabels =  yearArr.slice(1);
           const dates = dateLabels.map(label => {
               const yearNumber = parseInt(label.split('yr')[0]);
               return generateHistoricalDate(yearNumber);
           });
-          // console.log('[ApexLineChart.dates',dates)
+          console.log('[SeasonalAnalysis.dates',dates)
       
         
           const spxValue = dates.map((date, index) => {
               const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
               const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-              // console.log('[SeasonalAnalysis.spxValue.monReturn',data)
+              console.log('[SeasonalAnalysis.spxValue.monReturn',data)
               return data
           })
           const totalPortoflioValue = dates.map((date, index) => {
@@ -73,43 +77,41 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
             return arrCumulativeReturns
         })
         
-
-          
+        
           const dateArr = dates.map((date, index) => {
             const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
             const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
             return data
           })
         
-        
-        
-        // console.log('[seasonalAnalysis.totalPortoflioValue',totalPortoflioValue)
-        // console.log('[seasonalAnalysis.totalPortoflioValueReturn.final',totalPortoflioValueReturn[2])
-        const tableReturnsData = [dateArr[2],totalPortoflioValueReturn[2]]
+          
+          
+          // console.log('[seasonalAnalysis.totalPortoflioValue',totalPortoflioValue)
+          // console.log('[seasonalAnalysis.totalPortoflioValueReturn.final',totalPortoflioValueReturn[2])
+          console.log('[SeasonalAnalysis.dateArr',dateArr)
+          console.log('[SeasonalAnalysis.totalPortoflioValueReturn',totalPortoflioValueReturn)
+          
+          const tableReturnsData = [dateArr[dateArr.length-1],totalPortoflioValueReturn[totalPortoflioValueReturn.length-1]]
 
 
         const  finalTableOrg = (tableReturnsData)=> {
+          console.log('[SeasonalAnalysis.finalTableOrg.tableReturnsData',tableReturnsData)
             let result=[]
             for(let i=0;i<tableReturnsData[0].length;i++){
                 result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})
             }
-            // setSeasonalBarChartData(result)
-            // console.log('[seasonalAnalysis.finalTableOrg.result',result)
-            // return result
             
             const returnsByYear=yearRange.map((year)=>(
               result.slice(1).filter((entry)=>entry.date.includes(year))
               ))
           yearRange.map((year,i)=>returnsByYear[i].unshift(year))
-            // console.log('[seasonalAnalysis.finalTableOrg.dataNeeded',returnsByYear)
-          //   const returnByYear=yearRange.map((year)=>(
-          //     dataNeeded.filter((entry)=>entry.date.includes(year))
-          // ))
-            // const newArr=yearRange.map((year,i)=>dataNeeded[i].unshift(year))
-            // return newArr
+
             return returnsByYear
             
           }
+          console.log('[SeasonalAnalysis.finalTableOrg.',finalTableOrg)
+
+
         const  seasonalBarChartData = (tableReturnsData)=> {
             let result=[]
             for(let i=0;i<tableReturnsData[0].length;i++){
@@ -125,7 +127,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData}) {
           const dataNeeded =finalTableOrg(tableReturnsData)
           const barChartdataNeeded =seasonalBarChartData(tableReturnsData)
 
-        // console.log('[seasonalAnalysis.finalTableOrg',dataNeeded)
+        console.log('[seasonalAnalysis.finalTableOrg',dataNeeded)
         // console.log('[seasonalAnalysis.seasonalBarchartData',barChartdataNeeded)
 
         

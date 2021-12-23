@@ -26,8 +26,9 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import TRLineChart from '../Charts/TotalReturnLine'
 import PortfolioOverviewPagTable from '../Charts/PortfolioOverviewPagTable'
 
-function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
+function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData,yearArr}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
+    
     // console.log('[ PortfolioOverview.priceData',priceData)
     
     // ! this is making a deep copy
@@ -57,12 +58,17 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const [data,setData]=useState([])
     const [spx,setSpx]=useState([])
     const [ndx,setNdx]=useState([])
+    // const [yearArray,SetYearArray] = useState(yearArr)
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
     const yearRange = ['2019','2020','2021']
+    
 
-// console.log('this is the labels',labels)
-const dateLabels = ['1yr','3yr','5yr','10yr'];
+console.log('[PortfolioOverview.yearArr',yearArr)
+if(yearArr.length===0 || !yearArr) return []
+// const dateLabels = ['1yr','3yr','5yr','10yr'];
+const dateLabels = yearArr.slice(1);
+
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
@@ -127,11 +133,11 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
         lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
       
     } else if(selectedLineChartData==='3yr'){
-        lineChartData=dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
-    } else if(selectedLineChartData==='5yr'){
         lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+    } else if(selectedLineChartData==='5yr'){
+        lineChartData=dateArr[4] && spxValue[4] && totalPortoflioValue[4] ?[dateArr[4],spxValue[4],totalPortoflioValue[4]]:[]
     } else {
-        lineChartData=dateArr[3] && spxValue[3] && totalPortoflioValue[3] ?[dateArr[3],spxValue[3],totalPortoflioValue[3]]:[]
+        lineChartData=dateArr[dateLabels.length-1] && spxValue[dateLabels.length-1] && totalPortoflioValue[dateLabels.length-1] ?[dateArr[dateLabels.length-1],spxValue[dateLabels.length-1],totalPortoflioValue[dateLabels.length-1]]:[]
     }
     // console.log('[PortfolioOverview.lineChartData',lineChartData)
     
@@ -146,8 +152,10 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
         
       } else if(selectedPortfolioOverviewtData==='3yr'){
         portfolioOverviewData=securityData[2]
+      } else if(selectedPortfolioOverviewtData==='5yr'){
+        portfolioOverviewData=securityData[4]
       } else {
-        portfolioOverviewData=securityData[3]
+        portfolioOverviewData=securityData[dateLabels.length-1]
       }
     //   console.log('[PortfolioOverview.portfolioOverviewData',portfolioOverviewData)
 
@@ -162,7 +170,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
             <Grid item xs={6} >
                 <Paper>
                 {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector}/>    
+                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
 
                 </Paper>
             </Grid>
@@ -183,7 +191,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         <MenuItem value={'ytd'}>YTD</MenuItem>
                         <MenuItem value={'3yr'}>3-Yr</MenuItem>
                         <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                        <MenuItem value={'10yr'}>10-Yr</MenuItem>
+                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
                     <TRLineChart priceData={lineChartData} />
@@ -206,7 +214,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         <MenuItem value={'ytd'}>YTD</MenuItem>
                         <MenuItem value={'3yr'}>3-Yr</MenuItem>
                         <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                        <MenuItem value={'10yr'}>10-Yr</MenuItem>
+                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
                   
