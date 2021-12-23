@@ -21,7 +21,10 @@ export const getPortfolio = async (req, res) => {
 }
 
 export const getPortfolios = async(req, res) => {
-    const { page } = req.query;
+    let { page } = req.query;
+    if(!page){
+        page =1
+    }
     console.log('this is the req.query in getPortfolios',req.query)
     try{
         const LIMIT = 4;
@@ -31,7 +34,7 @@ export const getPortfolios = async(req, res) => {
         const total = await PostPortfolio.countDocuments({});
         // console.log('this is total of getPortoflios in server/controllers/portoflio.js',total)
         // * we are retrieving all the messages in the database
-        const portfolios = await PostPortfolio.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        const portfolios = await PostPortfolio.find().sort({ _id: 0 }).limit(LIMIT).skip(startIndex);
 // !! check out the posts here.  maybe this should be portfolio?
         res.json({ data: portfolios, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
         

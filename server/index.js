@@ -14,7 +14,8 @@ dotenv.config()
 // *we are setting up the body parser to send our requests
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
-app.use(cors());
+app.use(cors({origin: 'https://portfoliobuildertool.herokuapp.com'}))
+
 
 // *what we have done here is we have set up every route aka postRoutes will start with '/posts'
     // * /posts; we setup all the routes inside of this post
@@ -24,6 +25,7 @@ app.use('/posts', postRoutes);
 app.use("/user", userRoutes);
 app.use('/portfolio', portfolioRoutes);
 
+// *this is suppose to go to heroku
 app.get('/',(req,res)=>{
     res.send('Hello to memories API')
 })
