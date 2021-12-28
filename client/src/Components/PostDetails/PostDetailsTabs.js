@@ -54,11 +54,13 @@ export default function BasicTabs() {
   const { portfolios, isLoading } = useSelector((state) => state.portfolio);
 
   const { id } = useParams();
+  console.log('[BasicTabs.id',id)
   const [value, setValue] = useState(0);
   const selectedPortfolio = portfolios.find(
     (portfolio) => portfolio._id === id
   );
   // console.log('[postDetailTabs.selectedPortfolio',selectedPortfolio)
+  console.log('[BasicTabs.selectedPortfolio',selectedPortfolio)
   console.log()
   const [assets, setAssets] = useState(selectedPortfolio?.assets || []);
   const [ownership, setOwnership] = useState(
