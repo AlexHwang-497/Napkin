@@ -11,9 +11,11 @@ import TRLineChart from '../Charts/TotalReturnLine'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
-function TotalReturn({id,assets,portfolioName,ownership,priceData}) {
+function TotalReturn({id,assets,portfolioName,ownership,priceData,yearArr}) {
+    if(yearArr.length===0 || !yearArr) return []
+    const dateLabels = yearArr.slice(1);
 
-    const dateLabels = ['1yr', '3yr', '5yr'];
+    // const dateLabels = ['1yr', '3yr', '5yr','10yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
@@ -48,8 +50,9 @@ function TotalReturn({id,assets,portfolioName,ownership,priceData}) {
 //   console.log('[TotalReturn.totalPortfolioValue',totalPortoflioValue)
 
     const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
-    const threeYearData = [dateArr[1],spxValue[1],totalPortoflioValue[1]]
-    const fiveYearData = [dateArr[2],spxValue[2],totalPortoflioValue[2]]
+    const threeYearData = [dateArr[2],spxValue[2],totalPortoflioValue[2]]
+    const fiveYearData = [dateArr[4],spxValue[4],totalPortoflioValue[4]]
+    const longestData = [dateArr[dateLabels.length-1],spxValue[dateLabels.length-1],totalPortoflioValue[dateLabels.length-1]]
     // console.log('[TotalReturn.ytdData',ytdData)
     
     const endDate = '2021-11-05'
@@ -72,19 +75,19 @@ function TotalReturn({id,assets,portfolioName,ownership,priceData}) {
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     
-                    <TRLineChart priceData={ytdData} title={'TTM'} />
+                <TRLineChart priceData={threeYearData} title={'3-Year'}  />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     
-                    <TRLineChart priceData={threeYearData} title={'Three Year'}  />
+                <TRLineChart priceData={fiveYearData} title={'5-Year'} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     
-                    <TRLineChart priceData={fiveYearData} title={'Five Year'} />
+                    <TRLineChart priceData={longestData} title={'Ten Year'} />
                 </Paper>
             </Grid>
         </Grid>

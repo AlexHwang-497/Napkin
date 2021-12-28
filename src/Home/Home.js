@@ -44,10 +44,10 @@ const Home = () =>{
   
 
     const searchPost = () => {
-      console.log('this is the search in searchPost',search)
       if (search.trim() || tags ) {
-        console.log('this is the search in searchPost',search)
-        console.log('these are the tags in searchPost in Home.js',tags)
+        console.log('[Home.searchPost.search',search)
+        console.log('Home.searchPost.tags',tags)
+        
         dispatch(getPortfoliosBySearch({ search, tags: tags.join(',') }));
         history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
       } else {
@@ -62,7 +62,7 @@ const Home = () =>{
     };
     
     const handleAddChip = (tag) => setTags([...tags, tag]);
-      console.log('these are our tags in home.js',tags)
+      console.log('[Home.tags',tags)
     //   *this allows us to delete our tags that we put in the tags serach bar
     const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
 

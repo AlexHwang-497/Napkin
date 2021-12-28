@@ -14,15 +14,17 @@ import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolio
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 
 
-function Holdings({sector,assets,ownership, portfolioName,image, stockData,priceData}) {
+function Holdings({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr}) {
     const [selectedLineChartData,setSelectedLineChartData] = useState('ytd')
     const [selectedPortfolioOverviewtData,setSelectedPortfolioOverviewtData] = useState('ytd')
     const [holdingsType,setHoldingsType] = useState('sector')
     const [dateType,setDateType] = useState('ytd')
     const [percentile,setPercentile] = useState(.50)
     // const [dateIndex,setDateIndex] = useState(0)
-    
-    const dateLabels = ['1yr', '3yr', '5yr','6yr'];
+    if(yearArr.length===0 || !yearArr) return []
+
+    // const dateLabels = ['1yr', '3yr', '5yr','6yr'];
+    const dateLabels = yearArr.slice(1);
         const dates = dateLabels.map(label => {
             const yearNumber = parseInt(label.split('yr')[0]);
             return generateHistoricalDate(yearNumber);
@@ -65,17 +67,18 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
 
     let dateIndex=0
     switch(dateType){
-        case '3yr':
-            dateIndex=1
+        case 'ytd':
+            dateIndex=0
             break;
-        case '5yr':
+        case '3yr':
             dateIndex=2
             break;
-        case '6yr':
-            dateIndex=3
+        case '5yr':
+            dateIndex=4
             break;
+
         default:
-            dateIndex=0
+            dateIndex=dateLabels.length-1
     }
 
     const dateTypeHandler = (e) => {
@@ -172,7 +175,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                             <MenuItem value={'ytd'}>YTD</MenuItem>
                             <MenuItem value={'3yr'}>3-Yr</MenuItem>
                             <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                            <MenuItem value={'6yr'}>6-Yr</MenuItem>
+                            <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                         <TextField  
                             color='string' 

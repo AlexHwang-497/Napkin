@@ -57,11 +57,13 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-function EditCustomizedDialogs({currentId,post}) {
+function EditCustomizedDialogs({currentId,post,openState}) {
+
   // console.log('this is the currentId in EditCustomizedDialogs of editPortoflioDialog.js',currentId)
   // console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
   // console.log('this is the descriptoin in EditCustomizedDialogs of editPortoflioDialog.js',post.description)
-  const [open, setOpen] = useState(false);
+
+  const [open, setOpen] = useState(openState || false);
   const [description, setDescription] = useState([post.description]);
   const [portfolioName, setPortfolioName] = useState(post.portfolioName)
   const [assets, setAssets] = useState(post.assets || [])
@@ -157,7 +159,7 @@ function EditCustomizedDialogs({currentId,post}) {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Edit Portfolio
+        Edit Portfolio carlos
       </Button>
       <BootstrapDialog
         onClose={handleClose}

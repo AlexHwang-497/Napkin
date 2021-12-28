@@ -26,8 +26,9 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import TRLineChart from '../Charts/TotalReturnLine'
 import PortfolioOverviewPagTable from '../Charts/PortfolioOverviewPagTable'
 
-function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData}) {
+function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData,yearArr}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
+    
     // console.log('[ PortfolioOverview.priceData',priceData)
     
     // ! this is making a deep copy
@@ -49,7 +50,7 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const [ytd,setYtd]=useState()
     const [selectedLineChartData,setSelectedLineChartData] = useState('ytd')
     const [selectedPortfolioOverviewtData,setSelectedPortfolioOverviewtData] = useState('ytd')
-    console.log('this is the S&P',sAndPPrice)
+    
     
     
   
@@ -57,12 +58,17 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     const [data,setData]=useState([])
     const [spx,setSpx]=useState([])
     const [ndx,setNdx]=useState([])
+    // const [yearArray,SetYearArray] = useState(yearArr)
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
     const yearRange = ['2019','2020','2021']
+    
 
-// console.log('this is the labels',labels)
-const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
+console.log('[PortfolioOverview.yearArr',yearArr)
+if(yearArr.length===0 || !yearArr) return []
+// const dateLabels = ['1yr','3yr','5yr','10yr'];
+const dateLabels = yearArr.slice(1);
+
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
@@ -76,14 +82,16 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
         // console.log('[PortfolioOverview.spxValue.monReturn',data)
         return data
     })
+
+    // console.log('[PortfolioOverview.spxValue',spxValue)
     const securityData = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry)
-        // console.log('[TotalReturn.pracsValue.monReturn',data)
+        console.log('[PortfolioOverview.securityData.data/monthlyReturn',data)
         // console.log('[PortfolioOverview.pracsValue.monReturn',data)
         return data
     })
-    // console.log('[PortfolioOverview.securityData',securityData)
+    console.log('[PortfolioOverview.securityData',securityData)
 
 
     const totalPortoflioValue = dates.map((date, index) => {
@@ -110,12 +118,14 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
         // console.log('[TotalReturn.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
-    // console.log('[PortfolioOverview.dateArr.data',data)
+    console.log('[PortfolioOverview.dateArr.data',data)
     return data
     
-  })
-  const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
-  const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+})
+console.log('[PortfolioOverview.dateArr.data',dateArr)
+
+//   const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
+//   const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
 //   console.log('[PortfolioOverview.threeYrData',threeYrData)
 //   console.log('[PortfolioOverview.fiveYrData',fiveYrData)
   let lineChartData;
@@ -123,11 +133,11 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
         lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
       
     } else if(selectedLineChartData==='3yr'){
-        lineChartData=dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
+        lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
     } else if(selectedLineChartData==='5yr'){
-        lineChartData=dateArr[5] && spxValue[5] && totalPortoflioValue[2] ?[dateArr[5],spxValue[5],totalPortoflioValue[5]]:[]
+        lineChartData=dateArr[4] && spxValue[4] && totalPortoflioValue[4] ?[dateArr[4],spxValue[4],totalPortoflioValue[4]]:[]
     } else {
-        lineChartData=dateArr[3] && spxValue[3] && totalPortoflioValue[3] ?[dateArr[3],spxValue[3],totalPortoflioValue[3]]:[]
+        lineChartData=dateArr[dateLabels.length-1] && spxValue[dateLabels.length-1] && totalPortoflioValue[dateLabels.length-1] ?[dateArr[dateLabels.length-1],spxValue[dateLabels.length-1],totalPortoflioValue[dateLabels.length-1]]:[]
     }
     // console.log('[PortfolioOverview.lineChartData',lineChartData)
     
@@ -142,8 +152,10 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
         
       } else if(selectedPortfolioOverviewtData==='3yr'){
         portfolioOverviewData=securityData[2]
+      } else if(selectedPortfolioOverviewtData==='5yr'){
+        portfolioOverviewData=securityData[4]
       } else {
-        portfolioOverviewData=securityData[3]
+        portfolioOverviewData=securityData[dateLabels.length-1]
       }
     //   console.log('[PortfolioOverview.portfolioOverviewData',portfolioOverviewData)
 
@@ -158,7 +170,7 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
             <Grid item xs={6} >
                 <Paper>
                 {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}
-                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector}/>    
+                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
 
                 </Paper>
             </Grid>
@@ -179,6 +191,7 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
                         <MenuItem value={'ytd'}>YTD</MenuItem>
                         <MenuItem value={'3yr'}>3-Yr</MenuItem>
                         <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
                     <TRLineChart priceData={lineChartData} />
@@ -201,6 +214,7 @@ const dateLabels = ['1yr', '3yr', '5yr','6yr','7yr','8yr'];
                         <MenuItem value={'ytd'}>YTD</MenuItem>
                         <MenuItem value={'3yr'}>3-Yr</MenuItem>
                         <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
                   
