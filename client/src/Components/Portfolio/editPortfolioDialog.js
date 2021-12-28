@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import PortfolioInputForm from './CreatePortfolioInputForm';
 import InputForm from './InputForm/InputForm';
 import PaginationTable from './PaginationTable';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { updatePortfolio } from '../../actions/portfolio';
 import { useHistory } from 'react-router-dom';
 import { useSelector} from 'react-redux'
@@ -62,7 +63,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
   // console.log('this is the currentId in EditCustomizedDialogs of editPortoflioDialog.js',currentId)
   // console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
   // console.log('this is the descriptoin in EditCustomizedDialogs of editPortoflioDialog.js',post.description)
-
+  console.log('[EditCustomizedDialogs.openState',openState)
   const [open, setOpen] = useState(openState || false);
   const [description, setDescription] = useState([post.description]);
   const [portfolioName, setPortfolioName] = useState(post.portfolioName)
@@ -158,9 +159,12 @@ function EditCustomizedDialogs({currentId,post,openState}) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Edit Portfolio carlos
-      </Button>
+      <IconButton onClick={handleClickOpen}> 
+      <MoreVertIcon />
+      </IconButton>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
+        Edit Portfolio 
+      </Button> */}
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

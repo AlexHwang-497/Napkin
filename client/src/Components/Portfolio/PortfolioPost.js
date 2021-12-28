@@ -121,12 +121,13 @@ const PortfolioPost = ({ post, setCurrentId }) => {
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
+              
             </Avatar>
           }
           action={
             <IconButton aria-label="settings" onClick={() => setOpenState(true)}>
-              <MoreVertIcon />
+                <EditCustomizedDialogs size='small'  currentId={post._id} post={post} openState={openState}/>
+              
             </IconButton>
           }
           title={post.portfolioName}
@@ -135,17 +136,11 @@ const PortfolioPost = ({ post, setCurrentId }) => {
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
         <LineGraph assets={post.assets} portfolioName={"Ytd Growth of $10,000"} ownership={post.ownership} startDate={'2021-01-01'} endDate={'2021-11-14'}/>        
       </ButtonBase>
-        {/* <CardMedia
-          component="img"
-          height="194"
-          image="/static/images/cards/paella.jpg"
-          alt="this is where you are going to have a graph here of totalreturns"
-        /> */}
+
         <Divider style={{ margin: '20px 0' }} />
         <Typography paragraph>Description:</Typography>
         <Typography variant="body2">
             {post.description}
-      <EditCustomizedDialogs size='small'  currentId={post._id} post={post} openState={openState}/>
           </Typography>
         <Divider style={{ margin: '20px 0' }} />
       <CardContent>
