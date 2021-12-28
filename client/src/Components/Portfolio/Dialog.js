@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import DataTable from './CreatePortfolioTable';
 import PortfolioInputForm from './CreatePortfolioInputForm';
 import InputForm from './InputForm/InputForm';
+import CreatePortfolioPagTable from './Charts/CreatePortfolioOverviewPagTable'
 
 
 

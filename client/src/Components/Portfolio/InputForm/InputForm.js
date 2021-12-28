@@ -11,7 +11,8 @@ import { createPost,updatePost } from "../../../actions/posts";
 import Inputs from "../../../Auth/Input";
 import { createPortfolio,updatePortfolio } from "../../../actions/portfolio";
 import config from "../../../StockData/config";
-
+import CreatePortfolioPaginationTable from '../Charts/CreatePortfolioOverviewPagTable'
+// import CreatePortfolioDataGrid from "../Charts/CreatePortfolioDataGrid";
 
 // !! you need to copy the funciton of form.js to get this to work.  
   // * in  the original fomr.js sends it into post.js
@@ -131,6 +132,9 @@ console.log('[InputForm.stockList',stockList)
       <Divider style={{ margin: '20px 0' }} />
       <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  onChange={(e) => setDescription(e.target.value)}/>
       <Divider style={{ margin: '20px 0' }} />
+    
+      
+      <Divider style={{ margin: '20px 0' }} />
       {stockList.length ? (
         <ul style={{ listStyle: "none", padding: 0 }}>
           {stockList.map((stock, i) => (
@@ -144,6 +148,7 @@ console.log('[InputForm.stockList',stockList)
         <p>Portfolio is empty</p>
       )}
       <div>
+      
         <input
           type="text"
           placeholder="Enter Stock Symbol"
@@ -168,6 +173,7 @@ console.log('[InputForm.stockList',stockList)
       </div>
       <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Paper>
+          
           <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
           
         </Paper>
