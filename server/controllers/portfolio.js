@@ -55,7 +55,7 @@ export const getPortfolios = async(req, res) => {
             const title = new RegExp(searchQuery, "i");
             console.log('this is the title in getPortfolioBySearch in controller/portfolio',title)
     
-            const posts = await PostPortfolio.find({ $or: [ { 'portfolioName':{$regex:title} }, { 'assets': { $in: tags.split(',').map(e=>new RegExp(e,'i')) } } ]});
+            const posts = await PostPortfolio.find({ $or: [ { 'sector':{$regex:title} }, { 'assets': { $in: tags.split(',').map(e=>new RegExp(e,'i')) } } ]});
             // const posts = await PostPortfolio.find({ $or: [ {'portfolioName':{$regex:title}} ]});
             
             // console.log('this is the posts in getPortfolioBySearch in controller/portfolio',posts)
