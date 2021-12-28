@@ -87,6 +87,9 @@ function InputForm({currentId,setCurrentId}) {
 
 
 
+
+
+
 const handleSubmit = async(e) =>{
   e.preventDefault()
   // console.log('this is the currentID in handlesubmit', currentId)
@@ -109,6 +112,8 @@ const handleComment = async () => {
   // commentsRef.current.scrollIntoView({ behavior: 'smooth' });
 };
 
+
+console.log('[InputForm.stockList',stockList)
 
 
   return (
@@ -163,7 +168,7 @@ const handleComment = async () => {
       </div>
       <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Paper>
-          <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Complete Portfolio</Button>
+          <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
           
         </Paper>
       </form>

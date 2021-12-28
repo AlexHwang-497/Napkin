@@ -95,6 +95,7 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
   return (
     <div style={{ height: 410, width: '100%' }} className={classes.root}>
       <DataGrid
+        density='compact'
         rows={newData}
         columns={columns}
         // columnBuffer={2} 

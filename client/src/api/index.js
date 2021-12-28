@@ -38,6 +38,7 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 // *portfolio
 
 export const createPortfolio = (newPortfolio) => API.post('/portfolio', newPortfolio);
+// export const fetchPortfolio = (id) => API.get(`/posts/${id}`);
 export const fetchPortfolio = (id) => API.get(`/portfolio/${id}`);
 export const fetchPortfolios = (page) => API.get(`/portfolio?page=${page}`);
 export const fetchPortfoliosBySearch = (searchQuery) => API.get(`/portfolio/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}` );

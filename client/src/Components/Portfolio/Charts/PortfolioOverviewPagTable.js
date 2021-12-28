@@ -132,6 +132,7 @@ export default function PortfolioOverviewPagTable({dataNeeded}) {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        density = 'compact'
         
         rows={row}
         columns={columns}

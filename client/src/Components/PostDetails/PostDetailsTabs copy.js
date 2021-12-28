@@ -1,206 +1,303 @@
-// import React, {useEffect, useState} from 'react';
-// import PropTypes from 'prop-types';
-// import Holdings from '..//Portfolio/Holdings/Holdings';
-// import TotalReturn from '../Portfolio/TotalReturn/TotalReturn';
-// import SeasonalAnalysis from '../Portfolio/SeasonalAnalysis/SeasonalAnalysis';
-// import StatisticalSummary from '../Portfolio/StatisticalSummary/StatisticalSummary';
-// import PortfolioOverview from '../Portfolio/PortfolioOverview/PortfolioOverview';
-// import { useParams, useHistory } from 'react-router-dom';
-// import {Box, Tab, Typography,Tabs} from '@material-ui/core'
-// import PostDetails from './PostDetails';
-// import {useDispatch, useSelector} from 'react-redux'
-// import FetchStockPrices from '../../StockData/FetchStockPrices';
-// import config from '../../StockData/config'
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import Holdings from "..//Portfolio/Holdings/Holdings";
+import TotalReturn from "../Portfolio/TotalReturn/TotalReturn";
+import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
+import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
+import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
+import { useParams, useHistory } from "react-router-dom";
+import { Box, Tab, Typography, Tabs, TextField  } from "@material-ui/core";
+import RecommendedPosts from "./RecommendedPosts";
+// import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
+
+import PostDetails from "./PostDetails";
+import { useDispatch, useSelector } from "react-redux";
+import FetchStockPrices from "../../StockData/FetchStockPrices";
+import config from "../../StockData/config";
+import { NFLX, TEAM, SPY } from "../../Utilities/sampleData";
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-// function TabPanel(props) {
-//   const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
-//   return (
-//     <div
-//       role="tabpanel"
-//       hidden={value !== index}
-//       id={`simple-tabpanel-${index}`}
-//       aria-labelledby={`simple-tab-${index}`}
-//       {...other}
-//     >
-//       {value === index && (
-//         <Box sx={{ p: 3 }}>
-//           <Typography>{children}</Typography>
-//         </Box>
-//       )}
-//     </div>
-//   );
-// }
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
 
-// TabPanel.propTypes = {
-//   children: PropTypes.node,
-//   index: PropTypes.number.isRequired,
-//   value: PropTypes.number.isRequired,
-// };
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
-// function a11yProps(index) {
-//   return {
-//     id: `simple-tab-${index}`,
-//     'aria-controls': `simple-tabpanel-${index}`,
-//   };
-// }
+export default function BasicTabs() {
+  const { portfolios, isLoading } = useSelector((state) => state.portfolio);
 
-// export default function BasicTabs() {
-//   const {portfolios, isLoading} = useSelector((state) => state.portfolio);
+  const { id } = useParams();
+  console.log('[BasicTabs.id',id)
+  const [value, setValue] = useState(0);
+  const selectedPortfolio = portfolios.find(
+    (portfolio) => portfolio._id === id
+  );
+  // console.log('[postDetailTabs.selectedPortfolio',selectedPortfolio)
+  console.log('[BasicTabs.selectedPortfolio',selectedPortfolio)
+  console.log()
+  const [assets, setAssets] = useState(selectedPortfolio?.assets || []);
+  const [ownership, setOwnership] = useState(
+    selectedPortfolio?.ownership || []
+  );
+  const [portfolioName, setPortfolioName] = useState(
+    selectedPortfolio?.portfolioName || []
+  );
+  const [sector, setSector] = useState(selectedPortfolio?.sector || []);
+  const [image, setImage] = useState(selectedPortfolio?.image || []);
+  const [arrForStartingDate, setArrForStartingDate] = useState([]);
+  const history = useHistory();
+  const [stockData, editStockData] = useState([]);
+  const [dummyStockData, editDummyStockData] = useState([]);
+  const [data, setData] = useState([]);
+  const [pracData, setPracData] = useState([])
+  const [yearRange,setYearRange] = useState([])
+  const [dateArr,setDateArr] = useState([])
+  let currentDate = new Date().toISOString().slice(0, 10)
+ 
+
   
-//   const { id } = useParams();
-//   const [value, setValue] = useState(0);
-//   const selectedPortfolio = portfolios.find(portfolio => portfolio._id === id);
-//   console.log('[DEBUG]selectedPortfolio', selectedPortfolio);
-//   const [assets, setAssets ] = useState(selectedPortfolio?.assets || []);
-//   const [ownership, setOwnership ] = useState(selectedPortfolio?.ownership || [])
-//   console.log('[DEBUG]ownership', ownership);
-//   const [portfolioName, setPortfolioName ] = useState(selectedPortfolio?.portfolioName || [])
-//   const [sector, setSector ] = useState(selectedPortfolio?.sector || [])
-//   const [image, setImage ] = useState(selectedPortfolio?.image || [])
-//   const [arrForStartingDate, setArrForStartingDate ] = useState([])
-//   const [begDate, setBegDate ] = useState()
-//   const [stockData,editStockData] = useState([])
-//   const [dummyStockData,editDummyStockData] = useState([])
-//   const [data,setData] = useState([])
-//   const startDate='2011-11-01'
-//   const endDate='2021-11-01'
-//   const apiKey = config.FMP_API_KEY_ID
 
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
-//   };
+  const [endDate, setEndDate] = useState(currentDate)
+  const [startDate,setStartDate] = useState('2009-11-01')
 
-//   useEffect(() => {
-//     Promise.all(
-//     [...assets,'SPY'].map((stock) =>
-//     fetch(
-//     `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
-//     .then((results) =>
-//         Promise.all(results.map((res) => res.json())).then((stocks) => {
-//           if(!stocks) return;
-//           let editedStocks=stocks.map((stock,i)=>({
-//             symbol:stock.symbol,
-//             dates:stock.results,
-//             ownership:ownership[i],
-//             image:image[i],
-//             sector:sector[i] 
-//           }))
-//         editDummyStockData(stocks.map((entry)=>entry.results.reverse()))
-//         editStockData(editedStocks)
-//       }))
-//     }, [assets]);
+  // const startDate = "2011-11-01";
+  // const endDate = "2021-12-01";
+  const apiKey = config.FMP_API_KEY_ID;
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
 
-//     useEffect(()=>{
-//       // console.log('this is the dummyStockDatasorted ',dummyStockData.map((entry)=>entry.results.reverse()));
+
+  // useEffect(() => {
+  //   Promise.all(
+  //   ['SPY',...assets].map((stock) =>
+  //   fetch(
+  //   `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
+  //   .then((results) =>
+  //       Promise.all(results.map((res) => res.json())).then((stocks) => {
+  //         if(!stocks) return;
+  //         const processedData = OrganizeData(stocks,assets,[0,...selectedPortfolio.ownership],['INDEX',...selectedPortfolio.sector],["https://financialmodelingprep.com/image-stock/SPY.png",...selectedPortfolio.image]);
+  //         console.log('[postDetailTabs.processsedData',processedData)
+  //         console.log('[postDetailTabs.selectedPortfolio',selectedPortfolio.ownership)
+  //         setPracData(processedData)
+  //       editDummyStockData(stocks)
+  //       // editStockData(editedStocks)
+  //       const ytd=subSet(data,'2021-01-01')
+  //     }))
+  // }, [assets]);
+  useEffect(() => {
+    if (!selectedPortfolio) return;
+    Promise.all(
+      ["SPY",...assets].map((stock) =>
+        fetch(
+          `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`
+        )
+      )
+    ).then((results) =>
+      Promise.all(results.map((res) => res.json())).then((stocks) => {
+        const portfolioData = OrganizeData(
+          stocks,
+          ["SPY", ...assets.map((e) => e.toUpperCase())],
+          ["", ...selectedPortfolio.ownership],
+          ["", ...selectedPortfolio.image],
+          ["", ...selectedPortfolio.sector]
+        );
+        setPracData(portfolioData);
+        setDateArr(portfolioData[0].dates.map((el)=>el.date))
+        console.log('[postDetailTabs.portfolioData',portfolioData)
+        // console.log('[postDetailTabs.portfolioData.pracs',portfolioData[0].dates.map((el)=>el.date))
+    })
+      );
+    }, [assets,endDate]);
+
+
+
+    const endDateHandler = (e) => {
+      setEndDate(e.target.value)      
+    };
+
+    let dateObj = {
+      '0':'ytd',
+      '1':'1yr',
+      '2':'2yr',
+      '3':'3yr',
+      '4':'4yr',
+      '5':'5yr',
+      '6':'6yr',
+      '7':'7yr',
+      '8':'8yr',
+      '9':'9yr',
+      '10':'10yr'
+  }
+
+  // console.log('[postDetailTabs.endDatefuck',endDate.split('-')[1])
+    const ytdMonth  = endDate.split('-')[1]
+    const ytd = dateArr.slice(ytdMonth-1,ytdMonth)
+    const ttm = dateArr.slice(11,12)
+    const twoYear = dateArr.slice(23,24)
+    const threeYear = dateArr.slice(35,36)
+    const fourYear = dateArr.slice(47,48)
+    const fiveYear = dateArr.slice(59,60)
+    const sixYear = dateArr.slice(71,72)
+    const sevenYear = dateArr.slice(83,84)
+    const eightYear = dateArr.slice(95,96)
+    const nineYear = dateArr.slice(107,108)
+    const tenYear = dateArr.slice(119,120)
+    const combinedDatesArr = [...ytd,...ttm,...twoYear,...threeYear,...fourYear,...fiveYear,...sixYear,...sevenYear,...eightYear,...nineYear,...tenYear]
+    const SeasonalAnalysisYearArr =combinedDatesArr.map((el)=>el.split('-')[0]).sort()
+
+    const yearForSelection = (arr) => {
+      let obj ={}
+      let result = []
+      for(let i=0;i<arr.length;i++){
+          // obj[i] = dateObj[i]
+          result.push(dateObj[i])
+
+      }
+      // return obj
+      return result
+  }
+
+    let yearArr = yearForSelection(combinedDatesArr)
+    // console.log('[postDetailTabs.ytdMonth',ytdMonth)
+    // console.log('[postDetailTabs.ytd',ytd)
+    // console.log('[postDetailTabs.ttm',ttm)
+    // console.log('[postDetailTabs.twoYear',twoYear)
+    // console.log('[postDetailTabs.twoYear',threeYear)
+    // console.log('[postDetailTabs.fourYear',fourYear)
+    // console.log('[postDetailTabs.fiveYear',fiveYear)
+    // console.log('[postDetailTabs.sixYear',sixYear)
+    // console.log('[postDetailTabs.sevenYear',sevenYear)
+    // console.log('[postDetailTabs.eightYear',eightYear)
+    // console.log('[postDetailTabs.nineYear',nineYear)
+    // console.log('[postDetailTabs.tenYear',tenYear)
+    // console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
+    // console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
+    // console.log('[postDetailTabs.yearArr',yearArr)
+    // console.log('[postDetailTabs.pracData',pracData)
+    // console.log('[postDetailTabs.endDate',endDate)
+    // console.log('[postDetailTabs.startDate',startDate)
+    // console.log('[postDetailTabs.pracsDates',pracsDates)
+    // console.log('[postDetailTabs.distinctYears',distinctYears)
+    // console.log('[postDetailTabs.yearArray',yearArray)
   
-//     },[dummyStockData])
 
-
-//     // ! this is utilized to calculate our proper date range for filtering
-//     useEffect(() => {
-//       let aggCompanyDates=[]
-//       console.log('this is the dummyStockData ',dummyStockData)
+  // ****recommended posts
+  const openPost = (_id) => history.push(`/posts/${_id}`);
+  
+  return (
     
-//     for(let j=0;j<dummyStockData.length;j++){
-//       let companyDates=[]
-//       let historicalDates =dummyStockData[j] || []
-//       console.log('this is the historicalDates',historicalDates)
-//       for(let i=0; i<historicalDates.length;i++){
-//         companyDates.push(historicalDates[i].formated.split(' ')[0])
-//       }
-//       aggCompanyDates.push(companyDates)
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <RecommendedPosts/>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="Portfolio Overview" {...a11yProps(0)} />
+          <Tab label="Holdings" {...a11yProps(1)} />
+          <Tab label="Total Return" {...a11yProps(2)} />
+          <Tab label="Seasonal Analysis" {...a11yProps(3)} />
+          <Tab label="Statistical Summary" {...a11yProps(4)} />
+          <FetchStockPrices assets={assets} ownership={ownership} />
+        </Tabs>
+        <Box>
+
+      <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
+        </Box>
+      </Box>
+      <TabPanel value={value} index={0}>
       
-//     }
-//     aggCompanyDates.sort()
-//     if(aggCompanyDates.length===0) return
-//     let dateArrayNeeded = aggCompanyDates[aggCompanyDates.length-1]
-//     console.log('aggCompanyDates',aggCompanyDates)
-//     console.log('dateArrayNeeded',dateArrayNeeded)
-//     setArrForStartingDate(dateArrayNeeded)
-//     let dateNeeded = dateArrayNeeded[0]
-//     console.log('dateNeeded',dateNeeded)
-//     if(!dateArrayNeeded){
-//       return
-//     } 
-//     fetchDateRange(dateNeeded)
-//   }, [stockData,dummyStockData])
-  
-//   // setStartingDate()
-//   console.log('arrForStartingDate',arrForStartingDate)
-//   console.log('startingDate',begDate)
-//   useEffect(()=>{
-//     // setBegDate(arrForStartingDate[0])
-    
-//     // console.log('this isthe arrforStartingDate[0]',arrForStartingDate[0])
-//     // fetchDateRange(arrForStartingDate[0])
-    
-//     // let fetchStartingdateNeeded=dateArrayNeeded[0] 
-//     // console.log('fetchStartingdateNeeded',fetchStartingdateNeeded)
-    
-//     // fetchDateRange("2015-12-01")
-//   },[stockData])
+        <PortfolioOverview
+          yearArr={yearArr}
+          priceData={pracData}
+          assets={assets}
+          currentId={id}
+          ownership={ownership}
+          portfolioName={portfolioName}
+          sector={sector}
+          image={image}
+        />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Holdings
+          yearArr={yearArr}
+          priceData={pracData}
+          stockData={""}
+          image={image}
+          assets={assets}
+          currentId={id}
+          ownership={ownership}
+          portfolioName={portfolioName}
+          sector={sector}
+        />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <TotalReturn
+          yearArr={yearArr}
+          priceData={pracData}
+          stockData={stockData}
+          assets={assets}
+          currentId={id}
+          ownership={ownership}
+          portfolioName={portfolioName}
+        />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <SeasonalAnalysis
+          yearArr={yearArr}
+          SeasonalAnalysisYearArr={SeasonalAnalysisYearArr}
+          priceData={pracData}
+          stockData={stockData}
+          assets={assets}
+          currentId={id}
+          ownership={ownership}
+          portfolioName={portfolioName}
+        />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <StatisticalSummary
+          yearArr={yearArr}
+          priceData={pracData}
+          assets={assets}
+          currentId={id}
+          ownership={ownership}
+          portfolioName={portfolioName}
+        />
+      </TabPanel>
+      
 
-//   const fetchDateRange=(startingDate)=>{
-//     let  finalFetchedArr=[]
-//     if(stockData.length===0)return;
-//     stockData.reverse()
-//     const start=Date.parse(startingDate)
-//     const filteredDate=stockData.map((entry)=>entry.dates.filter((s)=>Date.parse(s.formated)>start))
-//     console.log('filteredDate',filteredDate)
-//     console.log('filteredDates.o',filteredDate.map((arr)=>arr.map((e)=>e.o)))
-//     console.log('filteredDates.formated',filteredDate.map((arr)=>arr.map((e)=>e.formated)))
-//     // const openPrices
-//     let pricesNeeded=filteredDate.map((arr)=>arr.map((e)=>e.o))
-//     let dateRangeNeeded =filteredDate.map((arr)=>arr.map((e)=>e.formated.split(' ')[0]))[filteredDate.length-1]
-
-//     console.log('pricesNeeded:',pricesNeeded)
-//     console.log('dateRangeNeeded:',dateRangeNeeded)
-//     let finalDataNeeded = [dateRangeNeeded,...pricesNeeded]
-//     console.log('finalDataNeeded:',finalDataNeeded)
-//     setData(finalDataNeeded)
-
-
-//     // console.log('filteredDate:',filteredDate)
-//     // return finalFetchedArr.push([arrForStartingDate,filteredDate])
-//     // console.log('finalFetchedArr:',finalFetchedArr)
-//     console.log('this is the filter/stockData',stockData)    
-//   }
-//   // console.log('this is the stockData[0].dates in postDetailTab',stockData[0].dates)
-
-
-//   return (
-//     <Box sx={{ width: '100%' }}>
-//       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-//         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-//           <Tab label="Portfolio Overview" {...a11yProps(0)} />
-//           <Tab label="Holdings" {...a11yProps(1)} />
-//           <Tab label="Total Return" {...a11yProps(2)} />
-//           <Tab label="Seasonal Analysis" {...a11yProps(3)} />
-//           <Tab label="Statistical Summary" {...a11yProps(4)} />
-//           <FetchStockPrices assets={assets} ownership={ownership}/>
-//         </Tabs>
-//       </Box>
-//       <TabPanel value={value} index={0}>
-//         <PortfolioOverview priceData={data} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector} image={image}/>
-        
-//       </TabPanel>
-//       <TabPanel value={value} index={1}>
-//         <Holdings priceData={data} image={image} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName} sector={sector}/>
-        
-//       </TabPanel>
-//       <TabPanel value={value} index={2}>
-//         <TotalReturn priceData={data} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
-//       </TabPanel>
-//       <TabPanel value={value} index={3}>
-//         <SeasonalAnalysis priceData={data} assets={assets} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
-//       </TabPanel>
-//       <TabPanel value={value} index={4}>
-//         <StatisticalSummary priceData={data} currentId={id} ownership={ownership} portfolioName={portfolioName}/>
-//       </TabPanel>
-//     </Box>
-//   );
-// }
+    </Box>
+  );
+}

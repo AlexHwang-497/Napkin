@@ -53,6 +53,7 @@ export default function PortfolioPostTable({dataNeeded}) {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        density = 'compact'
         rows={rows}
         columns={columns}
         pageSize={5}
