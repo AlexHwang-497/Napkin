@@ -149,7 +149,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
         console.log('[SeasonalAnalysis.lessNumber',lessNumber)
 
     return (
-        <Grid container >
+        <Grid container spacing={3} >
         <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             <SeasonalBarChart data={barChartdataNeeded}/>

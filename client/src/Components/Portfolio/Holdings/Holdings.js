@@ -155,7 +155,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     console.log('[Holdings.percentileHandler',percentile)
     
     return (
-        <Grid container>
+        <Grid container spacing={3}>
             <Grid item xs={6}>
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <SectorTable ownership={ownership} data={securityData} assets={assets} dateIndex={dateIndex} sector={sector} image={image}/>

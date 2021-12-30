@@ -166,7 +166,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
   }
 
     return (
-        <Grid container >
+        <Grid container spacing={3}>
             <Grid item xs={6} >
                 <Paper>
                 {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}

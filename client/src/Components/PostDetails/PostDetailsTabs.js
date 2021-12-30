@@ -6,7 +6,7 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs, TextField  } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField, AppBar  } from "@material-ui/core";
 import RecommendedPosts from "./RecommendedPosts";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
 
@@ -204,23 +204,27 @@ export default function BasicTabs() {
   
   return (
     
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", bgcolor:'#F5F5F5' }}>
         <Box>          
             {/* <RecommendedPosts  onClick={() => openPost(id)}/> */}
         </Box>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <AppBar position='static'>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
+
           <Tab label="Portfolio Overview" {...a11yProps(0)} />
           <Tab label="Holdings" {...a11yProps(1)} />
           <Tab label="Total Return" {...a11yProps(2)} />
           <Tab label="Seasonal Analysis" {...a11yProps(3)} />
           <Tab label="Statistical Summary" {...a11yProps(4)} />
           <FetchStockPrices assets={assets} ownership={ownership} />
+
         </Tabs>
+    </AppBar>  
         <Box>
 
       <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
@@ -288,5 +292,7 @@ export default function BasicTabs() {
       
 
     </Box>
+    
+    
   );
 }
