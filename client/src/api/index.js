@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // *we are creating this base URL with axios
-const baseURL = process?.env?.PROD ? 'https://portfoliobuildertool-server.herokuapp.com' : 'http://localhost:5000'
+const baseURL = process?.env?.PROD ? 'https://portfoliobuildertool-backend.herokuapp.com' : 'http://localhost:5000'
 const API = axios.create({ baseURL}  );   //this is the orginal
 // const API = axios.create({ baseURL: 'http://localhost:5000' });   //this is the orginal
 // const API = axios.create({ baseURL: 'https://portfoliobuildertool-server.herokuapp.com' });  //this is the heroku
