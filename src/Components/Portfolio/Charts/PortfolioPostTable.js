@@ -50,6 +50,7 @@ export default function PortfolioPostTable({data}) {
   return (
     <div style={{ height: 350, width: '100%' }}>
       <DataGrid
+      // style={{background:"#819ca9"}}
         rows={row}
         pageSize={5}
         rowsPerPageOptions={[5]}

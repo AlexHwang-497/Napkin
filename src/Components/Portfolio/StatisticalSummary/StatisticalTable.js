@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper, styled} from '@material-ui/core'
+import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,} from '@material-ui/core'
 function createData(name, ownership, history ) {
   return {
     name,
@@ -11,8 +11,6 @@ function createData(name, ownership, history ) {
     history,
   };
 }
-
-
 
 function Row(props) {
   const { row } = props;
@@ -84,35 +82,35 @@ function Row(props) {
 
 
 
-export default function SectorTable({ownership,assets,sector,image, data,dateIndex }) {
+export default function StatisticalTable({ownership,assets,sector,image, data,dateIndex }) {
   const uniqueSectors={}
-  console.log('[SectorTable.data',data[dateIndex])
-  const dataNeeded = data[dateIndex].map((el,i)=>el.sector).slice(1)
-  console.log('[SectorTable.dataNeeded',dataNeeded)
-  console.log('[SectorTable.sector',sector)
-  const pracs = data[dateIndex].map((el,i)=>{return {
-    asset:el.symbol,
-    ownership:el.ownership,
-    image:el.images,
-    annualizedReturn:el.annualizedReturn,
-    cumulativeReturn:el.finalCumulativeReturn,
-    alpha:Number(el.alpha*100).toFixed(2),
-    beta:Number(el.beta).toFixed(2),
-    returnStdDev:Number(el.returnStDev*100).toFixed(2),
-    priceStdDev:Number(el.priceStDev).toFixed(2)
+  // console.log('[SectorTable.data',data[dateIndex])
+  // const dataNeeded = data[dateIndex].map((el,i)=>el.sector).slice(1)
+  // console.log('[SectorTable.dataNeeded',dataNeeded)
+  // console.log('[SectorTable.sector',sector)
+  // const pracs = data[dateIndex].map((el,i)=>{return {
+  //   asset:el.symbol,
+  //   ownership:el.ownership,
+  //   image:el.images,
+  //   annualizedReturn:el.annualizedReturn,
+  //   cumulativeReturn:el.finalCumulativeReturn,
+  //   alpha:Number(el.alpha*100).toFixed(2),
+  //   beta:Number(el.beta).toFixed(2),
+  //   returnStdDev:Number(el.returnStDev*100).toFixed(2),
+  //   priceStdDev:Number(el.priceStDev).toFixed(2)
 
-  }}).slice(1)
-  console.log('[SectorTable.pracs',pracs)
+  // }}).slice(1)
+  // console.log('[SectorTable.pracs',pracs)
 
 
-  dataNeeded.map((s,i)=>{
-    if(!uniqueSectors[s]){
-      uniqueSectors[s]=[]
-    } 
-    // uniqueSectors[s].push({asset:assets[i],ownership:ownership[i],image:image[i]})
-    uniqueSectors[s].push(pracs[i])
+  // dataNeeded.map((s,i)=>{
+  //   if(!uniqueSectors[s]){
+  //     uniqueSectors[s]=[]
+  //   } 
+
+  //   uniqueSectors[s].push(pracs[i])
     
-  })
+  // })
   // sector.map((s,i)=>{
   //   if(!uniqueSectors[s]){
   //     uniqueSectors[s]=[]
@@ -134,12 +132,12 @@ export default function SectorTable({ownership,assets,sector,image, data,dateInd
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead >
-          <TableRow >
+        <TableHead>
+          <TableRow>
             <TableCell />
           </TableRow>
         </TableHead>
-        <TableBody >
+        <TableBody>
           {rows.map((row) => (
             <Row key={row.name} row={row} />
           ))}

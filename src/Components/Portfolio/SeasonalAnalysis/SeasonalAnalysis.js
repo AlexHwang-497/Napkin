@@ -127,7 +127,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           const dataNeeded =finalTableOrg(tableReturnsData)
           const barChartdataNeeded =seasonalBarChartData(tableReturnsData)
 
-        console.log('[seasonalAnalysis.finalTableOrg',dataNeeded)
+        console.log('[SeasonalAnalysis.finalTableOrg',dataNeeded)
         // console.log('[seasonalAnalysis.seasonalBarchartData',barChartdataNeeded)
 
         
@@ -149,7 +149,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
         console.log('[SeasonalAnalysis.lessNumber',lessNumber)
 
     return (
-        <Grid container >
+        <Grid container spacing={3} >
         <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             <SeasonalBarChart data={barChartdataNeeded}/>

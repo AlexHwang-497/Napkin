@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import DataTable from './CreatePortfolioTable';
 import PortfolioInputForm from './CreatePortfolioInputForm';
 import InputForm from './InputForm/InputForm';
+import CreatePortfolioPagTable from './Charts/CreatePortfolioOverviewPagTable'
 
 
 
@@ -62,7 +63,7 @@ export default function CustomizedDialogs() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Create Portfolio
+        Create Portfolio  outside
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -81,9 +82,7 @@ export default function CustomizedDialogs() {
           
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Create Portfolio
-          </Button>
+          
         </DialogActions>
       </BootstrapDialog>
     </div>

@@ -6,7 +6,8 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs, TextField  } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField, AppBar  } from "@material-ui/core";
+import RecommendedPosts from "./RecommendedPosts";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
 
 import PostDetails from "./PostDetails";
@@ -54,11 +55,14 @@ export default function BasicTabs() {
   const { portfolios, isLoading } = useSelector((state) => state.portfolio);
 
   const { id } = useParams();
+  console.log('[BasicTabs.id',id)
   const [value, setValue] = useState(0);
   const selectedPortfolio = portfolios.find(
     (portfolio) => portfolio._id === id
   );
   // console.log('[postDetailTabs.selectedPortfolio',selectedPortfolio)
+  console.log('[BasicTabs.selectedPortfolio',selectedPortfolio)
+  console.log('[BasicTabs.portfolios',portfolios)
   console.log()
   const [assets, setAssets] = useState(selectedPortfolio?.assets || []);
   const [ownership, setOwnership] = useState(
@@ -70,7 +74,7 @@ export default function BasicTabs() {
   const [sector, setSector] = useState(selectedPortfolio?.sector || []);
   const [image, setImage] = useState(selectedPortfolio?.image || []);
   const [arrForStartingDate, setArrForStartingDate] = useState([]);
-  
+  const history = useHistory();
   const [stockData, editStockData] = useState([]);
   const [dummyStockData, editDummyStockData] = useState([]);
   const [data, setData] = useState([]);
@@ -93,23 +97,9 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
-  // useEffect(() => {
-  //   Promise.all(
-  //   ['SPY',...assets].map((stock) =>
-  //   fetch(
-  //   `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
-  //   .then((results) =>
-  //       Promise.all(results.map((res) => res.json())).then((stocks) => {
-  //         if(!stocks) return;
-  //         const processedData = OrganizeData(stocks,assets,[0,...selectedPortfolio.ownership],['INDEX',...selectedPortfolio.sector],["https://financialmodelingprep.com/image-stock/SPY.png",...selectedPortfolio.image]);
-  //         console.log('[postDetailTabs.processsedData',processedData)
-  //         console.log('[postDetailTabs.selectedPortfolio',selectedPortfolio.ownership)
-  //         setPracData(processedData)
-  //       editDummyStockData(stocks)
-  //       // editStockData(editedStocks)
-  //       const ytd=subSet(data,'2021-01-01')
-  //     }))
-  // }, [assets]);
+
+
+
   useEffect(() => {
     if (!selectedPortfolio) return;
     Promise.all(
@@ -184,54 +174,57 @@ export default function BasicTabs() {
   }
 
     let yearArr = yearForSelection(combinedDatesArr)
-    console.log('[postDetailTabs.ytdMonth',ytdMonth)
-    console.log('[postDetailTabs.ytd',ytd)
-    console.log('[postDetailTabs.ttm',ttm)
-    console.log('[postDetailTabs.twoYear',twoYear)
-    console.log('[postDetailTabs.twoYear',threeYear)
-    console.log('[postDetailTabs.fourYear',fourYear)
-    console.log('[postDetailTabs.fiveYear',fiveYear)
-    console.log('[postDetailTabs.sixYear',sixYear)
-    console.log('[postDetailTabs.sevenYear',sevenYear)
-    console.log('[postDetailTabs.eightYear',eightYear)
-    console.log('[postDetailTabs.nineYear',nineYear)
-    console.log('[postDetailTabs.tenYear',tenYear)
-    console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
-    console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
-    console.log('[postDetailTabs.yearArr',yearArr)
-
-
-  
-  
-
-
-  
-    console.log('[postDetailTabs.pracData',pracData)
-    console.log('[postDetailTabs.endDate',endDate)
-    console.log('[postDetailTabs.startDate',startDate)
+    // console.log('[postDetailTabs.ytdMonth',ytdMonth)
+    // console.log('[postDetailTabs.ytd',ytd)
+    // console.log('[postDetailTabs.ttm',ttm)
+    // console.log('[postDetailTabs.twoYear',twoYear)
+    // console.log('[postDetailTabs.twoYear',threeYear)
+    // console.log('[postDetailTabs.fourYear',fourYear)
+    // console.log('[postDetailTabs.fiveYear',fiveYear)
+    // console.log('[postDetailTabs.sixYear',sixYear)
+    // console.log('[postDetailTabs.sevenYear',sevenYear)
+    // console.log('[postDetailTabs.eightYear',eightYear)
+    // console.log('[postDetailTabs.nineYear',nineYear)
+    // console.log('[postDetailTabs.tenYear',tenYear)
+    // console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
+    // console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
+    // console.log('[postDetailTabs.yearArr',yearArr)
+    // console.log('[postDetailTabs.pracData',pracData)
+    // console.log('[postDetailTabs.endDate',endDate)
+    // console.log('[postDetailTabs.startDate',startDate)
     // console.log('[postDetailTabs.pracsDates',pracsDates)
     // console.log('[postDetailTabs.distinctYears',distinctYears)
     // console.log('[postDetailTabs.yearArray',yearArray)
   
 
-  
+  // ****recommended posts
+  // const recommendedPosts = selectedPortfolio.filter(({ _id }) => _id !== selectedPortfolio._id);
+  // const openPost = console.log('openPost.id',id)
+  const openPost = (_id) => history.push(`/posts/${_id}`);
   
   return (
     
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", bgcolor:'#EEEEEE' }}>
+        <Box>          
+            {/* <RecommendedPosts  onClick={() => openPost(id)}/> */}
+        </Box>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <AppBar position='static'>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
+
           <Tab label="Portfolio Overview" {...a11yProps(0)} />
           <Tab label="Holdings" {...a11yProps(1)} />
           <Tab label="Total Return" {...a11yProps(2)} />
           <Tab label="Seasonal Analysis" {...a11yProps(3)} />
           <Tab label="Statistical Summary" {...a11yProps(4)} />
           <FetchStockPrices assets={assets} ownership={ownership} />
+
         </Tabs>
+    </AppBar>  
         <Box>
 
       <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
@@ -296,7 +289,10 @@ export default function BasicTabs() {
           portfolioName={portfolioName}
         />
       </TabPanel>
+      
 
     </Box>
+    
+    
   );
 }

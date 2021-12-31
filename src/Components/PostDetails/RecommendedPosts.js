@@ -30,6 +30,7 @@ const RecommendedPosts = () => {
       }, [post]);
 
       if (!post) return null;
+      // const openPost = (_id) => console.log(_id)
       const openPost = (_id) => history.push(`/posts/${_id}`);
       console.log('[RecommendedPosts.openPost]',openPost)
 
@@ -41,8 +42,8 @@ const RecommendedPosts = () => {
         );
       }
     const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
-    console.log('[RecommendedPosts.recomnededPsots]',recommendedPosts)
-    console.log('[RecommendedPosts.recomnededPsots._id]',recommendedPosts._id)
+    console.log('[RecommendedPosts.recomnededPosts]',recommendedPosts)
+    console.log('[RecommendedPosts.recomnededPosts._id]',recommendedPosts._id)
 
     return (
         // <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -50,7 +51,7 @@ const RecommendedPosts = () => {
         <div className={classes.card}>
             {!!recommendedPosts.length && (
             <div className={classes.section}>
-                <Typography gutterBottom variant="h5">You might also like:</Typography>
+                <Typography gutterBottom variant="h5">Similar Portfolios:</Typography>
                 <Divider />
                 <div className={classes.recommendedPosts}>
                 {recommendedPosts.map(({ portfolioName, description, message, likes, _id }) => (

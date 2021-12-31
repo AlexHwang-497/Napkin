@@ -1,26 +1,19 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid'
-import { makeStyles,createStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles({
 
   dataGrid: {
     // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    background: "",
     borderRadius: 3,
     // border: 0,
-    color: "black",
+    // color: "white",
     // height: 48,
     padding: "0 30px",
     // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    width: "100",
-    columns:{
-      background:'#819ca9'
-    },
-    
-    
-
+    width: "100"
    }
  });
 const columns = [
@@ -37,8 +30,6 @@ const columns = [
     field: "image",
     headerName: "",
     width: 20,
-    background:'#819ca9',
-    color: "white",
     // height: 100,
     renderCell: (params) => <img src={params.value}  style={{height:'30px',width:'30px'}}/>
   },
@@ -47,7 +38,6 @@ const columns = [
     headerName: 'Symbol',
     width: 130,
     editable: false,
-    
   },
   {
     field: 'sector',

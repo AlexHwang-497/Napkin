@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core'
 
 
-const PaginationTable = ({post}) => {
+const CreatePortfolioPaginationTable = ({post}) => {
     console.log('this is the post in PaginationTable',post)
     // console.log('this is the post.post in PaginationTable',post.post)
     // console.log('this is the post.post.assets in PaginationTable',post.post.assets)
@@ -49,7 +49,7 @@ const PaginationTable = ({post}) => {
     return (
         <div className="w-full overflow-auto">
             <Table className="whitespace-pre">
-                <TableHead style={{background:"#819ca9"}}>
+                <TableHead>
                     <TableRow>
                         <TableCell className="px-0"></TableCell>
                         <TableCell className="px-0">Symbol</TableCell>
@@ -96,4 +96,4 @@ const PaginationTable = ({post}) => {
     )
 }
 
-export default PaginationTable
+export default CreatePortfolioPaginationTable
