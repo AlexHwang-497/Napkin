@@ -204,7 +204,7 @@ export default function BasicTabs() {
   
   return (
     
-    <Box sx={{ width: "100%", bgcolor:'#F5F5F5' }}>
+    <Box sx={{ width: "100%", bgcolor:'#EEEEEE' }}>
         <Box>          
             {/* <RecommendedPosts  onClick={() => openPost(id)}/> */}
         </Box>

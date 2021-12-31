@@ -135,7 +135,7 @@ export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead>
+        <TableHead style={{background:"#819ca9"}}>
           <TableRow>
             <TableCell />
             <TableCell>Dessert (100g serving)</TableCell>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,} from '@material-ui/core'
+import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper, styled} from '@material-ui/core'
 function createData(name, ownership, history ) {
   return {
     name,
@@ -11,6 +11,8 @@ function createData(name, ownership, history ) {
     history,
   };
 }
+
+
 
 function Row(props) {
   const { row } = props;
@@ -132,12 +134,12 @@ export default function SectorTable({ownership,assets,sector,image, data,dateInd
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
+        <TableHead >
+          <TableRow >
             <TableCell />
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {rows.map((row) => (
             <Row key={row.name} row={row} />
           ))}

@@ -107,7 +107,7 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
           // return params.value >= greaterNumber/100 || params.value <lessNumber/100 ? 'hot' : 'cold';
           if(params.value >= greaterNumber){
             return 'hot'
-          } else if(params.value <lessNumber){
+          } else if(params.value <=lessNumber){
             return 'cold'
           } else {
             return 

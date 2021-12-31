@@ -93,7 +93,7 @@ let dateObjs = {
     const ttm = endYear-1+'-'+endMonth+'-'+endDay
     const startDate =''
     return (
-        <Grid container >
+        <Grid container spacing={3}>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     

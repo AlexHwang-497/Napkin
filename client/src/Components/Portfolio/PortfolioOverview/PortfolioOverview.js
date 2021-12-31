@@ -227,6 +227,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                    <CommentSection post={post}/>
                     <RecommendedPosts/>
 
                 </Paper>

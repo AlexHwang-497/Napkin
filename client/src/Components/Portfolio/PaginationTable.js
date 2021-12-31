@@ -49,7 +49,7 @@ const PaginationTable = ({post}) => {
     return (
         <div className="w-full overflow-auto">
             <Table className="whitespace-pre">
-                <TableHead>
+                <TableHead style={{background:"#819ca9"}}>
                     <TableRow>
                         <TableCell className="px-0"></TableCell>
                         <TableCell className="px-0">Symbol</TableCell>
