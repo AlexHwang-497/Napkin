@@ -16,7 +16,7 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioData',portf
 console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
   
   const series =  [{
-    data: [21, 22, 10, 28, 16, 21, 13, 30]
+    data: [portfolioData, spxData]
   }]
   
   const options = {
@@ -26,44 +26,21 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
     },
     plotOptions: {
       bar: {
-        colors: {
-          ranges: [{
-            from: -100,
-            to: -46,
-            color: '#F15B46'
-          }, {
-            from: -45,
-            to: 0,
-            color: '#FEB019'
-          }]
-        },
-        columnWidth: '90%',
+        
+        columnWidth: '45%',
+        distributed: true,
       }
     },
     dataLabels: {
       enabled: false,
     },
-    yaxis: {
-      title: {
-        text: 'Growth',
-      },
-      labels: {
-        formatter: function (y) {
-          return y.toFixed(1)*100 + "%";
-        }
-      }
-    },
+    
     xaxis: {
       
       categories: [
-        ['John', 'Doe'],
-        ['Joe', 'Smith'],
-        ['Jake', 'Williams'],
-        'Amber',
-        ['Peter', 'Brown'],
-        ['Mary', 'Evans'],
-        ['David', 'Wilson'],
-        ['Lily', 'Roberts'], 
+        'Portfolio',
+        'S&P 500',
+        
       ],
       labels: {
         rotate: -90
