@@ -36,29 +36,7 @@ const StatCards = () => {
                     </Tooltip>
                 </Card>
             </Grid>
-            <Grid item xs={12} md={6}>
-                <Card
-                    className="flex flex-wrap justify-between align-center p-sm-24 bg-paper"
-                    elevation={6}
-                >
-                    <div className="flex items-center">
-                        <Icon className={classes.icon}>Risk</Icon>
-                        <div className="ml-3">
-                            <small className="text-muted line-height-1">
-                                This week Sales
-                            </small>
-                            <h6 className="m-0 mt-1 text-primary font-medium">
-                                $80,500
-                            </h6>
-                        </div>
-                    </div>
-                    <Tooltip title="View Details" placement="top">
-                        <IconButton>
-                            <Icon>arrow_right_alt</Icon>
-                        </IconButton>
-                    </Tooltip>
-                </Card>
-            </Grid>
+            
             <Grid item xs={12} md={6}>
                 <Card
                     className="flex flex-wrap justify-between items-center p-sm-24 bg-paper"
