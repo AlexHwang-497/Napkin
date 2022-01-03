@@ -73,6 +73,12 @@ const organizeByYear=(arr) => {
     return obj
   
   }
+  const formatNumber = (num) => {
+    num.replace('%','')
+    return parseFloat(num)
+
+  }
+
 export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber}) {
     let obj ={}
     const classes = useStyles();
@@ -105,9 +111,9 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
             return '';
           }
           // return params.value >= greaterNumber/100 || params.value <lessNumber/100 ? 'hot' : 'cold';
-          if(params.value >= greaterNumber){
+          if(greaterNumber && parseFloat(params.value) >= formatNumber(greaterNumber)){
             return 'hot'
-          } else if(params.value <=lessNumber){
+          } else if(lessNumber && parseFloat(params.value) <=formatNumber(lessNumber)){
             return 'cold'
           } else {
             return 

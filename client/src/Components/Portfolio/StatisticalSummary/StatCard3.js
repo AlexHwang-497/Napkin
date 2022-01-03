@@ -5,25 +5,37 @@ import StatiscialSummaryBarChart from '../Charts/StatiscialSummaryBarChart'
 const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumulativeReturn,spxAnnualizedReturn}) => {
     const statList = [
         {
-            icon: 'Annualized return',
+            
             title: 'Annualized Return',
             amount: portfolioAnnualizedReturn,
             spxAmount:spxAnnualizedReturn
         },
         {
-            icon: 'Cumulative Return',
+            
             title: 'Cumulative Return',
             amount: portfolioCumulativeReturn,
             spxAmount:spxCumulativeReturn
+        },
+        {
+            
+            title: 'Return Standard Deviation',
+            amount: portfolioCumulativeReturn,
+            spxAmount:spxCumulativeReturn
+        },
+        {
+            
+            title: 'Beta',
+            amount: portfolioCumulativeReturn,
+            spxAmount:1.0
         },
         
     ]
 
     return (
         <div>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
                 {statList.map((item, ind) => (
-                    <Grid key={item.title} item  md={4}  xs={12}>
+                    <Grid key={item.title} item  md={3}  xs={12}>
                         <Card elevation={3} className="p-5 flex">
                             <div>
                                 {/* <IconButton

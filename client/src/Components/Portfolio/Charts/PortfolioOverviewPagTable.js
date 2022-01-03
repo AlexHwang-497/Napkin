@@ -140,7 +140,7 @@ export default function PortfolioOverviewPagTable({dataNeeded}) {
   console.log('[PortfolioOverviewPagTable.row',row)
 //  console.log('[PortfolioPostTable.row',row)
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div className='stripedTable' style={{ height: 400, width: '100%' }}>
       <DataGrid
         density = 'compact'
         

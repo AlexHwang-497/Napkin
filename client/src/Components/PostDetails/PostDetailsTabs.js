@@ -15,8 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
 import config from "../../StockData/config";
 import { NFLX, TEAM, SPY } from "../../Utilities/sampleData";
-import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
+import {fetchPortfolio,fetchPost} from '../../api/index'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,6 +57,9 @@ export default function BasicTabs() {
 
   const { id } = useParams();
   console.log('[BasicTabs.id',id)
+
+  
+
   const [value, setValue] = useState(0);
   const selectedPortfolio = portfolios.find(
     (portfolio) => portfolio._id === id
@@ -83,7 +87,15 @@ export default function BasicTabs() {
   const [dateArr,setDateArr] = useState([])
   let currentDate = new Date().toISOString().slice(0, 10)
  
+  useEffect(()=>{
+    console.log('[PostDetailsTabs.useEffect.assets',id)
+    if(assets.length===0){
+      // fetchPost(id).then((data)=>console.log('[PostDetailsTabs.useEffect.data',data))
+      fetchPortfolio(id).then((data)=>console.log('[PostDetailsTabs.useEffect.data',data))
 
+    }
+
+  },[])
   
 
   const [endDate, setEndDate] = useState(currentDate)
@@ -289,7 +301,6 @@ export default function BasicTabs() {
           portfolioName={portfolioName}
         />
       </TabPanel>
-      
 
     </Box>
     

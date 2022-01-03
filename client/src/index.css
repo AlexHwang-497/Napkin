@@ -16,3 +16,7 @@ body {
     /* font-family: 'Noto Sans JP' !important; */
     font-family: 'Heebo', sans-serif !important;
 }
+
+.stripedTable .MuiDataGrid-row:nth-child(even){
+    background-color: aliceblue;
+}

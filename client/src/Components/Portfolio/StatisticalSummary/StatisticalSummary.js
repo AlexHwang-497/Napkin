@@ -32,6 +32,7 @@ function StatisticalSummary({sector,assets,ownership, portfolioName,image, stock
     var finance = new Finance();
 
     console.log('[StatisticalSummary.priceData',priceData)
+    console.log('[StatisticalSummary.stockData',stockData)
     console.log('[StatisticalSummary.yearArr',yearArr)
 
     if(yearArr.length===0 || !yearArr) return []
