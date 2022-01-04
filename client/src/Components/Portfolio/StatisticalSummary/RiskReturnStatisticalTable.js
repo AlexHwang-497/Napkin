@@ -11,13 +11,13 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 
-export default function RiskReturnStatisticalTable({portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn}) {
+export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,portfolioBeta,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn}) {
   const rows = [
     createData('Return Standard Deviation', portfolioCumulativeReturn.toFixed(2)*100, spxCumulativeReturn.toFixed(2)*100, (portfolioCumulativeReturn-spxCumulativeReturn).toFixed(2)*100),
     createData('Price Standard Deviation', portfolioAnnualizedReturn, spxAnnualizedReturn, (portfolioAnnualizedReturn-spxAnnualizedReturn)),
-    createData('Covariance', ),
-    createData('Beta', ),
-    createData('Alpha',  ),
+    createData('Covariance', portfolioCov.toFixed(2)),
+    createData('Beta',portfolioBeta[0].toFixed(2),1.0 ),
+    createData('Alpha',portfolioAlpha[0].toFixed(2)  ),
     createData('Sharpe Ratio',  ),
   ];
   return (

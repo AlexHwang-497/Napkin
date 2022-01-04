@@ -11,13 +11,13 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 
-export default function ReturnStatisticalTable({portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn}) {
+export default function ReturnStatisticalTable({portfolioAnnualizedReturn,spxReturnMean, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn,portfolioMaxReturn,portfolioMinReturn}) {
   const rows = [
     createData('Cumulative Return', portfolioCumulativeReturn.toFixed(2)*100, spxCumulativeReturn.toFixed(2)*100, (portfolioCumulativeReturn-spxCumulativeReturn).toFixed(2)*100),
     createData('Annualized Return', portfolioAnnualizedReturn, spxAnnualizedReturn, (portfolioAnnualizedReturn-spxAnnualizedReturn)),
-    createData('Mean Return', ),
-    createData('Highest Return Month', ),
-    createData('Lowest Return Month',  ),
+    createData('Mean Return',0,spxReturnMean.toFixed(2)*100 ),
+    createData('Highest Return Month',portfolioMaxReturn.toFixed(2)*100 ),
+    createData('Lowest Return Month',  portfolioMinReturn.toFixed(2)*100),
   ];
   return (
     <TableContainer component={Paper}>

@@ -32,7 +32,7 @@ function StatisticalSummary({sector,assets,ownership, portfolioName,image, stock
     var finance = new Finance();
 
     console.log('[StatisticalSummary.priceData',priceData)
-    console.log('[StatisticalSummary.stockData',stockData)
+    
     console.log('[StatisticalSummary.yearArr',yearArr)
 
     if(yearArr.length===0 || !yearArr) return []
@@ -49,25 +49,33 @@ function StatisticalSummary({sector,assets,ownership, portfolioName,image, stock
     const spxValue = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
         const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-        // console.log('[TotalReturn.spxValue.monReturn',data)
+        
         return data
     })
     console.log('[StatisticalSummary.spxValue',spxValue)
 
 const totalPortoflioValue = dates.map((date, index) => {
-        // console.log('[TotalReturn.calculations.date',date)
+        
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-    // console.log('[TotalReturn.totalPortoflioValue.aggPortfolioValue',aggPortfolioValue)
+    
     return aggPortfolioValue
 })
   console.log('[StatisticalSummary.totalPortoflioValue',totalPortoflioValue)
+const totalPortoflioValueReturns = dates.map((date, index) => {
+        
+    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+    const aggPortfolioValue = totalPortfolioValueReturns(monthlyReturn(range))
+    
+    return aggPortfolioValue
+})
+  console.log('[StatisticalSummary.totalPortoflioValueReturns',totalPortoflioValueReturns)
 
 const dateArr = dates.map((date, index) => {
-        // console.log('[TotalReturn.calculations.date',date)
+    
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry)=>entry.dates.map((el)=>el.date))[0]
-    // console.log('[TotalReturn.dateArr.data',data)
+    
     return data    
   })
   console.log('[StatisticalSummary.dateArr',dateArr)
@@ -109,6 +117,14 @@ const dateArr = dates.map((date, index) => {
   console.log('[StatisticalSummary.spxCumulativeReturnValue',spxCumulativeReturnValue)
 
 
+  const securityData = dates.map((date, index) => {
+    const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+    const data = monthlyReturn(range).map((entry)=>entry)
+    console.log('[PortfolioOverview.securityData.data/monthlyReturn',data)
+    // console.log('[PortfolioOverview.pracsValue.monReturn',data)
+    return data
+})
+console.log('[StatisticalSummary.securityData',securityData)
 
 
 
@@ -124,6 +140,7 @@ const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
 const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
 const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
 const maxPortfolioReturn =''
+let arrPortfolioReturnsNeeded
 const portfolioAlpha = calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeReturn,spxCumulativeReturnValue)
 if(portfolioStdDev && portfolioStdDev.length>0) {
   calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i],portfolioAlpha[i]])
@@ -134,30 +151,65 @@ console.log('[StatisticalSummary.portfolioVariance',portfolioVariance)
 console.log('[StatisticalSummary.portfolioBeta',portfolioBeta)
 console.log('[StatisticalSummary.portfolioAlpha',portfolioAlpha)
 console.log('[StatisticalSummary.portfolioCumulativeReturn',portfolioCumulativeReturn)
-console.log('[StatisticalSummary.portfolioCumulativeReturn',portfolioCumulativeReturn)
+console.log('[StatisticalSummary.arrPortfolioReturns',arrPortfolioReturns)
 
-let portfolioStdDevNeeded,portfolioVarianceNeeded,portfolioCovNeeded,portfolioBetaNeeded,portfolioAlphaNeeded,spxCumulativeReturnValueNeeded,portfolioCumulativeReturnNeeded,portfolioAnnualizeReturnNeeded, spxAnnualizedReturnNeeded
+let portfolioStdDevNeeded,
+portfolioVarianceNeeded,
+portfolioCovNeeded,
+portfolioBetaNeeded,
+portfolioAlphaNeeded,
+spxCumulativeReturnValueNeeded,
+portfolioCumulativeReturnNeeded,
+portfolioAnnualizeReturnNeeded, 
+spxAnnualizedReturnNeeded,
+securityDataNeeded,
+spxReturnStDeviation,
+spxPriceStDeviation,
+spxReturnMean
+
+
+
 let neededIndex = 0
 if(dateType==='ytd'){
     neededIndex = 0
     
   } else if(dateType==='3yr') {
     neededIndex = 2
-
-      
-      
+    
   }
+  securityDataNeeded=securityData[0][neededIndex]
+  spxReturnStDeviation=securityDataNeeded.returnStDev
+  spxPriceStDeviation=securityDataNeeded.priceStDev
+  spxReturnMean=securityDataNeeded.returnMean
+  portfolioBetaNeeded=portfolioBeta[neededIndex]
+  portfolioAlphaNeeded=portfolioAlpha[neededIndex]
+  portfolioCovNeeded=portfolioCov[neededIndex]
+  arrPortfolioReturnsNeeded=arrPortfolioReturns[neededIndex].slice(1)
+  let maxarrPortfolioReturnsNeeded=Math.max(...arrPortfolioReturnsNeeded)
+  let minarrPortfolioReturnsNeeded=Math.min(...arrPortfolioReturnsNeeded)
+  const avg = arr => arr.reduce((a,b) => a + b, 0) 
+  avg(arrPortfolioReturnsNeeded)
+  portfolioStdDevNeeded=portfolioStdDev[neededIndex]
+  portfolioCumulativeReturnNeeded=portfolioCumulativeReturn[neededIndex]
+  portfolioAnnualizeReturnNeeded=portfolioAnnualizeReturn[neededIndex].slice(1)
+  spxCumulativeReturnValueNeeded=spxCumulativeReturnValue[neededIndex]
+  spxAnnualizedReturnNeeded = finance.CAGR(spxValue[neededIndex][0],spxValue[neededIndex][spxValue.length-1],spxValue[neededIndex].length/12) ;
 
-    portfolioStdDevNeeded=portfolioStdDev[neededIndex]
-    portfolioCumulativeReturnNeeded=portfolioCumulativeReturn[neededIndex]
-    portfolioAnnualizeReturnNeeded=portfolioAnnualizeReturn[neededIndex].slice(1)
-    spxCumulativeReturnValueNeeded=spxCumulativeReturnValue[neededIndex]
-    spxAnnualizedReturnNeeded = finance.CAGR(spxValue[neededIndex][0],spxValue[neededIndex][spxValue.length-1],spxValue[neededIndex].length/12) ;
   console.log('[StatisticalSummary.portfolioStdDevNeeded',portfolioStdDevNeeded)
   console.log('[StatisticalSummary.portfolioCumulativeReturnNeeded',portfolioCumulativeReturnNeeded)
   console.log('[StatisticalSummary.portfolioAnnualizeReturnNeeded',portfolioAnnualizeReturnNeeded)
   console.log('[StatisticalSummary.spxCumulativeReturnValueNeeded',spxCumulativeReturnValueNeeded)
   console.log('[StatisticalSummary.spxAnnualizedReturnNeeded',spxAnnualizedReturnNeeded)
+  console.log('[StatisticalSummary.arrPortfolioReturnsNeeded',arrPortfolioReturnsNeeded)
+  console.log('[StatisticalSummary.maxarrPortfolioReturnsNeeded',maxarrPortfolioReturnsNeeded)
+  console.log('[StatisticalSummary.minarrPortfolioReturnsNeeded',minarrPortfolioReturnsNeeded)
+  console.log('[StatisticalSummary.avgPortfolioReturnsNeeded',avg)
+  console.log('[StatisticalSummary.securityDataNeeded',securityDataNeeded)
+  console.log('[StatisticalSummary.spxReturnStDeviation',spxReturnStDeviation)
+  console.log('[StatisticalSummary.spxPriceStDeviation',spxPriceStDeviation)
+  console.log('[StatisticalSummary.spxReturnMean',spxReturnMean)
+  console.log('[StatisticalSummary.portfolioBetaNeeded',portfolioBetaNeeded)
+  console.log('[StatisticalSummary.portfolioAlphaNeeded',portfolioAlphaNeeded)
 
 
 
@@ -182,12 +234,34 @@ if(dateType==='ytd'){
         <div className="analytics m-sm-30 mt-6">
             <Grid container spacing={2}>
                 <Grid xs={12}  >
-                    <StatCard3 portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} spxCumulativeReturn={spxCumulativeReturnValueNeeded} spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
+                    <StatCard3 
+                      portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
+                      portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                      spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
+                      spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
             
                 </Grid>
 
                 <Grid xs={12} >        
-                    <StatCards portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} spxCumulativeReturn={spxCumulativeReturnValueNeeded} spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
+                    <StatCards 
+                      portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
+                      portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                      portfolioBeta={portfolioBetaNeeded}
+                      portfolioAlpha={portfolioAlphaNeeded}
+                      portfolioCov={portfolioCovNeeded}
+                      spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
+                      spxAnnualizedReturn={spxAnnualizedReturnNeeded}
+                      spxReturnMean={spxReturnMean} 
+                      spxReturnStDeviation={spxReturnStDeviation}
+                      spxPriceStDeviation={spxPriceStDeviation}
+                      portfolioStdDev={portfolioStdDevNeeded}
+                      portfolioBeta={portfolioBeta}
+                      portfolioAlpha={portfolioAlpha}
+                      portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
+                      portfolioMinReturn={minarrPortfolioReturnsNeeded}
+
+
+                      />
                 </Grid>
 
                     

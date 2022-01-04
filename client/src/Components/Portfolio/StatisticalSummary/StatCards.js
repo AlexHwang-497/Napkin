@@ -12,7 +12,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     },
 }))
 
-const StatCards = ({portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn}) => {
+const StatCards = ({portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviation,spxReturnMean,spxPriceStDeviation,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn, portfolioStdDev, portfolioMaxReturn,portfolioMinReturn,}) => {
     const classes = useStyles()
 
     return (
@@ -25,7 +25,16 @@ const StatCards = ({portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCum
                     <div className="flex items-center">
                         <Icon className={classes.icon}>Returns</Icon>
                         <div className="ml-3">
-                            <ReturnStatisticalTable portfolioAnnualizedReturn={portfolioAnnualizedReturn} portfolioCumulativeReturn={portfolioCumulativeReturn} spxCumulativeReturn={spxCumulativeReturn} spxAnnualizedReturn={spxAnnualizedReturn}/>
+                            <ReturnStatisticalTable 
+                                portfolioAnnualizedReturn={portfolioAnnualizedReturn} 
+                                portfolioCumulativeReturn={portfolioCumulativeReturn} 
+                                spxCumulativeReturn={spxCumulativeReturn} 
+                                spxAnnualizedReturn={spxAnnualizedReturn} 
+                                portfolioMaxReturn={portfolioMaxReturn} 
+                                portfolioMinReturn={portfolioMinReturn}
+                                spxReturnMean={spxReturnMean}
+                                
+                                />
                             <h6 className="m-0 mt-1 text-primary font-medium">
                                 
                             </h6>
@@ -46,7 +55,18 @@ const StatCards = ({portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCum
                 >
                     <div className="flex items-center">
                         <Icon className={classes.icon}>Risk/Return</Icon>
-                        <RiskReturnStatisticalTable portfolioAnnualizedReturn={portfolioAnnualizedReturn} portfolioCumulativeReturn={portfolioCumulativeReturn} spxCumulativeReturn={spxCumulativeReturn} spxAnnualizedReturn={spxAnnualizedReturn}/>
+                        <RiskReturnStatisticalTable 
+                            portfolioAnnualizedReturn={portfolioAnnualizedReturn} 
+                            portfolioCumulativeReturn={portfolioCumulativeReturn} 
+                            spxCumulativeReturn={spxCumulativeReturn} 
+                            spxAnnualizedReturn={spxAnnualizedReturn}
+                            spxPriceStDeviation={spxPriceStDeviation}
+                            spxReturnStDeviation={spxReturnStDeviation}
+                            portfolioBeta={portfolioBeta}
+                            portfolioAlpha={portfolioAlpha}
+                            portfolioCov={portfolioCov}
+
+                            />
                         <div className="ml-3">
                             
                             
