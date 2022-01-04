@@ -4,6 +4,7 @@ import { IconButton } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper, styled} from '@material-ui/core'
+
 function createData(name, ownership, history ) {
   return {
     name,
@@ -11,6 +12,16 @@ function createData(name, ownership, history ) {
     history,
   };
 }
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 
 
@@ -20,7 +31,7 @@ function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} style={{background:"#819ca9"}}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -41,11 +52,11 @@ function Row(props) {
             <Box sx={{ margin: 1 }}>
               
               <Table size="small" aria-label="purchases">
-                <TableHead>
+                <TableHead style={{background:"#e1f5fe"}}>
                   <TableRow>
                     <TableCell></TableCell>
                     <TableCell>Symbol</TableCell>
-                    {/* <TableCell >Sector</TableCell> */}
+                    
                     <TableCell >Portfolio(%)</TableCell>
                     <TableCell >CumReturn(%)</TableCell>
                     <TableCell >AnnReturn(%)</TableCell>
@@ -57,7 +68,7 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                    <StyledTableRow key={historyRow.date}>
                       <TableCell  ><img src={historyRow.image} style={{height:'30px',width:'30px'}}/></TableCell>
                       <TableCell >{historyRow.asset}</TableCell>
                       {/* <TableCell >{row.name}</TableCell> */}
@@ -68,7 +79,7 @@ function Row(props) {
                       <TableCell >{historyRow.returnStdDev}%</TableCell>
                       <TableCell >{historyRow.beta}</TableCell>
                       <TableCell >{historyRow.alpha}%</TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>
@@ -133,7 +144,7 @@ export default function SectorTable({ownership,assets,sector,image, data,dateInd
   
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table aria-label="collapsible table" >
         <TableHead >
           <TableRow >
             <TableCell />

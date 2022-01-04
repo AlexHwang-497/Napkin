@@ -14,6 +14,7 @@ function createData(year, annualizedReturn, stdDev, beta, alpha) {
   return { year, annualizedReturn, stdDev, beta, alpha };
 }
 
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
