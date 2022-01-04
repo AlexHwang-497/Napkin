@@ -137,7 +137,7 @@ export default function BasicTabs() {
       );
     }, [assets,endDate]);
 
-
+    
 
     const endDateHandler = (e) => {
       setEndDate(e.target.value)      

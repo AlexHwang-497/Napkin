@@ -8,7 +8,7 @@ import StatCards2 from './StatCard2'
 import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDeviation, calculateCumulativeReturn,totalPortfolioValue,totalPortfolioValueReturns, calculateAnnualizedReturn,calcCovariance, calcAlpha } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import { Grid, Card,Select,MenuItem } from '@material-ui/core'
-import StatisticalTable from './StatisticalTable'
+import StatisticalTable from './ReturnStatisticalTable'
 function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr}) {
 
     // useEffect(() => {
@@ -123,6 +123,7 @@ const portfolioVariance = getVariance(arrPortfolioReturns)
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
 const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
 const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
+const maxPortfolioReturn =''
 const portfolioAlpha = calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeReturn,spxCumulativeReturnValue)
 if(portfolioStdDev && portfolioStdDev.length>0) {
   calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i],portfolioAlpha[i]])
@@ -186,7 +187,7 @@ if(dateType==='ytd'){
                 </Grid>
 
                 <Grid xs={12} >        
-                    <StatCards />
+                    <StatCards portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} spxCumulativeReturn={spxCumulativeReturnValueNeeded} spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
                 </Grid>
 
                     

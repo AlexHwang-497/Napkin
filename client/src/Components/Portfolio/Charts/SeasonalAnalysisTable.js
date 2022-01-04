@@ -3,28 +3,119 @@ import { DataGrid } from '@material-ui/data-grid'
 import { makeStyles } from '@material-ui/core/styles';
 
 const columns = [
-  
   { 
-    field: 'year'
+    field: 'year',
+    align:'center',
+    headerAlign: 'center',
   },
   { 
     field: 'jan', 
     type: 'number', 
     width: 100,
     filterable: false,
+    align:'center',
+    headerAlign: 'center',
     valueFormatter: ({ value }) => `${value}%` 
   },
-  { field: 'feb', type: 'number', width: 100,  filterable: false, valueFormatter: ({ value }) => `${value}%` },
-  { field: 'mar', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'apr', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'may', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'jun', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'jul', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'aug', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'sep', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'oct', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'nov', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'dec', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { 
+    field: 'feb', 
+    type: 'number', 
+    width: 100,  
+    filterable: false, 
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'mar', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'apr', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'may', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'jun', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'jul', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'aug', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'sep', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'oct', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'nov', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
+  { 
+    field: 'dec', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => `${value}%` 
+  },
 ];
 
 
@@ -99,6 +190,7 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
     // console.log('[returnsTable.SeasonalAnalysis.newData',newData)
     
   return (
+    
     <div style={{ height: 410, width: '100%' }} className={classes.root}>
       <DataGrid
         density='compact'

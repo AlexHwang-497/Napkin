@@ -1,6 +1,8 @@
 import React from 'react'
 import { Grid, Card, Icon, IconButton, Tooltip } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import ReturnStatisticalTable from './ReturnStatisticalTable'
+import RiskReturnStatisticalTable from './RiskReturnStatisticalTable'
 
 const useStyles = makeStyles(({ palette, ...theme }) => ({
     icon: {
@@ -10,7 +12,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     },
 }))
 
-const StatCards = () => {
+const StatCards = ({portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn}) => {
     const classes = useStyles()
 
     return (
@@ -23,9 +25,9 @@ const StatCards = () => {
                     <div className="flex items-center">
                         <Icon className={classes.icon}>Returns</Icon>
                         <div className="ml-3">
-                            <small className="text-muted">New Leads</small>
+                            <ReturnStatisticalTable portfolioAnnualizedReturn={portfolioAnnualizedReturn} portfolioCumulativeReturn={portfolioCumulativeReturn} spxCumulativeReturn={spxCumulativeReturn} spxAnnualizedReturn={spxAnnualizedReturn}/>
                             <h6 className="m-0 mt-1 text-primary font-medium">
-                                3050
+                                
                             </h6>
                         </div>
                     </div>
@@ -44,13 +46,10 @@ const StatCards = () => {
                 >
                     <div className="flex items-center">
                         <Icon className={classes.icon}>Risk/Return</Icon>
+                        <RiskReturnStatisticalTable portfolioAnnualizedReturn={portfolioAnnualizedReturn} portfolioCumulativeReturn={portfolioCumulativeReturn} spxCumulativeReturn={spxCumulativeReturn} spxAnnualizedReturn={spxAnnualizedReturn}/>
                         <div className="ml-3">
-                            <small className="text-muted">
-                                Inventory Status
-                            </small>
-                            <h6 className="m-0 mt-1 text-primary font-medium">
-                                8.5% Stock Surplus
-                            </h6>
+                            
+                            
                         </div>
                     </div>
                     <Tooltip title="View Details" placement="top">
