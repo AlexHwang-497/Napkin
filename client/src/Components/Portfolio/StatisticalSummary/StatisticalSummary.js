@@ -176,6 +176,11 @@ if(dateType==='ytd'){
   } else if(dateType==='3yr') {
     neededIndex = 2
     
+  } else if(dateType==='5yr') {
+    neededIndex = 4
+    
+  } else {
+    neededIndex = securityData.length-1
   }
   securityDataNeeded=securityData[0][neededIndex]
   spxReturnStDeviation=securityDataNeeded.returnStDev

@@ -40,11 +40,7 @@ const StatCards = ({portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviati
                             </h6>
                         </div>
                     </div>
-                    <Tooltip title="View Details" placement="top">
-                        <IconButton>
-                            <Icon>arrow_right_alt</Icon>
-                        </IconButton>
-                    </Tooltip>
+                    
                 </Card>
             </Grid>
             
@@ -72,11 +68,7 @@ const StatCards = ({portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviati
                             
                         </div>
                     </div>
-                    <Tooltip title="View Details" placement="top">
-                        <IconButton>
-                            <Icon>arrow_right_alt</Icon>
-                        </IconButton>
-                    </Tooltip>
+                    
                 </Card>
             </Grid>
             
