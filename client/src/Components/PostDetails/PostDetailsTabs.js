@@ -110,7 +110,17 @@ export default function BasicTabs() {
   };
 
 
+let sectorWeightingUrl = `https://financialmodelingprep.com/api/v3/etf-sector-weightings/SPY?apikey=${apiKey}`
+useEffect(()=>{
+  if(!pracData) return
+  fetch(sectorWeightingUrl)
+  .then((results)=>results.json())
+  .then((data)=>{
+    console.log('[postDetailTabs.sectorWeighting',data)
+  })
 
+
+},[pracData])
 
   useEffect(() => {
     if (!selectedPortfolio) return;

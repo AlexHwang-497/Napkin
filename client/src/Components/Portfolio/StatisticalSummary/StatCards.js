@@ -12,12 +12,12 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     },
 }))
 
-const StatCards = ({portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviation,spxReturnMean,spxPriceStDeviation,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn, portfolioStdDev, portfolioMaxReturn,portfolioMinReturn,}) => {
+const StatCards = ({avgPortfolioReturns,portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviation,spxReturnMean,spxPriceStDeviation,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn, portfolioStdDev, portfolioMaxReturn,portfolioMinReturn,}) => {
     const classes = useStyles()
 
     return (
         <Grid container spacing={3} className="mb-3">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} >
                 <Card
                     className="flex flex-wrap justify-between items-center p-sm-24 bg-paper"
                     elevation={6}
@@ -33,11 +33,7 @@ const StatCards = ({portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviati
                                 portfolioMaxReturn={portfolioMaxReturn} 
                                 portfolioMinReturn={portfolioMinReturn}
                                 spxReturnMean={spxReturnMean}
-                                
-                                />
-                            <h6 className="m-0 mt-1 text-primary font-medium">
-                                
-                            </h6>
+                                avgPortfolioReturns={avgPortfolioReturns}/>
                         </div>
                     </div>
                     
@@ -60,13 +56,8 @@ const StatCards = ({portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviati
                             spxReturnStDeviation={spxReturnStDeviation}
                             portfolioBeta={portfolioBeta}
                             portfolioAlpha={portfolioAlpha}
-                            portfolioCov={portfolioCov}
-
-                            />
-                        <div className="ml-3">
-                            
-                            
-                        </div>
+                            portfolioCov={portfolioCov}/>
+                        
                     </div>
                     
                 </Card>

@@ -192,8 +192,8 @@ if(dateType==='ytd'){
   arrPortfolioReturnsNeeded=arrPortfolioReturns[neededIndex].slice(1)
   let maxarrPortfolioReturnsNeeded=Math.max(...arrPortfolioReturnsNeeded)
   let minarrPortfolioReturnsNeeded=Math.min(...arrPortfolioReturnsNeeded)
-  const avg = arr => arr.reduce((a,b) => a + b, 0) 
-  avg(arrPortfolioReturnsNeeded)
+  let avgPortfolioReturnsNeeded = arrPortfolioReturnsNeeded.reduce((a,b) => a + b, 0)/arrPortfolioReturnsNeeded.length
+  
   portfolioStdDevNeeded=portfolioStdDev[neededIndex]
   portfolioCumulativeReturnNeeded=portfolioCumulativeReturn[neededIndex]
   portfolioAnnualizeReturnNeeded=portfolioAnnualizeReturn[neededIndex].slice(1)
@@ -208,7 +208,7 @@ if(dateType==='ytd'){
   console.log('[StatisticalSummary.arrPortfolioReturnsNeeded',arrPortfolioReturnsNeeded)
   console.log('[StatisticalSummary.maxarrPortfolioReturnsNeeded',maxarrPortfolioReturnsNeeded)
   console.log('[StatisticalSummary.minarrPortfolioReturnsNeeded',minarrPortfolioReturnsNeeded)
-  console.log('[StatisticalSummary.avgPortfolioReturnsNeeded',avg)
+  console.log('[StatisticalSummary.avgPortfolioReturnsNeeded',avgPortfolioReturnsNeeded)
   console.log('[StatisticalSummary.securityDataNeeded',securityDataNeeded)
   console.log('[StatisticalSummary.spxReturnStDeviation',spxReturnStDeviation)
   console.log('[StatisticalSummary.spxPriceStDeviation',spxPriceStDeviation)
@@ -238,16 +238,13 @@ if(dateType==='ytd'){
         
         <div className="analytics m-sm-30 mt-6">
             <Grid container spacing={2}>
-                <Grid xs={12}  >
+                <Grid xs={12}   >
                     <StatCard3 
                       portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
                       portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
                       spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
                       spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
-            
-                </Grid>
-
-                <Grid xs={12} >        
+                      
                     <StatCards 
                       portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
                       portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
@@ -264,13 +261,9 @@ if(dateType==='ytd'){
                       portfolioAlpha={portfolioAlpha}
                       portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
                       portfolioMinReturn={minarrPortfolioReturnsNeeded}
-
-
-                      />
+                      avgPortfolioReturns={avgPortfolioReturnsNeeded}/>
+                      
                 </Grid>
-
-                    
-                
             </Grid>
             
         </div>

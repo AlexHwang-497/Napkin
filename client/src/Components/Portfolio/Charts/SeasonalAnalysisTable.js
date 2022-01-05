@@ -15,7 +15,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'feb', 
@@ -24,7 +24,7 @@ const columns = [
     filterable: false, 
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'mar', 
@@ -33,7 +33,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'apr', 
@@ -42,7 +42,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'may', 
@@ -51,7 +51,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'jun', 
@@ -60,7 +60,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'jul', 
@@ -69,7 +69,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'aug', 
@@ -78,7 +78,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'sep', 
@@ -87,7 +87,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'oct', 
@@ -96,7 +96,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'nov', 
@@ -105,7 +105,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
   { 
     field: 'dec', 
@@ -114,7 +114,7 @@ const columns = [
     filterable: false,
     align:'center',
     headerAlign: 'center',
-    valueFormatter: ({ value }) => `${value}%` 
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
 ];
 
