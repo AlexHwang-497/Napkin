@@ -15,18 +15,24 @@ const StatisticalSummaryHorizontalBarChart = ({benchmarkSectorWeighting, portfol
 console.log('[StatisticalSummary.StatisticalSummaryBarChart.benchmarkSectorWeighting',benchmarkSectorWeighting)
 console.log('[StatisticalSummary.StatisticalSummaryBarChart.benchmarkSectorWeighting.sector',benchmarkSectorWeighting.map((el)=>el.sector))
 const sector =benchmarkSectorWeighting.map((el)=>el.sector)
+const portfolioWeightingData =portfolioWeighting.map((el)=>el.value)
 const benchmarkWeight =benchmarkSectorWeighting.map((el)=>el.weightPercentage)
 console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioWeighting',portfolioWeighting)
+console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioWeighting.value',portfolioWeightingData)
   
   const series =  [{
+    name: 'benchmark',
     data: benchmarkWeight,
     
-  },{data: [53, 32, 33, 52, 13, 44, 32]}]
+  },{
+    name: 'Portfolio',
+    // data: portfolioWeightingData
+  }]
   
   const options = {
     chart: {
       type: 'bar',
-      height: 430
+      height: 200
     },
     plotOptions: {
       bar: {
@@ -36,18 +42,23 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioWeighting',
       }
     },
     dataLabels: {
-      enabled: false,
-    },
-    
-    xaxis: {
-      
-      categories: 
-        sector
-        
-      ,
-      labels: {
-        rotate: -90
+      enabled: true,
+      offsetX: -6,
+      style: {
+        fontSize: '12px',
+        colors: ['#fff']
       }
+    },stroke: {
+      show: true,
+      width: 1,
+      colors: ['#fff']
+    },
+    tooltip: {
+      shared: true,
+      intersect: false
+    },
+    xaxis: {
+      categories: sector
     }
   }
   

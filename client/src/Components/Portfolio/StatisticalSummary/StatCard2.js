@@ -34,12 +34,12 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
         } else {
           intialObj[el.sector] = el.ownership;
         }
-      });
+    });
 
       console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightings',portfolioObj)
       console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial',intialObj)
       console.log('[StatisticalSummary.statCards2.portfolioObjpercent',portfolioObjpercent)
-      const dateTypeHandler = (e) => {
+    const dateTypeHandler = (e) => {
         setPortfolioWeightingType(e.target.value)
     }
     console.log('[StatisticalSummary.statCards2.portfolioWeightingType',portfolioWeightingType)
@@ -75,7 +75,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                         {/* <span className="text-13 text-green ml-1"> (+21%)</span> */}
                     </div>
                     <Select
-                value={'currentPort'}
+                // value={}
                 onChange={dateTypeHandler}
                 label="Date">
                 <MenuItem value={'initial'}>Initial Investment</MenuItem>

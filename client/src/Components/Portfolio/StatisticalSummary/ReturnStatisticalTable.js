@@ -3,12 +3,22 @@ import PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,} from '@material-ui/core'
+import {Box, Tab, Typography,Tabs, Collapse, Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,styled} from '@material-ui/core'
 
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(returns, portfolio, benchmark, delta) {
+  return { returns, portfolio, benchmark, delta  };
 }
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 
 export default function ReturnStatisticalTable({avgPortfolioReturns,portfolioAnnualizedReturn,spxReturnMean, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn,portfolioMaxReturn,portfolioMinReturn}) {
@@ -22,9 +32,9 @@ export default function ReturnStatisticalTable({avgPortfolioReturns,portfolioAnn
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
-        <TableHead>
+        <TableHead style={{background:"#819ca9"}}>
           <TableRow>
-            <TableCell>Return</TableCell>
+            <TableCell>Type of Return</TableCell>
             <TableCell>Portfolio</TableCell>
             <TableCell align="left">Benchmark</TableCell>
             <TableCell align="left">Delta</TableCell>
@@ -32,18 +42,18 @@ export default function ReturnStatisticalTable({avgPortfolioReturns,portfolioAnn
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow
-              key={row.name}
+            <StyledTableRow
+              key={row.returns}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.returns}
               </TableCell>
-              <TableCell align="left">{row.calories}</TableCell>
-              <TableCell align="left">{row.fat}</TableCell>
-              <TableCell align="left">{row.carbs}</TableCell>
-              <TableCell align="left">{row.protein}</TableCell>
-            </TableRow>
+              <TableCell align="left">{row.portfolio}</TableCell>
+              <TableCell align="left">{row.benchmark}</TableCell>
+              <TableCell align="left">{row.delta}</TableCell>
+
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
