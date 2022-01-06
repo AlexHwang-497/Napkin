@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Card, Icon, Fab } from '@material-ui/core'
 import SectorWeightingTable from './SectorWeightingTable'
+import StatisticalSummaryHorizontalBarChart from '../Charts/StatiscialSummaryHorizontalBarChart'
 
 const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
     console.log('[StatisticalSummary.statCards2.sectorWeighting',benchmarkSectorWeighting)
@@ -42,6 +43,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                             Transactions
                         </h5>
                     </div>
+                    <StatisticalSummaryHorizontalBarChart benchmarkSectorWeighting={benchmarkSectorWeighting} portfolioWeighting={portfolioWeighting}/>
                     <div className="pt-4 flex items-center">
                         <h2 className="m-0 text-muted flex-grow">$2.8M</h2>
                         <div className="flex justify-center items-centerml-3 h-16 w-16 rounded bg-error text-white">
