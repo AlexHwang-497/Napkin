@@ -16,16 +16,14 @@ import {
     
 } from '@material-ui/core'
 import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import { red } from '@material-ui/core/colors';
+
 
 
 const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
     console.log('[CreatePortfolioPaginationTable.image',image)
     console.log('[CreatePortfolioPaginationTable.stockList',stockList)
     console.log('[CreatePortfolioPaginationTable.pct',pct)
-    // console.log('this is the post in PaginationTable',post)
-    // console.log('this is the post.post in PaginationTable',post.post)
-    // console.log('this is the post.post.assets in PaginationTable',post.post.assets)
+    
     const [assets, setAssets] = useState(stockList || [])
     // const [ownership, setOwnership] = useState(post.post.ownership || [])
     // const [sector, setSector] = useState(post.post.sector || [])
@@ -44,7 +42,8 @@ const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
         setPage(0)
     }
     const deleteEntry =(index) =>{
-        setAssets(assets.filter((asset,i)=>i!==index))
+        // setAssets(assets.filter((asset,i)=>i!==index))
+        setAssets(assets)
     //     setOwnership(ownership.filter((o,i)=>i!==index))
     //     setSector(sector.filter((s,i)=>i!==index))
     //     setImage(image.filter((img,i)=>i!==index))
@@ -69,16 +68,18 @@ const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
                 </TableHead>
                 <TableBody>
                     {stockList.map((el,i)=>
+                    
                     <TableRow key ={i}>
 
                         <TableCell>
                                 <img src={image[i]} style={{height:'30px',width:'30px'}}/>
                         </TableCell>
-                        <TableCell>{el}</TableCell>
-                        <TableCell>{el}</TableCell>
-                        <TableCell>{pct[i]}%</TableCell>
-                        <TableCell>${pct[i]*100}</TableCell>
-                        <TableCell className="px-0"> <DeleteForeverTwoToneIcon onClick={()=>'post.deleteEntry(i)'} sx={{ color: 'red' }} >  </DeleteForeverTwoToneIcon> </TableCell>      
+                        <TableCell className="px-0 capitalize" align="left">{el}</TableCell>
+                        <TableCell className="px-0 capitalize" align="left">{el}</TableCell>
+                        <TableCell className="px-0 capitalize" align="left">{pct[i]}%</TableCell>
+                        <TableCell className="px-0 capitalize" align="left">${pct[i]*100}</TableCell>
+                        <TableCell className="px-0"> <IconButton onClick={()=>deleteEntry(i)}> <Icon color="error">X</Icon> </IconButton> </TableCell>      
+                        {/* <TableCell className="px-0"> <DeleteForeverTwoToneIcon onClick={()=>deleteEntry(i)} ><Icon color="error">X</Icon> </DeleteForeverTwoToneIcon> </TableCell>       */}
                         
                         
                     </TableRow>

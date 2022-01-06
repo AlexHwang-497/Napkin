@@ -15,7 +15,7 @@ export default function SectorWeightingTable({benchmarkSectorWeighting,portfolio
 
   // console.log('[StatisticalSummary.SectorWeightingTable.SectorWeighting',sectorWeighting)
   // console.log('[StatisticalSummary.SectorWeightingTable.SectorWeighting2',sectorWeighting.map((el)=>el.sector))
-  console.log('[StatisticalSummary.SectorWeightingTable.portfolioWeighting',portfolioWeighting.map((el)=>el))
+  console.log('[StatisticalSummary.SectorWeightingTable.portfolioWeighting',portfolioWeighting)
   const sector = benchmarkSectorWeighting.map((el)=>el.sector)
   const weightPercentage = benchmarkSectorWeighting.map((el)=>el.weightPercentage)
   const rows = [
