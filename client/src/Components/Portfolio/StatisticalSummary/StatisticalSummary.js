@@ -9,22 +9,7 @@ import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDevi
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import { Grid, Card,Select,MenuItem } from '@material-ui/core'
 import StatisticalTable from './ReturnStatisticalTable'
-function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr}) {
-
-    // useEffect(() => {
-    //     Promise.all(
-    //     stockList.map((stock) =>
-    //     fetch(
-        
-    //     `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
-    //     .then((results) =>
-    //         Promise.all(results.map((res) => res.json())).then((stocks) => {
-    //         editStockData(stocks);
-            
-    //     })
-    //     );
-    //   }, []);
-    const sectorWeighting ='https://financialmodelingprep.com/api/v3/etf-sector-weightings/SPY?apikey=f69c6a774b0cfb6186868a361929fd36'
+function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting}) {
 
 
     const [dateType,setDateType] = useState('ytd')
@@ -32,6 +17,7 @@ function StatisticalSummary({sector,assets,ownership, portfolioName,image, stock
     var finance = new Finance();
 
     console.log('[StatisticalSummary.priceData',priceData)
+    console.log('[StatisticalSummary.sectorWeighting',sectorWeighting)
     
     console.log('[StatisticalSummary.yearArr',yearArr)
 
@@ -182,10 +168,12 @@ if(dateType==='ytd'){
   } else {
     neededIndex = securityData.length-1
   }
+  
   securityDataNeeded=securityData[0][neededIndex]
   spxReturnStDeviation=securityDataNeeded.returnStDev
   spxPriceStDeviation=securityDataNeeded.priceStDev
   spxReturnMean=securityDataNeeded.returnMean
+  let portfolioWeighting=securityData[neededIndex].slice(1).map((el)=>{return {sector:el.sector,ownership:el.ownership,portfolioValue:el.securityGrowthValue[el.securityGrowthValue.length-1]}})
   portfolioBetaNeeded=portfolioBeta[neededIndex]
   portfolioAlphaNeeded=portfolioAlpha[neededIndex]
   portfolioCovNeeded=portfolioCov[neededIndex]
@@ -215,6 +203,7 @@ if(dateType==='ytd'){
   console.log('[StatisticalSummary.spxReturnMean',spxReturnMean)
   console.log('[StatisticalSummary.portfolioBetaNeeded',portfolioBetaNeeded)
   console.log('[StatisticalSummary.portfolioAlphaNeeded',portfolioAlphaNeeded)
+  console.log('[StatisticalSummary.portfolioWeighting',portfolioWeighting)
 
 
 
@@ -244,6 +233,12 @@ if(dateType==='ytd'){
                       portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
                       spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
                       spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
+                    
+                    <StatCards2 
+                      benchmarkSectorWeighting={sectorWeighting}
+                      portfolioWeighting={portfolioWeighting}
+
+                      />
                       
                     <StatCards 
                       portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 

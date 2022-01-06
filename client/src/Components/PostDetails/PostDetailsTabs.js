@@ -85,6 +85,7 @@ export default function BasicTabs() {
   const [pracData, setPracData] = useState([])
   const [yearRange,setYearRange] = useState([])
   const [dateArr,setDateArr] = useState([])
+  const [sectorWeighting,setSectorWeighting] = useState()
   let currentDate = new Date().toISOString().slice(0, 10)
  
   useEffect(()=>{
@@ -117,8 +118,9 @@ useEffect(()=>{
   .then((results)=>results.json())
   .then((data)=>{
     console.log('[postDetailTabs.sectorWeighting',data)
+    setSectorWeighting(data)
   })
-
+  console.log('[postDetailTabs.sectorWeighting.useState',sectorWeighting)
 
 },[pracData])
 
@@ -309,6 +311,7 @@ useEffect(()=>{
           currentId={id}
           ownership={ownership}
           portfolioName={portfolioName}
+          sectorWeighting = {sectorWeighting}
         />
       </TabPanel>
 

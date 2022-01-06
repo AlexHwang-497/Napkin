@@ -1,7 +1,9 @@
 import React from 'react'
 import { Grid, Card, Icon, Fab } from '@material-ui/core'
+import SectorWeightingTable from './SectorWeightingTable'
 
-const StatCards2 = () => {
+const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
+    console.log('[StatisticalSummary.statCards2.sectorWeighting',benchmarkSectorWeighting)
     return (
         <Grid container spacing={3} className="mb-6">
             <Grid item xs={12} md={6}>
@@ -17,6 +19,7 @@ const StatCards2 = () => {
                             Active Users
                         </h5>
                     </div>
+                    <SectorWeightingTable benchmarkSectorWeighting={benchmarkSectorWeighting} portfolioWeighting={portfolioWeighting}/>
                     <div className="pt-4 flex items-center">
                         <h2 className="m-0 text-muted flex-grow">10.8k</h2>
                         <div className="flex justify-center items-centerml-3 h-16 w-16 rounded bg-green text-white">
