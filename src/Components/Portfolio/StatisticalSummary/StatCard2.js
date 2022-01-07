@@ -86,7 +86,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                 </Card>
             </Grid>
             <Grid item xs={12} md={6}>
-                <Card elevation={3} className="p-4">
+                <Card elevation={3}  className="p-4">
                     <div className="flex items-center">
                         <Fab
                             size="medium"
