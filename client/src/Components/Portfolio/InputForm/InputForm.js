@@ -112,7 +112,15 @@ const handleComment = async () => {
 
   // commentsRef.current.scrollIntoView({ behavior: 'smooth' });
 };
-
+const deleteEntry =(index) =>{
+  editStockList(stockList.filter((asset,i)=>i!==index))
+  // setOwnership(ownership.filter((o,i)=>i!==index))
+  // setSector(sector.filter((s,i)=>i!==index))
+  // setImage(image.filter((img,i)=>i!==index))
+  
+  // setAssets(assets)
+  
+}
 
 console.log('[InputForm.stockList',stockList)
 
@@ -175,7 +183,7 @@ console.log('[InputForm.stockList',stockList)
         </p>
       </div>
       <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <CreatePortfolioPaginationTable  stockList={stockList} pct={pct} image={image}/>
+        <CreatePortfolioPaginationTable  stockList={stockList} pct={pct} image={image} deleteEntry={deleteEntry}/>
         <Paper>
           <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
           

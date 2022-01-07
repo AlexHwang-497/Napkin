@@ -19,7 +19,7 @@ import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
 
 
 
-const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
+const CreatePortfolioPaginationTable = ({image, stockList,pct,deleteEntry}) => {
     console.log('[CreatePortfolioPaginationTable.image',image)
     console.log('[CreatePortfolioPaginationTable.stockList',stockList)
     console.log('[CreatePortfolioPaginationTable.pct',pct)
@@ -27,8 +27,8 @@ const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
     const [assets, setAssets] = useState(stockList || [])
     // const [ownership, setOwnership] = useState(post.post.ownership || [])
     // const [sector, setSector] = useState(post.post.sector || [])
-    // const [image, setImage] = useState(post.post.image || [])
-    // const [editContactId, setEditContactId] = useState(null);
+    // const [image, setImage] = useState(image || [])
+    const [editContactId, setEditContactId] = useState(null);
     
     const [rowsPerPage, setRowsPerPage] = useState(5)
     const [page, setPage] = useState(0)
@@ -41,15 +41,15 @@ const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
         setRowsPerPage(+event.target.value)
         setPage(0)
     }
-    const deleteEntry =(index) =>{
-        // setAssets(assets.filter((asset,i)=>i!==index))
-        setAssets(assets)
-    //     setOwnership(ownership.filter((o,i)=>i!==index))
-    //     setSector(sector.filter((s,i)=>i!==index))
-    //     setImage(image.filter((img,i)=>i!==index))
+    // const deleteEntry =(index) =>{
+    //     setAssets(assets.filter((asset,i)=>i!==index))
+    //     // setOwnership(ownership.filter((o,i)=>i!==index))
+    //     // setSector(sector.filter((s,i)=>i!==index))
+    //     // setImage(image.filter((img,i)=>i!==index))
         
+    //     // setAssets(assets)
         
-    }
+    // }
     console.log('[CreatePortfolioPaginationTable.assets',assets)
 
     return (
@@ -78,8 +78,9 @@ const CreatePortfolioPaginationTable = ({image, stockList,pct}) => {
                         <TableCell className="px-0 capitalize" align="left">{el}</TableCell>
                         <TableCell className="px-0 capitalize" align="left">{pct[i]}%</TableCell>
                         <TableCell className="px-0 capitalize" align="left">${pct[i]*100}</TableCell>
-                        <TableCell className="px-0"> <IconButton onClick={()=>deleteEntry(i)}> <Icon color="error">X</Icon> </IconButton> </TableCell>      
-                        {/* <TableCell className="px-0"> <DeleteForeverTwoToneIcon onClick={()=>deleteEntry(i)} ><Icon color="error">X</Icon> </DeleteForeverTwoToneIcon> </TableCell>       */}
+                        <TableCell className="px-0"> <IconButton onClick={()=>deleteEntry(i)} ><DeleteForeverTwoToneIcon color="error"/></IconButton>  </TableCell>      
+                        {/* <TableCell className="px-0"> <IconButton onClick={()=>deleteEntry(i)}> <Icon color="error">X</Icon> </IconButton> </TableCell>       */}
+                        {/* <TableCell className="px-0"> <DeleteForeverTwoToneIcon onClick={()=>deleteEntry(i)} ><Icon color="error"></Icon> </DeleteForeverTwoToneIcon> </TableCell>       */}
                         
                         
                     </TableRow>

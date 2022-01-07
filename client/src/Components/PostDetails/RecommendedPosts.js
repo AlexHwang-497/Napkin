@@ -31,7 +31,10 @@ const RecommendedPosts = () => {
 
       if (!post) return null;
       // const openPost = (_id) => console.log(_id)
-      const openPost = (_id) => history.push(`/posts/${_id}`);
+      const openPost = (_id) => {
+        history.push(`/posts/${_id}`)
+        history.go(0)
+      };
       console.log('[RecommendedPosts.openPost]',openPost)
 
       if (isLoading) {
