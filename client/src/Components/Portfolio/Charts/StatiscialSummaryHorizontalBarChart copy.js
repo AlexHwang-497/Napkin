@@ -24,28 +24,25 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
   console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.benchMarkMap',benchMarkMap)
   console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioMarkMap',portfolioMarkMap)
   
-  const series =  [
-    {
-      name: 'Portfolio',
-      data: portfolioMarkMap
-    },
-    {
+  const series =  [{
     name: 'benchmark',
     data: benchMarkMap,
-    },
-]
+    
+  },{
+    name: 'Portfolio',
+    data: portfolioMarkMap
+  }]
   
   const options = {
     chart: {
       type: 'bar',
-      height: 430
+      height: 200
     },
     plotOptions: {
       bar: {
-        horizontal: true,
-        dataLabels: {
-          position: 'top',
-        }
+        horizontal:true,
+        columnWidth: '45%',
+        distributed: true,
       }
     },
     dataLabels: {
@@ -57,7 +54,7 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
       }
     },stroke: {
       show: true,
-      width: .5,
+      width: 1,
       colors: ['#fff']
     },
     tooltip: {
@@ -66,7 +63,7 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
     },
     xaxis: {
       categories: sector
-    },
+    }
   }
   
   return (
