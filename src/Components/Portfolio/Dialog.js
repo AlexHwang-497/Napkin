@@ -63,7 +63,7 @@ export default function CustomizedDialogs() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Create Portfolio  outside
+        Create Portfolio 
       </Button>
       <BootstrapDialog
         onClose={handleClose}

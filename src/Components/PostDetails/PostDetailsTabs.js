@@ -15,8 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
 import config from "../../StockData/config";
 import { NFLX, TEAM, SPY } from "../../Utilities/sampleData";
-import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 
+import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
+import {fetchPortfolio,fetchPost} from '../../api/index'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,8 +57,11 @@ export default function BasicTabs() {
 
   const { id } = useParams();
   console.log('[BasicTabs.id',id)
+
+  
+
   const [value, setValue] = useState(0);
-  const selectedPortfolio = portfolios.find(
+  let selectedPortfolio = portfolios.find(
     (portfolio) => portfolio._id === id
   );
   // console.log('[postDetailTabs.selectedPortfolio',selectedPortfolio)
@@ -81,9 +85,26 @@ export default function BasicTabs() {
   const [pracData, setPracData] = useState([])
   const [yearRange,setYearRange] = useState([])
   const [dateArr,setDateArr] = useState([])
+  const [sectorWeighting,setSectorWeighting] = useState()
   let currentDate = new Date().toISOString().slice(0, 10)
  
+  useEffect(()=>{
+    console.log('[PostDetailsTabs.useEffect.assets',id)
+    if(assets.length===0){
+      // fetchPost(id).then((data)=>console.log('[PostDetailsTabs.useEffect.data',data))
+      fetchPortfolio(id).then(({data})=>{
+        selectedPortfolio=data
+          setAssets(data.assets)
+        setOwnership(data.ownership);
+        setSector(data.sector);
+        setImage(data.image);
+      })
+        // console.log('[PostDetailsTabs.useEffect.assets',data.assets)
+      // fetchPortfolio(id).then((res)=>console.log('[PostDetailsTabs.useEffect.data',res.data))
 
+    }
+
+  },[])
   
 
   const [endDate, setEndDate] = useState(currentDate)
@@ -98,34 +119,54 @@ export default function BasicTabs() {
   };
 
 
+let sectorWeightingUrl = `https://financialmodelingprep.com/api/v3/etf-sector-weightings/SPY?apikey=${apiKey}`
+useEffect(()=>{
+  if(!pracData) return
+  fetch(sectorWeightingUrl)
+  .then((results)=>results.json())
+  .then((data)=>{
+    console.log('[postDetailTabs.sectorWeighting',data)
+    setSectorWeighting(data)
+  })
+  console.log('[postDetailTabs.sectorWeighting.useState',sectorWeighting)
 
-
-  useEffect(() => {
-    if (!selectedPortfolio) return;
-    Promise.all(
-      ["SPY",...assets].map((stock) =>
-        fetch(
-          `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`
-        )
+},[pracData])
+const fetchPortfolioData = (selectedPortfolio) => {
+  Promise.all(
+    ["SPY",...assets].map((stock) =>
+      fetch(
+        `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`
       )
-    ).then((results) =>
-      Promise.all(results.map((res) => res.json())).then((stocks) => {
-        const portfolioData = OrganizeData(
-          stocks,
-          ["SPY", ...assets.map((e) => e.toUpperCase())],
-          ["", ...selectedPortfolio.ownership],
-          ["", ...selectedPortfolio.image],
-          ["", ...selectedPortfolio.sector]
-        );
-        setPracData(portfolioData);
-        setDateArr(portfolioData[0].dates.map((el)=>el.date))
-        console.log('[postDetailTabs.portfolioData',portfolioData)
-        // console.log('[postDetailTabs.portfolioData.pracs',portfolioData[0].dates.map((el)=>el.date))
-    })
+    )
+  ).then((results) =>
+    Promise.all(results.map((res) => res.json())).then((stocks) => {
+      const portfolioData = OrganizeData(
+        stocks,
+        ["SPY", ...assets.map((e) => e.toUpperCase())],
+        ["", ...selectedPortfolio.ownership],
+        ["", ...selectedPortfolio.image],
+        ["", ...selectedPortfolio.sector]
       );
-    }, [assets,endDate]);
+      setPracData(portfolioData);
+      setDateArr(portfolioData[0].dates.map((el)=>el.date))
+      console.log('[postDetailTabs.portfolioData',portfolioData)
+      // console.log('[postDetailTabs.portfolioData.pracs',portfolioData[0].dates.map((el)=>el.date))
+  })
+    );
 
-
+}
+  useEffect(() => {
+    if (!selectedPortfolio) {
+      fetchPortfolio(id).then(({data})=>fetchPortfolioData(data))
+      return
+    }
+      
+    
+    fetchPortfolioData(selectedPortfolio)
+  }, [assets,endDate]);
+  
+  
+  // if (!selectedPortfolio) return;
 
     const endDateHandler = (e) => {
       setEndDate(e.target.value)      
@@ -287,9 +328,9 @@ export default function BasicTabs() {
           currentId={id}
           ownership={ownership}
           portfolioName={portfolioName}
+          sectorWeighting = {sectorWeighting}
         />
       </TabPanel>
-      
 
     </Box>
     

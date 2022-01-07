@@ -1,51 +1,58 @@
 import React from 'react'
 import { Grid, Card, IconButton, Icon } from '@material-ui/core'
+import StatiscialSummaryBarChart from '../Charts/StatiscialSummaryBarChart'
 
-const StatCard3 = () => {
+const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumulativeReturn,spxAnnualizedReturn}) => {
     const statList = [
         {
-            icon: 'people',
-            amount: 10495,
-            title: 'New Members',
+            
+            title: 'Annualized Return',
+            amount: portfolioAnnualizedReturn,
+            spxAmount:spxAnnualizedReturn
         },
         {
-            icon: 'location_on_outlined',
-            amount: 30942,
-            title: 'Places added',
+            
+            title: 'Cumulative Return',
+            amount: portfolioCumulativeReturn,
+            spxAmount:spxCumulativeReturn
         },
         {
-            icon: 'keyboard_voice',
-            amount: 45269,
-            title: 'Support Members',
+            
+            title: 'Return Standard Deviation',
+            amount: portfolioCumulativeReturn,
+            spxAmount:spxCumulativeReturn
         },
         {
-            icon: 'card_giftcard',
-            amount: 20965,
-            title: 'Tags Used',
+            
+            title: 'Beta',
+            amount: portfolioCumulativeReturn,
+            spxAmount:1.0
         },
+        
     ]
 
     return (
         <div>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
                 {statList.map((item, ind) => (
-                    <Grid key={item.title} item md={3} sm={6} xs={10}>
+                    <Grid key={item.title} item  md={3}  xs={12}>
                         <Card elevation={3} className="p-5 flex">
                             <div>
-                                <IconButton
+                                {/* <IconButton
                                     size="small"
                                     className="p-2 bg-light-gray"
                                 >
                                     <Icon className="text-muted">
                                         {item.icon}
                                     </Icon>
-                                </IconButton>
+                                </IconButton> */}
                             </div>
                             <div className="ml-4">
-                                <h3 className="mt-1 text-32">
-                                    {item.amount.toLocaleString()}
-                                </h3>
                                 <p className="m-0 text-muted">{item.title}</p>
+                                <h3 className="mt-1 text-32">
+                                <StatiscialSummaryBarChart categories={0} portfolioData={item.amount.toLocaleString()} spxData={item.spxAmount.toLocaleString()}/>    
+                                    
+                                </h3>
                             </div>
                         </Card>
                     </Grid>

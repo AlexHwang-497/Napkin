@@ -14,6 +14,7 @@ import CreatePortfolio from './Components/Portfolio/CreatePortfolioForm';
 
 import CustomizedDialogs from './Components/Portfolio/Dialog';
 import BasicTabs from './Components/PostDetails/PostDetailsTabs';
+import './index.css'
 
 
 

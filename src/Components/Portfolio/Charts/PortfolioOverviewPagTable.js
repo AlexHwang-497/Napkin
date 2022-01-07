@@ -3,21 +3,21 @@ import { DataGrid } from '@material-ui/data-grid'
 import { makeStyles,createStyles } from '@material-ui/core/styles';
 
 
+
+
 const useStyles = makeStyles({
 
   dataGrid: {
-    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    background: "",
-    borderRadius: 3,
-    // border: 0,
-    color: "black",
-    // height: 48,
-    padding: "0 30px",
-    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    width: "100",
-    columns:{
-      background:'#819ca9'
-    },
+    
+    root: {
+      "& .MuiDataGrid-renderingZone": {
+        "& .MuiDataGrid-row": {
+          "&:nth-child(2n)": { 
+            backgroundColor: "rgba(235, 235, 235, .7)" 
+          }
+        }
+      }
+    }
     
     
 
@@ -39,6 +39,8 @@ const columns = [
     width: 20,
     background:'#819ca9',
     color: "white",
+    align:'left',
+    headerAlign: 'left',
     // height: 100,
     renderCell: (params) => <img src={params.value}  style={{height:'30px',width:'30px'}}/>
   },
@@ -47,12 +49,16 @@ const columns = [
     headerName: 'Symbol',
     width: 130,
     editable: false,
+    align:'left',
+    headerAlign: 'left',
     
   },
   {
     field: 'sector',
     headerName: 'Sector',
     width: 120,
+    align:'left',
+    headerAlign: 'left',
     // flex:1
     // editable: true,
   },
@@ -61,6 +67,8 @@ const columns = [
     headerName: 'Portfolio(%)',
     type: 'number',
     width: 150,
+    align:'left',
+    headerAlign: 'left',
     // editable: true,
   },
   {
@@ -68,6 +76,8 @@ const columns = [
     headerName: 'Cumulative Return(%)',
     type: 'number',
     width: 150,
+    align:'left',
+    headerAlign: 'left',
     // editable: true,
   },
   {
@@ -75,6 +85,8 @@ const columns = [
     headerName: 'Annualized Return(%)',
     type: 'number',
     width: 150,
+    align:'left',
+    headerAlign: 'left',
     // editable: true,
   },
   {
@@ -82,6 +94,8 @@ const columns = [
     headerName: 'Price StdDev($)',
     type: 'number',
     width: 150,
+    align:'left',
+    headerAlign: 'left',
     // editable: true,
   },
   {
@@ -89,6 +103,8 @@ const columns = [
     headerName: 'Return StdDev(%)',
     type: 'number',
     width: 150,
+    align:'left',
+    headerAlign: 'left',
     // editable: true,
   },
   {
@@ -96,6 +112,8 @@ const columns = [
     headerName: 'Beta',
     type: 'number',
     width: 150,
+    align:'left',
+    headerAlign: 'left',
     // editable: true,
   },
   {
@@ -103,6 +121,9 @@ const columns = [
     headerName: 'Alpha',
     type: 'number',
     width: 150,
+    headerAlign: 'left',
+    align:'left',
+    
     // editable: true,
   },
   
@@ -140,10 +161,10 @@ export default function PortfolioOverviewPagTable({dataNeeded}) {
   console.log('[PortfolioOverviewPagTable.row',row)
 //  console.log('[PortfolioPostTable.row',row)
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div className='stripedTable' style={{ height: 400, width: '100%' }} >
+     
       <DataGrid
         density = 'compact'
-        
         rows={row}
         columns={columns}
         pageSize={5}
@@ -152,9 +173,8 @@ export default function PortfolioOverviewPagTable({dataNeeded}) {
         autoHeight={true}
         isableExtendRowFullWidth={true}
         autoHeight={true}
-      disableExtendRowFullWidth={true}
-      
-      
+        disableExtendRowFullWidth={true}
+
       className={classes.dataGrid}
       />
     </div>

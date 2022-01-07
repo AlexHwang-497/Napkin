@@ -11,7 +11,7 @@ import { createPost,updatePost } from "../../../actions/posts";
 import Inputs from "../../../Auth/Input";
 import { createPortfolio,updatePortfolio } from "../../../actions/portfolio";
 import config from "../../../StockData/config";
-import CreatePortfolioPaginationTable from '../Charts/CreatePortfolioOverviewPagTable'
+import CreatePortfolioPaginationTable from "./CreatePortfolioPaginationTable";
 // import CreatePortfolioDataGrid from "../Charts/CreatePortfolioDataGrid";
 
 // !! you need to copy the funciton of form.js to get this to work.  
@@ -112,7 +112,15 @@ const handleComment = async () => {
 
   // commentsRef.current.scrollIntoView({ behavior: 'smooth' });
 };
-
+const deleteEntry =(index) =>{
+  editStockList(stockList.filter((asset,i)=>i!==index))
+  // setOwnership(ownership.filter((o,i)=>i!==index))
+  // setSector(sector.filter((s,i)=>i!==index))
+  // setImage(image.filter((img,i)=>i!==index))
+  
+  // setAssets(assets)
+  
+}
 
 console.log('[InputForm.stockList',stockList)
 
@@ -137,43 +145,46 @@ console.log('[InputForm.stockList',stockList)
       <Divider style={{ margin: '20px 0' }} />
       {stockList.length ? (
         <ul style={{ listStyle: "none", padding: 0 }}>
-          {stockList.map((stock, i) => (
+          {/* {stockList.map((stock, i) => (
             <li key={i}>
               {stock}: {pct[i]}% : ${100*pct[i]}
             </li>
-          ))}
-            <li><h4>cash: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
+          ))} */}
+            <li><h4>cash available: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
         </ul>
       ) : (
         <p>Portfolio is empty</p>
       )}
       <div>
-      
-        <input
-          type="text"
-          placeholder="Enter Stock Symbol"
-          value={symbol}
-          onChange={(e) => setSymbol(e.target.value)}
-          onFocus={() => setErrorState("")}
-        />
-        <input
-          type="number"
-          placeholder="Enter percentage amount"
-          value={val}
-          onChange={(e) => setVal(e.target.value)}
-          min={1}
-          max={limit - currentAllowance}
-        />
-        <button disabled={invalidInput()} onClick={symbolLookup}>
-          Add
-        </button>
+      <TextField
+        label='Enter Stock Symbol'
+        variant='outlined'
+        onChange={(e) => setSymbol(e.target.value)}
+        onFocus={() => setErrorState("")}
+      />
+      <TextField
+        label='% of portfolio'
+        variant='outlined'
+        onChange={(e) => setVal(e.target.value)}
+        onFocus={() => setErrorState("")}
+        min={1}
+        type = 'number'
+        max={limit - currentAllowance}
+      />
+        
+        <Button variant="contained" size='medium' color="primary" onClick={symbolLookup} disabled={invalidInput()}>
+        Add
+      </Button>
+        
+        
+        
         <p style={{ marginTop: 0, color: "red" }}>
           {errorState ? errorState : ""}
         </p>
       </div>
       <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+        <CreatePortfolioPaginationTable  stockList={stockList} pct={pct} image={image} deleteEntry={deleteEntry}/>
         <Paper>
-          
           <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
           
         </Paper>

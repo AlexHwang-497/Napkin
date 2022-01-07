@@ -161,6 +161,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 color='string' 
                 label="greater then(>)%" 
                 variant="filled"
+                // defaultValue = {'5'}
                 onChange={greaterNumberHandler}
               />
               <TextField  
@@ -168,6 +169,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 label="Less then(<)%" 
                 variant="filled" 
                 onChange={lessNumberHandler}
+                // defaultValue = {'-5'}
               />
             {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
             <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>

@@ -21,7 +21,8 @@ const SeasonalBarChart = ({data}) => {
     const options = {
       chart: {
         type: 'bar',
-        height: 350
+        height: 350,
+        
       },
       plotOptions: {
         bar: {
@@ -29,11 +30,11 @@ const SeasonalBarChart = ({data}) => {
             ranges: [{
               from: -100,
               to: -46,
-              color: '#F15B46'
+              color: '#66DA26'
             }, {
               from: -45,
               to: 0,
-              color: '#FEB019'
+              color: '#CD363A'
             }]
           },
           columnWidth: '90%',

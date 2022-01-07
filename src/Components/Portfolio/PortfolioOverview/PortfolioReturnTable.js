@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import { styled} from '@material-ui/core'
+import {styled} from '@material-ui/core'
 import TableCell , { tableCellClasses } from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
@@ -14,6 +14,16 @@ function createData(year, annualizedReturn, stdDev, beta, alpha) {
   return { year, annualizedReturn, stdDev, beta, alpha };
 }
 
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 
 export default function PortfolioReturnTable({annReturn}) {
@@ -42,7 +52,7 @@ export default function PortfolioReturnTable({annReturn}) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow
+            <StyledTableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
@@ -53,7 +63,7 @@ export default function PortfolioReturnTable({annReturn}) {
               <TableCell align="right">{Number(row.stdDev*100).toFixed(2)}%</TableCell>
               <TableCell align="right">{Number(row.beta).toFixed(2)}</TableCell>
               <TableCell align="right">{Number(row.alpha*100).toFixed(2)}%</TableCell>           
-            </TableRow>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

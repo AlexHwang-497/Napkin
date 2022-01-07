@@ -3,28 +3,119 @@ import { DataGrid } from '@material-ui/data-grid'
 import { makeStyles } from '@material-ui/core/styles';
 
 const columns = [
-  
   { 
-    field: 'year'
+    field: 'year',
+    align:'center',
+    headerAlign: 'center',
   },
   { 
     field: 'jan', 
     type: 'number', 
     width: 100,
     filterable: false,
-    valueFormatter: ({ value }) => `${value}%` 
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
   },
-  { field: 'feb', type: 'number', width: 100,  filterable: false, valueFormatter: ({ value }) => `${value}%` },
-  { field: 'mar', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'apr', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'may', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'jun', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'jul', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'aug', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'sep', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'oct', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'nov', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
-  { field: 'dec', type: 'number', width: 100,  filterable: false,valueFormatter: ({ value }) => `${value}%` },
+  { 
+    field: 'feb', 
+    type: 'number', 
+    width: 100,  
+    filterable: false, 
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'mar', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'apr', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'may', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'jun', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'jul', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'aug', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'sep', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'oct', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'nov', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
+  { 
+    field: 'dec', 
+    type: 'number', 
+    width: 100,  
+    filterable: false,
+    align:'center',
+    headerAlign: 'center',
+    valueFormatter: ({ value }) => value?`${value}%`:'' 
+  },
 ];
 
 
@@ -73,6 +164,12 @@ const organizeByYear=(arr) => {
     return obj
   
   }
+  const formatNumber = (num) => {
+    num.replace('%','')
+    return parseFloat(num)
+
+  }
+
 export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber}) {
     let obj ={}
     const classes = useStyles();
@@ -93,6 +190,7 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
     // console.log('[returnsTable.SeasonalAnalysis.newData',newData)
     
   return (
+    
     <div style={{ height: 410, width: '100%' }} className={classes.root}>
       <DataGrid
         density='compact'
@@ -105,9 +203,9 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
             return '';
           }
           // return params.value >= greaterNumber/100 || params.value <lessNumber/100 ? 'hot' : 'cold';
-          if(params.value >= greaterNumber){
+          if(greaterNumber && parseFloat(params.value) >= formatNumber(greaterNumber)){
             return 'hot'
-          } else if(params.value <=lessNumber){
+          } else if(lessNumber && parseFloat(params.value) <=formatNumber(lessNumber)){
             return 'cold'
           } else {
             return 
