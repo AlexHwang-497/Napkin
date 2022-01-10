@@ -6,6 +6,8 @@ import decode from 'jwt-decode';
 import CustomizedDialogs from '../Components/Portfolio/Dialog';
 import memories from '../images/memories.png';
 import memoriesLogo from '../images/memoriesLogo.png';
+import napkin from '../images/napkin.jpg'
+import napkinsIcon from '../images/napkinsIcon.jpg'
 import memoriesText from '../images/memoriesText.png';
 // import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
@@ -55,7 +57,7 @@ const Navbar = () =>{
       <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to="/" className={classes.brandContainer}>
         <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" />
-        <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+        <img className={classes.image} src={napkinsIcon} alt="icon" height="100px" />
         
       </Link>
       <Toolbar className={classes.toolbar}>

@@ -6,10 +6,10 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs, TextField, AppBar  } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField, AppBar, SwipeableDrawer  } from "@material-ui/core";
 import RecommendedPosts from "./RecommendedPosts";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
-
+import SwipeableTemporaryDrawer from "./tutorial/SwipeableTemporaryDrawer";
 import PostDetails from "./PostDetails";
 import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
@@ -244,7 +244,6 @@ const fetchPortfolioData = (selectedPortfolio) => {
   const openPost = (_id) => history.push(`/posts/${_id}`);
   
   return (
-    
     <Box sx={{ width: "100%", bgcolor:'#EEEEEE' }}>
         <Box>          
             {/* <RecommendedPosts  onClick={() => openPost(id)}/> */}
@@ -272,6 +271,8 @@ const fetchPortfolioData = (selectedPortfolio) => {
         </Box>
       </Box>
       <TabPanel value={value} index={0}>
+      
+      
       
         <PortfolioOverview
           yearArr={yearArr}
