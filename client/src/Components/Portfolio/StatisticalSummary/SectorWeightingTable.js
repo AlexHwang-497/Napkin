@@ -48,7 +48,7 @@ export default function SectorWeightingTable({benchmarkSectorWeighting,portfolio
   // ];
 
   const rows = benchmarkSectorWeighting.map((el,i)=>
-  createData(el.sector,(weightingObj[sector[i]]?weightingObj[sector[i]]:0),el.weightPercentage))
+  createData(el.sector,(weightingObj[sector[i]]?weightingObj[sector[i]]:0)+'%',el.weightPercentage,(weightingObj[sector[i]]?weightingObj[sector[i]]:0)-parseInt(el.weightPercentage)))
     
 
   
