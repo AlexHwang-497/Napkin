@@ -18,12 +18,18 @@ import './index.css'
 
 
 
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 
 
-
-
+const theme = createMuiTheme({
+    typography: {
+      fontFamily: [
+        'Chilanka',
+        'cursive',
+      ].join(','),
+    },});
 // *<Grow>; provides simple animation
 //*<Container maxWidth='xl'></Container>; changing this to xL will give us more posts on our page
 // *<Route path="/" exact component={() => <Redirect to="/posts" />} />; what the redirect does here is, it is going to redirect us to '/posts'

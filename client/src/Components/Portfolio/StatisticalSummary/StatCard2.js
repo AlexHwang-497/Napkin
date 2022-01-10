@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Grid, Card, Icon, Fab, Button,MenuItem,Menu,Select } from '@material-ui/core'
+import { Grid,InputLabel, Card, Icon, Fab, Button,MenuItem,Menu,Select } from '@material-ui/core'
 import SectorWeightingTable from './SectorWeightingTable'
 import StatisticalSummaryHorizontalBarChart from '../Charts/StatiscialSummaryHorizontalBarChart'
 
@@ -22,7 +22,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
       const portfolioTotal = Object.values(portfolioObj).reduce((a,b)=>a+b)
 
 
-    var portfolioObjpercent = [];
+    let portfolioObjpercent = [];
 
     for (var prop in portfolioObj) {
         portfolioObjpercent.push({ sector: prop, value: (portfolioObj[prop]/portfolioTotal*100).toFixed(2)});
@@ -36,8 +36,21 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
         }
     });
 
+    let initialObjpercent = [];
+
+    for (var prop in intialObj) {
+        initialObjpercent.push({ sector: prop, value: (intialObj[prop]).toFixed(2)});
+    }
+
+    
+
+
+    
+    
+
       console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightings',portfolioObj)
       console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial',intialObj)
+      console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial.mapped',initialObjpercent)
       console.log('[StatisticalSummary.statCards2.portfolioObjpercent',portfolioObjpercent)
     const dateTypeHandler = (e) => {
         setPortfolioWeightingType(e.target.value)
@@ -45,7 +58,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
     console.log('[StatisticalSummary.statCards2.portfolioWeightingType',portfolioWeightingType)
     let portfolioDataNeeded
     if(portfolioWeightingType==='initial'){
-        portfolioDataNeeded = intialObj
+        portfolioDataNeeded = initialObjpercent
     } else {
         portfolioDataNeeded = portfolioObjpercent
     }
@@ -57,12 +70,12 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
             <Grid item xs={12} md={6}>
                 <Card elevation={3} className="p-4">
                     <div className="flex items-center">
-                        <Fab
+                        {/* <Fab
                             size="medium"
                             className="bg-light-green circle-44 box-shadow-none"
                         >
                             <Icon className="text-green">trending_up</Icon>
-                        </Fab>
+                        </Fab> */}
                         {/* <h5 className="font-medium text-green m-0 ml-3">
                             Active Users
                         </h5> */}
@@ -74,14 +87,20 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                         </div>
                         {/* <span className="text-13 text-green ml-1"> (+21%)</span> */}
                     </div>
+                    <h1>
+                    <InputLabel id="demo-simple-select-standard-label">Data Type</InputLabel>
                     <Select
-                // value={}
-                onChange={dateTypeHandler}
-                label="Date">
-                <MenuItem value={'initial'}>Initial Investment</MenuItem>
-                <MenuItem value={'currentPort'}>Current Value</MenuItem>
-                
-            </Select>
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        
+                        onChange={dateTypeHandler}
+                        label="Data Type">
+
+                        <MenuItem value={'initial'}>Initial Investment</MenuItem>
+                        <MenuItem value={'currentPort'}>Current Value</MenuItem>
+                        
+                    </Select>
+                    </h1>
                     <SectorWeightingTable benchmarkSectorWeighting={benchmarkSectorWeighting} portfolioWeighting={portfolioDataNeeded}/>
                 </Card>
             </Grid>
