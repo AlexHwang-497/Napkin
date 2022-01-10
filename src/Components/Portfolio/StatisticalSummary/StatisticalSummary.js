@@ -7,8 +7,9 @@ import StatCards from './StatCards'
 import StatCards2 from './StatCard2'
 import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDeviation, calculateCumulativeReturn,totalPortfolioValue,totalPortfolioValueReturns, calculateAnnualizedReturn,calcCovariance, calcAlpha } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-import { Grid, Card,Select,MenuItem } from '@material-ui/core'
+import { Grid, Card,Select,MenuItem,Box, FormControl, InputLabel } from '@material-ui/core'
 import StatisticalTable from './ReturnStatisticalTable'
+import TotalIncomeDarkCard from './TotalIncomeDarkCard'
 function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting}) {
 
 
@@ -214,55 +215,58 @@ if(dateType==='ytd'){
 
 
     return (
-        <Fragment>
-            <Select
-                value={'dateType'}
-                onChange={dateTypeHandler}
-                label="Date">
-                <MenuItem value={'ytd'}>YTD</MenuItem>
-                <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
-            </Select>
-        
-        <div className="analytics m-sm-30 mt-6">
-            <Grid container spacing={2}>
-                <Grid xs={12}   >
-                    <StatCard3 
-                      portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
-                      portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
-                      spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
-                      spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
-                    
-                    <StatCards2 
-                      benchmarkSectorWeighting={sectorWeighting}
-                      portfolioWeighting={portfolioWeighting}
+      <Fragment>
+      <FormControl>
+        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+        <Select
+            value={'dateType'}
+            onChange={dateTypeHandler}
+            label="Date">
+            <MenuItem value={'ytd'}>YTD</MenuItem>
+            <MenuItem value={'3yr'}>3-Yr</MenuItem>
+            <MenuItem value={'5yr'}>5-Yr</MenuItem>
+            <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
+        </Select>
+      </FormControl>
+  
+  <div className="analytics m-sm-30 mt-6">
+      <Grid container spacing={2}>
+          <Grid xs={12}   >
+              <StatCard3 
+                portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
+                portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
+                spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
+              
+              <StatCards2 
+                benchmarkSectorWeighting={sectorWeighting}
+                portfolioWeighting={portfolioWeighting}
 
-                      />
-                      
-                    <StatCards 
-                      portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
-                      portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
-                      portfolioBeta={portfolioBetaNeeded}
-                      portfolioAlpha={portfolioAlphaNeeded}
-                      portfolioCov={portfolioCovNeeded}
-                      spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
-                      spxAnnualizedReturn={spxAnnualizedReturnNeeded}
-                      spxReturnMean={spxReturnMean} 
-                      spxReturnStDeviation={spxReturnStDeviation}
-                      spxPriceStDeviation={spxPriceStDeviation}
-                      portfolioStdDev={portfolioStdDevNeeded}
-                      portfolioBeta={portfolioBeta}
-                      portfolioAlpha={portfolioAlpha}
-                      portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
-                      portfolioMinReturn={minarrPortfolioReturnsNeeded}
-                      avgPortfolioReturns={avgPortfolioReturnsNeeded}/>
-                      
-                </Grid>
-            </Grid>
-            
-        </div>
-    </Fragment>
+                />
+                
+              <StatCards 
+                portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
+                portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                portfolioBeta={portfolioBetaNeeded}
+                portfolioAlpha={portfolioAlphaNeeded}
+                portfolioCov={portfolioCovNeeded}
+                spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
+                spxAnnualizedReturn={spxAnnualizedReturnNeeded}
+                spxReturnMean={spxReturnMean} 
+                spxReturnStDeviation={spxReturnStDeviation}
+                spxPriceStDeviation={spxPriceStDeviation}
+                portfolioStdDev={portfolioStdDevNeeded}
+                portfolioBeta={portfolioBeta}
+                portfolioAlpha={portfolioAlpha}
+                portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
+                portfolioMinReturn={minarrPortfolioReturnsNeeded}
+                avgPortfolioReturns={avgPortfolioReturnsNeeded}/>
+                
+          </Grid>
+      </Grid>
+      
+  </div>
+</Fragment>
         
     )
 }
