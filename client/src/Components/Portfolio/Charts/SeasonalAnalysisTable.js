@@ -126,7 +126,8 @@ const useStyles = makeStyles({
       color: '#FFFFFF',
     },
     '& .hot': {
-      backgroundColor: '#66DA26',
+      // backgroundColor: '#66DA26',
+      backgroundColor: '#1B8270',
       color: '#FFFFFF',
     },
   },

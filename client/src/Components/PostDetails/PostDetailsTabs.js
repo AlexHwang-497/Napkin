@@ -6,7 +6,7 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs, TextField, AppBar, SwipeableDrawer  } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField, AppBar, SwipeableDrawer, Card  } from "@material-ui/core";
 import RecommendedPosts from "./RecommendedPosts";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
 import SwipeableTemporaryDrawer from "./tutorial/SwipeableTemporaryDrawer";
@@ -264,15 +264,17 @@ const fetchPortfolioData = (selectedPortfolio) => {
           <Tab label="Total Return" {...a11yProps(2)} />
           <Tab label="Seasonal Analysis" {...a11yProps(3)} />
           <Tab label="Statistical Summary" {...a11yProps(4)} />
-          <FetchStockPrices assets={assets} ownership={ownership} />
+          
+          
 
         </Tabs>
     </AppBar>  
-        <Box>
-
-      <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/>
-        </Box>
       </Box>
+        <Card align={'left'} sx={{ maxWidth: 100 }}>
+          <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
+          {/* <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
+        </Card>
+
       <TabPanel value={value} index={0}>
       
       

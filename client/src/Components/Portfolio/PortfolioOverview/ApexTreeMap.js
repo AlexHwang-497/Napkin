@@ -34,7 +34,7 @@ const ApexTreeMap = ({treeMapData,dateIndex,format,percentile}) => {
         type: 'treemap'
       },
       title: {
-        text: 'Current Portfolio'
+        // text: 'Current Portfolio'
       },
       dataLabels: {
         enabled: true,

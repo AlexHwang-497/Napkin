@@ -20,7 +20,9 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
   }]
   
   const options = {
+    colors: ['#1B8270', '#091F3C'],
     chart: {
+      
       type: 'bar',
       height: 350
     },
@@ -34,6 +36,7 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
     dataLabels: {
       enabled: false,
     },
+    
     
     xaxis: {
       

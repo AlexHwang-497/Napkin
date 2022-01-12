@@ -29,6 +29,7 @@ const TRLineChart = ({priceData,title}) => {
     ]
     
     const options = {
+        colors: ['#091F3C','#1B8270'],
         chart: {
             height: 350,
             type: 'line',
@@ -54,7 +55,7 @@ const TRLineChart = ({priceData,title}) => {
                 autoSelected: 'zoom'
             },
         },
-        colors: ['#2E93fA', '#66DA26', '#546E7A', '#E91E63', '#FF9800'],
+        // colors: ['#2E93fA', '#66DA26', '#546E7A', '#E91E63', '#FF9800'],
         dataLabels: {
             enabled: false,
         },

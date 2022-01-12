@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Card, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem  } from '@material-ui/core/';
+import { Card, Paper, FormControl, MenuItem, InputLabel,Select, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem,TextField  } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShareIcon from '@material-ui/icons/Share';
@@ -46,7 +46,9 @@ const ExpandMore = styled((props) => {
 // *<Typography variant="h6">{post.name}</Typography>; this is now the id of the creator
 const PortfolioPost = ({ post, setCurrentId }) => {
     const startDate = '2009-11-01'
-    const endDate = '2021-12-31'
+    
+    const endDate = new Date().toISOString().slice(0, 10).toString()
+    
     const dispatch = useDispatch();
     const classes = useStyles()
     const [likes, setLikes] = useState(post?.likes);
@@ -59,8 +61,10 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [stockData,editStockData] = useState([])
     const [pracData, setPracData] = useState([])
     const [dateArr,setDateArr] = useState([])
-    
+    const [lineGraphData, setLineGraphData] = useState('')
     console.log('[PortfolioPost.post',post)
+    // console.log('[PortfolioPost.currentDate',currentDate)
+    console.log('[PortfolioPost.endDate',endDate)
     // console.log('this is user in client/portfolio/portfolioPost.js',user)
     // console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
     const userId = user?.result.googleId || user?.result?._id;
@@ -212,10 +216,35 @@ console.log('[PortfolioPost.yearArr',yearArr)
     const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
     // console.log('[getStandardDeviation.portfolioStdDev',portfolioStdDev)
 
-  
-  let portfolioLineGraphNeeded = totalPortoflioValue[0]
-  let spxLineGraphNeeded = spxValue[0]
-  let datesLineGraphNeeded = dateArr.slice(0,12)
+  const lineGraphDataHandler =(e) => {
+    setLineGraphData(e.target.value)
+
+  }
+
+  console.log('[PortfolioPost.lineGraphData',lineGraphData)
+  let lineIndex = 0
+  let dateIndex = 0
+  if(lineGraphData==='3yr'){
+    lineIndex = 2
+    dateIndex=36
+
+  } else if (lineGraphData==='5yr'){
+    lineIndex = 4
+    dateIndex=60
+  }else if (lineGraphData==='7yr'){
+    lineIndex = 6
+    dateIndex=84
+  }else if (lineGraphData==='10yr'){
+    lineIndex = 9
+    dateIndex=120
+  } else {
+    lineIndex = 0
+    dateIndex = 12
+  }
+
+  let portfolioLineGraphNeeded = totalPortoflioValue[lineIndex]
+  let spxLineGraphNeeded = spxValue[lineIndex]
+  let datesLineGraphNeeded = dateArr.slice(0,dateIndex).reverse()
 
   console.log('[PortfolioPost.spxLineGraphNeeded',spxLineGraphNeeded)
   console.log('[PortfolioPost.portfolioLineGraphNeeded',portfolioLineGraphNeeded)
@@ -301,17 +330,46 @@ console.log('[PortfolioPost.yearArr',yearArr)
           title={post.portfolioName}
           subheader={moment(post.dateCreated).fromNow()}
         />
+        <Paper fullWidth sp variant='outlined' >
+            <FormControl variant="standard" sx={{ m: 1,  }}>
+                <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={'selectedLineChartData'}
+                onChange={lineGraphDataHandler}
+                label="Date"
+                >
+                <MenuItem value="">
+                    
+                </MenuItem>
+                <MenuItem value={'ytd'}>YTD</MenuItem>
+                <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+                </Select>
+            </FormControl>
+
+        </Paper>
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
-        <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
-        <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
+        <Paper style={{  borderRadius: '10px' }} elevation={3}>
+            <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+          </Paper>
+          <Paper style={{  borderRadius: '10px' }} spacing={2} elevation={3}>
+
+              <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
+          </Paper>
         {/* <LineGraph assets={post.assets} portfolioName={"Ytd Growth of $10,000"} ownership={post.ownership} startDate={'2021-01-01'} endDate={'2021-11-14'}/>         */}
         {/* <PortfolioPostTable data ={post}/> */}
       </ButtonBase>
 
         <Divider style={{ margin: '20px 0' }} />
-        <Typography paragraph>Description:</Typography>
+        {/* <Typography paragraph>Description:</Typography> */}
         <Typography variant="body2">
-            {post.description}
+        <TextField fullWidth label="Portfolio Description"  variant="outlined" rows={3} defaultValue={post.description}>
+            {/* {post.description} */}
+
+        </TextField>
           </Typography>
         <Divider style={{ margin: '20px 0' }} />
       <CardContent>

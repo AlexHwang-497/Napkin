@@ -129,55 +129,50 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
 //   console.log('[PortfolioOverview.threeYrData',threeYrData)
 //   console.log('[PortfolioOverview.fiveYrData',fiveYrData)
   let lineChartData;
+  let portfolioOverviewData;
+  let indexNeeded=0
   if(selectedLineChartData==='ytd'){
-        lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
-      
+        // lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
+        // portfolioOverviewData = securityData[0]
+        indexNeeded=0
     } else if(selectedLineChartData==='3yr'){
-        lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+        // lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
+        // portfolioOverviewData=securityData[2]
+        indexNeeded=2
     } else if(selectedLineChartData==='5yr'){
-        lineChartData=dateArr[4] && spxValue[4] && totalPortoflioValue[4] ?[dateArr[4],spxValue[4],totalPortoflioValue[4]]:[]
+        // lineChartData=dateArr[4] && spxValue[4] && totalPortoflioValue[4] ?[dateArr[4],spxValue[4],totalPortoflioValue[4]]:[]
+        // portfolioOverviewData=securityData[4]
+        indexNeeded=4
     } else {
-        lineChartData=dateArr[dateLabels.length-1] && spxValue[dateLabels.length-1] && totalPortoflioValue[dateLabels.length-1] ?[dateArr[dateLabels.length-1],spxValue[dateLabels.length-1],totalPortoflioValue[dateLabels.length-1]]:[]
+        // lineChartData=dateArr[dateLabels.length-1] && spxValue[dateLabels.length-1] && totalPortoflioValue[dateLabels.length-1] ?[dateArr[dateLabels.length-1],spxValue[dateLabels.length-1],totalPortoflioValue[dateLabels.length-1]]:[]
+        // portfolioOverviewData=securityData[dateLabels.length-1]
+        indexNeeded=dateLabels.length-1
     }
     // console.log('[PortfolioOverview.lineChartData',lineChartData)
-    
+    let lineChartDataNeeded = dateArr[indexNeeded] && spxValue[indexNeeded] && totalPortoflioValue[indexNeeded] ?[dateArr[indexNeeded],spxValue[indexNeeded],totalPortoflioValue[indexNeeded]]:[]
+    let portfolioOverviewDataNeeded=securityData[indexNeeded]
+
+    console.log('[PortfolioOverview.lineChartDataNeeded',lineChartDataNeeded)
+    console.log('[PortfolioOverview.portfolioOverviewDataNeeded',portfolioOverviewDataNeeded)
+
+
     const lineChartHandler = (e) => {
         setSelectedLineChartData(e.target.value)
         
     }
-// ?    ///////////////////////////////////////////////////////////////////////////////////////////
-    let portfolioOverviewData;
-    if(selectedPortfolioOverviewtData==='ytd'){
-        portfolioOverviewData = securityData[0]
-        
-      } else if(selectedPortfolioOverviewtData==='3yr'){
-        portfolioOverviewData=securityData[2]
-      } else if(selectedPortfolioOverviewtData==='5yr'){
-        portfolioOverviewData=securityData[4]
-      } else {
-        portfolioOverviewData=securityData[dateLabels.length-1]
-      }
-    //   console.log('[PortfolioOverview.portfolioOverviewData',portfolioOverviewData)
 
-
-  const portfolioOverviewHandler = (e) => {
-    setSelectedPortfolioOverviewtData(e.target.value)
-
-  }
-
+    
+    
     return (
         <Grid container spacing={3}>
-            <Grid item xs={6} >
-                <Paper>
-                
-                
-                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
+        
 
-                </Paper>
-            </Grid>
+        
+        
             <Grid item xs={6} >
-                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Card>
+
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
                         <Select
                         labelId="demo-simple-select-standard-label"
@@ -195,20 +190,46 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
+            </Card>
+                <Paper>    
+                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
+                </Paper>
+                
+            </Grid>
+            <Grid item xs={6} >
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                    {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={selectedLineChartData}
+                        onChange={lineChartHandler}
+                        label="Date"
+                        >
+                        <MenuItem value="">
+                            
+                        </MenuItem>
+                        <MenuItem value={'ytd'}>YTD</MenuItem>
+                        <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                        <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+                        </Select>
+                    </FormControl> */}
                     <h1>Portfolio Growth of $10,000</h1>
-                    <TRLineChart priceData={lineChartData} />
+                    <TRLineChart priceData={lineChartDataNeeded} />
                 </Paper>
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
                         <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={selectedPortfolioOverviewtData}
-                        onChange={portfolioOverviewHandler}
+                        value={selectedLineChartData}
+                        onChange={lineChartHandler}
                         label="Date"
                         >
                         <MenuItem value="">
@@ -218,11 +239,11 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         <MenuItem value={'5yr'}>5-Yr</MenuItem>
                         <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                   
                     <h1>Current Portoflio Securitites</h1>
 
-                    <PortfolioOverviewPagTable dataNeeded={portfolioOverviewData}/>
+                    <PortfolioOverviewPagTable dataNeeded={portfolioOverviewDataNeeded}/>
                     
                 
                 </Paper>

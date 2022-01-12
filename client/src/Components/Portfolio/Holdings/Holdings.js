@@ -166,48 +166,48 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
 
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                        <Select
-                            value={dateType}
-                            onChange={dateTypeHandler}
-                            label="Date"
-                            >
-                            <MenuItem value={'ytd'}>YTD</MenuItem>
-                            <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                            <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                            <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
-                        </Select>
-                        <TextField  
-                            color='string' 
-                            label="Percentile" 
-                            variant="filled"
-                            onChange={percentileHandler}
-                        />
-                    </FormControl>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
-                        <Select
-                            value={holdingsType}
-                            onChange={holdingsDataHandler}
-                            label="Date"
-                            >
-                            <MenuItem value={'sector'}>Sector</MenuItem>
-                            <Divider style={{ margin: '20px 0' }} />
-                            <MenuItem value={'currentPortfolioValue'}>Current Portfolio Value($)</MenuItem>
-                            <MenuItem value={'initialPortfolioValue'}>Initial Portfolio Value($)</MenuItem>
-                            <Divider style={{ margin: '20px 0' }} />
-                            <MenuItem value={'cumulativeReturn'}>Cumulative Return(%)</MenuItem>
-                            <MenuItem value={'annualizedReturn'}>Annualized Return(%)</MenuItem>
-                            <Divider style={{ margin: '20px 0' }} />
-                            <MenuItem value={'priceStandardDeviation'}>Price Standard Deviation($)</MenuItem>
-                            <MenuItem value={'returnStandardDeviation'}>Return Standard Deviation(%)</MenuItem>
-                            <Divider style={{ margin: '20px 0' }} />
-                            {/* <MenuItem value={''}>Beta</MenuItem>
-                            <MenuItem value={''}>Alpha</MenuItem> */}
-                        
-                        </Select>
-                    </FormControl>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                            <Select
+                                value={dateType}
+                                onChange={dateTypeHandler}
+                                label="Date"
+                                >
+                                <MenuItem value={'ytd'}>YTD</MenuItem>
+                                <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                                <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                                <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
+                            </Select>
+                            <TextField  
+                                color='string' 
+                                label="Percentile" 
+                                variant="filled"
+                                onChange={percentileHandler}
+                            />
+                                <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
+                                <Select
+                                    value={holdingsType}
+                                    onChange={holdingsDataHandler}
+                                    label="Date"
+                                    >
+                                    <MenuItem value={'sector'}>Sector</MenuItem>
+                                    <Divider style={{ margin: '20px 0' }} />
+                                    <MenuItem value={'currentPortfolioValue'}>Current Portfolio Value($)</MenuItem>
+                                    <MenuItem value={'initialPortfolioValue'}>Initial Portfolio Value($)</MenuItem>
+                                    <Divider style={{ margin: '20px 0' }} />
+                                    <MenuItem value={'cumulativeReturn'}>Cumulative Return(%)</MenuItem>
+                                    <MenuItem value={'annualizedReturn'}>Annualized Return(%)</MenuItem>
+                                    <Divider style={{ margin: '20px 0' }} />
+                                    <MenuItem value={'priceStandardDeviation'}>Price Standard Deviation($)</MenuItem>
+                                    <MenuItem value={'returnStandardDeviation'}>Return Standard Deviation(%)</MenuItem>
+                                    <Divider style={{ margin: '20px 0' }} />
+                                    {/* <MenuItem value={''}>Beta</MenuItem>
+                                    <MenuItem value={''}>Alpha</MenuItem> */}
+                                
+                                </Select>
+                        </FormControl>
+                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            </FormControl>
                     <h1>Portfolio Tree Map</h1>
                     <ApexTreeChart format={format} treeMapData={treeMapData} dateIndex={dateIndex} percentile={percentile}/>
                 </Paper>

@@ -23,6 +23,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     border: 0,
   },
+  root: {
+    color: "red"
+  }
 }));
 
 
@@ -40,7 +43,7 @@ export default function PortfolioReturnTable({annReturn}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
-        <TableHead style={{background:"#091F3C"}}>
+        <TableHead style={{background:"#091F3C"}} >
           <TableRow >
             <TableCell >Year</TableCell>
             <TableCell align="right">AnnualizedReturn(%)</TableCell>

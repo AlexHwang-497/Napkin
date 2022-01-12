@@ -39,6 +39,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
     ]
     
     const options = {
+        colors: ['#091F3C','#1B8270'],
         chart: {
             height: 350,
             type: 'line',
@@ -65,7 +66,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
                 // autoSelected: 'zoom'
             },
         },
-        colors: ['#2E93fA', '#66DA26', '#546E7A', '#E91E63', '#FF9800'],
+        // colors: ['#2E93fA', '#66DA26', '#546E7A', '#E91E63', '#FF9800'],
         dataLabels: {
             enabled: false,
         },

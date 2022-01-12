@@ -39,6 +39,7 @@ let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAn
 ]
   
   const options = {
+    colors: ['#1B8270','#091F3C'],
     chart: {
       type: 'bar',
       height: 430

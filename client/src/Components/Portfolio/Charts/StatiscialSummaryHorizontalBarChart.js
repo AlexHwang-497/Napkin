@@ -36,6 +36,7 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
 ]
   
   const options = {
+    colors: ['#1B8270','#091F3C'],
     chart: {
       type: 'bar',
       height: 430
