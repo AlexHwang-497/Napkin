@@ -48,7 +48,7 @@ const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumul
                                 </IconButton> */}
                             </div>
                             <div className="ml-4">
-                                <p className="m-0 text-muted">{item.title}</p>
+                                <h1 className="m-0 text-muted">{item.title}</h1>
                                 <h3 className="mt-1 text-32">
                                 <StatiscialSummaryBarChart categories={0} portfolioData={item.amount.toLocaleString()} spxData={item.spxAmount.toLocaleString()}/>    
                                     

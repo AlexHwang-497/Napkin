@@ -153,6 +153,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
         <Grid container spacing={3} >
         <Grid item xs={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+            <h1>Portfolio Monthly Returns(%)</h1>
             <SeasonalBarChart data={barChartdataNeeded}/>
             </Paper>
         </Grid>
@@ -173,7 +174,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 defaultValue = {'-5'}
               />
             {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
-            
+            <h1>Portfolio Monthly Returns(%)</h1>
             <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>
           </Paper>
         </Grid>

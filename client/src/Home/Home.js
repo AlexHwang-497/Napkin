@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@material-ui/core';
+import { Container, Grow, Grid, AppBar, TextField, Button, Paper, Card } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import Posts from '../Components/Posts/Posts';
@@ -101,7 +101,13 @@ const Home = () =>{
                   {/* <PortfolioPagination page={page} /> */}
                 </Paper>
               )}
-              <PortfolioStepper/>
+                <Card>
+                  <PortfolioStepper/>
+
+                </Card>
+
+              
+              
             </Grid>
           </Grid>
         </Container>

@@ -11,18 +11,30 @@ const PortfolioPostBarChart = ({portfolioAnnualizeReturn, spxAnnualizedReturn}) 
   var finance = new Finance();
 console.log('[PortfolioPost.PortfolioPostBarChart.portfolioAnnualizeReturn',portfolioAnnualizeReturn)
 console.log('[PortfolioPost.PortfolioPostBarChart.spxAnnualizedReturn',spxAnnualizedReturn)
+// console.log('[PortfolioPost.PortfolioPostBarChart.pracs',spxAnnualizedReturn[1][0])
+let spxAnnualizedReturnMap=spxAnnualizedReturn.map((el,i)=>
+// el.length
+(finance.CAGR(el[0],el[el.length-1],el.length/12)/100).toFixed(2)
+
+)
+// console.log('[PortfolioPost.PortfolioPostBarChart.spxAnnualizedReturnMap',spxAnnualizedReturnMap)
+
 // console.log('[PortfolioPost.PortfolioPostBarChart.spxAnnualizedReturn.calcs',finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAnnualizedReturn[0].length-1],12/spxAnnualizedReturn[0].length))
 // let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAnnualizedReturn[0].length-1],12/spxAnnualizedReturn[0].length)
-// let spxTwoyear = finance.CAGR(spxAnnualizedReturn[2][0],spxAnnualizedReturn[2][spxAnnualizedReturn[2].length-1],12/spxAnnualizedReturn[2].length)
+let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAnnualizedReturn[0].length-1],12/spxAnnualizedReturn[0].length)
+// console.log('[PortfolioPost.PortfolioPostBarChart.spxYtd',spxYtd)
+// let spxTwoYear = finance.CAGR(spxAnnualizedReturn[1][0],spxAnnualizedReturn[1][spxAnnualizedReturn[1].length-1],12/spxAnnualizedReturn[1].length)
+// console.log('[PortfolioPost.PortfolioPostBarChart.spxTwoYear',spxTwoYear)
+
   
   const series =  [
     {
-      name: 'Portfolio ',
-      data: [portfolioAnnualizeReturn[0],portfolioAnnualizeReturn[1],portfolioAnnualizeReturn[2],portfolioAnnualizeReturn[3]]
+    name: 'benchmark ',
+    data: [spxAnnualizedReturnMap[0],spxAnnualizedReturnMap[1],spxAnnualizedReturnMap[2],spxAnnualizedReturnMap[3]],
     },
     {
-    name: 'benchmark ',
-    data: [.2,.4,.5,.20],
+      name: 'Portfolio ',
+      data: [portfolioAnnualizeReturn[0],portfolioAnnualizeReturn[1],portfolioAnnualizeReturn[2],portfolioAnnualizeReturn[3]]
     },
 ]
   
@@ -58,6 +70,28 @@ console.log('[PortfolioPost.PortfolioPostBarChart.spxAnnualizedReturn',spxAnnual
     xaxis: {
       categories: ['TTM','3-Year','5-year','10-year']
     },
+    title: {
+      text: 'Portfolio Annualized Return',
+      align: 'left',
+    },
+    toolbar:{
+      show: false
+    },
+    grid: {
+      borderColor: "#fff",
+      row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5,
+      },
+  },
+  legend: {
+    position: 'bottom',
+    horizontalAlign: 'right',
+    // floating: true,
+    // offsetY: -25,
+    // offsetX: -5,
+}
+    
   }
   
   return (

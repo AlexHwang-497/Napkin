@@ -100,7 +100,7 @@ const TRLineChart = ({priceData,title}) => {
             max: maxValue,
             labels: {
                 formatter: function (y) {
-                  return '$'+Number(y).toFixed(2);
+                  return '$'+Number(y).toFixed(1);
                 }
               }
         },

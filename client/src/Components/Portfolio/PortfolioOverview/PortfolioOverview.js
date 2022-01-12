@@ -169,7 +169,8 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
         <Grid container spacing={3}>
             <Grid item xs={6} >
                 <Paper>
-                {/*  this will need the portfolio's annuzlied return, standard devation, beta and alpha*/}
+                
+                
                     <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
 
                 </Paper>
@@ -194,6 +195,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
+                    <h1>Portfolio Growth of $10,000</h1>
                     <TRLineChart priceData={lineChartData} />
                 </Paper>
             </Grid>
@@ -218,7 +220,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         </Select>
                     </FormControl>
                   
-                    {/* <PortfolioOverviewTable portfolioOverviewData={portfolioOverviewData} /> */}
+                    <h1>Current Portoflio Securitites</h1>
 
                     <PortfolioOverviewPagTable dataNeeded={portfolioOverviewData}/>
                     
@@ -227,6 +229,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
             </Grid>
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+                <h1>Comment Section</h1>
                     <CommentSection post={post}/>
                     <RecommendedPosts/>
 

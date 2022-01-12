@@ -25,7 +25,6 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
     // console.log('[TRLineChart.minValue',minValue)
  
     const series = [
-        
         {
           name: "SPX",
           data: spxData
@@ -35,6 +34,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
           name: "Portfolio",
           data: portfolioData
         },
+        
         
     ]
     
@@ -51,6 +51,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
                 opacity: 0.2,
             },
             toolbar: {
+                show:false,
                 tools: {
                     download: false,
                     selection: false,
@@ -59,9 +60,9 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
                     zoomout: true,
                     pan: false,
                     reset: true | '<img src="/static/icons/reset.png" width="20">',
-                    customIcons: []
+                    customIcons: [],
                   },
-                autoSelected: 'zoom'
+                // autoSelected: 'zoom'
             },
         },
         colors: ['#2E93fA', '#66DA26', '#546E7A', '#E91E63', '#FF9800'],
@@ -74,7 +75,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
             dashArray: 8
         },
         title: {
-            text: '',
+            text: 'Portfolio Growth of $10,0000',
             align: 'left',
         },
         grid: {
@@ -92,9 +93,9 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
         },
         xaxis: {
             categories:  datesData,
-            title: {
-                text: 'Dates',
-            },
+            // title: {
+            //     // text: 'Dates',
+            // },
             axisBorder: {
                 show: true,
             },
@@ -115,12 +116,16 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
               }
         },
         legend: {
-            position: 'top',
+            position: 'bottom',
             horizontalAlign: 'right',
             floating: true,
-            offsetY: -25,
-            offsetX: -5,
+            // offsetY: -25,
+            // offsetX: -5,
         },
+        tooltip:{
+            enabled:true
+
+        }
     }
     
     return <Chart options={options} series={series} type="line" height={400} />

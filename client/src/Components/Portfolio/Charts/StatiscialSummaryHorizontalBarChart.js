@@ -67,6 +67,13 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
     xaxis: {
       categories: sector
     },
+    grid: {
+      borderColor: "#fff",
+      row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5,
+      },
+  },
   }
   
   return (

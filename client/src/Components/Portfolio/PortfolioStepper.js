@@ -10,22 +10,30 @@ import * as React from 'react';
 import {Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography } from '@material-ui/core/';
 const steps = [
   {
-    label: 'Select campaign settings',
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
+    label: 'Step 1: Create A Portfolio',
+    description: `Please select the create portolio button above.  Clicking the button will take you to 
+    a user form that allows you to create your own unique investment portfolio. `
   },
   {
-    label: 'Create an ad group',
+    label: 'Step 2: Fill out the Create Portfolio form',
     description:
-      'An ad group contains one or more ads which target a shared set of keywords.',
+      `Please include the name of your portfolio, a description of your portfolio and the 
+      securities you would like to include in your unique portfolio`,
   },
   {
-    label: 'Create an ad',
-    description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`,
+    label: 'Step 3:  how to add secuirties to create your portfolio',
+    description: `in the complete portfolio form, please enter AAPL in the Enter Stock Symbol Input Box
+    and enter 50% into the % of portoflio input box and press the ADD button.  Next, after adding AAPL to your 
+    portfolio, please enter FB in the enter Enter Stock Symbol Input Box
+    and enter 50% into the % of portoflio input box and press the ADD button.
+    **Please note that every portfolio created in the app is set at a standard $10,000
+    `,
+  },
+  {
+    label: 'Step 4: Press Create New Portfolio ',
+    description: `After you have entered the Portfolio Name, Portfolio Description and entered your securities
+    for your unique investment portfolio, please press Create New Portfolio
+    `,
   },
 ];
 
@@ -51,7 +59,7 @@ export default function PortfolioStepper() {
           <Step key={step.label}>
             <StepLabel
               optional={
-                index === 2 ? (
+                index === steps.length-1 ? (
                   <Typography variant="caption">Last step</Typography>
                 ) : null
               }
