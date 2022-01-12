@@ -12,6 +12,7 @@ import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolio
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import PortfolioPostTable from '../Charts/PortfolioPostTable'
 import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
+import PortfolioStepper from '../PortfolioStepper'
 
 function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearArr,SeasonalAnalysisYearArr}) {
     let cov = require( 'compute-covariance' );
@@ -21,8 +22,8 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
     const [stockList, setStockList] = useState([...assets] || ['AAPL'])
     const [stockData,editStockData] = useState([])
     const [stockWeight,setStockWeight]=useState([...ownership] || [0])
-    const [greaterNumber,setGreaterNumber] = useState(0)
-    const [lessNumber,setLessNumber] = useState(0)
+    const [greaterNumber,setGreaterNumber] = useState('5')
+    const [lessNumber,setLessNumber] = useState('-5')
     
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     // const [aggPortfolio,setAggPortfolio]=useState([])
@@ -161,7 +162,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 color='string' 
                 label="greater then(>)%" 
                 variant="filled"
-                // defaultValue = {'5'}
+                defaultValue = {'5'}
                 onChange={greaterNumberHandler}
               />
               <TextField  
@@ -169,9 +170,10 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 label="Less then(<)%" 
                 variant="filled" 
                 onChange={lessNumberHandler}
-                // defaultValue = {'-5'}
+                defaultValue = {'-5'}
               />
             {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
+            
             <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>
           </Paper>
         </Grid>

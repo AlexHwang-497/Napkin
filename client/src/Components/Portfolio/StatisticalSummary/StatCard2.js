@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Grid,InputLabel, Card, Icon, Fab, Button,MenuItem,Menu,Select } from '@material-ui/core'
 import SectorWeightingTable from './SectorWeightingTable'
 import StatisticalSummaryHorizontalBarChart from '../Charts/StatiscialSummaryHorizontalBarChart'
+import StatisticalSummaryPopover from './StatisticalSummaryPopOver'
 
 const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
     console.log('[StatisticalSummary.statCards2.sectorWeighting',benchmarkSectorWeighting)
@@ -93,7 +94,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                         
                     </Select>
                     </h1>
-                    
+                    <StatisticalSummaryPopover/>
                     <SectorWeightingTable benchmarkSectorWeighting={benchmarkSectorWeighting} portfolioWeighting={portfolioDataNeeded}/>
                 </Card>
             </Grid>

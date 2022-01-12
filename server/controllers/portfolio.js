@@ -27,7 +27,7 @@ export const getPortfolios = async(req, res) => {
     }
     console.log('this is the req.query in getPortfolios',req.query)
     try{
-        const LIMIT = 4;
+        const LIMIT = 3;
         const startIndex = (Number(page) - 1) * LIMIT; //! get the starting index of every page
         
         // *we are counting up all thedocuents so we know how many posts we have

@@ -150,11 +150,13 @@ const fetchPortfolioData = (selectedPortfolio) => {
       setPracData(portfolioData);
       setDateArr(portfolioData[0].dates.map((el)=>el.date))
       console.log('[postDetailTabs.portfolioData',portfolioData)
+      console.log('[postDetailTabs.dateArr',dateArr)
       // console.log('[postDetailTabs.portfolioData.pracs',portfolioData[0].dates.map((el)=>el.date))
   })
     );
 
 }
+
   useEffect(() => {
     if (!selectedPortfolio) {
       fetchPortfolio(id).then(({data})=>fetchPortfolioData(data))
@@ -229,7 +231,8 @@ const fetchPortfolioData = (selectedPortfolio) => {
     // console.log('[postDetailTabs.tenYear',tenYear)
     // console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
     // console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
-    // console.log('[postDetailTabs.yearArr',yearArr)
+    console.log('[postDetailTabs.yearArr',yearArr)
+    
     // console.log('[postDetailTabs.pracData',pracData)
     // console.log('[postDetailTabs.endDate',endDate)
     // console.log('[postDetailTabs.startDate',startDate)

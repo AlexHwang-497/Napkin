@@ -19,6 +19,7 @@ import ComplexCards from '../Components/Portfolio/Cards/ComplexCard';
 import ChipInput from 'material-ui-chip-input';
 import PortfolioCards from '../Components/Portfolio/PortfolioCards';
 import EditCustomizedDialogs from '../Components/Portfolio/editPortfolioDialog';
+import PortfolioStepper from '../Components/Portfolio/PortfolioStepper'
 // *this will provide us an idea of where our current location is 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -79,7 +80,8 @@ const Home = () =>{
               <PortfolioPosts setCurrentId={setCurrentId}/>
               
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={2} >
+            {/* <Grid item xs={12} sm={6} md={3}> */}
               <AppBar className={classes.appBarSearch} position="static" color="inherit">
                 <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Sector" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
                 <ChipInput
@@ -99,12 +101,8 @@ const Home = () =>{
                   {/* <PortfolioPagination page={page} /> */}
                 </Paper>
               )}
+              <PortfolioStepper/>
             </Grid>
-                  {/* <PortfolioInputForm currentId={currentId} setCurrentId={setCurrentId} /> */}
-                {/* <Paper className={classes.appBarSearch} position="static" color="inherit">
-                  <InputForm currentId={currentId} setCurrentId={setCurrentId}/>
-                </Paper> */}
-                
           </Grid>
         </Container>
       </Grow>
