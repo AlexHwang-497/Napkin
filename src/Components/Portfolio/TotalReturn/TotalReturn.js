@@ -14,21 +14,24 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 function TotalReturn({id,assets,portfolioName,ownership,priceData,yearArr}) {
     if(yearArr.length===0 || !yearArr) return []
     const dateLabels = yearArr.slice(1);
+    console.log('[TotalReturn.dateLabels',dateLabels)
 
     // const dateLabels = ['1yr', '3yr', '5yr','10yr'];
     const dates = dateLabels.map(label => {
         const yearNumber = parseInt(label.split('yr')[0]);
         return generateHistoricalDate(yearNumber);
     });
-    // console.log('[ApexLineChart.dates',dates)
+    console.log('[TotalReturn.dates',dates)
 
   
     const spxValue = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+        console.log('[TotalReturn.spxValue.range',range)
         const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-        // console.log('[TotalReturn.spxValue.monReturn',data)
+        console.log('[TotalReturn.spxValue.monReturn',data)
         return data
     })
+    console.log('[TotalReturn.spxValue',spxValue)
     const totalPortoflioValue = dates.map((date, index) => {
         // console.log('[TotalReturn.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));

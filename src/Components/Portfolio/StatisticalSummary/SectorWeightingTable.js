@@ -48,7 +48,7 @@ export default function SectorWeightingTable({benchmarkSectorWeighting,portfolio
   // ];
 
   const rows = benchmarkSectorWeighting.map((el,i)=>
-  createData(el.sector,(weightingObj[sector[i]]?weightingObj[sector[i]]:0)+'%',el.weightPercentage,(weightingObj[sector[i]]?weightingObj[sector[i]]:0)-parseInt(el.weightPercentage)))
+  createData(el.sector,(weightingObj[sector[i]]?weightingObj[sector[i]]:0)+'%',el.weightPercentage,((weightingObj[sector[i]]?weightingObj[sector[i]]:0)-parseInt(el.weightPercentage)).toFixed(1)+'%'))
     
 
   
@@ -56,7 +56,7 @@ export default function SectorWeightingTable({benchmarkSectorWeighting,portfolio
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
-      <TableHead style={{background:"#819ca9"}}>
+      <TableHead style={{background:"#091F3C"}}>
           <TableRow>
             <TableCell>Sector</TableCell>
             <TableCell>Portfolio</TableCell>

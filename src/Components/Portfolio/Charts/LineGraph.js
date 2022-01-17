@@ -35,7 +35,8 @@ function LineGraph({endDate,startDate,assets,ownership,portfolioName,title}) {
     })
     );
   }, []);
-  console.log('[LineGraph',stockData)
+  console.log('[LineGraph.stockData',stockData)
+  console.log('[LineGraph.stockList',stockList)
   
   
   useEffect(()=> {

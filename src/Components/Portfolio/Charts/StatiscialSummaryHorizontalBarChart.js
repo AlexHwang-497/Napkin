@@ -36,6 +36,7 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
 ]
   
   const options = {
+    colors: ['#1B8270','#091F3C'],
     chart: {
       type: 'bar',
       height: 430
@@ -67,6 +68,13 @@ console.log('[StatisticalSummary.StatisticalSummaryHorizontalBarChart.portfolioW
     xaxis: {
       categories: sector
     },
+    grid: {
+      borderColor: "#fff",
+      row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5,
+      },
+  },
   }
   
   return (

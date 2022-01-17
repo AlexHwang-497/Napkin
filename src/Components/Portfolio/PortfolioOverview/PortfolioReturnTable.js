@@ -23,7 +23,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     border: 0,
   },
+  root: {
+    color: "red"
+  }
 }));
+
+const styles = theme => ({
+  tableHead: {
+    "&$selected, &$selected:hover": {
+      backgroundColor: "purple"
+    }
+  },
+  tableCell: {
+    "$selected &": {
+      color: "yellow"
+    }
+  },
+  selected: {}
+});
 
 
 export default function PortfolioReturnTable({annReturn}) {
@@ -40,7 +57,8 @@ export default function PortfolioReturnTable({annReturn}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
-        <TableHead style={{background:"#819ca9"}}>
+        <TableHead className='styles' >
+        {/* <TableHead style={{background:"#091F3C"}} > */}
           <TableRow >
             <TableCell >Year</TableCell>
             <TableCell align="right">AnnualizedReturn(%)</TableCell>

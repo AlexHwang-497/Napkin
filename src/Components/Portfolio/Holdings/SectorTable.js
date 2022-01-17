@@ -31,7 +31,7 @@ function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} style={{background:"#819ca9"}}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} style={{background:"#091F3C"}}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -52,7 +52,7 @@ function Row(props) {
             <Box sx={{ margin: 1 }}>
               
               <Table size="small" aria-label="purchases">
-                <TableHead style={{background:"#e1f5fe"}}>
+                <TableHead style={{background:"#1B8270"}}>
                   <TableRow>
                     <TableCell></TableCell>
                     <TableCell>Symbol</TableCell>
@@ -143,6 +143,7 @@ export default function SectorTable({ownership,assets,sector,image, data,dateInd
   // const rows =individualSectors.map((sector,i)=>createData(sector,ownership,uniqueSectors[sector]))
   
   return (
+    
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table" >
         <TableHead >

@@ -54,13 +54,13 @@ const Navbar = () =>{
     
     
     return(
-      <AppBar className={classes.appBar} position="static" color="inherit">
+      <AppBar className={classes.appBar} position="static" color="inherit" style={{ background: '#091F3C' }}>
       <Link to="/" className={classes.brandContainer}>
-        <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" />
+        {/* <img component={Link} to="/" src={'memoriesText'} alt="icon" height="45px" /> */}
         <img className={classes.image} src={napkinsIcon} alt="icon" height="100px" />
-        
       </Link>
       <Toolbar className={classes.toolbar}>
+        <h1>Napikin</h1>
         <CustomizedDialogs/>
         {user?.result ? (
           <div className={classes.profile}>

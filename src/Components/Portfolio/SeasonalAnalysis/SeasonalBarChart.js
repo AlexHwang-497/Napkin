@@ -28,16 +28,20 @@ const SeasonalBarChart = ({data}) => {
         bar: {
           colors: {
             ranges: [{
-              from: -100,
-              to: -46,
-              color: '#66DA26'
+              from: 0,
+              to: 100,
+              
+              // color: '#66DA26'
+              color: '#1B8270'
             }, {
-              from: -45,
+              from: -100,
               to: 0,
+              // color: '#CD363A'
+              
               color: '#CD363A'
             }]
           },
-          columnWidth: '90%',
+          columnWidth: '150%',
         }
       },
       dataLabels: {
@@ -59,7 +63,14 @@ const SeasonalBarChart = ({data}) => {
         labels: {
           rotate: -90
         }
-      }
+      },
+      grid: {
+        borderColor: "#fff",
+        row: {
+            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+            opacity: 1.0,
+        },
+    },
     }
     
     return (

@@ -126,7 +126,8 @@ const useStyles = makeStyles({
       color: '#FFFFFF',
     },
     '& .hot': {
-      backgroundColor: '#66DA26',
+      // backgroundColor: '#66DA26',
+      backgroundColor: '#1B8270',
       color: '#FFFFFF',
     },
   },
@@ -190,28 +191,29 @@ export default function SeasonalAnalysisTable({data, lessNumber, greaterNumber})
     // console.log('[returnsTable.SeasonalAnalysis.newData',newData)
     
   return (
-    
-    <div style={{ height: 410, width: '100%' }} className={classes.root}>
-      <DataGrid
-        density='compact'
-        rows={newData}
-        columns={columns}
-        // columnBuffer={2} 
-        // columnThreshold={2}
-        getCellClassName={(params) => {
-          if (params.field === 'year') {
-            return '';
-          }
-          // return params.value >= greaterNumber/100 || params.value <lessNumber/100 ? 'hot' : 'cold';
-          if(greaterNumber && parseFloat(params.value) >= formatNumber(greaterNumber)){
-            return 'hot'
-          } else if(lessNumber && parseFloat(params.value) <=formatNumber(lessNumber)){
-            return 'cold'
-          } else {
-            return 
-          }
-        }}
-      />
+    <div className='stripedTable'>
+
+      <div style={{ height: 410, width: '100%' }} className={classes.root}>
+        <DataGrid
+          density='compact'
+          rows={newData}
+          columns={columns}
+          // columnBuffer={2} 
+          // columnThreshold={2}
+          getCellClassName={(params) => {
+            if (params.field === 'year') {
+              return '';
+            }
+            if(greaterNumber && parseFloat(params.value) >= formatNumber(greaterNumber)){
+              return 'hot'
+            } else if(lessNumber && parseFloat(params.value) <=formatNumber(lessNumber)){
+              return 'cold'
+            } else {
+              return 
+            }
+          }}
+        />
+      </div>
     </div>
   );
 }

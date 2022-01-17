@@ -6,21 +6,19 @@ import ReactApexChart from "react-apexcharts";
 
 
 const StatisticalSummaryBarChart = ({categories,portfolioData,spxData}) => {
-  // const valuesArr = data.slice(1).map((entry)=>{return entry.value})
-  // const dateArr = data.slice(1).map((entry)=>{return entry.date})
-  // console.log('[SeasonalBarChart.data',data)
-  // console.log('[SeasonalBarChart.valuesArr',valuesArr)
-  // console.log('[SeasonalBarChart.dateArr',dateArr)
+  
 
-console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioData',portfolioData)
-console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
+// console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioData',portfolioData)
+// console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
   
   const series =  [{
     data: [portfolioData, spxData]
   }]
   
   const options = {
+    colors: ['#1B8270', '#091F3C'],
     chart: {
+      
       type: 'bar',
       height: 350
     },
@@ -34,6 +32,7 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
     dataLabels: {
       enabled: false,
     },
+    
     
     xaxis: {
       
