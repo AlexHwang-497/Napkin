@@ -252,7 +252,7 @@ const fetchPortfolioData = (selectedPortfolio) => {
             {/* <RecommendedPosts  onClick={() => openPost(id)}/> */}
         </Box>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-    <AppBar position='static'>
+    <AppBar position='static' style={{ background: '#2E3B55' }} >
         <Tabs
           value={value}
           onChange={handleChange}

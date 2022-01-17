@@ -14,7 +14,7 @@ console.log('[PortfolioPost.PortfolioPostBarChart.spxAnnualizedReturn',spxAnnual
 // console.log('[PortfolioPost.PortfolioPostBarChart.pracs',spxAnnualizedReturn[1][0])
 let spxAnnualizedReturnMap=spxAnnualizedReturn.map((el,i)=>
 // el.length
-(finance.CAGR(el[0],el[el.length-1],el.length/12)/100).toFixed(2)
+(finance.CAGR(el[0],el[el.length-1],el.length/12)).toFixed(2)
 
 )
 // console.log('[PortfolioPost.PortfolioPostBarChart.spxAnnualizedReturnMap',spxAnnualizedReturnMap)
@@ -29,17 +29,17 @@ let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAn
   
   const series =  [
     {
-    name: 'benchmark ',
-    data: [spxAnnualizedReturnMap[0],spxAnnualizedReturnMap[1],spxAnnualizedReturnMap[2],spxAnnualizedReturnMap[3]],
+      name: 'Portfolio ',
+      data: [portfolioAnnualizeReturn[0]*100,portfolioAnnualizeReturn[1]*100,portfolioAnnualizeReturn[2]*100,portfolioAnnualizeReturn[3]*100]
     },
     {
-      name: 'Portfolio ',
-      data: [portfolioAnnualizeReturn[0],portfolioAnnualizeReturn[1],portfolioAnnualizeReturn[2],portfolioAnnualizeReturn[3]]
+    name: 'benchmark ',
+    data: [spxAnnualizedReturnMap[0],spxAnnualizedReturnMap[1],spxAnnualizedReturnMap[2],spxAnnualizedReturnMap[3]],
     },
 ]
   
   const options = {
-    colors: ['#1B8270','#091F3C'],
+    colors: ['#1B8270','#091F3C',],
     chart: {
       type: 'bar',
       height: 430
@@ -72,7 +72,7 @@ let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAn
       categories: ['TTM','3-Year','5-year','10-year']
     },
     title: {
-      text: 'Portfolio Annualized Return',
+      text: 'Portfolio Annualized Return(%)',
       align: 'left',
     },
     toolbar:{

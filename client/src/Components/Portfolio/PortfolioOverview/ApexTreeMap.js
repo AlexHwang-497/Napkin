@@ -65,11 +65,14 @@ const ApexTreeMap = ({treeMapData,dateIndex,format,percentile}) => {
                 from: -Math.abs(min),
                 to: ((max-min)*percentile)+min,
                 color: '#CD363A'
+                // color: '#1B8270'
               },
               {
                 from: ((max-min)*percentile)+min+.000001,
                 to:max,
-                color: '#66DA26'
+                // color: '#CD363A'
+                color: '#1B8270'
+                // color: '#CD363A'
               }
             ]
           }
@@ -91,19 +94,3 @@ const ApexTreeMap = ({treeMapData,dateIndex,format,percentile}) => {
 
 export default ApexTreeMap
 
-//   data:[
-      //     {
-      //       x:'new Delhi',
-      //       y:218,
-      //     },
-      //     {
-      //       x:'new york',
-      //       y:100,
-      //     },
-      //     {
-      //       x:'los Angels',
-      //       y:100,
-      //     },
-      //   ]
-      
-      // }

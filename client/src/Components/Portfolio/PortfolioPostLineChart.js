@@ -26,20 +26,20 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
  
     const series = [
         {
+          name: "Portfolio",
+          data: portfolioData
+        },
+        {
           name: "SPX",
           data: spxData
           
-        },
-        {
-          name: "Portfolio",
-          data: portfolioData
         },
         
         
     ]
     
     const options = {
-        colors: ['#091F3C','#1B8270'],
+        colors: ['#1B8270','#091F3C',],
         chart: {
             height: 350,
             type: 'line',
