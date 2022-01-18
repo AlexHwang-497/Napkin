@@ -151,13 +151,13 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
 
     return (
         <Grid container spacing={3} >
-        <Grid item xs={6} >
+        <Grid item sm={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             <h1>Portfolio Monthly Returns(%)</h1>
             <SeasonalBarChart data={barChartdataNeeded}/>
             </Paper>
         </Grid>
-        <Grid item xs={6} >
+        <Grid item sm={6} >
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
               <TextField  
                 color='string' 
