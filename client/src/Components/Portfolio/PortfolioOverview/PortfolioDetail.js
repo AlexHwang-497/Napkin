@@ -80,6 +80,7 @@ console.log('[PortfolioDetail.portfolioVariance',portfolioVariance)
 console.log('[PortfolioDetail.portfolioBeta',portfolioBeta)
 console.log('[PortfolioDetail.portfolioAlpha',portfolioAlpha)
 console.log('[PortfolioDetail.portfolioCumulativeReturn',portfolioCumulativeReturn)
+console.log('[PortfolioDetail.portfolioCov',portfolioCov)
 
 
   return (

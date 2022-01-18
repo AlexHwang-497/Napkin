@@ -55,7 +55,7 @@ console.log('[PortfolioPosts.stuff',stuff)
         isLoading ? <CircularProgress /> : (
           <Grid className={classes.container} container alignItems="stretch" spacing={3}>
             {portfolios?.map((portfolio) => (
-              <Grid key={portfolio._id} item xs={4} >
+              <Grid key={portfolio._id} item xs={12} sm={4} >
               {/* <Grid key={portfolio._id} item xs={12} sm={6} md={6} lg={3}> */}
                 <PortfolioPost post={portfolio} setCurrentId={setCurrentId} />
                 

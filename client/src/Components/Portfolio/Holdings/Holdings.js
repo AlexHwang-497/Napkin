@@ -156,15 +156,15 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     
     return (
         <Grid container spacing={3}>
-            <Grid item xs={6}>
-                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+            <Grid item sm={6}>
+                {/* <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}> */}
                 <h1>Portfolio Sector Bifurcation</h1>
                     <SectorTable ownership={ownership} data={securityData} assets={assets} dateIndex={dateIndex} sector={sector} image={image}/>
-                </Paper>
+                {/* </Paper> */}
 
             </Grid>
 
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                             <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>

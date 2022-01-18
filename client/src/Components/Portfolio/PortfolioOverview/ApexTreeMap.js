@@ -85,8 +85,6 @@ const ApexTreeMap = ({treeMapData,dateIndex,format,percentile}) => {
     return(
       <Fragment>
         <Chart options={options} series={series} type="treemap" height={400} />
-        
-
       </Fragment>
       
     )

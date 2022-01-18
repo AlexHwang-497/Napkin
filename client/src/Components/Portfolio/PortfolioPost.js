@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Card, Paper, FormControl, MenuItem, InputLabel,Select, CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem,TextField  } from '@material-ui/core/';
+import { Card, Paper, FormControl, MenuItem, InputLabel,Select, Grid,CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem,TextField  } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShareIcon from '@material-ui/icons/Share';
@@ -351,17 +351,28 @@ console.log('[PortfolioPost.yearArr',yearArr)
             </FormControl>
 
         </Paper>
+        
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
-        <Paper style={{  borderRadius: '10px' }} elevation={3}>
-            <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
-          </Paper>
-          <Paper style={{  borderRadius: '10px' }} spacing={2} elevation={3}>
+        <Grid xs={12}>
+          <Grid item xs container direction="column" spacing={2}>
+            {/* <Grid xs={12}  sm={6}> */}
+            {/* <Grid style={{  borderRadius: '10px' }} elevation={3}> */}
+                <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+              </Grid>
+              <Grid item xs container direction="column" spacing={2}>
+              {/* <Grid xs={12}  sm={6}> */}
+              {/* <Grid style={{  borderRadius: '10px' }} spacing={2} elevation={3}> */}
 
-              <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
-          </Paper>
+                  <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
+              </Grid>
+
+        </Grid>
+        
         {/* <LineGraph assets={post.assets} portfolioName={"Ytd Growth of $10,000"} ownership={post.ownership} startDate={'2021-01-01'} endDate={'2021-11-14'}/>         */}
         {/* <PortfolioPostTable data ={post}/> */}
       </ButtonBase>
+
+        
 
         <Divider style={{ margin: '20px 0' }} />
         {/* <Typography paragraph>Description:</Typography> */}

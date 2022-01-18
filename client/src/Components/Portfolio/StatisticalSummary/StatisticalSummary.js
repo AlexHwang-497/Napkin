@@ -139,6 +139,7 @@ console.log('[StatisticalSummary.portfolioBeta',portfolioBeta)
 console.log('[StatisticalSummary.portfolioAlpha',portfolioAlpha)
 console.log('[StatisticalSummary.portfolioCumulativeReturn',portfolioCumulativeReturn)
 console.log('[StatisticalSummary.arrPortfolioReturns',arrPortfolioReturns)
+console.log('[StatisticalSummary.portfolioCov',arrPortfolioReturns)
 
 let portfolioStdDevNeeded,
 portfolioVarianceNeeded,
