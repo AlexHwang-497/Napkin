@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Paper} from '@material-ui/core'
+import {Grid, Paper,Divider} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 
 import LineGraph from '../Charts/LineGraph'
@@ -97,25 +97,24 @@ let dateObjs = {
     const startDate =''
     return (
         <Grid container spacing={3}>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    
                   <TRLineChart priceData={ytdData} title={'YTD'}/>
                 </Paper>
             </Grid>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     
                 <TRLineChart priceData={threeYearData} title={'3-Year'}  />
                 </Paper>
             </Grid>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     
                 <TRLineChart priceData={fiveYearData} title={'5-Year'} />
                 </Paper>
             </Grid>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     
                     <TRLineChart priceData={longestData} title={longestDataMonth} />

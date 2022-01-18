@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Card, IconButton, Icon } from '@material-ui/core'
+import { Grid, Card, IconButton, Icon,Divider } from '@material-ui/core'
 import StatiscialSummaryBarChart from '../Charts/StatiscialSummaryBarChart'
 
 const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumulativeReturn,spxAnnualizedReturn}) => {
@@ -50,6 +50,8 @@ const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumul
                             <div className="ml-4">
                                 <h1 className="m-0 text-muted">{item.title}</h1>
                                 <h3 className="mt-1 text-32">
+                                <Divider style={{ margin: '20px 0' }} />
+                                
                                 <StatiscialSummaryBarChart categories={0} portfolioData={item.amount.toLocaleString()} spxData={item.spxAmount.toLocaleString()}/>    
                                     
                                 </h3>

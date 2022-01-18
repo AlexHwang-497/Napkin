@@ -1,4 +1,4 @@
-import {Grid, Paper, TextField,Box} from '@material-ui/core'
+import {Grid, Paper, TextField,Box,Divider} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import VerticalBar from '../Charts/BarChart'
 import CollapsibleTable from '../CollapsableTable'
@@ -151,13 +151,14 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
 
     return (
         <Grid container spacing={3} >
-        <Grid item xs={6} >
+        <Grid item sm={6} >
             <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-            <h1>Portfolio Monthly Returns(%)</h1>
+            <h1>Portfolio Monthly Returns Bar Chart(%)</h1>
+            <Divider style={{ margin: '20px 0' }} />
             <SeasonalBarChart data={barChartdataNeeded}/>
             </Paper>
         </Grid>
-        <Grid item xs={6} >
+        <Grid item sm={6} >
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
               <TextField  
                 color='string' 
@@ -175,14 +176,10 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
               />
             {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
             <h1>Portfolio Monthly Returns(%)</h1>
+            <Divider style={{ margin: '20px 0' }} />
             <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>
           </Paper>
         </Grid>
-        {/* <Grid item xs={6} >
-          <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                <SeasonalAnalysisTable data={dataNeeded}/>
-          </Paper>
-        </Grid> */}
     </Grid>
         
     )

@@ -23,7 +23,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,portfolioBeta,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn}) {
   const rows = [
     createData('Return Standard Deviation', portfolioCumulativeReturn.toFixed(2)*100, spxCumulativeReturn.toFixed(2)*100, (portfolioCumulativeReturn-spxCumulativeReturn).toFixed(2)*100),
-    createData('Price Standard Deviation', portfolioAnnualizedReturn, spxAnnualizedReturn, (portfolioAnnualizedReturn-spxAnnualizedReturn)),
+    createData('Price Standard Deviation', portfolioAnnualizedReturn, spxAnnualizedReturn.toFixed(2), (portfolioAnnualizedReturn-spxAnnualizedReturn).toFixed(2)),
     createData('Covariance', portfolioCov.toFixed(2)),
     createData('Beta',portfolioBeta[0].toFixed(2),1.0 ),
     createData('Alpha',portfolioAlpha[0].toFixed(2)  ),

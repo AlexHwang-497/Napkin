@@ -1,5 +1,5 @@
 import React, {Fragment, useState,useEffect} from 'react'
-import {Grid, Paper,Card, Icon, Fab, Select,MenuItem,FormControl,InputLabel, Box} from '@material-ui/core'
+import {Grid, Paper,Card, Icon, Fab, Select,MenuItem,FormControl,InputLabel, Box, Divider} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import CollapsibleTable from '../CollapsableTable'
 import LineGraph from '../Charts/LineGraph'
@@ -217,6 +217,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         </Select>
                     </FormControl> */}
                     <h1>Portfolio Growth of $10,000</h1>
+                    <Divider style={{ margin: '20px 0' }} />
                     <TRLineChart priceData={lineChartDataNeeded} />
                 </Paper>
             </Grid>
@@ -242,6 +243,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                     </FormControl> */}
                   
                     <h1>Current Portoflio Securitites</h1>
+                    <Divider style={{ margin: '20px 0' }} />
 
                     <PortfolioOverviewPagTable dataNeeded={portfolioOverviewDataNeeded}/>
                     
@@ -251,7 +253,9 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
             <Grid item xs={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 <h1>Comment Section</h1>
+                <Divider style={{ margin: '20px 0' }} />
                     <CommentSection post={post}/>
+                    <Divider style={{ margin: '20px 0' }} />
                     <RecommendedPosts/>
 
                 </Paper>

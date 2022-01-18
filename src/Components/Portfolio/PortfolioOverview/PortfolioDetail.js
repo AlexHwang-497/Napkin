@@ -89,8 +89,9 @@ console.log('[PortfolioDetail.portfolioCov',portfolioCov)
           
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
           <h1>Trailing Risk and Returns of Currrent Portoflio</h1>
+          <Divider style={{ margin: '20px 0' }} />
             <PortfolioReturnTable  annReturn={calculations}/>
-            <Divider style={{ margin: '20px 0' }} />
+            
             {/* <CommentSection post={post}/> */}
           </Paper>
 

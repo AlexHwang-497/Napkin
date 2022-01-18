@@ -7,7 +7,7 @@ import StatCards from './StatCards'
 import StatCards2 from './StatCard2'
 import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDeviation, calculateCumulativeReturn,totalPortfolioValue,totalPortfolioValueReturns, calculateAnnualizedReturn,calcCovariance, calcAlpha } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-import { Grid, Card,Select,MenuItem,Box, FormControl, InputLabel } from '@material-ui/core'
+import { Grid, Card,Select,MenuItem,Box, FormControl, InputLabel,Divider } from '@material-ui/core'
 import StatisticalTable from './ReturnStatisticalTable'
 import TotalIncomeDarkCard from './TotalIncomeDarkCard'
 function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting}) {
