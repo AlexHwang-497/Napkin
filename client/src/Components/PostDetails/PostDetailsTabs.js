@@ -6,7 +6,7 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs, TextField, AppBar, SwipeableDrawer, Card  } from "@material-ui/core";
+import { Box, Tab, Typography, Tabs, TextField, AppBar, SwipeableDrawer, FormControl, MenuItem, InputLabel,Select, Card  } from "@material-ui/core";
 import RecommendedPosts from "./RecommendedPosts";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
 import SwipeableTemporaryDrawer from "./tutorial/SwipeableTemporaryDrawer";
@@ -86,6 +86,7 @@ export default function BasicTabs() {
   const [yearRange,setYearRange] = useState([])
   const [dateArr,setDateArr] = useState([])
   const [sectorWeighting,setSectorWeighting] = useState()
+  const [dateSelect,setDateSelect] = useState('')
   let currentDate = new Date().toISOString().slice(0, 10)
  
   useEffect(()=>{
@@ -245,7 +246,12 @@ const fetchPortfolioData = (selectedPortfolio) => {
   // const recommendedPosts = selectedPortfolio.filter(({ _id }) => _id !== selectedPortfolio._id);
   // const openPost = console.log('openPost.id',id)
   const openPost = (_id) => history.push(`/posts/${_id}`);
-  
+
+  const dateTypeHandler = (e) => {
+    // setSelectedLineChartData(e.target.value)
+    setDateSelect(e.target.value)
+}
+console.log('[postDetailsTabs.dateSelect',dateSelect)
   return (
     <Box sx={{ width: "100%", bgcolor:'#EEEEEE' }}>
         <Box>          
@@ -270,9 +276,21 @@ const fetchPortfolioData = (selectedPortfolio) => {
         </Tabs>
     </AppBar>  
       </Box>
-        <Card align={'left'} sx={{ maxWidth: 100 }}>
+        <Card  sx={{ maxWidth: 100 }}>
           <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
           {/* <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
+        {(value===0 || value===4)  && <FormControl>
+          <InputLabel align={"right"} id="demo-simple-select-standard-label">Date</InputLabel>
+          <Select
+              value={dateSelect}
+              onChange={dateTypeHandler}
+              label="Date">
+              <MenuItem value={'ytd'}>YTD</MenuItem>
+              <MenuItem value={'3yr'}>3-Yr</MenuItem>
+              <MenuItem value={'5yr'}>5-Yr</MenuItem>
+              <MenuItem value={'6yr'}>{yearArr.length-1}-Yr</MenuItem>
+          </Select>
+      </FormControl>}
         </Card>
 
       <TabPanel value={value} index={0}>
@@ -280,6 +298,7 @@ const fetchPortfolioData = (selectedPortfolio) => {
       
       
         <PortfolioOverview
+          dateSelect={dateSelect}
           yearArr={yearArr}
           priceData={pracData}
           assets={assets}
@@ -328,6 +347,7 @@ const fetchPortfolioData = (selectedPortfolio) => {
       </TabPanel>
       <TabPanel value={value} index={4}>
         <StatisticalSummary
+          dateSelect={dateSelect}
           yearArr={yearArr}
           priceData={pracData}
           assets={assets}

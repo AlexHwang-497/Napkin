@@ -7,10 +7,10 @@ import StatCards from './StatCards'
 import StatCards2 from './StatCard2'
 import { OrganizeData, monthlyReturn,subSet,calcBeta,getVariance,getStandardDeviation, calculateCumulativeReturn,totalPortfolioValue,totalPortfolioValueReturns, calculateAnnualizedReturn,calcCovariance, calcAlpha } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-import { Grid, Card,Select,MenuItem,Box, FormControl, InputLabel } from '@material-ui/core'
+import { Grid, Card,Select,MenuItem,Box, FormControl, InputLabel,Divider } from '@material-ui/core'
 import StatisticalTable from './ReturnStatisticalTable'
 import TotalIncomeDarkCard from './TotalIncomeDarkCard'
-function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting}) {
+function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting, dateSelect}) {
 
 
     const [dateType,setDateType] = useState('ytd')
@@ -158,13 +158,13 @@ spxReturnMean
 
 
 let neededIndex = 0
-if(dateType==='ytd'){
+if(dateSelect==='ytd'){
     neededIndex = 0
     
-  } else if(dateType==='3yr') {
+  } else if(dateSelect==='3yr') {
     neededIndex = 2
     
-  } else if(dateType==='5yr') {
+  } else if(dateSelect==='5yr') {
     neededIndex = 4
     
   } else {
@@ -217,6 +217,7 @@ if(dateType==='ytd'){
 
     return (
       <Fragment>
+      <Card>
       <FormControl>
         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
         <Select
@@ -229,6 +230,8 @@ if(dateType==='ytd'){
             <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
         </Select>
       </FormControl>
+
+      </Card>
   
   <div className="analytics m-sm-30 mt-6">
       <Grid container spacing={2}>

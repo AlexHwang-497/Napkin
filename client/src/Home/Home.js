@@ -20,6 +20,7 @@ import ChipInput from 'material-ui-chip-input';
 import PortfolioCards from '../Components/Portfolio/PortfolioCards';
 import EditCustomizedDialogs from '../Components/Portfolio/editPortfolioDialog';
 import PortfolioStepper from '../Components/Portfolio/PortfolioStepper'
+import PortfolioAccordion from '../Components/Portfolio/PortfolioAccordion';
 // *this will provide us an idea of where our current location is 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -96,7 +97,8 @@ const Home = () =>{
               </AppBar>
               {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
                 <Card>
-                  <PortfolioStepper/>
+                  {/* <PortfolioStepper/> */}
+                  <PortfolioAccordion/>
 
                 </Card>
               {(!searchQuery && !tags.length) && (
@@ -105,9 +107,6 @@ const Home = () =>{
                   {/* <PortfolioPagination page={page} /> */}
                 </Paper>
               )}
-
-              
-              
             </Grid>
           </Grid>
         </Container>

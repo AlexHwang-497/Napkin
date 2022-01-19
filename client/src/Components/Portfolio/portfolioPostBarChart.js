@@ -29,11 +29,11 @@ let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAn
   
   const series =  [
     {
-      name: 'Portfolio ',
+      name: 'Portfolio',
       data: [portfolioAnnualizeReturn[0]*100,portfolioAnnualizeReturn[1]*100,portfolioAnnualizeReturn[2]*100,portfolioAnnualizeReturn[3]*100]
     },
     {
-    name: 'benchmark ',
+    name: 'SPX',
     data: [spxAnnualizedReturnMap[0],spxAnnualizedReturnMap[1],spxAnnualizedReturnMap[2],spxAnnualizedReturnMap[3]],
     },
 ]

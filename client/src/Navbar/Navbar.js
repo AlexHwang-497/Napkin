@@ -9,6 +9,10 @@ import memoriesLogo from '../images/memoriesLogo.png';
 import napkin from '../images/napkin.jpg'
 import napkinsIcon from '../images/napkinsIcon.jpg'
 import memoriesText from '../images/memoriesText.png';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+// import AddTaskIcon from '@material/icons-material/AddTask';
+// import AddTaskIcon from '@material-ui/icons/AddTaskIcon';
+// '@material-ui/icons/Visibility';
 // import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
 
@@ -57,10 +61,11 @@ const Navbar = () =>{
       <AppBar className={classes.appBar} position="static" color="inherit" style={{ background: '#091F3C' }}>
       <Link to="/" className={classes.brandContainer}>
         {/* <img component={Link} to="/" src={'memoriesText'} alt="icon" height="45px" /> */}
-        <img className={classes.image} src={napkinsIcon} alt="icon" height="100px" />
+        {/* <img className={classes.image} src={napkinsIcon} alt="icon" height="100px" /> */}
+        <ThumbUpAltIcon style={{color:"#fff"}}/>
       </Link>
       <Toolbar className={classes.toolbar}>
-        <h1>Napikin</h1>
+        <h1 style={{color:"#fff"}}>Napikin</h1>
         <CustomizedDialogs/>
         {user?.result ? (
           <div className={classes.profile}>

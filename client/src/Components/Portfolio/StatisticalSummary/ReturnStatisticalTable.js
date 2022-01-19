@@ -24,20 +24,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ReturnStatisticalTable({avgPortfolioReturns,portfolioAnnualizedReturn,spxReturnMean, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn,portfolioMaxReturn,portfolioMinReturn}) {
   const rows = [
     createData('Cumulative Return', (portfolioCumulativeReturn*100).toFixed(2), (spxCumulativeReturn*100).toFixed(2), (portfolioCumulativeReturn-spxCumulativeReturn).toFixed(2)*100),
-    createData('Annualized Return', portfolioAnnualizedReturn, spxAnnualizedReturn, (portfolioAnnualizedReturn-spxAnnualizedReturn)),
+    createData('Annualized Return', portfolioAnnualizedReturn, spxAnnualizedReturn, (portfolioAnnualizedReturn-spxAnnualizedReturn).toFixed(2)),
     createData('Mean Return',avgPortfolioReturns.toFixed(2)*100,spxReturnMean.toFixed(2)*100,(avgPortfolioReturns-spxReturnMean).toFixed(2)*100 ),
     createData('Highest Return Month',portfolioMaxReturn.toFixed(2)*100 ),
-    createData('Lowest Return Month',  portfolioMinReturn.toFixed(2)*100),
+    createData('Lowest Return Month',  (portfolioMinReturn*100).toFixed(2)),
   ];
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
         <TableHead style={{background:"#091F3C"}}>
           <TableRow>
-            <TableCell>Type of Return</TableCell>
-            <TableCell>Portfolio</TableCell>
-            <TableCell align="left">Benchmark</TableCell>
-            <TableCell align="left">Delta</TableCell>
+            <TableCell style={{color:"#fff"}}>Type of Return</TableCell>
+            <TableCell style={{color:"#fff"}}>Portfolio</TableCell>
+            <TableCell style={{color:"#fff"}} align="left">Benchmark</TableCell>
+            <TableCell style={{color:"#fff"}} align="left">Delta</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

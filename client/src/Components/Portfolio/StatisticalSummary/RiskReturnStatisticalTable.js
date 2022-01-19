@@ -23,7 +23,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,portfolioBeta,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn}) {
   const rows = [
     createData('Return Standard Deviation', portfolioCumulativeReturn.toFixed(2)*100, spxCumulativeReturn.toFixed(2)*100, (portfolioCumulativeReturn-spxCumulativeReturn).toFixed(2)*100),
-    createData('Price Standard Deviation', portfolioAnnualizedReturn, spxAnnualizedReturn, (portfolioAnnualizedReturn-spxAnnualizedReturn)),
+    createData('Price Standard Deviation', portfolioAnnualizedReturn, spxAnnualizedReturn.toFixed(2), (portfolioAnnualizedReturn-spxAnnualizedReturn).toFixed(2)),
     createData('Covariance', portfolioCov.toFixed(2)),
     createData('Beta',portfolioBeta[0].toFixed(2),1.0 ),
     createData('Alpha',portfolioAlpha[0].toFixed(2)  ),
@@ -34,10 +34,10 @@ export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
         <TableHead style={{background:"#091F3C"}}>
           <TableRow>
-            <TableCell>Risk/Return</TableCell>
-            <TableCell>Portfolio</TableCell>
-            <TableCell align="left">Benchmark</TableCell>
-            <TableCell align="left">Delta</TableCell>
+            <TableCell style={{color:"#fff"}}>Risk/Return</TableCell>
+            <TableCell style={{color:"#fff"}}>Portfolio</TableCell>
+            <TableCell style={{color:"#fff"}} align="left">Benchmark</TableCell>
+            <TableCell style={{color:"#fff"}} align="left">Delta</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

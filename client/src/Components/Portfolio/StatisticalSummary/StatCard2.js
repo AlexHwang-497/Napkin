@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Grid,InputLabel, Card, Icon, Fab, Button,MenuItem,Menu,Select } from '@material-ui/core'
+import { Grid,InputLabel, Card, Icon, Fab, Button,MenuItem,Menu,Select, Divider } from '@material-ui/core'
 import SectorWeightingTable from './SectorWeightingTable'
 import StatisticalSummaryHorizontalBarChart from '../Charts/StatiscialSummaryHorizontalBarChart'
 import StatisticalSummaryPopover from './StatisticalSummaryPopOver'
@@ -73,6 +73,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                     
                     <div className="pt-4 flex items-center">
                         <h2 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings</h2>
+                        <Divider style={{ margin: '20px 0' }} />
                         {/* <h2 className="m-0 text-muted flex-grow">10.8k</h2> */}
                         {/* <div className="flex justify-center items-centerml-3 h-16 w-16 rounded bg-green text-white"> */}
                             {/* <Icon className="text-14">Portfolio vs BenchMark Sector Weightings</Icon> */}
@@ -101,6 +102,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
             <Grid item xs={12} md={6}>
                 <Card elevation={3}  className="p-4">
             <h2 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings Graph</h2>
+            <Divider style={{ margin: '20px 0' }} />
                     {/* <div className="flex items-center">
                         <Fab
                             size="medium"

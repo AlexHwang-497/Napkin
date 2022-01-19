@@ -10,31 +10,31 @@ import * as React from 'react';
 import {Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography } from '@material-ui/core/';
 const steps = [
   {
-    label: 'Step 1: Create A Portfolio',
-    description: `Please select the create portolio button above.  Clicking the button will take you to 
-    a user form that allows you to create your own unique investment portfolio. `
+    label: 'Where to Start',
+    description: `Please select the create portolio button above.  
+    Clicking the button will take you to a user form that allows you to create your own unique investment portfolio. `
   },
-  {
-    label: 'Step 2: Fill out the Create Portfolio form',
-    description:
-      `Please include the name of your portfolio, a description of your portfolio and the 
-      securities you would like to include in your unique portfolio`,
-  },
-  {
-    label: 'Step 3:  how to add secuirties to create your portfolio',
-    description: `in the complete portfolio form, please enter AAPL in the Enter Stock Symbol Input Box
-    and enter 50% into the % of portoflio input box and press the ADD button.  Next, after adding AAPL to your 
-    portfolio, please enter FB in the enter Enter Stock Symbol Input Box
-    and enter 50% into the % of portoflio input box and press the ADD button.
-    **Please note that every portfolio created in the app is set at a standard $10,000
-    `,
-  },
-  {
-    label: 'Step 4: Press Create New Portfolio ',
-    description: `After you have entered the Portfolio Name, Portfolio Description and entered your securities
-    for your unique investment portfolio, please press Create
-    `,
-  },
+  // {
+  //   label: 'Step 2: Fill out the Create Portfolio form',
+  //   description:
+  //     `Please include the name of your portfolio, a description of your portfolio and the 
+  //     securities you would like to include in your unique portfolio`,
+  // },
+  // {
+  //   label: 'Step 3:  how to add secuirties to create your portfolio',
+  //   description: `in the complete portfolio form, please enter AAPL in the Enter Stock Symbol Input Box
+  //   and enter 50% into the % of portoflio input box and press the ADD button.  Next, after adding AAPL to your 
+  //   portfolio, please enter FB in the enter Enter Stock Symbol Input Box
+  //   and enter 50% into the % of portoflio input box and press the ADD button.
+  //   **Please note that every portfolio created in the app is set at a standard $10,000
+  //   `,
+  // },
+  // {
+  //   label: 'Step 4: Press Create New Portfolio ',
+  //   description: `After you have entered the Portfolio Name, Portfolio Description and entered your securities
+  //   for your unique investment portfolio, please press Create
+  //   `,
+  // },
 ];
 
 export default function PortfolioStepper() {
