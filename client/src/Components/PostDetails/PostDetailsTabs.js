@@ -86,7 +86,7 @@ export default function BasicTabs() {
   const [yearRange,setYearRange] = useState([])
   const [dateArr,setDateArr] = useState([])
   const [sectorWeighting,setSectorWeighting] = useState()
-  const [dateSelect,setDateSelect] = useState('')
+  const [dateSelect,setDateSelect] = useState('ytd')
   let currentDate = new Date().toISOString().slice(0, 10)
  
   useEffect(()=>{

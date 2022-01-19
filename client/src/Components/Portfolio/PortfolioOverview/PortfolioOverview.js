@@ -171,7 +171,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
         
         
             <Grid item sm={6} >
-            <Card>
+            {/* <Card>
 
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
@@ -191,7 +191,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
                         <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
-            </Card>
+            </Card> */}
                 
 
                     <Paper>    
