@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Grid,InputLabel, Card, Icon, Fab, Button,MenuItem,Menu,Select, Divider } from '@material-ui/core'
+import { Grid,InputLabel, Box, Card, Icon, Fab, Button,MenuItem,Menu,Select, Divider } from '@material-ui/core'
 import SectorWeightingTable from './SectorWeightingTable'
 import StatisticalSummaryHorizontalBarChart from '../Charts/StatiscialSummaryHorizontalBarChart'
 import StatisticalSummaryPopover from './StatisticalSummaryPopOver'
@@ -72,7 +72,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                 <Card elevation={3} className="p-4">
                     
                     <div className="pt-4 flex items-center">
-                        <h2 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings</h2>
+                        <h1 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings</h1>
                         <Divider style={{ margin: '20px 0' }} />
                         {/* <h2 className="m-0 text-muted flex-grow">10.8k</h2> */}
                         {/* <div className="flex justify-center items-centerml-3 h-16 w-16 rounded bg-green text-white"> */}
@@ -80,22 +80,30 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                         {/* </div> */}
                         {/* <span className="text-13 text-green ml-1"> (+21%)</span> */}
                     </div>
-                    <h1>
-                    
-                    <InputLabel id="demo-simple-select-standard-label">Data Type</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
+                    {/* <Grid   container direction="row" justifyContent="space-between" alignItems="baseline"> */}
+                    <Box component="form"sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
                         
-                        onChange={dateTypeHandler}
-                        label="Data Type">
+                            <InputLabel id="demo-simple-select-standard-label">Data Type</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                
+                                onChange={dateTypeHandler}
+                                label="Data Type">
 
-                        <MenuItem value={'initial'}>Initial Investment</MenuItem>
-                        <MenuItem value={'currentPort'}>Current Value</MenuItem>
+                                <MenuItem value={'initial'}>Initial Investment</MenuItem>
+                                <MenuItem value={'currentPort'}>Current Value</MenuItem>
+                                
+                            </Select>
                         
-                    </Select>
-                    </h1>
-                    <StatisticalSummaryPopover/>
+
+                        
+                            {/* <StatisticalSummaryPopover/> */}
+                        
+                    </Box>
+
+                    {/* </Grid> */}
+                    <Divider style={{ margin: '20px 0' }} />
                     <SectorWeightingTable benchmarkSectorWeighting={benchmarkSectorWeighting} portfolioWeighting={portfolioDataNeeded}/>
                 </Card>
             </Grid>

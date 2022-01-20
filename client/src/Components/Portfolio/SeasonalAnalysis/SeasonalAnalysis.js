@@ -160,6 +160,8 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
         </Grid>
         <Grid item sm={6} >
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+          <h1>Portfolio Monthly Returns(%)</h1>
+            <Divider style={{ margin: '20px 0' }} />
               <TextField  
                 color='string' 
                 label="greater then(>)%" 
@@ -174,9 +176,8 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 onChange={lessNumberHandler}
                 defaultValue = {'-5'}
               />
-            {/* <ReturnsTable data={dataNeeded} dataNeeded={dataNeeded}/> */}
-            <h1>Portfolio Monthly Returns(%)</h1>
             <Divider style={{ margin: '20px 0' }} />
+            
             <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>
           </Paper>
         </Grid>

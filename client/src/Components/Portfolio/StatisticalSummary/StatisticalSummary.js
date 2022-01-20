@@ -170,6 +170,8 @@ if(dateSelect==='ytd'){
   } else {
     neededIndex = securityData.length-1
   }
+
+  
   
   securityDataNeeded=securityData[0][neededIndex]
   spxReturnStDeviation=securityDataNeeded.returnStDev
@@ -189,7 +191,9 @@ if(dateSelect==='ytd'){
   portfolioAnnualizeReturnNeeded=portfolioAnnualizeReturn[neededIndex].slice(1)
   spxCumulativeReturnValueNeeded=spxCumulativeReturnValue[neededIndex]
   spxAnnualizedReturnNeeded = finance.CAGR(spxValue[neededIndex][0],spxValue[neededIndex][spxValue.length-1],spxValue[neededIndex].length/12) ;
-
+  
+  console.log('[StatisticalSummary.neededIndex',neededIndex)
+  console.log('[StatisticalSummary.securityData.length',securityData.length-1)
   console.log('[StatisticalSummary.portfolioStdDevNeeded',portfolioStdDevNeeded)
   console.log('[StatisticalSummary.portfolioCumulativeReturnNeeded',portfolioCumulativeReturnNeeded)
   console.log('[StatisticalSummary.portfolioAnnualizeReturnNeeded',portfolioAnnualizeReturnNeeded)
@@ -217,7 +221,7 @@ if(dateSelect==='ytd'){
 
     return (
       <Fragment>
-      <Card>
+      {/* <Card>
       <FormControl>
         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
         <Select
@@ -231,7 +235,7 @@ if(dateSelect==='ytd'){
         </Select>
       </FormControl>
 
-      </Card>
+      </Card> */}
   
   <div className="analytics m-sm-30 mt-6">
       <Grid container spacing={2}>

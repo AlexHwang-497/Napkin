@@ -6,7 +6,7 @@ import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
 import { useParams, useHistory } from "react-router-dom";
-import { Box, Tab, Typography, Tabs, TextField, AppBar, SwipeableDrawer, FormControl, MenuItem, InputLabel,Select, Card  } from "@material-ui/core";
+import { Box, Tab,Grid, Typography, Tabs, TextField, AppBar, SwipeableDrawer, FormControl, MenuItem, InputLabel,Select, Card  } from "@material-ui/core";
 import RecommendedPosts from "./RecommendedPosts";
 // import {DesktopDatePicker} from '@material-ui/lab/DesktopDatePicker'
 import SwipeableTemporaryDrawer from "./tutorial/SwipeableTemporaryDrawer";
@@ -276,9 +276,14 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
         </Tabs>
     </AppBar>  
       </Box>
+      <Grid   container direction="row" justifyContent="space-between" alignItems="baseline">
+
         <Card  sx={{ maxWidth: 100 }}>
-          <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
+          <TextField id="date" label="Data End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
           {/* <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
+        </Card>
+        <Card>
+        
         {(value===0 || value===4)  && <FormControl>
           <InputLabel align={"right"} id="demo-simple-select-standard-label">Date</InputLabel>
           <Select
@@ -291,7 +296,9 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
               <MenuItem value={'6yr'}>{yearArr.length-1}-Yr</MenuItem>
           </Select>
       </FormControl>}
+
         </Card>
+      </Grid>
 
       <TabPanel value={value} index={0}>
       

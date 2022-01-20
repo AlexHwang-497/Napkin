@@ -10,6 +10,10 @@ import napkin from '../images/napkin.jpg'
 import napkinsIcon from '../images/napkinsIcon.jpg'
 import memoriesText from '../images/memoriesText.png';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+// import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import NoteTwoToneIcon from '@material-ui/icons/NoteTwoTone';
+import BorderColorTwoToneIcon from '@material-ui/icons//BorderColorTwoTone';
+// import StickyNote2TwoToneIcon from '@material-ui/icons/StickyNote2TwoTone';
 // import AddTaskIcon from '@material/icons-material/AddTask';
 // import AddTaskIcon from '@material-ui/icons/AddTaskIcon';
 // '@material-ui/icons/Visibility';
@@ -52,10 +56,6 @@ const Navbar = () =>{
     
       }, [location]);
 
-
-
-
-    
     
     return(
       <AppBar className={classes.appBar} position="static" color="inherit" style={{ background: '#091F3C' }}>
@@ -63,9 +63,11 @@ const Navbar = () =>{
         {/* <img component={Link} to="/" src={'memoriesText'} alt="icon" height="45px" /> */}
         {/* <img className={classes.image} src={napkinsIcon} alt="icon" height="100px" /> */}
         <ThumbUpAltIcon style={{color:"#fff"}}/>
+        <NoteTwoToneIcon style={{color:"#fff"}}/>
+        <BorderColorTwoToneIcon style={{color:"#fff"}}/>
       </Link>
       <Toolbar className={classes.toolbar}>
-        <h1 style={{color:"#fff"}}>Napikin</h1>
+        <h1 style={{color:"#fff"}}>Napkin</h1>
         <CustomizedDialogs/>
         {user?.result ? (
           <div className={classes.profile}>
