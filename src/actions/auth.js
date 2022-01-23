@@ -13,6 +13,17 @@ export const signin = (formData, history) => async (dispatch) => {
     console.log(error);
   }
 };
+export const guestSignIn = ( history) => async (dispatch) => {
+  try {
+    const { data } = await api.guestSignIn();
+
+    dispatch({ type: AUTH, data });
+
+    history.push('/');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const signup = (formData, router) => async (dispatch) => {///////
   try {

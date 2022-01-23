@@ -10,6 +10,7 @@ import { signin, signup } from '../actions/auth';
 import { AUTH } from '../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
+import { guestSignIn } from '../api';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }; /////////////
 
 const Auth = () => {
@@ -26,13 +27,16 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('this is the handleSubmit in Auth.js',formData)
-
-    if (isSignup) {
+    if(e.target.getAttribute('id')==='guestLogin'){
+      dispatch(guestSignIn())
+    } else if(isSignup) {
       // *we pass in the history to help us navigate once something happens
         dispatch(signup(formData, history));
     } else {
         dispatch(signin(formData, history));
     }
+    
+    
   };
   // const handleChange =''
   // *[e.target.name]: e.target.value ; this is just handling the current target name aka email edress
@@ -81,7 +85,7 @@ const Auth = () => {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
-                <form className={classes.form} onSubmit={handleSubmit}>
+                <form className={classes.form} onSubmit={handleSubmit} noValidate>
                     <Grid container spacing={2}>
                         { isSignup && (
                         <>
@@ -89,7 +93,8 @@ const Auth = () => {
                             <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                         </>
                         )}
-                        <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+                        
+                        <Input name="email"  label="Email Address" handleChange={handleChange} type="email" />
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                         { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
                     </Grid>
@@ -114,6 +119,7 @@ const Auth = () => {
                         onFailure={googleError}
                         cookiePolicy="single_host_origin"
                     />
+                    <Button id='guestLogin' color="primary" type="submit" fullWidth variant="contained"  className={classes.submit} >Guest LogIn</Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Button onClick={switchMode}>

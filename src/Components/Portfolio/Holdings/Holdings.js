@@ -1,5 +1,5 @@
 import React, {Fragment, useState,useEffect} from 'react'
-import {Grid, Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box, Divider,TextField} from '@material-ui/core'
+import {Grid,  Paper,Card, Icon, Fab, Select, MenuItem, FormControl, InputLabel, Box, Divider,TextField} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import CollapsibleTable from '../CollapsableTable'
 import VerticalBar from '../Charts/BarChart'
@@ -167,25 +167,32 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
 
             <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                            <Select
-                                value={dateType}
-                                onChange={dateTypeHandler}
-                                label="Date"
-                                >
-                                <MenuItem value={'ytd'}>YTD</MenuItem>
-                                <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                                <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                                <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
-                            </Select>
-                            <TextField  
-                                color='string' 
-                                label="Percentile" 
-                                variant="filled"
-                                onChange={percentileHandler}
-                            />
-                                <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
+                    <h1>Portfolio Tree Map</h1>
+                    <Divider style={{ margin: '20px 0' }} />
+
+                    <Box component="form" sx={{'& > :not(style)': { m: 3, width: '25ch' },}} noValidate autoComplete="off">
+                        {/* <Card> */}
+                        <FormControl >
+                        {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}> */}
+                                <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                                <Select
+                                    value={dateType}
+                                    onChange={dateTypeHandler}
+                                    label="Date"
+                                    >
+                                    <MenuItem value={'ytd'}>YTD</MenuItem>
+                                    <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                                    <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                                    <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
+                                </Select>
+                            </FormControl>
+                        {/* </Card> */}
+                        {/* <Card> */}
+                        <FormControl >
+                        {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}> */}
+
+                        
+                            <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
                                 <Select
                                     value={holdingsType}
                                     onChange={holdingsDataHandler}
@@ -204,12 +211,23 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                                     <Divider style={{ margin: '20px 0' }} />
                                     {/* <MenuItem value={''}>Beta</MenuItem>
                                     <MenuItem value={''}>Alpha</MenuItem> */}
-                                
                                 </Select>
-                        </FormControl>
-                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                            </FormControl>
-                    <h1>Portfolio Tree Map</h1>
+                                </FormControl>
+                        {/* </Card> */}
+
+                            
+                            
+                                <TextField  
+                                    color='string' 
+                                    label="Percentile" 
+                                    variant="filled"
+                                    onChange={percentileHandler}
+                                />
+
+                            
+                    </Box>
+                    
+                        
                     <Divider style={{ margin: '20px 0' }} />
                     <ApexTreeChart format={format} treeMapData={treeMapData} dateIndex={dateIndex} percentile={percentile}/>
                 </Paper>

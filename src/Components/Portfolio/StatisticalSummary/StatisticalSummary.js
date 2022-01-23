@@ -10,7 +10,7 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import { Grid, Card,Select,MenuItem,Box, FormControl, InputLabel,Divider } from '@material-ui/core'
 import StatisticalTable from './ReturnStatisticalTable'
 import TotalIncomeDarkCard from './TotalIncomeDarkCard'
-function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting}) {
+function StatisticalSummary({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr,sectorWeighting, dateSelect}) {
 
 
     const [dateType,setDateType] = useState('ytd')
@@ -158,18 +158,20 @@ spxReturnMean
 
 
 let neededIndex = 0
-if(dateType==='ytd'){
+if(dateSelect==='ytd'){
     neededIndex = 0
     
-  } else if(dateType==='3yr') {
+  } else if(dateSelect==='3yr') {
     neededIndex = 2
     
-  } else if(dateType==='5yr') {
-    neededIndex = 4
+  } else if(dateSelect==='5yr') {
+    neededIndex = 3
     
   } else {
     neededIndex = securityData.length-1
   }
+
+  
   
   securityDataNeeded=securityData[0][neededIndex]
   spxReturnStDeviation=securityDataNeeded.returnStDev
@@ -189,11 +191,16 @@ if(dateType==='ytd'){
   portfolioAnnualizeReturnNeeded=portfolioAnnualizeReturn[neededIndex].slice(1)
   spxCumulativeReturnValueNeeded=spxCumulativeReturnValue[neededIndex]
   spxAnnualizedReturnNeeded = finance.CAGR(spxValue[neededIndex][0],spxValue[neededIndex][spxValue.length-1],spxValue[neededIndex].length/12) ;
-
+  
+  console.log('[StatisticalSummary.neededIndex',neededIndex)
+  console.log('[StatisticalSummary.securityData.length',securityData.length-1)
   console.log('[StatisticalSummary.portfolioStdDevNeeded',portfolioStdDevNeeded)
+  console.log('[StatisticalSummary.portfolioStdDev',portfolioStdDev)
   console.log('[StatisticalSummary.portfolioCumulativeReturnNeeded',portfolioCumulativeReturnNeeded)
   console.log('[StatisticalSummary.portfolioAnnualizeReturnNeeded',portfolioAnnualizeReturnNeeded)
+  console.log('[StatisticalSummary.portfolioAnnualizeReturn',portfolioAnnualizeReturn)
   console.log('[StatisticalSummary.spxCumulativeReturnValueNeeded',spxCumulativeReturnValueNeeded)
+  console.log('[StatisticalSummary.spxCumulativeReturnValue',spxCumulativeReturnValue)
   console.log('[StatisticalSummary.spxAnnualizedReturnNeeded',spxAnnualizedReturnNeeded)
   console.log('[StatisticalSummary.arrPortfolioReturnsNeeded',arrPortfolioReturnsNeeded)
   console.log('[StatisticalSummary.maxarrPortfolioReturnsNeeded',maxarrPortfolioReturnsNeeded)
@@ -204,7 +211,10 @@ if(dateType==='ytd'){
   console.log('[StatisticalSummary.spxPriceStDeviation',spxPriceStDeviation)
   console.log('[StatisticalSummary.spxReturnMean',spxReturnMean)
   console.log('[StatisticalSummary.portfolioBetaNeeded',portfolioBetaNeeded)
+  console.log('[StatisticalSummary.securityDataNeeded',securityDataNeeded)
+  
   console.log('[StatisticalSummary.portfolioAlphaNeeded',portfolioAlphaNeeded)
+  
   console.log('[StatisticalSummary.portfolioWeighting',portfolioWeighting)
 
 
@@ -217,6 +227,7 @@ if(dateType==='ytd'){
 
     return (
       <Fragment>
+      {/* <Card>
       <FormControl>
         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
         <Select
@@ -229,6 +240,8 @@ if(dateType==='ytd'){
             <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
         </Select>
       </FormControl>
+
+      </Card> */}
   
   <div className="analytics m-sm-30 mt-6">
       <Grid container spacing={2}>

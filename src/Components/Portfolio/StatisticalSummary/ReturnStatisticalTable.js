@@ -34,10 +34,10 @@ export default function ReturnStatisticalTable({avgPortfolioReturns,portfolioAnn
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
         <TableHead style={{background:"#091F3C"}}>
           <TableRow>
-            <TableCell>Type of Return</TableCell>
-            <TableCell>Portfolio</TableCell>
-            <TableCell align="left">Benchmark</TableCell>
-            <TableCell align="left">Delta</TableCell>
+            <TableCell style={{color:"#fff"}}>Type of Return</TableCell>
+            <TableCell style={{color:"#fff"}}>Portfolio</TableCell>
+            <TableCell style={{color:"#fff"}} align="left">Benchmark</TableCell>
+            <TableCell style={{color:"#fff"}} align="left">Delta</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

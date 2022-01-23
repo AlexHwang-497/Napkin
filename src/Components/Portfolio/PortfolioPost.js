@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Card, Paper, FormControl, MenuItem, InputLabel,Select, Grid,CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem,TextField  } from '@material-ui/core/';
+import { Card, Paper, Box, FormControl, MenuItem, InputLabel,Select, Grid,CardActions,Divider,styled, CardContent,Collapse, CardMedia, Button, Typography, ButtonBase, Avatar, CardHeader, IconButton, Table, TableHead,TableBody,TableRow,TableCell,  Icon ,TablePagination, ImageListItem,TextField  } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShareIcon from '@material-ui/icons/Share';
@@ -74,7 +74,6 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       Promise.all(
       ["SPY",...post.assets].map((stock) =>
       fetch(
-
       `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
       .then((results) =>
           Promise.all(results.map((res) => res.json())).then((stocks) => {
@@ -330,27 +329,36 @@ console.log('[PortfolioPost.yearArr',yearArr)
           title={post.portfolioName}
           subheader={moment(post.dateCreated).fromNow()}
         />
-        <Paper fullWidth sp variant='outlined' >
-            <FormControl variant="standard" sx={{ m: 1,  }}>
-                <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={'selectedLineChartData'}
-                onChange={lineGraphDataHandler}
-                label="Date"
-                >
-                <MenuItem value="">
-                    
-                </MenuItem>
-                <MenuItem value={'ytd'}>YTD</MenuItem>
-                <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-                </Select>
-            </FormControl>
+        <Divider style={{ margin: '20px 0' }} />  
+        <Box component="form"
+          sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off">
 
-        </Paper>
+              {/* <FormControl variant="standard" sx={{ m: 1,  }}> */}
+                  <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                  <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={'selectedLineChartData'}
+                  onChange={lineGraphDataHandler}
+                  label="Date"
+                  >
+                  <MenuItem value="">
+                      
+                  </MenuItem>
+                  <MenuItem value={'ytd'}>YTD</MenuItem>
+                  <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                  <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                  <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+                  </Select>
+              {/* </FormControl> */}
+        </Box>
+          
+        <Divider style={{ margin: '20px 0' }} />  
+        
         
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
         <Grid xs={12}>

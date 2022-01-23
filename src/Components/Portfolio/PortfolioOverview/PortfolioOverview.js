@@ -26,15 +26,17 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import TRLineChart from '../Charts/TotalReturnLine'
 import PortfolioOverviewPagTable from '../Charts/PortfolioOverviewPagTable'
 
-function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData,yearArr}) {
+function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData,yearArr,dateSelect}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
     
     // console.log('[ PortfolioOverview.priceData',priceData)
     
+
     // ! this is making a deep copy
     // const ttmData = JSON.parse(JSON.stringify(subSet(priceData,'2020-12-01')))
     // monthlyReturn(ttmData)
     // console.log('[prac this is the ttmData in portfolio Overview',ttmData)
+    console.log('[PortfolioOverview.state.posts',post)    
     
 
     let cov = require( 'compute-covariance' );
@@ -123,6 +125,7 @@ const dateLabels = yearArr.slice(1);
     
 })
 console.log('[PortfolioOverview.dateArr.data',dateArr)
+console.log('[PortfolioOverview.dateSelect',dateSelect)
 
 //   const threeYrData = dateArr[1] && spxValue[1] && totalPortoflioValue[1] ?[dateArr[1],spxValue[1],totalPortoflioValue[1]]:[]
 //   const fiveYrData = dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
@@ -131,15 +134,15 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
   let lineChartData;
   let portfolioOverviewData;
   let indexNeeded=0
-  if(selectedLineChartData==='ytd'){
+  if(dateSelect==='ytd'){
         // lineChartData = dateArr[0] && spxValue[0] && totalPortoflioValue[0] ?[dateArr[0],spxValue[0],totalPortoflioValue[0]]:[]
         // portfolioOverviewData = securityData[0]
         indexNeeded=0
-    } else if(selectedLineChartData==='3yr'){
+    } else if(dateSelect==='3yr'){
         // lineChartData=dateArr[2] && spxValue[2] && totalPortoflioValue[2] ?[dateArr[2],spxValue[2],totalPortoflioValue[2]]:[]
         // portfolioOverviewData=securityData[2]
         indexNeeded=2
-    } else if(selectedLineChartData==='5yr'){
+    } else if(dateSelect==='5yr'){
         // lineChartData=dateArr[4] && spxValue[4] && totalPortoflioValue[4] ?[dateArr[4],spxValue[4],totalPortoflioValue[4]]:[]
         // portfolioOverviewData=securityData[4]
         indexNeeded=4
@@ -169,8 +172,8 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
 
         
         
-            <Grid item xs={6} >
-            <Card>
+            <Grid item sm={6} >
+            {/* <Card>
 
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
@@ -190,13 +193,16 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                         <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
                         </Select>
                     </FormControl>
-            </Card>
-                <Paper>    
-                    <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
-                </Paper>
+            </Card> */}
+                
+
+                    <Paper>    
+                        <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
+                    </Paper>
+                
                 
             </Grid>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
@@ -221,7 +227,7 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                     <TRLineChart priceData={lineChartDataNeeded} />
                 </Paper>
             </Grid>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
                 {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -250,12 +256,12 @@ console.log('[PortfolioOverview.dateArr.data',dateArr)
                 
                 </Paper>
             </Grid>
-            <Grid item xs={6} >
+            <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 <h1>Comment Section</h1>
                 <Divider style={{ margin: '20px 0' }} />
-                    <CommentSection post={post}/>
-                    <Divider style={{ margin: '20px 0' }} />
+                    <CommentSection currentId={currentId} post={post}/>
+                    
                     <RecommendedPosts/>
 
                 </Paper>

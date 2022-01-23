@@ -53,7 +53,9 @@ export default makeStyles((theme) => ({
   },
   brandContainer: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'left',
+    textDecoration:'none',
+    // marginLeft: '1rem'
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),

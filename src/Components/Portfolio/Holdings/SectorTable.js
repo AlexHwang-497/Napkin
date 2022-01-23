@@ -31,17 +31,19 @@ function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} style={{background:"#091F3C"}}>
-        <TableCell>
+      {/* <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} style={{background:"#ffff"}}> */}
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} style={{background:"#091F3C",}}>
+        <TableCell style={{color:"#fff"}}>
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
+            style={{color:"#fff"}}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" style={{color:"#fff"}}>
           {row.name}
         </TableCell>
         
