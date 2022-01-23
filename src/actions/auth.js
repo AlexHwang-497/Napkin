@@ -8,7 +8,7 @@ export const signin = (formData, history) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    history.push('/');
+    history.push('/posts');
   } catch (error) {
     console.log(error);
   }
@@ -19,7 +19,7 @@ export const guestSignIn = ( history) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    history.push('/');
+    history.push('/posts');
   } catch (error) {
     console.log(error);
   }

@@ -6,11 +6,11 @@ import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Icon from './icon';
-import { signin, signup } from '../actions/auth';
+import { signin, signup,guestSignIn } from '../actions/auth';
 import { AUTH } from '../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
-import { guestSignIn } from '../api';
+// import { guestSignIn } from '../api';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }; /////////////
 
 const Auth = () => {
@@ -27,9 +27,10 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('this is the handleSubmit in Auth.js',formData)
-    if(e.target.getAttribute('id')==='guestLogin'){
-      dispatch(guestSignIn())
-    } else if(isSignup) {
+    
+
+    
+     if(isSignup) {
       // *we pass in the history to help us navigate once something happens
         dispatch(signup(formData, history));
     } else {
@@ -38,6 +39,10 @@ const Auth = () => {
     
     
   };
+
+  const handleGuestSubmit =()=>{
+    dispatch(guestSignIn(history))
+  }
   // const handleChange =''
   // *[e.target.name]: e.target.value ; this is just handling the current target name aka email edress
     //   *this going to allow us to spread all the properties and change the one specific property we want to change
@@ -85,7 +90,7 @@ const Auth = () => {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
-                <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                <form className={classes.form} onSubmit={handleSubmit} >
                     <Grid container spacing={2}>
                         { isSignup && (
                         <>
@@ -119,7 +124,7 @@ const Auth = () => {
                         onFailure={googleError}
                         cookiePolicy="single_host_origin"
                     />
-                    <Button id='guestLogin' color="primary" type="submit" fullWidth variant="contained"  className={classes.submit} >Guest LogIn</Button>
+                    <Button id='guestLogin' color="primary" onClick={handleGuestSubmit} fullWidth variant="contained"  className={classes.submit} >Guest LogIn</Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Button onClick={switchMode}>
