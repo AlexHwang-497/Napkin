@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Card, IconButton, Icon,Divider } from '@material-ui/core'
 import StatiscialSummaryBarChart from '../Charts/StatiscialSummaryBarChart'
 
-const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumulativeReturn,spxAnnualizedReturn}) => {
+const StatCard3 = ({portfolioAnnualizedReturn,portfolioBeta,spxStDeviation,portfolioCumulativeReturn,portfolioStdDev,spxCumulativeReturn,spxAnnualizedReturn}) => {
     const statList = [
         {
             
@@ -19,13 +19,13 @@ const StatCard3 = ({portfolioAnnualizedReturn,portfolioCumulativeReturn,spxCumul
         {
             
             title: 'Return Standard Deviation',
-            amount: portfolioCumulativeReturn,
-            spxAmount:spxCumulativeReturn
+            amount: portfolioStdDev,
+            spxAmount:spxStDeviation
         },
         {
             
             title: 'Beta',
-            amount: portfolioCumulativeReturn,
+            amount: portfolioBeta,
             spxAmount:1.0
         },
         

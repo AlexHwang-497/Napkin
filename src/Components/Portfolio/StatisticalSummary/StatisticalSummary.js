@@ -35,9 +35,9 @@ function StatisticalSummary({sector,assets,ownership, portfolioName,image, stock
   
     const spxValue = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
-        const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-        
-        return data
+    const data = monthlyReturn(range).map((entry)=>entry.arrPeriodReturn)[0]
+    // console.log('[PortfolioDetail.spxValue.monReturn',data)
+    return data
     })
     console.log('[StatisticalSummary.spxValue',spxValue)
 
@@ -124,6 +124,7 @@ console.log('[StatisticalSummary.securityData',securityData)
   let riskFreeRate = .0235
 const portfolioVariance = getVariance(arrPortfolioReturns)
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
+const portfolioPriceStdDev = getStandardDeviation(totalPortoflioValue)
 const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
 const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
 const maxPortfolioReturn =''
@@ -132,14 +133,16 @@ const portfolioAlpha = calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeR
 if(portfolioStdDev && portfolioStdDev.length>0) {
   calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i],portfolioAlpha[i]])
 }
-console.log('[StatisticalSummary.portfolioStdDev',portfolioStdDev)
+console.log('[StatisticalSummary.portfolioPriceStdDev',portfolioPriceStdDev)
+// console.log('[StatisticalSummary.portfolioStdDev',portfolioStdDev)
 console.log('[StatisticalSummary.calculations',calculations)
 console.log('[StatisticalSummary.portfolioVariance',portfolioVariance)
 console.log('[StatisticalSummary.portfolioBeta',portfolioBeta)
 console.log('[StatisticalSummary.portfolioAlpha',portfolioAlpha)
 console.log('[StatisticalSummary.portfolioCumulativeReturn',portfolioCumulativeReturn)
 console.log('[StatisticalSummary.arrPortfolioReturns',arrPortfolioReturns)
-console.log('[StatisticalSummary.portfolioCov',arrPortfolioReturns)
+console.log('[StatisticalSummary.portfolioCov',portfolioCov)
+console.log('[StatisticalSummary.spxValue',spxValue)
 
 let portfolioStdDevNeeded,
 portfolioVarianceNeeded,
@@ -173,10 +176,11 @@ if(dateSelect==='ytd'){
 
   
   
-  securityDataNeeded=securityData[0][neededIndex]
-  spxReturnStDeviation=securityDataNeeded.returnStDev
-  spxPriceStDeviation=securityDataNeeded.priceStDev
-  spxReturnMean=securityDataNeeded.returnMean
+  securityDataNeeded=securityData[neededIndex]
+  let securityDataNeededPracs=securityData[neededIndex]
+  spxReturnStDeviation=securityDataNeeded[0].returnStDev
+  spxPriceStDeviation=securityDataNeeded[0].priceStDev
+  spxReturnMean=securityDataNeeded[0].returnMean
   let portfolioWeighting=securityData[neededIndex].slice(1).map((el)=>{return {sector:el.sector,ownership:el.ownership,portfolioValue:el.securityGrowthValue[el.securityGrowthValue.length-1]}})
   portfolioBetaNeeded=portfolioBeta[neededIndex]
   portfolioAlphaNeeded=portfolioAlpha[neededIndex]
@@ -190,8 +194,13 @@ if(dateSelect==='ytd'){
   portfolioCumulativeReturnNeeded=portfolioCumulativeReturn[neededIndex]
   portfolioAnnualizeReturnNeeded=portfolioAnnualizeReturn[neededIndex].slice(1)
   spxCumulativeReturnValueNeeded=spxCumulativeReturnValue[neededIndex]
-  spxAnnualizedReturnNeeded = finance.CAGR(spxValue[neededIndex][0],spxValue[neededIndex][spxValue.length-1],spxValue[neededIndex].length/12) ;
+  // spxAnnualizedReturnNeeded = finance.CAGR(spxValue[neededIndex][0],spxValue[neededIndex][spxValue.length-1],spxValue[neededIndex].length/12) ;
+  let spxSecurityGrowthValue = securityDataNeeded[0].securityGrowthValue
+   spxAnnualizedReturnNeeded =finance.CAGR(spxSecurityGrowthValue[0],spxSecurityGrowthValue[spxSecurityGrowthValue.length-1],spxSecurityGrowthValue.length/12)
   
+  console.log('[StatisticalSummary.securityData',securityData)
+  console.log('[StatisticalSummary.securityDataNeeded',securityDataNeeded)
+  console.log('[StatisticalSummary.securityDataNeededPracs',securityDataNeededPracs)
   console.log('[StatisticalSummary.neededIndex',neededIndex)
   console.log('[StatisticalSummary.securityData.length',securityData.length-1)
   console.log('[StatisticalSummary.portfolioStdDevNeeded',portfolioStdDevNeeded)
@@ -212,6 +221,7 @@ if(dateSelect==='ytd'){
   console.log('[StatisticalSummary.spxReturnMean',spxReturnMean)
   console.log('[StatisticalSummary.portfolioBetaNeeded',portfolioBetaNeeded)
   console.log('[StatisticalSummary.securityDataNeeded',securityDataNeeded)
+  // console.log('[StatisticalSummary.spxAnnualizedpracs',spxAnnualizedReturnpracs)
   
   console.log('[StatisticalSummary.portfolioAlphaNeeded',portfolioAlphaNeeded)
   
@@ -249,18 +259,25 @@ if(dateSelect==='ytd'){
               <StatCard3 
                 portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
                 portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                spxStDeviation ={spxReturnStDeviation}
+                portfolioStdDev={portfolioStdDevNeeded}
                 spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
-                spxAnnualizedReturn={spxAnnualizedReturnNeeded}/>
+                spxAnnualizedReturn={spxAnnualizedReturnNeeded}
+                portfolioBeta={portfolioBetaNeeded}
+
+                />
               
               <StatCards2 
                 benchmarkSectorWeighting={sectorWeighting}
                 portfolioWeighting={portfolioWeighting}
+                
 
                 />
                 
               <StatCards 
                 portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
                 portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                portfolioStdDev={portfolioStdDevNeeded}
                 portfolioBeta={portfolioBetaNeeded}
                 portfolioAlpha={portfolioAlphaNeeded}
                 portfolioCov={portfolioCovNeeded}
@@ -270,11 +287,14 @@ if(dateSelect==='ytd'){
                 spxReturnStDeviation={spxReturnStDeviation}
                 spxPriceStDeviation={spxPriceStDeviation}
                 portfolioStdDev={portfolioStdDevNeeded}
-                portfolioBeta={portfolioBeta}
-                portfolioAlpha={portfolioAlpha}
+                portfolioBeta={portfolioBetaNeeded}
+                portfolioAlpha={portfolioAlphaNeeded}
                 portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
                 portfolioMinReturn={minarrPortfolioReturnsNeeded}
-                avgPortfolioReturns={avgPortfolioReturnsNeeded}/>
+                avgPortfolioReturns={avgPortfolioReturnsNeeded}
+                spxStDeviation ={spxReturnStDeviation}
+                />
+                
                 
           </Grid>
       </Grid>

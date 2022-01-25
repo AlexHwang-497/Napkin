@@ -20,13 +20,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,portfolioBeta,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn,spxAnnualizedReturn}) {
+export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,portfolioBeta,spxStDeviation,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxPriceStDeviation,spxCumulativeReturn,spxAnnualizedReturn,portfolioStdDev}) {
   const rows = [
-    createData('Return Standard Deviation', portfolioCumulativeReturn.toFixed(2)*100, spxCumulativeReturn.toFixed(2)*100, (portfolioCumulativeReturn-spxCumulativeReturn).toFixed(2)*100),
-    createData('Price Standard Deviation', portfolioAnnualizedReturn, spxAnnualizedReturn.toFixed(2), (portfolioAnnualizedReturn-spxAnnualizedReturn).toFixed(2)),
-    createData('Covariance', portfolioCov.toFixed(2)),
-    createData('Beta',portfolioBeta[0].toFixed(2),1.0 ),
-    createData('Alpha',portfolioAlpha[0].toFixed(2)  ),
+    createData('Return Standard Deviation', (portfolioStdDev*100).toFixed(2)+'%', (spxStDeviation*100).toFixed(2)+'%', ((portfolioStdDev-spxStDeviation)*100).toFixed(2)+'%'),
+    // createData('Price Standard Deviation', portfolioAnnualizedReturn, spxPriceStDeviation.toFixed(2), (portfolioAnnualizedReturn-spxAnnualizedReturn).toFixed(2)),
+    createData('Covariance', (portfolioCov*100).toFixed(2)),
+    createData('Beta',portfolioBeta.toFixed(2),(1.00).toFixed(2) ),
+    createData('Alpha',portfolioAlpha.toFixed(2)  ),
     createData('Sharpe Ratio',  ),
   ];
   return (

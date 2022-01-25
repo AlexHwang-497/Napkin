@@ -61,7 +61,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [stockData,editStockData] = useState([])
     const [pracData, setPracData] = useState([])
     const [dateArr,setDateArr] = useState([])
-    const [lineGraphData, setLineGraphData] = useState('')
+    const [lineGraphData, setLineGraphData] = useState('ytd')
     console.log('[PortfolioPost.post',post)
     // console.log('[PortfolioPost.currentDate',currentDate)
     console.log('[PortfolioPost.endDate',endDate)
@@ -223,22 +223,19 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.lineGraphData',lineGraphData)
   let lineIndex = 0
   let dateIndex = 0
-  if(lineGraphData==='3yr'){
+  if(lineGraphData==='ytd'){
+    lineIndex = 0
+    dateIndex=12
+  } else if (lineGraphData==='3yr'){
     lineIndex = 2
     dateIndex=36
-
-  } else if (lineGraphData==='5yr'){
-    lineIndex = 4
-    dateIndex=60
-  }else if (lineGraphData==='7yr'){
+  }else if (lineGraphData==='5yr'){
     lineIndex = 6
     dateIndex=84
-  }else if (lineGraphData==='10yr'){
-    lineIndex = 9
-    dateIndex=120
-  } else {
-    lineIndex = 0
-    dateIndex = 12
+  }   
+   else {
+    lineIndex = yearArr.length-2
+    dateIndex = (yearArr.length-1)*12
   }
 
   let portfolioLineGraphNeeded = totalPortoflioValue[lineIndex]
@@ -248,6 +245,8 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.spxLineGraphNeeded',spxLineGraphNeeded)
   console.log('[PortfolioPost.portfolioLineGraphNeeded',portfolioLineGraphNeeded)
   console.log('[PortfolioPost.datesLineGraphNeeded',datesLineGraphNeeded)
+  console.log('[PortfolioPost.lineIndex',lineIndex)
+  console.log('[PortfolioPost.dateIndex',dateIndex)
 
 
 
@@ -342,7 +341,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
                   <Select
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
-                  value={'selectedLineChartData'}
+                  value={lineGraphData}
                   onChange={lineGraphDataHandler}
                   label="Date"
                   >
@@ -385,7 +384,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <Divider style={{ margin: '20px 0' }} />
         {/* <Typography paragraph>Description:</Typography> */}
         <Typography variant="body2">
-        <TextField fullWidth label="Portfolio Description"  variant="outlined" rows={3} defaultValue={post.description}>
+        <TextField fullWidth label="Portfolio Description"  variant="outlined" rows={4} defaultValue={post.description}>
             {/* {post.description} */}
 
         </TextField>
