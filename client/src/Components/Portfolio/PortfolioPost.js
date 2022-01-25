@@ -74,7 +74,6 @@ const PortfolioPost = ({ post, setCurrentId }) => {
       Promise.all(
       ["SPY",...post.assets].map((stock) =>
       fetch(
-
       `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
       .then((results) =>
           Promise.all(results.map((res) => res.json())).then((stocks) => {

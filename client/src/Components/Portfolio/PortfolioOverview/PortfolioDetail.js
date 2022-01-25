@@ -43,7 +43,7 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
   const spxValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry)=>entry.arrPeriodReturn)[0]
-    console.log('[PortfolioDetail.spxValue.monReturn',data)
+    // console.log('[PortfolioDetail.spxValue.monReturn',data)
     return data
   })
   const spxCumulativeReturnValue = dates.map((date, index) => {
@@ -81,6 +81,8 @@ console.log('[PortfolioDetail.portfolioBeta',portfolioBeta)
 console.log('[PortfolioDetail.portfolioAlpha',portfolioAlpha)
 console.log('[PortfolioDetail.portfolioCumulativeReturn',portfolioCumulativeReturn)
 console.log('[PortfolioDetail.portfolioCov',portfolioCov)
+console.log('[PortfolioDetail.arrPortfolioReturns',arrPortfolioReturns)
+console.log('[PortfolioDetail.spxValue',spxValue)
 
 
   return (

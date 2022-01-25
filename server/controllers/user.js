@@ -3,10 +3,18 @@
 import bcrypt from "bcryptjs";
 // *this allows us to store the user for some amt of time from hours, days, to weeks for ex.
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
 
 import UserModal from "../models/user.js";
 
 const secret = 'test';
+
+export const guestSignIn = async(req,res) =>{
+  const email = process.env.GUEST_USER
+  const password = process.env.GUEST_PW
+  req.body = {email,password}
+  return signin(req,res)
+}
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;

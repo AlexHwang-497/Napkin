@@ -31,10 +31,12 @@ function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownershi
     
     // console.log('[ PortfolioOverview.priceData',priceData)
     
+
     // ! this is making a deep copy
     // const ttmData = JSON.parse(JSON.stringify(subSet(priceData,'2020-12-01')))
     // monthlyReturn(ttmData)
     // console.log('[prac this is the ttmData in portfolio Overview',ttmData)
+    console.log('[PortfolioOverview.state.posts',post)    
     
 
     let cov = require( 'compute-covariance' );
@@ -258,7 +260,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 <h1>Comment Section</h1>
                 <Divider style={{ margin: '20px 0' }} />
-                    <CommentSection post={post}/>
+                    <CommentSection currentId={currentId} post={post}/>
                     
                     <RecommendedPosts/>
 

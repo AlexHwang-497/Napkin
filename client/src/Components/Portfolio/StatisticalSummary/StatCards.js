@@ -12,7 +12,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     },
 }))
 
-const StatCards = ({avgPortfolioReturns,portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviation,spxReturnMean,spxPriceStDeviation,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn, portfolioStdDev, portfolioMaxReturn,portfolioMinReturn,}) => {
+const StatCards = ({avgPortfolioReturns,spxStDeviation,portfolioBeta,portfolioAlpha,portfolioCov,spxReturnStDeviation,spxReturnMean,spxPriceStDeviation,portfolioAnnualizedReturn, portfolioCumulativeReturn, spxCumulativeReturn, spxAnnualizedReturn, portfolioStdDev, portfolioMaxReturn,portfolioMinReturn,}) => {
     const classes = useStyles()
 
     return (
@@ -56,7 +56,11 @@ const StatCards = ({avgPortfolioReturns,portfolioBeta,portfolioAlpha,portfolioCo
                             spxReturnStDeviation={spxReturnStDeviation}
                             portfolioBeta={portfolioBeta}
                             portfolioAlpha={portfolioAlpha}
-                            portfolioCov={portfolioCov}/>
+                            portfolioCov={portfolioCov}
+                            portfolioStdDev={portfolioStdDev}
+                            spxStDeviation={spxStDeviation}
+                                
+                            />
                         
                     </div>
                     
