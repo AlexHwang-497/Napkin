@@ -6,7 +6,7 @@ import * as React from 'react';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {Accordion, AccordionSummary, AccordionDetails,Divider, Typography,  } from '@material-ui/core/';
-
+import CreatePortfolio from './Dialog';
 export default function PortfolioAccordion() {
   return (
     <div>
@@ -17,13 +17,15 @@ export default function PortfolioAccordion() {
           id="panel1a-header"
         >
           <Typography>Where to Start???</Typography>
+          <Divider style={{ margin: '20px 0' }} />
         </AccordionSummary>
         <AccordionDetails>
         <Divider style={{ margin: '20px 0' }} />
           <Typography>
             <p>
-                Please select the Create Portfolio button above
+                Please select the Create Portfolio button above or below:
             </p>
+            <CreatePortfolio/>
             <p>
                 this will allow you to create an investment portfolio
             </p>

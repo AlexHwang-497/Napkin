@@ -8,7 +8,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
     console.log('[StatisticalSummary.statCards2.sectorWeighting',benchmarkSectorWeighting)
     console.log('[StatisticalSummary.statCards2.portfolioWeighting',portfolioWeighting)
     
-    const [portfolioWeightingType,setPortfolioWeightingType] = useState('')
+    const [portfolioWeightingType,setPortfolioWeightingType] = useState('currentPort')
     let portfolioObj ={}
     // let portfolioObjpercent =[]
     let intialObj ={}
@@ -74,11 +74,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                     <div className="pt-4 flex items-center">
                         <h1 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings</h1>
                         <Divider style={{ margin: '20px 0' }} />
-                        {/* <h2 className="m-0 text-muted flex-grow">10.8k</h2> */}
-                        {/* <div className="flex justify-center items-centerml-3 h-16 w-16 rounded bg-green text-white"> */}
-                            {/* <Icon className="text-14">Portfolio vs BenchMark Sector Weightings</Icon> */}
-                        {/* </div> */}
-                        {/* <span className="text-13 text-green ml-1"> (+21%)</span> */}
+                        
                     </div>
                     {/* <Grid   container direction="row" justifyContent="space-between" alignItems="baseline"> */}
                     <Box component="form"sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
@@ -87,6 +83,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                             <Select
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
+                                value = {portfolioWeightingType}
                                 
                                 onChange={dateTypeHandler}
                                 label="Data Type">

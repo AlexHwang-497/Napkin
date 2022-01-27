@@ -34,7 +34,7 @@ export default function RiskReturnStatisticalTable({portfolioCov,portfolioAlpha,
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
         <TableHead style={{background:"#091F3C"}}>
           <TableRow>
-            <TableCell style={{color:"#fff"}}>Risk/Return</TableCell>
+            <TableCell style={{color:"#fff"}}>Type of Risk/Return</TableCell>
             <TableCell style={{color:"#fff"}}>Portfolio</TableCell>
             <TableCell style={{color:"#fff"}} align="left">Benchmark</TableCell>
             <TableCell style={{color:"#fff"}} align="left">Delta</TableCell>

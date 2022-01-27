@@ -123,6 +123,7 @@ const deleteEntry =(index) =>{
 }
 
 console.log('[InputForm.stockList',stockList)
+console.log('[InputForm.sector',sector)
 
 
   return (
@@ -183,7 +184,7 @@ console.log('[InputForm.stockList',stockList)
         </p>
       </div>
       <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <CreatePortfolioPaginationTable  stockList={stockList} pct={pct} image={image} deleteEntry={deleteEntry}/>
+        <CreatePortfolioPaginationTable  stockList={stockList} pct={pct} sector={sector} image={image} deleteEntry={deleteEntry}/>
         <Paper>
           <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
           

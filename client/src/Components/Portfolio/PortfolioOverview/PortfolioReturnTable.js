@@ -57,14 +57,14 @@ export default function PortfolioReturnTable({annReturn}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
-        <TableHead className='styles' >
+      <TableHead style={{background:"#091F3C"}}>
         {/* <TableHead style={{background:"#091F3C"}} > */}
           <TableRow >
-            <TableCell >Year</TableCell>
-            <TableCell align="right">AnnualizedReturn(%)</TableCell>
-            <TableCell align="right">StdDev</TableCell>
-            <TableCell align="right">Beta</TableCell>
-            <TableCell align="right">Alpha</TableCell>
+            <TableCell style={{color:"#fff"}}>Year</TableCell>
+            <TableCell style={{color:"#fff"}} align="right">AnnualizedReturn(%)</TableCell>
+            <TableCell style={{color:"#fff"}} align="right">StdDev</TableCell>
+            <TableCell style={{color:"#fff"}} align="right">Beta</TableCell>
+            <TableCell style={{color:"#fff"}} align="right">Alpha</TableCell>
             
           </TableRow>
         </TableHead>
