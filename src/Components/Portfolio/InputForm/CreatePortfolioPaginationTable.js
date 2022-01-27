@@ -19,7 +19,7 @@ import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
 
 
 
-const CreatePortfolioPaginationTable = ({image, stockList,pct,deleteEntry}) => {
+const CreatePortfolioPaginationTable = ({image, stockList,pct,deleteEntry,sector}) => {
     console.log('[CreatePortfolioPaginationTable.image',image)
     console.log('[CreatePortfolioPaginationTable.stockList',stockList)
     console.log('[CreatePortfolioPaginationTable.pct',pct)
@@ -75,7 +75,7 @@ const CreatePortfolioPaginationTable = ({image, stockList,pct,deleteEntry}) => {
                                 <img src={image[i]} style={{height:'30px',width:'30px'}}/>
                         </TableCell>
                         <TableCell className="px-0 capitalize" align="left">{el}</TableCell>
-                        <TableCell className="px-0 capitalize" align="left">{el}</TableCell>
+                        <TableCell className="px-0 capitalize" align="left">{sector[i]}</TableCell>
                         <TableCell className="px-0 capitalize" align="left">{pct[i]}%</TableCell>
                         <TableCell className="px-0 capitalize" align="left">${pct[i]*100}</TableCell>
                         <TableCell className="px-0"> <IconButton onClick={()=>deleteEntry(i)} ><DeleteForeverTwoToneIcon color="error"/></IconButton>  </TableCell>      

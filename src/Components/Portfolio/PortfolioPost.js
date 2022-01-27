@@ -40,10 +40,7 @@ const ExpandMore = styled((props) => {
 
 
 
-// *<CardMedia className={classes.media} image={post.selectedFile} title={post.title} />; the posts here are taken from props
-// *<Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>; this will tell us on our card like 5min or 5s ago
-// * post.tags.map((tag) => `#${tag} `); we are looping through our tags and putting "#" on them
-// *<Typography variant="h6">{post.name}</Typography>; this is now the id of the creator
+
 const PortfolioPost = ({ post, setCurrentId }) => {
     const startDate = '2009-11-01'
     
@@ -230,8 +227,8 @@ console.log('[PortfolioPost.yearArr',yearArr)
     lineIndex = 2
     dateIndex=36
   }else if (lineGraphData==='5yr'){
-    lineIndex = 6
-    dateIndex=84
+    lineIndex = 4
+    dateIndex=60
   }   
    else {
     lineIndex = yearArr.length-2
@@ -247,6 +244,8 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.datesLineGraphNeeded',datesLineGraphNeeded)
   console.log('[PortfolioPost.lineIndex',lineIndex)
   console.log('[PortfolioPost.dateIndex',dateIndex)
+  console.log('[PortfolioPost.lineIndex',lineIndex)
+  console.log('[PortfolioPost.post',post)
 
 
 
@@ -312,12 +311,9 @@ console.log('[PortfolioPost.yearArr',yearArr)
 
     return (
       <Card raised elevation ={6} spacing ={2} sx={{ maxWidth: 345 }}>
-      
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              
-            </Avatar>
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
           }
           action={
             <IconButton aria-label="settings" onClick={() => setOpenState(true)}>
@@ -326,34 +322,34 @@ console.log('[PortfolioPost.yearArr',yearArr)
             </IconButton>
           }
           title={post.portfolioName}
+        
           subheader={moment(post.dateCreated).fromNow()}
+          
         />
         <Divider style={{ margin: '20px 0' }} />  
-        <Box component="form"
-          sx={{
-            '& > :not(style)': { m: 1, width: '25ch' },
-          }}
+        
+        <Box 
+          component="form"
+          sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
           noValidate
-          autoComplete="off">
-
-              {/* <FormControl variant="standard" sx={{ m: 1,  }}> */}
-                  <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                  <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={lineGraphData}
-                  onChange={lineGraphDataHandler}
-                  label="Date"
-                  >
-                  <MenuItem value="">
-                      
-                  </MenuItem>
-                  <MenuItem value={'ytd'}>YTD</MenuItem>
-                  <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                  <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                  <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-                  </Select>
-              {/* </FormControl> */}
+          autoComplete="off"
+          spacing={'20px'}
+          >
+            <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={lineGraphData}
+              onChange={lineGraphDataHandler}
+              label="Date"
+            >
+            
+            <MenuItem value={'ytd'}>TTM</MenuItem>
+            <MenuItem value={'3yr'}>3-Yr</MenuItem>
+            <MenuItem value={'5yr'}>5-Yr</MenuItem>
+            <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+            </Select>
+              
         </Box>
           
         <Divider style={{ margin: '20px 0' }} />  
@@ -362,27 +358,18 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
         <Grid xs={12}>
           <Grid item xs container direction="column" spacing={2}>
-            {/* <Grid xs={12}  sm={6}> */}
-            {/* <Grid style={{  borderRadius: '10px' }} elevation={3}> */}
                 <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
-              </Grid>
-              <Grid item xs container direction="column" spacing={2}>
-              {/* <Grid xs={12}  sm={6}> */}
-              {/* <Grid style={{  borderRadius: '10px' }} spacing={2} elevation={3}> */}
-
-                  <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
-              </Grid>
-
+          </Grid>
+          <Grid item xs container direction="column" spacing={2}>
+              <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
+          </Grid>
         </Grid>
-        
-        {/* <LineGraph assets={post.assets} portfolioName={"Ytd Growth of $10,000"} ownership={post.ownership} startDate={'2021-01-01'} endDate={'2021-11-14'}/>         */}
-        {/* <PortfolioPostTable data ={post}/> */}
       </ButtonBase>
 
         
 
         <Divider style={{ margin: '20px 0' }} />
-        {/* <Typography paragraph>Description:</Typography> */}
+        
         <Typography variant="body2">
         <TextField fullWidth label="Portfolio Description"  variant="outlined" rows={4} defaultValue={post.description}>
             {/* {post.description} */}
@@ -420,7 +407,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <Divider style={{ margin: '20px 0' }} />
         
           <PortfolioPostTable data ={post}/>
-          {/* <PortfolioPostTable data ={post}/> */}
+          
         </CardContent>
       </Collapse>
     </Card>

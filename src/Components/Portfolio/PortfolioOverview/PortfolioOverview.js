@@ -173,55 +173,13 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
         
         
             <Grid item sm={6} >
-            {/* <Card>
-
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={selectedLineChartData}
-                        onChange={lineChartHandler}
-                        label="Date"
-                        >
-                        <MenuItem value="">
-                            
-                        </MenuItem>
-                        <MenuItem value={'ytd'}>YTD</MenuItem>
-                        <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                        <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-                        </Select>
-                    </FormControl>
-            </Card> */}
-                
-
-                    <Paper>    
+                <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                         <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
-                    </Paper>
-                
-                
+                </Paper> 
             </Grid>
             <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                    {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={selectedLineChartData}
-                        onChange={lineChartHandler}
-                        label="Date"
-                        >
-                        <MenuItem value="">
-                            
-                        </MenuItem>
-                        <MenuItem value={'ytd'}>YTD</MenuItem>
-                        <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                        <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-                        </Select>
-                    </FormControl> */}
+                    
                     <h1>Portfolio Growth of $10,000</h1>
                     <Divider style={{ margin: '20px 0' }} />
                     <TRLineChart priceData={lineChartDataNeeded} />
@@ -229,24 +187,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
             </Grid>
             <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                {/*  this will need each individual stock's annuzlied return, standard devation, beta and alpha*/}
-                {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={selectedLineChartData}
-                        onChange={lineChartHandler}
-                        label="Date"
-                        >
-                        <MenuItem value="">
-                        </MenuItem>
-                        <MenuItem value={'ytd'}>YTD</MenuItem>
-                        <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                        <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                        <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-                        </Select>
-                    </FormControl> */}
+                
                   
                     <h1>Current Portoflio Securitites</h1>
                     <Divider style={{ margin: '20px 0' }} />
@@ -261,7 +202,6 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
                 <h1>Comment Section</h1>
                 <Divider style={{ margin: '20px 0' }} />
                     <CommentSection currentId={currentId} post={post}/>
-                    
                     <RecommendedPosts/>
 
                 </Paper>
