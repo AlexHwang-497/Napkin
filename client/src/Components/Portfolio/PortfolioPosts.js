@@ -21,34 +21,8 @@ const [dateArr,setDateArr] = useState([])
 
 const startDate = '2009-11-01'
 const endDate = '2021-12-31'
-const stuff = portfolios.map((el)=>el.assets)
-console.log('[PortfolioPosts.stuff',stuff)
-// useEffect(() => {
-//   Promise.all(
-//     stuff.map((stock) =>
-//   fetch(
-//   `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`)))
-//   .then((results) =>
-//   Promise.all(results.map((res) => res.json())).then((stocks) => {
-//     console.log('[PortfolioPosts.results',results)
-//       // editStockData(stocks);
-//       const portfolioData = OrganizeData(
-//         stocks,
-//         ["SPY", ...portfolios.assets.map((e) => e.toUpperCase())],
-//         ["", ...portfolios.ownership],
-//         ["", ...portfolios.image],
-//         ["", ...portfolios.sector]
-//         )
-//         setPracData(portfolioData);
-//         setDateArr(portfolioData[0].dates.map((el)=>el.date))
-//         console.log('[PortfolioPosts.portfolioData',portfolioData)
-      
-//   })
-//   );
-// }, []);
-    
   
-    console.log('[PortfolioPosts.portfolios',portfolios)
+console.log('[PortfolioPosts.portfolios',portfolios)
 
     
   if (!portfolios.length && !isLoading) return 'No portfolios';

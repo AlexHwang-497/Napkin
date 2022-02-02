@@ -69,8 +69,10 @@ const Navbar = () =>{
       {/* <Typography variant="h3" component="h2">    </Typography> */}
         <h1  style={{color:"#fff"}}>Napkin</h1>
       </Link>
-      
+      {(user) && 
             <Typography className={classes.userName} variant="h6"><CreatePortfolio/></Typography>
+
+      }
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>

@@ -267,7 +267,7 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
 
           <Tab label="Portfolio Overview" {...a11yProps(0)} />
           <Tab label="Holdings" {...a11yProps(1)} />
-          <Tab label="Total Return" {...a11yProps(2)} />
+          <Tab label="Total Return Graphs" {...a11yProps(2)} />
           <Tab label="Seasonal Analysis" {...a11yProps(3)} />
           <Tab label="Statistical Summary" {...a11yProps(4)} />
           
