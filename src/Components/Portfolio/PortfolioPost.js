@@ -59,6 +59,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [pracData, setPracData] = useState([])
     const [dateArr,setDateArr] = useState([])
     const [lineGraphData, setLineGraphData] = useState('ytd')
+    const [error,setError] = useState(false)
     console.log('[PortfolioPost.post',post)
     // console.log('[PortfolioPost.currentDate',currentDate)
     console.log('[PortfolioPost.endDate',endDate)
@@ -87,7 +88,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
             setDateArr(portfolioData[0].dates.map((el)=>el.date))
             console.log('[PortfolioPost.portfolioData',portfolioData)
           
-      })
+      }).catch((err)=>setError(err))
       );
     }, []);
     // console.log('[PortfolioPost.stockData',stockData)
@@ -308,6 +309,15 @@ console.log('[PortfolioPost.yearArr',yearArr)
     console.log('[PortfolioPost.openState',openState)
 
   },[openState])
+
+  // if(error){
+  //   return (
+  //     <div>
+  //       <h2>error</h2>
+  //       {error}
+  //     </div>
+  //   )
+  // }
 
     return (
       <Card raised elevation ={6} spacing ={2} sx={{ maxWidth: 345 }}>

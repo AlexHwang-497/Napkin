@@ -290,10 +290,10 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
               value={dateSelect}
               onChange={dateTypeHandler}
               label="Date">
-              <MenuItem value={'ytd'}>YTD</MenuItem>
+              <MenuItem value={'ytd'}>TTM</MenuItem>
               <MenuItem value={'3yr'}>3-Yr</MenuItem>
               <MenuItem value={'5yr'}>5-Yr</MenuItem>
-              <MenuItem value={'6yr'}>{yearArr.length-1}-Yr</MenuItem>
+              <MenuItem value={`${yearArr.length-1}yr`}>{yearArr.length-1}-Yr</MenuItem>
           </Select>
       </FormControl>}
 

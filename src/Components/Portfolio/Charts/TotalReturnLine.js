@@ -9,10 +9,7 @@ const TRLineChart = ({priceData,title}) => {
     const combinedArr=[...priceData[1],...priceData[2]].sort()
     const maxValue = Math.max(...combinedArr)
     const minValue = Math.min(...combinedArr)
-    // console.log('[TRLineChart.combinedArr',combinedArr)
-    // console.log('[TRLineChart.maxValue',maxValue)
-    // console.log('[TRLineChart.minValue',minValue)
-    // console.log('[TRLineChart.title',title)
+    
  
     const series = [
         
@@ -42,6 +39,8 @@ const TRLineChart = ({priceData,title}) => {
                 opacity: 0.2,
             },
             toolbar: {
+                offsetX:0,
+                offsetY:-10,
                 tools: {
                     download: false,
                     selection: true,
@@ -51,11 +50,12 @@ const TRLineChart = ({priceData,title}) => {
                     pan: false,
                     reset: true | '<img src="/static/icons/reset.png" width="20">',
                     customIcons: []
-                  },
+                },
+                position: 'bottom',
                 autoSelected: 'zoom'
             },
         },
-        // colors: ['#2E93fA', '#66DA26', '#546E7A', '#E91E63', '#FF9800'],
+        
         dataLabels: {
             enabled: false,
         },
@@ -65,7 +65,7 @@ const TRLineChart = ({priceData,title}) => {
             dashArray: 8
         },
         title: {
-            text: title,
+            text: title + ' Growth',
             align: 'center',
         },
         grid: {
@@ -101,7 +101,9 @@ const TRLineChart = ({priceData,title}) => {
             max: maxValue,
             labels: {
                 formatter: function (y) {
-                  return '$'+Number(y).toFixed(1);
+                //   return '$'+Number(y).toFixed(1);
+                  return '$'+y.toLocaleString(undefined, {minimumFractionDigits: 1,maximumFractionDigits: 1});
+                //   return '$'+((y.toFixed(2)).toLocaleString());
                 }
               }
         },

@@ -182,7 +182,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
                     
                     <h1>Portfolio Growth of $10,000</h1>
                     <Divider style={{ margin: '20px 0' }} />
-                    <TRLineChart priceData={lineChartDataNeeded} />
+                    <TRLineChart priceData={lineChartDataNeeded} title={dateSelect} />
                 </Paper>
             </Grid>
             <Grid item sm={6} >

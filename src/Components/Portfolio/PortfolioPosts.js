@@ -10,10 +10,12 @@ import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolio
 import config from '../../StockData/config';
 const PortfolioPosts = ({ setCurrentId }) => {
   const { portfolios, isLoading } = useSelector((state) => state.portfolio);
+  
+
   const classes = useStyles()
   
   
-  const apiKey = config.FMP_API_KEY_ID
+const apiKey = config.FMP_API_KEY_ID
 const [pracData, setPracData] = useState([])
 const [dateArr,setDateArr] = useState([])
 

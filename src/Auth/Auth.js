@@ -14,7 +14,7 @@ import Input from './Input';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }; /////////////
 
 const Auth = () => {
-    const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState(initialState);
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -124,7 +124,7 @@ const Auth = () => {
                         onFailure={googleError}
                         cookiePolicy="single_host_origin"
                     />
-                    <Button id='guestLogin' color="primary" onClick={handleGuestSubmit} fullWidth variant="contained"  className={classes.submit} >Guest LogIn</Button>
+                    <Button id='guestLogin' color="secondary" onClick={handleGuestSubmit} fullWidth variant="contained"  className={classes.submit} >Guest LogIn</Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Button onClick={switchMode}>
