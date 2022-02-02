@@ -58,7 +58,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [stockData,editStockData] = useState([])
     const [pracData, setPracData] = useState([])
     const [dateArr,setDateArr] = useState([])
-    const [lineGraphData, setLineGraphData] = useState('ytd')
+    const [lineGraphData, setLineGraphData] = useState('ttm')
     const [error,setError] = useState(false)
     const [postUserId,setPostUserId] = useState(post?.userId)
     console.log('[PortfolioPost.post',post)
@@ -226,7 +226,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.lineGraphData',lineGraphData)
   let lineIndex = 0
   let dateIndex = 0
-  if(lineGraphData==='ytd'){
+  if(lineGraphData==='ttm'){
     lineIndex = 0
     dateIndex=12
   } else if (lineGraphData==='3yr'){
@@ -359,7 +359,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
               label="Date"
             >
             
-            <MenuItem value={'ytd'}>TTM</MenuItem>
+            <MenuItem value={'ttm'}>TTM</MenuItem>
             <MenuItem value={'3yr'}>3-Yr</MenuItem>
             <MenuItem value={'5yr'}>5-Yr</MenuItem>
             <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
@@ -373,7 +373,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
         <Grid xs={12}>
           <Grid item xs container direction="column" spacing={2}>
-                <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+                <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} lineGraphData={lineGraphData} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
           </Grid>
           <Grid item xs container direction="column" spacing={2}>
               <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>

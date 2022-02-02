@@ -4,7 +4,7 @@ import moment from "moment";
 // import config from '../../../StockData/config'
 // import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 // import {generateHistoricalDate} from '../../../Utilities/DateRanges'
-const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData}) => {
+const PortfolioPostLineChart = ({securityData,spxData, lineGraphData,portfolioData, datesData}) => {
     if(!spxData || spxData.length===0 || !portfolioData || portfolioData.length===0) return (<div></div>);
     
     const combinedArr=[...spxData,...portfolioData].sort()
@@ -76,7 +76,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
             dashArray: 8
         },
         title: {
-            text: 'Portfolio Growth of $10,0000',
+            text: lineGraphData.toUpperCase()+' Portfolio Growth of $10,0000',
             align: 'left',
         },
         grid: {
@@ -112,7 +112,7 @@ const PortfolioPostLineChart = ({securityData,spxData,portfolioData, datesData})
             max: maxValue,
             labels: {
                 formatter: function (y) {
-                  return '$'+Number(y).toFixed(1);
+                    return '$'+y.toLocaleString(undefined, {minimumFractionDigits: 1,maximumFractionDigits: 1});
                 }
               }
         },

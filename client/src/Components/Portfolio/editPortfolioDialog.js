@@ -64,6 +64,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
   // console.log('this is the post in EditCustomizedDialogs of editPortoflioDialog.js',post)
   // console.log('this is the descriptoin in EditCustomizedDialogs of editPortoflioDialog.js',post.description)
   console.log('[EditCustomizedDialogs.openState',openState)
+  console.log('[EditCustomizedDialogs.post',post)
   const [open, setOpen] = useState(openState || false);
   const [description, setDescription] = useState([post.description]);
   const [portfolioName, setPortfolioName] = useState(post.portfolioName)
@@ -73,7 +74,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
   const [image, setImage] = useState(post.image || [])
   const dispatch = useDispatch();
   const history = useHistory(); //!
-
+  console.log('[EditCustomizedDialogs.description',description)
 
   const [symbol, setSymbol] = useState("");
   const [errorState, setErrorState] = useState("");
@@ -122,6 +123,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
       setOwnership(ownership.filter((o,i)=>i!==index))
       setSector(sector.filter((s,i)=>i!==index))
       setImage(image.filter((img,i)=>i!==index))    
+      // setDescription(description.filter((img,i)=>i!==index))    
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -131,9 +133,9 @@ function EditCustomizedDialogs({currentId,post,openState}) {
   };
 
   const handleUpdatePortfolio =() => {
-    dispatch(updatePortfolio(currentId, {assets, ownership, sector,image }));
+    dispatch(updatePortfolio(currentId, {assets, ownership, sector,image, description, portfolioName }));
     setOpen(false)
-    // console.log('this is the handleUpdatePortfolio in pagTable',currentId, {sector,image })
+    
   }
 
   const handleSubmit = async(e) =>{
@@ -144,7 +146,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
         
         
     } else {
-        dispatch(updatePortfolio(currentId, {assets, ownership, sector,image }));
+        dispatch(updatePortfolio(currentId, {assets, ownership, sector,image, description, portfolioName }));
     }
     // clear()
   }
@@ -154,7 +156,8 @@ function EditCustomizedDialogs({currentId,post,openState}) {
     userId: '',
     Assets:[],
     Ownership:[],
-    DateCreated:''
+    DateCreated:'',
+    Description:[]
 });
 
   return (
@@ -185,7 +188,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
       value ={portfolioName}
     />
       <Divider style={{ margin: '20px 0' }} />
-      <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  value={description} onChange={(e) => setDescription(e.target.value)}/>
+      <TextField fullWidth rows={4} variant="outlined" label="Portfolio Description" multiline  value={description} onChange={(e) => setDescription([e.target.value])}/>
       <Divider style={{ margin: '20px 0' }} />
       
         <ul style={{ listStyle: "none", padding: 0 }}>
