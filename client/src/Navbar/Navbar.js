@@ -24,7 +24,7 @@ import CreatePortfolio from '../Components/Portfolio/Dialog';
 
 const Navbar = () =>{
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    // console.log('this is the user from navbar.js',user)
+    console.log('[Navbar.user',user)
 
     const dispatch = useDispatch();
     // *we utilize this to deal with the change in our URL from '/auth' to '/'
@@ -36,9 +36,7 @@ const Navbar = () =>{
   const logout = () => {
       dispatch({ type: 'LOGOUT' });
   
-      history.push('/');
-      // history.push('/auth');
-  
+      history.push('/auth');
       setUser(null);
     };
 
@@ -67,8 +65,11 @@ const Navbar = () =>{
         {/* <NoteTwoToneIcon fontSize="large" style={{color:"#fff"}}/>
         <BorderColorTwoToneIcon fontSize="large" style={{color:"#fff"}}/> */}
         <Divider style={{ margin: '20px 0' }} />
-        <h1  style={{color:"#fff"}}>Napkin: the back of the napkin Portfolio/Asset Mangagmeent Tool</h1>
+        {/* <h1  style={{color:"#fff"}}>Napkin: the back of the napkin Portfolio/Asset Mangagmeent Tool</h1> */}
+      {/* <Typography variant="h3" component="h2">    </Typography> */}
+        <h1  style={{color:"#fff"}}>Napkin</h1>
       </Link>
+      
             <Typography className={classes.userName} variant="h6"><CreatePortfolio/></Typography>
       <Toolbar className={classes.toolbar}>
         {user?.result ? (

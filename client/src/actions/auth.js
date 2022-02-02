@@ -8,6 +8,8 @@ export const signin = (formData, history) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
+    console.log('[signin.data',data)
+
     history.push('/posts');
   } catch (error) {
     console.log(error);
