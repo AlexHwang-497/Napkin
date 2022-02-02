@@ -33,6 +33,7 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * Color indicators for the pricing information on the Portfolio page to indicate if a stock's value has increased (green) or decreased (red) in price between the most recent opening and closing values.
 * An interactive stock chart, with hover effects, to allow users to review a selected stock's history before completing a purchase.
 * A polished, intuitive, responsive user interface/experience.
+* Users have the ability to create, update, like, comment on portfolios.  
 # Known Issues
 * The application may occasionaly not load due to the data constraints of the Financial Modeling Prep API
 * only monthly data is availble due to API request per minute availbility

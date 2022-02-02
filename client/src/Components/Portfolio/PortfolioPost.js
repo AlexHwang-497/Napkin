@@ -60,12 +60,17 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [dateArr,setDateArr] = useState([])
     const [lineGraphData, setLineGraphData] = useState('ytd')
     const [error,setError] = useState(false)
+    const [postUserId,setPostUserId] = useState(post?.userId)
     console.log('[PortfolioPost.post',post)
+    console.log('[PortfolioPost.user',user)
+    console.log('[PortfolioPost.postUserId',postUserId)
+    
     // console.log('[PortfolioPost.currentDate',currentDate)
     console.log('[PortfolioPost.endDate',endDate)
     // console.log('this is user in client/portfolio/portfolioPost.js',user)
-    // console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
+    console.log('[PortfolioPost.post._id',post._id)
     const userId = user?.result.googleId || user?.result?._id;
+    console.log('[PortfolioPost.userId',userId)
     const hasLikedPost = post?.likes?.find((like) => like === userId);
     const apiKey = config.FMP_API_KEY_ID
     useEffect(() => {
@@ -325,7 +330,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
           }
-          action={
+          action={(postUserId===userId) &&
             <IconButton aria-label="settings" onClick={() => setOpenState(true)}>
                 <EditCustomizedDialogs size='small'  currentId={post._id} post={post} openState={openState}/>
               

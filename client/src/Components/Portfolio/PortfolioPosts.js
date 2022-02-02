@@ -8,7 +8,7 @@ import PortfolioPost from "./PortfolioPost";
 import ComplexCards from "./Cards/ComplexCard";
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance,totalPortfolioValueReturns } from "../../Utilities";
 import config from '../../StockData/config';
-const PortfolioPosts = ({ setCurrentId }) => {
+const PortfolioPosts = ({ setCurrentId  }) => {
   const { portfolios, isLoading } = useSelector((state) => state.portfolio);
   
 
@@ -24,6 +24,7 @@ const endDate = '2021-12-31'
   
 console.log('[PortfolioPosts.portfolios',portfolios)
 
+
     
   if (!portfolios.length && !isLoading) return 'No portfolios';
 
@@ -33,7 +34,7 @@ console.log('[PortfolioPosts.portfolios',portfolios)
             {portfolios?.map((portfolio) => (
               <Grid key={portfolio._id} item xs={12} sm={4} >
               {/* <Grid key={portfolio._id} item xs={12} sm={6} md={6} lg={3}> */}
-                <PortfolioPost post={portfolio} setCurrentId={setCurrentId} />
+                <PortfolioPost post={portfolio}  setCurrentId={setCurrentId} />
                 
 
 

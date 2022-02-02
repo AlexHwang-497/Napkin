@@ -16,7 +16,7 @@ export default function PortfolioAccordion() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Where to Start???</Typography>
+          <Typography variant='h5'>Tutorial</Typography>
           <Divider style={{ margin: '20px 0' }} />
         </AccordionSummary>
         <AccordionDetails>
