@@ -58,17 +58,22 @@ const Navbar = () =>{
     
     return(
       <AppBar className={classes.appBar} position="static" color="inherit" style={{ background: '#091F3C' }}>
-      <Link to="/" className={classes.brandContainer}>
+        <Link to="/" className={classes.brandContainer}>
+          <Typography>
+
+          <img className={classes.image} src={napkinsIcon} alt="icon" height="75px" />
+          </Typography>
+          <Typography>
+
+          </Typography>
+          
+          {/* <h1  style={{color:"#fff"}}>Napkin</h1> */}
+          
+          
+          
         
-        <img className={classes.image} src={napkinsIcon} alt="icon" height="75px" />
+        </Link>
         
-        {/* <NoteTwoToneIcon fontSize="large" style={{color:"#fff"}}/>
-        <BorderColorTwoToneIcon fontSize="large" style={{color:"#fff"}}/> */}
-        <Divider style={{ margin: '20px 0' }} />
-        {/* <h1  style={{color:"#fff"}}>Napkin: the back of the napkin Portfolio/Asset Mangagmeent Tool</h1> */}
-      {/* <Typography variant="h3" component="h2">    </Typography> */}
-        <h1  style={{color:"#fff"}}>Napkin</h1>
-      </Link>
       {(user) && 
             <Typography className={classes.userName} variant="h6"><CreatePortfolio/></Typography>
 
