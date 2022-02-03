@@ -20,6 +20,7 @@ const CommentSection = ({post,currentId}) => {
     const dispatch = useDispatch();
     // const [comments, setComments] = useState(user.comments);
     const [comments, setComments] = useState(post?.comments);
+    console.log('[CommentSection.comments',comments)
     const classes = useStyles();
     const commentsRef = useRef();
     const [comment, setComment] = useState('');
@@ -27,11 +28,12 @@ const CommentSection = ({post,currentId}) => {
     const handleComment = async () => {
         const finalComment = () => `${user.result.name}:${comment}`
         // dispatch(commentPost(finalComment,post._id))
-        console.log('[CommentSection.finalComment', finalComment)
-        console.log('[CommentSection.user.result.name', user.result.name)
+        // console.log('[CommentSection.finalComment', finalComment)
+        // console.log('[CommentSection.user.result.name', user.result.name)
         // console.log('[CommentSection.finalComment.user?.result?.name', user?.result?.name)
         // console.log('CommentSection.finalComment.comment', comment)
         const newComments = await dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
+        // const newComments =  dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
         // const newComments = await dispatch(commentPortfolio(`${user}: ${comment}`, post._id));
         console.log('[CommentSection.newComments',newComments)
         setComment('');
@@ -39,6 +41,7 @@ const CommentSection = ({post,currentId}) => {
     
         commentsRef.current.scrollIntoView({ behavior: 'smooth' });
       };
+
 
     // *{/* <strong>{c.split(': ')[0]}</strong> */}{/* {c.split(':')[1]} */};  we neeed to fix this part to get the comments to pop up
     

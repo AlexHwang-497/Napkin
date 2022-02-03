@@ -323,6 +323,15 @@ console.log('[PortfolioPost.yearArr',yearArr)
   //     </div>
   //   )
   // }
+  const handleDescriptionText =(post) =>{
+
+    return post.description
+  }
+  
+    
+  
+  console.log('[PortfolioPost.handleDescriptionText',handleDescriptionText)
+
 
     return (
       <Card raised elevation ={6} spacing ={2} sx={{ maxWidth: 345 }}>
@@ -344,67 +353,79 @@ console.log('[PortfolioPost.yearArr',yearArr)
           subheader={moment(post.dateCreated).fromNow()}
         />
         <Divider style={{ margin: '20px 0' }} />  
+        <Grid container spacing={3}>
+          <Grid item sm={6}>
+
+            <Box 
+              component="form"
+              sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
+              noValidate
+              autoComplete="off"
+              spacing={'80px'}
+              >
+                <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={lineGraphData}
+                  onChange={lineGraphDataHandler}
+                  label="Date"
+                  full width
+                >
+                <Typography>
+                  
+                </Typography>
+                <MenuItem value={'ttm'}>TTM</MenuItem>
+                <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+                </Select>
+                  
+            </Box>
+          </Grid>
+
+        </Grid>
         
-        <Box 
-          component="form"
-          sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
-          noValidate
-          autoComplete="off"
-          spacing={'20px'}
-          >
-            <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lineGraphData}
-              onChange={lineGraphDataHandler}
-              label="Date"
-              full width
-            >
-            <Typography>
-              
-            </Typography>
-            <MenuItem value={'ttm'}>TTM</MenuItem>
-            <MenuItem value={'3yr'}>3-Yr</MenuItem>
-            <MenuItem value={'5yr'}>5-Yr</MenuItem>
-            <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-            </Select>
-              
-        </Box>
           
         <Divider style={{ margin: '20px 0' }} />  
         
         
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
-        <Grid xs={12}>
-          <Grid item xs container direction="column" spacing={2}>
-                <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} lineGraphData={lineGraphData} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+          <Grid container spacing ={0}>
+            
+            <Grid xs={12}>
+              <Grid item xs container direction="column" spacing={2}>
+                    <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} lineGraphData={lineGraphData} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+              </Grid>
+              <Grid item xs container direction="column" spacing={2}>
+                  <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs container direction="column" spacing={2}>
-              <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
-          </Grid>
-        </Grid>
       </ButtonBase>
 
         
 
         <Divider style={{ margin: '20px 0' }} />
         
-        <Typography variant="body2">
-        <TextField fullWidth label="Portfolio Description"  variant="outlined" rows={4} defaultValue={post.description}>
-            {/* {post.description} */}
+        
 
-        </TextField>
-          </Typography>
+            
+
+              <TextField fullWidth label="Portfolio Description" disabled   variant="outlined" rows={10}   defaultValue={post.description}> </TextField>
+            
+        
+            
+          
         <Divider style={{ margin: '20px 0' }} />
       
       <CardActions disableSpacing>
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
           <Likes/>
         </Button>
-        <Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
+        {(postUserId===userId) &&<Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
           <DeleteIcon fontSize="small" /> Delete
-        </Button>
+        </Button>}
         
         
         <ExpandMore
