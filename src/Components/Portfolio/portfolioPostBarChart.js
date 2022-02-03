@@ -69,7 +69,7 @@ let spxYtd = finance.CAGR(spxAnnualizedReturn[0][0],spxAnnualizedReturn[0][spxAn
       intersect: false
     },
     xaxis: {
-      categories: ['TTM','3-Year','5-year','10-year']
+      categories: ['TTM','3-Year','5-year',spxAnnualizedReturn.length+'-year']
     },
     title: {
       text: 'Portfolio Annualized Return(%)',

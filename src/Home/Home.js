@@ -42,6 +42,8 @@ const Home = () =>{
     const [tags, setTags] = useState([]);
 
 
+    console.log('[Home.currentId',currentId)
+
 
   
 
@@ -78,7 +80,7 @@ const Home = () =>{
         <Container maxWidth=''>
           <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
             <Grid item xs={12} sm={6} md={9}>
-              <PortfolioPosts setCurrentId={setCurrentId}/>
+              <PortfolioPosts  setCurrentId={setCurrentId}/>
               
             </Grid>
             <Grid item xs={12} sm={2} >

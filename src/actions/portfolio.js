@@ -75,9 +75,10 @@ export const createPortfolio = (portfolio, history) => async (dispatch) => {
 }
 
 export const updatePortfolio = (id, post) => async (dispatch) => {
+  console.log('[updatePortfolio.post',post)
     try {
       const { data } = await api.updatePortfolio(id, post);
-      console.log('this is the data from updatePortfolio in actions/portfolio.js:',data)
+      console.log('[updatePortfolio.data',data)
   
       dispatch({ type: UPDATE, payload: data });
     } catch (error) {

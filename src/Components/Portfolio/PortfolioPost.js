@@ -58,14 +58,19 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     const [stockData,editStockData] = useState([])
     const [pracData, setPracData] = useState([])
     const [dateArr,setDateArr] = useState([])
-    const [lineGraphData, setLineGraphData] = useState('ytd')
+    const [lineGraphData, setLineGraphData] = useState('ttm')
     const [error,setError] = useState(false)
+    const [postUserId,setPostUserId] = useState(post?.userId)
     console.log('[PortfolioPost.post',post)
+    console.log('[PortfolioPost.user',user)
+    console.log('[PortfolioPost.postUserId',postUserId)
+    
     // console.log('[PortfolioPost.currentDate',currentDate)
     console.log('[PortfolioPost.endDate',endDate)
     // console.log('this is user in client/portfolio/portfolioPost.js',user)
-    // console.log('this is post._id in client/portfolio/portfolioPost.js',post._id)
+    console.log('[PortfolioPost.post._id',post._id)
     const userId = user?.result.googleId || user?.result?._id;
+    console.log('[PortfolioPost.userId',userId)
     const hasLikedPost = post?.likes?.find((like) => like === userId);
     const apiKey = config.FMP_API_KEY_ID
     useEffect(() => {
@@ -221,7 +226,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.lineGraphData',lineGraphData)
   let lineIndex = 0
   let dateIndex = 0
-  if(lineGraphData==='ytd'){
+  if(lineGraphData==='ttm'){
     lineIndex = 0
     dateIndex=12
   } else if (lineGraphData==='3yr'){
@@ -318,6 +323,15 @@ console.log('[PortfolioPost.yearArr',yearArr)
   //     </div>
   //   )
   // }
+  const handleDescriptionText =(post) =>{
+
+    return post.description
+  }
+  
+    
+  
+  console.log('[PortfolioPost.handleDescriptionText',handleDescriptionText)
+
 
     return (
       <Card raised elevation ={6} spacing ={2} sx={{ maxWidth: 345 }}>
@@ -325,74 +339,86 @@ console.log('[PortfolioPost.yearArr',yearArr)
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
           }
-          action={
+          action={(postUserId===userId) &&
             <IconButton aria-label="settings" onClick={() => setOpenState(true)}>
                 <EditCustomizedDialogs size='small'  currentId={post._id} post={post} openState={openState}/>
               
             </IconButton>
           }
-          title={post.portfolioName}
-        
+          title={
+            <Typography variant='h6'>
+            {post.portfolioName}
+            </Typography>
+            }
           subheader={moment(post.dateCreated).fromNow()}
-          
         />
         <Divider style={{ margin: '20px 0' }} />  
+        <Grid container spacing={3}>
+          <Grid item sm={6}>
+
+            <Box 
+              component="form"
+              sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
+              noValidate
+              autoComplete="off"
+              spacing={'80px'}
+              >
+                <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={lineGraphData}
+                  onChange={lineGraphDataHandler}
+                  label="Date"
+                  full width
+                >
+                <Typography>
+                  
+                </Typography>
+                <MenuItem value={'ttm'}>TTM</MenuItem>
+                <MenuItem value={'3yr'}>3-Yr</MenuItem>
+                <MenuItem value={'5yr'}>5-Yr</MenuItem>
+                <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+                </Select>
+                  
+            </Box>
+          </Grid>
+
+        </Grid>
         
-        <Box 
-          component="form"
-          sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
-          noValidate
-          autoComplete="off"
-          spacing={'20px'}
-          >
-            <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lineGraphData}
-              onChange={lineGraphDataHandler}
-              label="Date"
-            >
-            
-            <MenuItem value={'ytd'}>TTM</MenuItem>
-            <MenuItem value={'3yr'}>3-Yr</MenuItem>
-            <MenuItem value={'5yr'}>5-Yr</MenuItem>
-            <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
-            </Select>
-              
-        </Box>
           
         <Divider style={{ margin: '20px 0' }} />  
         
         
         <ButtonBase component ="span" name = "test" className={classes.cardActions} onClick={openPost}>
-        <Grid xs={12}>
-          <Grid item xs container direction="column" spacing={2}>
-                <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+          <Grid container spacing ={0}>
+            
+            <Grid xs={12}>
+              <Grid item xs container direction="column" spacing={2}>
+                    <PortfolioPostLineChart securityData={stockData} spxData={spxLineGraphNeeded} lineGraphData={lineGraphData} portfolioData={portfolioLineGraphNeeded} datesData ={datesLineGraphNeeded} />
+              </Grid>
+              <Grid item xs container direction="column" spacing={2}>
+                  <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs container direction="column" spacing={2}>
-              <PortfolioPostBarChart portfolioAnnualizeReturn={arrPortfolioAnnualizedReturn} spxAnnualizedReturn ={spxValue}/>
-          </Grid>
-        </Grid>
       </ButtonBase>
 
         
 
         <Divider style={{ margin: '20px 0' }} />
         
-        <Typography variant="body2">
-        <TextField fullWidth label="Portfolio Description"  variant="outlined" rows={4} defaultValue={post.description}>
-            {/* {post.description} */}
+        
 
-        </TextField>
-          </Typography>
+            
+
+              <TextField fullWidth label="Portfolio Description" disabled   variant="outlined" rows={10}   defaultValue={post.description}> </TextField>
+            
+        
+            
+          
         <Divider style={{ margin: '20px 0' }} />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {/* Tags: #AAPL, #AMZN,#NFLX, # S&P500, #TECH */}
-          {/* Tags:{post.tags} */}
-        </Typography>
-      </CardContent>
+      
       <CardActions disableSpacing>
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
           <Likes/>

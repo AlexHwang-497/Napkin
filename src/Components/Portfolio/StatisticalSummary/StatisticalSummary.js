@@ -161,14 +161,14 @@ spxReturnMean
 
 
 let neededIndex = 0
-if(dateSelect==='ytd'){
+if(dateSelect==='ttm'){
     neededIndex = 0
     
   } else if(dateSelect==='3yr') {
     neededIndex = 2
     
   } else if(dateSelect==='5yr') {
-    neededIndex = 3
+    neededIndex = 4
     
   } else {
     neededIndex = securityData.length-1
@@ -237,69 +237,54 @@ if(dateSelect==='ytd'){
 
     return (
       <Fragment>
-      {/* <Card>
-      <FormControl>
-        <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
-        <Select
-            value={'dateType'}
-            onChange={dateTypeHandler}
-            label="Date">
-            <MenuItem value={'ytd'}>YTD</MenuItem>
-            <MenuItem value={'3yr'}>3-Yr</MenuItem>
-            <MenuItem value={'5yr'}>5-Yr</MenuItem>
-            <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>
-        </Select>
-      </FormControl>
-
-      </Card> */}
-  
-  <div className="analytics m-sm-30 mt-6">
-      <Grid container spacing={2}>
-          <Grid xs={12}   >
-              <StatCard3 
-                portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
-                portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
-                spxStDeviation ={spxReturnStDeviation}
-                portfolioStdDev={portfolioStdDevNeeded}
-                spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
-                spxAnnualizedReturn={spxAnnualizedReturnNeeded}
-                portfolioBeta={portfolioBetaNeeded}
-
-                />
-              
-              <StatCards2 
-                benchmarkSectorWeighting={sectorWeighting}
-                portfolioWeighting={portfolioWeighting}
-                
-
-                />
-                
-              <StatCards 
-                portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
-                portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
-                portfolioStdDev={portfolioStdDevNeeded}
-                portfolioBeta={portfolioBetaNeeded}
-                portfolioAlpha={portfolioAlphaNeeded}
-                portfolioCov={portfolioCovNeeded}
-                spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
-                spxAnnualizedReturn={spxAnnualizedReturnNeeded}
-                spxReturnMean={spxReturnMean} 
-                spxReturnStDeviation={spxReturnStDeviation}
-                spxPriceStDeviation={spxPriceStDeviation}
-                portfolioStdDev={portfolioStdDevNeeded}
-                portfolioBeta={portfolioBetaNeeded}
-                portfolioAlpha={portfolioAlphaNeeded}
-                portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
-                portfolioMinReturn={minarrPortfolioReturnsNeeded}
-                avgPortfolioReturns={avgPortfolioReturnsNeeded}
-                spxStDeviation ={spxReturnStDeviation}
-                />
-                
-                
-          </Grid>
-      </Grid>
       
-  </div>
+      <div className="analytics m-sm-30 mt-6">
+          <Grid container spacing={2}>
+              <Grid xs={12}   >
+                  <StatCard3 
+                    portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
+                    portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                    spxStDeviation ={spxReturnStDeviation}
+                    portfolioStdDev={portfolioStdDevNeeded}
+                    spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
+                    spxAnnualizedReturn={spxAnnualizedReturnNeeded}
+                    portfolioBeta={portfolioBetaNeeded}
+
+                    />
+                  
+                  <StatCards2 
+                    benchmarkSectorWeighting={sectorWeighting}
+                    portfolioWeighting={portfolioWeighting}
+                    
+
+                    />
+                    
+                  <StatCards 
+                    portfolioAnnualizedReturn={portfolioAnnualizeReturnNeeded} 
+                    portfolioCumulativeReturn={portfolioCumulativeReturnNeeded} 
+                    portfolioStdDev={portfolioStdDevNeeded}
+                    portfolioBeta={portfolioBetaNeeded}
+                    portfolioAlpha={portfolioAlphaNeeded}
+                    portfolioCov={portfolioCovNeeded}
+                    spxCumulativeReturn={spxCumulativeReturnValueNeeded} 
+                    spxAnnualizedReturn={spxAnnualizedReturnNeeded}
+                    spxReturnMean={spxReturnMean} 
+                    spxReturnStDeviation={spxReturnStDeviation}
+                    spxPriceStDeviation={spxPriceStDeviation}
+                    portfolioStdDev={portfolioStdDevNeeded}
+                    portfolioBeta={portfolioBetaNeeded}
+                    portfolioAlpha={portfolioAlphaNeeded}
+                    portfolioMaxReturn={maxarrPortfolioReturnsNeeded}
+                    portfolioMinReturn={minarrPortfolioReturnsNeeded}
+                    avgPortfolioReturns={avgPortfolioReturnsNeeded}
+                    spxStDeviation ={spxReturnStDeviation}
+                    />
+                    
+                    
+              </Grid>
+          </Grid>
+          
+      </div>
 </Fragment>
         
     )

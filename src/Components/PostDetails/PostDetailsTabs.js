@@ -86,7 +86,7 @@ export default function BasicTabs() {
   const [yearRange,setYearRange] = useState([])
   const [dateArr,setDateArr] = useState([])
   const [sectorWeighting,setSectorWeighting] = useState()
-  const [dateSelect,setDateSelect] = useState('ytd')
+  const [dateSelect,setDateSelect] = useState('ttm')
   let currentDate = new Date().toISOString().slice(0, 10)
  
   useEffect(()=>{
@@ -267,7 +267,7 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
 
           <Tab label="Portfolio Overview" {...a11yProps(0)} />
           <Tab label="Holdings" {...a11yProps(1)} />
-          <Tab label="Total Return" {...a11yProps(2)} />
+          <Tab label="Total Return Graphs" {...a11yProps(2)} />
           <Tab label="Seasonal Analysis" {...a11yProps(3)} />
           <Tab label="Statistical Summary" {...a11yProps(4)} />
           
@@ -280,20 +280,25 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
 
         <Card  sx={{ maxWidth: 100 }}>
           <TextField id="date" label="Data End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
-          {/* <TextField id="date" label="End Date" onChange={endDateHandler} type="date" defaultValue={currentDate} sx={{ width: 220 }} InputLabelProps={{shrink: true, }}/> */}
+          
         </Card>
         <Card>
         
-        {(value===0 || value===4)  && <FormControl>
-          <InputLabel align={"right"} id="demo-simple-select-standard-label">Date</InputLabel>
+        {/* {(value===0 || value===4)  && <FormControl sx={{ m: 1, width: 300 }}> */}
+        {(value===0 || value===4)  && <FormControl style={{minWidth: 300}}>
+          <InputLabel size='large' align={"right"} id="demo-simple-select-standard-label">Date</InputLabel>
           <Select
               value={dateSelect}
               onChange={dateTypeHandler}
-              label="Date">
-              <MenuItem value={'ytd'}>TTM</MenuItem>
-              <MenuItem value={'3yr'}>3-Yr</MenuItem>
-              <MenuItem value={'5yr'}>5-Yr</MenuItem>
-              <MenuItem value={`${yearArr.length-1}yr`}>{yearArr.length-1}-Yr</MenuItem>
+              label={
+                <Typography variant="h5">Date</Typography>
+                
+                }
+              >
+              <MenuItem value={'ttm'}><Typography variant='h6' align={"center"}>TTM</Typography></MenuItem>
+              <MenuItem value={'3yr'}><Typography variant='h6' align={"center"}>3-Yr</Typography></MenuItem>
+              <MenuItem value={'5yr'}><Typography variant='h6' align={"center"}>5-Yr</Typography></MenuItem>
+              <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"center"}>{yearArr.length-1}-Yr</Typography></MenuItem>
           </Select>
       </FormControl>}
 

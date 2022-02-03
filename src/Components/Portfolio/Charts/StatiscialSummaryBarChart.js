@@ -5,13 +5,17 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import ReactApexChart from "react-apexcharts";
 
 
-const StatisticalSummaryBarChart = ({categories,portfolioData,spxData}) => {
+const StatisticalSummaryBarChart = ({title, portfolioData,spxData}) => {
   
 
 // console.log('[StatisticalSummary.StatisticalSummaryBarChart.portfolioData',portfolioData)
 // console.log('[StatisticalSummary.StatisticalSummaryBarChart.spxData',spxData)
+console.log('[StatisticalSummary.StatisticalSummaryBarChart.title',title)
+
+
   
   const series =  [{
+    name:'Portfolio',
     data: [portfolioData, spxData]
   }]
   
@@ -32,6 +36,11 @@ const StatisticalSummaryBarChart = ({categories,portfolioData,spxData}) => {
     dataLabels: {
       enabled: false,
     },
+    grid: {
+      row: {
+        colors: ['#f2f2f2','#fff']
+      }
+    },
     
     
     xaxis: {
@@ -44,7 +53,24 @@ const StatisticalSummaryBarChart = ({categories,portfolioData,spxData}) => {
       labels: {
         rotate: -90
       }
-    }
+    },
+    yaxis: {
+      title: {
+        text: 'Growth',
+      },
+      labels: {
+        formatter: function (y) {
+          if(title ==='Beta'){
+            return y
+          } else if(title==='Annualized Return' ) {
+            return (y).toFixed(1) + "%";
+          } else {
+            return (y*100).toFixed(1) + "%";
+          }
+          
+        }
+      }
+    },
   }
   
   return (

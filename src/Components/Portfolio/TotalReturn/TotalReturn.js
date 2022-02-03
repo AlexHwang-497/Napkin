@@ -99,7 +99,7 @@ let dateObjs = {
         <Grid container spacing={3}>
             <Grid item sm={6} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                  <TRLineChart priceData={ytdData} title={'YTD'}/>
+                  <TRLineChart priceData={ytdData} title={'TTM'}/>
                 </Paper>
             </Grid>
             <Grid item sm={6} >
