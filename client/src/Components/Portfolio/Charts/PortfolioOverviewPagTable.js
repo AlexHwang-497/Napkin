@@ -140,7 +140,7 @@ const rows = [
   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
 ];
 
-export default function PortfolioOverviewPagTable({dataNeeded}) {
+export default function PortfolioOverviewPagTable({dataNeeded,chartLabel}) {
   console.log('[PortfolioOverviewPagTable.dataNeeded',dataNeeded)
   const classes = useStyles();
   // const row = dataNeeded.map((entry)=>entry.map((el)=>{return{'image':(el.images), 'symbol':el.symbol,'ownership':el.ownership,'id':entry.indexOf(el)}}))

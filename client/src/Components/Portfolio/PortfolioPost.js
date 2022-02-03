@@ -336,10 +336,12 @@ console.log('[PortfolioPost.yearArr',yearArr)
               
             </IconButton>
           }
-          title={post.portfolioName}
-        
+          title={
+            <Typography variant='h6'>
+            {post.portfolioName}
+            </Typography>
+            }
           subheader={moment(post.dateCreated).fromNow()}
-          
         />
         <Divider style={{ margin: '20px 0' }} />  
         
@@ -357,8 +359,11 @@ console.log('[PortfolioPost.yearArr',yearArr)
               value={lineGraphData}
               onChange={lineGraphDataHandler}
               label="Date"
+              full width
             >
-            
+            <Typography>
+              
+            </Typography>
             <MenuItem value={'ttm'}>TTM</MenuItem>
             <MenuItem value={'3yr'}>3-Yr</MenuItem>
             <MenuItem value={'5yr'}>5-Yr</MenuItem>
@@ -392,12 +397,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
         </TextField>
           </Typography>
         <Divider style={{ margin: '20px 0' }} />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {/* Tags: #AAPL, #AMZN,#NFLX, # S&P500, #TECH */}
-          {/* Tags:{post.tags} */}
-        </Typography>
-      </CardContent>
+      
       <CardActions disableSpacing>
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
           <Likes/>

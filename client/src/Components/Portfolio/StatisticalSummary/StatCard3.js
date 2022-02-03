@@ -52,7 +52,7 @@ const StatCard3 = ({portfolioAnnualizedReturn,portfolioBeta,spxStDeviation,portf
                                 <h3 className="mt-1 text-32">
                                 <Divider style={{ margin: '20px 0' }} />
                                 
-                                <StatiscialSummaryBarChart categories={0} portfolioData={item.amount.toLocaleString()} spxData={item.spxAmount.toLocaleString()}/>    
+                                <StatiscialSummaryBarChart title={item.title} portfolioData={item.amount.toLocaleString()} spxData={item.spxAmount.toLocaleString()}/>    
                                     
                                 </h3>
                             </div>
