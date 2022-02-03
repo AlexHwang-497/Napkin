@@ -42,11 +42,12 @@ const ApexTreeMap = ({treeMapData,dateIndex,format,percentile}) => {
           fontSize: '12px',
         },
         formatter: function(text, op) {
+          console.log('[ApexTreeMap.op',op)
           if (format==='$'){
-            return [text, '$'+Number(op.value).toFixed(2)]
+            return [text, '$'+op.value.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})]
 
           } else if(format==='annual') {
-            return [text, Number(op.value).toFixed(2)+'%']
+            return [text,(op.value).toFixed(1)+'%']
           }else {
             return [text, Number(op.value*100).toFixed(2)+'%']
           }

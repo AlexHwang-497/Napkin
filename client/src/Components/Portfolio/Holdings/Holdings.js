@@ -165,14 +165,14 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
 
             </Grid>
 
-            <Grid item sm={6} >
+            <Grid item sm={6} spacing={1} >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <h1>Portfolio Tree Map</h1>
                     <Divider style={{ margin: '20px 0' }} />
 
                     <Box component="form" sx={{'& > :not(style)': { m: 3, width: '25ch' },}} noValidate autoComplete="off">
                         {/* <Card> */}
-                        <FormControl >
+                        <FormControl style={{minWidth: 250}}>
                         {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}> */}
                                 <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
                                 <Select
@@ -188,7 +188,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                             </FormControl>
                         {/* </Card> */}
                         {/* <Card> */}
-                        <FormControl >
+                        <FormControl style={{minWidth: 250}}>
                         {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}> */}
 
                         
@@ -216,13 +216,16 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                         {/* </Card> */}
 
                             
-                            
+                            <FormControl variaint="filled" style={{minWidth: 250}}>
                                 <TextField  
                                     color='string' 
                                     label="Percentile" 
                                     variant="filled"
                                     onChange={percentileHandler}
+                                    size ="small"
                                 />
+
+                            </FormControl>
 
                             
                     </Box>

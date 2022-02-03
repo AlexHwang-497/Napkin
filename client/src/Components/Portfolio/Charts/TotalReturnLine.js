@@ -101,9 +101,9 @@ const TRLineChart = ({priceData,title}) => {
             max: maxValue,
             labels: {
                 formatter: function (y) {
-                //   return '$'+Number(y).toFixed(1);
+                
                   return '$'+y.toLocaleString(undefined, {minimumFractionDigits: 1,maximumFractionDigits: 1});
-                //   return '$'+((y.toFixed(2)).toLocaleString());
+                
                 }
               }
         },
