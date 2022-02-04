@@ -279,7 +279,10 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
       <Grid   container direction="row" justifyContent="space-between" alignItems="baseline">
 
         <Card  sx={{ maxWidth: 100 }}>
+          
+
           <TextField id="date" label="Data End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
+          
           
         </Card>
         <Card>
@@ -291,13 +294,13 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
               value={dateSelect}
               onChange={dateTypeHandler}
               label={
-                <Typography variant="h5">Date</Typography>
+                <Typography variant="h1">Date</Typography>
                 
                 }
               >
-              <MenuItem value={'ttm'}><Typography variant='h6' align={"center"}>TTM</Typography></MenuItem>
-              <MenuItem value={'3yr'}><Typography variant='h6' align={"center"}>3-Yr</Typography></MenuItem>
-              <MenuItem value={'5yr'}><Typography variant='h6' align={"center"}>5-Yr</Typography></MenuItem>
+              <MenuItem value={'ttm'}><Typography variant='h6' align={"left"}>TTM</Typography></MenuItem>
+              <MenuItem value={'3yr'}><Typography variant='h6' align={"left"}>3-Yr</Typography></MenuItem>
+              <MenuItem value={'5yr'}><Typography variant='h6' align={"left"}>5-Yr</Typography></MenuItem>
               <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"center"}>{yearArr.length-1}-Yr</Typography></MenuItem>
           </Select>
       </FormControl>}

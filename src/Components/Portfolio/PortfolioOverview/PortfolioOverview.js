@@ -28,7 +28,11 @@ import PortfolioOverviewPagTable from '../Charts/PortfolioOverviewPagTable'
 
 function PortfolioOverview({currentId,sector,portfolioName,assets,image,ownership,priceData,yearArr,dateSelect}) {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
+    const  states= useSelector((state) => state);
     
+    console.log('[ PortfolioOverview.posts',posts)
+    console.log('[ PortfolioOverview.states',states)
+    console.log('[ PortfolioOverview.post',post)
     // console.log('[ PortfolioOverview.priceData',priceData)
     
 

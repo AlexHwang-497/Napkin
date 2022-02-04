@@ -40,6 +40,7 @@ export default (state = { isLoading: true, posts: [] }, action) => {
                     // *return all other posts normally
                     // *change the post that just received  a comment
                 if (post._id == +action.payload._id) {
+                // if (post._id == +action.payload._id) {
                     return action.payload;
                 }
                 return post;

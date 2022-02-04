@@ -95,7 +95,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
           
       }).catch((err)=>setError(err))
       );
-    }, []);
+    }, [post.assets]);
     // console.log('[PortfolioPost.stockData',stockData)
     console.log('[PortfolioPost.post.assets',post.assets)
     console.log('[PortfolioPost.dateArr',dateArr)
@@ -353,8 +353,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
           subheader={moment(post.dateCreated).fromNow()}
         />
         <Divider style={{ margin: '20px 0' }} />  
-        <Grid container spacing={3}>
-          <Grid item sm={6}>
+        <CardContent>
 
             <Box 
               component="form"
@@ -382,9 +381,13 @@ console.log('[PortfolioPost.yearArr',yearArr)
                 </Select>
                   
             </Box>
-          </Grid>
+        </CardContent>
+        
+          
 
-        </Grid>
+        
+
+        
         
           
         <Divider style={{ margin: '20px 0' }} />  
@@ -409,10 +412,21 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <Divider style={{ margin: '20px 0' }} />
         
         
+<CardContent>
+              {/* <TextField fullWidth label="Portfolio Description" disabled   variant="outlined" rows={10}   defaultValue={post.description}> </TextField> */}
+              {/* <Box component="span" sx={{ display: 'inline-block', mx: '2px', transform: 'scale(1)',border: '1px dashed grey'  }}> */}
+              <Box component="span" sx={{ display: 'block', mx: '2px', transform: 'scale(1)'  }}>
+              <Typography variant ="h6" >Portfolio Description</Typography>
+              <Divider style={{ margin: '20px 0' }} />
+              <Typography variant ="h7" color='text.secondary'>
+                {post.description}
+              </Typography>
 
+              </Box>
+
+</CardContent>
             
 
-              <TextField fullWidth label="Portfolio Description" disabled   variant="outlined" rows={10}   defaultValue={post.description}> </TextField>
             
         
             
@@ -423,9 +437,9 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePortfolio(post._id))}>
           <Likes/>
         </Button>
-        <Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
+        {(postUserId===userId) &&<Button size="small" color="secondary" onClick={() => dispatch(deletePortfolio(post._id))}>
           <DeleteIcon fontSize="small" /> Delete
-        </Button>
+        </Button>}
         
         
         <ExpandMore

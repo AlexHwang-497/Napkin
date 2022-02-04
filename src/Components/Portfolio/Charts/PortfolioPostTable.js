@@ -16,6 +16,7 @@ const columns = [
     minWidth: 50,
     // editable: true,
   },
+  
   {
     field: 'ownership',
     headerName: 'Ownership',
@@ -25,8 +26,13 @@ const columns = [
       const valueFormatted = Number(params.value).toLocaleString();
       return `${valueFormatted} %`;
     },
-    // editable: true,
   },
+  {
+    field: 'sector',
+    headerName: 'Sector',
+    minWidth: 50,
+    // editable: true,
+  }
   
 ];
 
@@ -39,14 +45,16 @@ const rows = [
 export default function PortfolioPostTable({data}) {
   // if(!data || data.length===0 || data[0]===undefined) return 
     console.log('[PortfolioPostTable.dataNeeded',data.assets)
+    console.log('[PortfolioPostTable.data',data)
 
     let obj = {}
     obj.symbol=data.assets.map((el)=>el)
     obj.images=data.image
     obj.ownership=data.ownership
-    // console.log('[PortfolioPostTable.obj',obj)
+    obj.sector=data.sector
+    console.log('[PortfolioPostTable.obj',obj)
     // console.log('[PortfolioPostTable.obj.map',obj.symbol.map((el,i)=>{return {'id':i,'symbol':el, 'images':obj.images[i],'ownership':obj.ownership[i]}}))
-    const row = obj.symbol.map((el,i)=>{return {'id':i,'symbol':el, 'image':obj.images[i],'ownership':obj.ownership[i]}})
+    const row = obj.symbol.map((el,i)=>{return {'id':i,'symbol':el, 'image':obj.images[i],'ownership':obj.ownership[i],'sector':obj.sector[i]}})
   return (
     <div style={{ height: 350, width: '100%' }}>
       <DataGrid
@@ -56,7 +64,7 @@ export default function PortfolioPostTable({data}) {
         rowsPerPageOptions={[5]}
         columns={columns}
         disableColumnMenu={true}
-        // initialState={{ pinnedColumns: { left: ['name'], right: ['actions'] } }}
+        
 
         // sortingMode={false}
         // disableSelectionOnClick
