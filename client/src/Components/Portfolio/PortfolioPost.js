@@ -95,7 +95,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
           
       }).catch((err)=>setError(err))
       );
-    }, []);
+    }, [post.assets]);
     // console.log('[PortfolioPost.stockData',stockData)
     console.log('[PortfolioPost.post.assets',post.assets)
     console.log('[PortfolioPost.dateArr',dateArr)

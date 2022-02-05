@@ -85,12 +85,12 @@ export const createPortfolio = async(req,res) => {
 export const updatePortfolio = async (req, res) => {
 
     const { id } = req.params;
-    const { assets, ownership,sector,image } = req.body;
+    const { assets, ownership,sector,image,description, portfolioName } = req.body;
     console.log('this is everything req.body in updatePortfolio of server/controlelrs/posts', req.body)
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPortfolio = { assets, ownership,sector,image  };
+    const updatedPortfolio = { assets, ownership,sector,image, description, portfolioName  };
 
     const portfolio = await PostPortfolio.findByIdAndUpdate(id, updatedPortfolio, { new: true });
 
@@ -144,6 +144,7 @@ export const likePortfolio = async (req, res) => {
     // ! this is waht is poulating this post
 export const commentPortfolio = async (req, res) => {
     console.log('[Server/portfolio.commentPost',req)
+    console.log('[CommentPortfolio.server.commentPost',req)
     const { id } = req.params;
     const { value } = req.body;
     // *we are getting the post from the database
@@ -155,5 +156,19 @@ export const commentPortfolio = async (req, res) => {
 
     res.json(updatedPost);
 };
+// export const commentPortfolio = async (req, res) => {
+//     console.log('[Server/portfolio.commentPost',req)
+//     console.log('[CommentPortfolio.server.commentPost',req)
+//     const { id } = req.params;
+//     const { value } = req.body;
+//     // *we are getting the post from the database
+//     const post = await PostPortfolio.findById(id);
+//     // * we are then pushing/adding the comments
+//     post.comments.push(value);
+//     // *then we are updating the datbase with the new comment
+//     const updatedPost = await PostPortfolio.findByIdAndUpdate(id, post, { new: true });
+
+//     res.json(updatedPost);
+// };
 
 export default router

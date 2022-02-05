@@ -13,6 +13,10 @@ const portfolioSchema = mongoose.Schema({
     sector:[String],
     image:[String],
     description: { type: [String], default: [] },
+    createdAt: {
+        type: Date,
+        default: new Date(),
+    },
     
 })
 

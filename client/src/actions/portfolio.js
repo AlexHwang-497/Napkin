@@ -119,9 +119,10 @@ export const updatePortfolio = (id, post) => async (dispatch) => {
       
       // const { data } = await api.comment(value, id);
       const { data } = await api.commentPortfolio(value, id);
-      console.log('[CommentSection.commentPortfolio.data',data)
+      // console.log('[CommentSection.commentPortfolio.data',data)
   
       dispatch({ type: COMMENT, payload: data });
+      console.log('[CommentSection.commentPortfolio.data.comments',data.comments)
       // *this means that we are returning the latest comments coming in
       return data.comments;
     } catch (error) {

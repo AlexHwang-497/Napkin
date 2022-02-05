@@ -66,7 +66,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
   console.log('[EditCustomizedDialogs.openState',openState)
   console.log('[EditCustomizedDialogs.post',post)
   const [open, setOpen] = useState(openState || false);
-  const [description, setDescription] = useState([post.description]);
+  const [description, setDescription] = useState(post.description);
   const [portfolioName, setPortfolioName] = useState(post.portfolioName)
   const [assets, setAssets] = useState(post.assets || [])
   const [ownership, setOwnership] = useState(post.ownership || [])
