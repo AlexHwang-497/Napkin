@@ -21,6 +21,7 @@ import PortfolioCards from '../Components/Portfolio/PortfolioCards';
 import EditCustomizedDialogs from '../Components/Portfolio/editPortfolioDialog';
 import PortfolioStepper from '../Components/Portfolio/PortfolioStepper'
 import PortfolioAccordion from '../Components/Portfolio/PortfolioAccordion';
+import CreatePortfolio from '../Components/Portfolio/Dialog';
 // *this will provide us an idea of where our current location is 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -95,7 +96,8 @@ const Home = () =>{
             </AppBar>
               
               <AppBar className={classes.appBarSearch} position="static" color="inherit">
-                <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Sector" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
+                {/* <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Sector" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} /> */}
+                <CreatePortfolio/>
                 <ChipInput
                   style={{ margin: '10px 0' }}
                   value={tags}

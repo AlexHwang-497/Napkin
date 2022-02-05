@@ -74,10 +74,10 @@ const Navbar = () =>{
         
         </Link>
         
-      {(user) && 
+      {/* {(user) && 
             <Typography className={classes.userName} variant="h6"><CreatePortfolio/></Typography>
 
-      }
+      } */}
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>

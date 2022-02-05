@@ -92,7 +92,19 @@ console.log('[PortfolioDetail.spxValue',spxValue)
           {/* <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}> */}
           <h1>Trailing Risk and Returns of Currrent Portoflio</h1>
           <Divider style={{ margin: '20px 0' }} />
+          
+          
+
             <PortfolioReturnTable  annReturn={calculations}/>
+          
+          
+
+
+
+          
+          
+
+          
             
             {/* <CommentSection post={post}/> */}
           {/* </Paper> */}
