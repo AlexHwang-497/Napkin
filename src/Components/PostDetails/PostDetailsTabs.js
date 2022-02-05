@@ -100,8 +100,6 @@ export default function BasicTabs() {
         setSector(data.sector);
         setImage(data.image);
       })
-        // console.log('[PostDetailsTabs.useEffect.assets',data.assets)
-      // fetchPortfolio(id).then((res)=>console.log('[PostDetailsTabs.useEffect.data',res.data))
 
     }
 

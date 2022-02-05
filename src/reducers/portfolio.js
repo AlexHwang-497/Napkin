@@ -38,13 +38,14 @@ export default (state = { isLoading: true, portfolios: [{assets:[]}] }, action) 
         case COMMENT:
             return {
                 ...state,
-                posts: state.posts.map((portfolio) => {
+                posts: state.portfolios.map((portfolio) => {
                     // *return all other posts normally
                     // *change the post that just received  a comment
                     
                 if (portfolio._id === action.payload._id) {
-                // if (portfolio._id == +action.payload._id) {
+                
                     console.log('[CommentSection.reducer.action.payload',action.payload)        
+                    console.log('[CommentSection.reducer.state',state)        
                     return action.payload;
                     
                 }

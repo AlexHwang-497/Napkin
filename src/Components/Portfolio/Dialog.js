@@ -62,7 +62,7 @@ export default function CreatePortfolio() {
 
   return (
     <div>
-      <Button variant="outlined" id="customized-dialog-title" color="primary" onClick={handleClickOpen}>
+      <Button fullWidth variant="outlined" id="customized-dialog-title" color="primary" onClick={handleClickOpen}>
         Create Portfolio 
       </Button>
       <BootstrapDialog

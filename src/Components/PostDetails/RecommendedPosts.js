@@ -44,7 +44,7 @@ const RecommendedPosts = () => {
           </Paper>
         );
       }
-    const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+    const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0,6)
     console.log('[RecommendedPosts.recomnededPosts]',recommendedPosts)
     console.log('[RecommendedPosts.recomnededPosts._id]',recommendedPosts._id)
 

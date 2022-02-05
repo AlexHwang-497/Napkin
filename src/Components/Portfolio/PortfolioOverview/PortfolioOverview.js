@@ -181,7 +181,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
 
         
         
-            <Grid item sm={6} >
+            <Grid item sm={6}   >
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                         <PortfolioDetail  priceData={priceData} assets={stockList} currentId={currentId} ownership={stockWeight} portfolioName={portfolioName} sector={sector} yearArr={yearArr}/>    
                 </Paper> 
@@ -212,7 +212,11 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
                 <h1>Comment Section</h1>
                 <Divider style={{ margin: '20px 0' }} />
                     <CommentSection currentId={currentId} post={post}/>
+                    <Divider style={{ margin: '20px 0' }} />
+                <Grid>
                     <RecommendedPosts/>
+
+                </Grid>
 
                 </Paper>
                 

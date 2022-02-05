@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import {styled} from '@material-ui/core'
+import {styled,} from '@material-ui/core'
 import TableCell , { tableCellClasses } from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
@@ -55,6 +55,7 @@ export default function PortfolioReturnTable({annReturn}) {
 
   const rows =annReturn.map((entry,key)=>createData(...entry))
   return (
+    
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
       <TableHead style={{background:"#091F3C"}}>

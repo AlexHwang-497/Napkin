@@ -36,10 +36,11 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
     console.log('[SeasonalAnalysis.SeasonalAnalysisYearArr',SeasonalAnalysisYearArr)
+    console.log('[SeasonalAnalysis.priceData',priceData)
     
     const yearRange = SeasonalAnalysisYearArr
 
-      console.log('this is the labels',labels)
+      
       if(yearArr.length===0 || !yearArr) return []
       // const dateLabels = ['1yr', '3yr', '5yr'];
       const dateLabels =  yearArr.slice(1);
@@ -77,6 +78,15 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
             }  
             return arrCumulativeReturns
         })
+
+        const securityData = dates.map((date, index) => {
+          const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+          const data = monthlyReturn(range).map((entry)=>entry)
+          console.log('[SeasonalAnalysis.securityData.data/monthlyReturn',data)
+          // console.log('[PortfolioOverview.pracsValue.monReturn',data)
+          return data
+      })
+      console.log('[SeasonalAnalysis.securityData',securityData)
         
         
           const dateArr = dates.map((date, index) => {
@@ -96,7 +106,6 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
 
 
         const  finalTableOrg = (tableReturnsData)=> {
-          console.log('[SeasonalAnalysis.finalTableOrg.tableReturnsData',tableReturnsData)
             let result=[]
             for(let i=0;i<tableReturnsData[0].length;i++){
                 result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})

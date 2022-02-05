@@ -20,27 +20,23 @@ const CommentSection = ({post,currentId}) => {
     const dispatch = useDispatch();
     // const [comments, setComments] = useState(user.comments);
     const [comments, setComments] = useState(post?.comments);
-    console.log('[CommentSection.comments',comments)
+    const [comment, setComment] = useState('');
     const classes = useStyles();
     const commentsRef = useRef();
-    const [comment, setComment] = useState('');
-
-    const handleComment = async () => {
-        const finalComment = () => `${user.result.name}:${comment}`
-        // dispatch(commentPost(finalComment,post._id))
-        // console.log('[CommentSection.finalComment', finalComment)
-        // console.log('[CommentSection.user.result.name', user.result.name)
-        // console.log('[CommentSection.finalComment.user?.result?.name', user?.result?.name)
-        // console.log('CommentSection.finalComment.comment', comment)
-        const newComments = await dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
-        // const newComments =  dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
-        // const newComments = await dispatch(commentPortfolio(`${user}: ${comment}`, post._id));
-        console.log('[CommentSection.newComments',newComments)
-        setComment('');
-        setComments(newComments);
     
-        commentsRef.current.scrollIntoView({ behavior: 'smooth' });
-      };
+    const handleComment = async () => {
+      
+      // const newComments = await dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
+      const newComments = await dispatch(commentPortfolio(`${user?.result?.name}: ${comment}`, post._id));
+      console.log('[CommentSection.newComments',newComments)
+      setComment('');
+      setComments(newComments);
+      
+      commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+    };
+    
+    console.log('[CommentSection.comment',comment)
+      console.log('[CommentSection.comments',comments)
 
 
     // *{/* <strong>{c.split(': ')[0]}</strong> */}{/* {c.split(':')[1]} */};  we neeed to fix this part to get the comments to pop up
@@ -50,12 +46,13 @@ const CommentSection = ({post,currentId}) => {
         <div className={classes.commentsOuterContainer}>
           <div className={classes.commentsInnerContainer}>
             <Typography gutterBottom variant="h6">Comments</Typography>
-            {post && post.comments?.map((c, i) => (
+            {post && comments?.map((comment, i) => (
               <Typography key={i} gutterBottom variant="subtitle1">
-                <strong>{c.split(': ')[0]}</strong>
-                {c.split(':')[1]}
+                <strong>{comment.split(': ')[0]}</strong>
+                {comment.split(':')[1]}
               </Typography>
             ))}
+            
             <div ref={commentsRef} />
           </div>
           <div style={{ width: '70%' }}>
