@@ -49,14 +49,14 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
     
     
 
-      console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightings',portfolioObj)
-      console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial',intialObj)
-      console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial.mapped',initialObjpercent)
-      console.log('[StatisticalSummary.statCards2.portfolioObjpercent',portfolioObjpercent)
+    //   console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightings',portfolioObj)
+    //   console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial',intialObj)
+    //   console.log('[StatisticalSummary.statCards2.uniquePortfolioWeightingsInitial.mapped',initialObjpercent)
+    //   console.log('[StatisticalSummary.statCards2.portfolioObjpercent',portfolioObjpercent)
     const dateTypeHandler = (e) => {
         setPortfolioWeightingType(e.target.value)
     }
-    console.log('[StatisticalSummary.statCards2.portfolioWeightingType',portfolioWeightingType)
+    // console.log('[StatisticalSummary.statCards2.portfolioWeightingType',portfolioWeightingType)
     let portfolioDataNeeded
     if(portfolioWeightingType==='initial'){
         portfolioDataNeeded = initialObjpercent
@@ -84,7 +84,6 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
                                 value = {portfolioWeightingType}
-                                
                                 onChange={dateTypeHandler}
                                 label="Data Type">
 
@@ -106,7 +105,7 @@ const StatCards2 = ({benchmarkSectorWeighting,portfolioWeighting}) => {
             </Grid>
             <Grid item xs={12} md={6}>
                 <Card elevation={3}  className="p-4">
-            <h2 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings Graph</h2>
+            <h1 className="m-0 text-muted flex-grow">Portfolio vs BenchMark Sector Weightings Graph</h1>
             <Divider style={{ margin: '20px 0' }} />
                     {/* <div className="flex items-center">
                         <Fab

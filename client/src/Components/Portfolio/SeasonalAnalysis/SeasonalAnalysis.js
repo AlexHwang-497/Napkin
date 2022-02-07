@@ -1,4 +1,4 @@
-import {Grid, Paper, TextField,Box,Divider} from '@material-ui/core'
+import {Grid, Paper, TextField,Box,Divider, FormControl, InputLabel,Select, MenuItem} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import VerticalBar from '../Charts/BarChart'
 import CollapsibleTable from '../CollapsableTable'
@@ -13,10 +13,12 @@ import {generateHistoricalDate} from '../../../Utilities/DateRanges'
 import PortfolioPostTable from '../Charts/PortfolioPostTable'
 import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
 import PortfolioStepper from '../PortfolioStepper'
-
+import useStyles from './styles'
+import napkinsIcon from '../../../images/portfolioIcon.png'
 function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearArr,SeasonalAnalysisYearArr}) {
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
+    const classes = useStyles();
     var finance = new Finance();
     const apiKey = config.FMP_API_KEY_ID
     const [stockList, setStockList] = useState([...assets] || ['AAPL'])
@@ -36,10 +38,11 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
     const startDate ='2019-01-01'
     const endDate ='2021-11-01'
     console.log('[SeasonalAnalysis.SeasonalAnalysisYearArr',SeasonalAnalysisYearArr)
+    console.log('[SeasonalAnalysis.priceData',priceData)
     
     const yearRange = SeasonalAnalysisYearArr
 
-      console.log('this is the labels',labels)
+      
       if(yearArr.length===0 || !yearArr) return []
       // const dateLabels = ['1yr', '3yr', '5yr'];
       const dateLabels =  yearArr.slice(1);
@@ -77,7 +80,26 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
             }  
             return arrCumulativeReturns
         })
-        
+
+        const securityData = dates.map((date, index) => {
+          const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+          const data = monthlyReturn(range).map((entry)=>entry)
+          console.log('[SeasonalAnalysis.securityData.data/monthlyReturn',data)
+          // console.log('[PortfolioOverview.pracsValue.monReturn',data)
+          return data
+      })
+      console.log('[SeasonalAnalysis.securityData',securityData.map((el)=>el.map((entry)=> {return {symbol:entry.symbol,image:entry.images}})))
+      const securityDataArr = securityData.map((el)=>el.map((entry)=> entry.dates.date))
+      // const securityDataArr = securityData.map((el)=>el.map((entry)=> entry.dates.date))
+      const pracsDate = securityData.map((el)=>el.map((entry)=> entry.dates.map((item)=>item.date)))[securityData.length-1]
+      const pracsValue = securityData.map((el)=>el.map((entry)=> entry.dates.map((item)=>item.periodReturn)))[securityData.length-1]
+      const pracsSymbol = securityData.map((el)=>el.map((entry)=> {return {symbol:entry.symbol,image:entry.images}}))[0]
+      
+
+      // console.log('[SeasonalAnalysis.securityDataArr',securityDataArr)
+      console.log('[SeasonalAnalysis.pracsDate',pracsDate[0])
+      console.log('[SeasonalAnalysis.pracsValue',pracsValue)
+      console.log('[SeasonalAnalysis.pracsSymbol',pracsSymbol)
         
           const dateArr = dates.map((date, index) => {
             const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -93,10 +115,10 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           console.log('[SeasonalAnalysis.totalPortoflioValueReturn',totalPortoflioValueReturn)
           
           const tableReturnsData = [dateArr[dateArr.length-1],totalPortoflioValueReturn[totalPortoflioValueReturn.length-1]]
-
+          const pracsTableReturnsData = [pracsDate[0],pracsValue[2]]
+          console.log('[SeasonalAnalysis.pracsTableReturnsData',pracsTableReturnsData)
 
         const  finalTableOrg = (tableReturnsData)=> {
-          console.log('[SeasonalAnalysis.finalTableOrg.tableReturnsData',tableReturnsData)
             let result=[]
             for(let i=0;i<tableReturnsData[0].length;i++){
                 result.push({date:tableReturnsData[0][i],value:tableReturnsData[1][i]})
@@ -105,12 +127,13 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
             const returnsByYear=yearRange.map((year)=>(
               result.slice(1).filter((entry)=>entry.date.includes(year))
               ))
-          yearRange.map((year,i)=>returnsByYear[i].unshift(year))
+              yearRange.map((year,i)=>returnsByYear[i].unshift(year))
 
             return returnsByYear
             
           }
           console.log('[SeasonalAnalysis.finalTableOrg.',finalTableOrg)
+          console.log('[SeasonalAnalysis.tableReturnsData.',tableReturnsData)
 
 
         const  seasonalBarChartData = (tableReturnsData)=> {
@@ -126,9 +149,11 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           }
           // finalTableOrg(tableReturnsData)
           const dataNeeded =finalTableOrg(tableReturnsData)
+          const dataNeededPracs = finalTableOrg(pracsTableReturnsData)
           const barChartdataNeeded =seasonalBarChartData(tableReturnsData)
 
-        console.log('[SeasonalAnalysis.finalTableOrg',dataNeeded)
+        console.log('[SeasonalAnalysis.dataNeeded',dataNeeded)
+        console.log('[SeasonalAnalysis.dataNeededPracs',dataNeededPracs)
         // console.log('[seasonalAnalysis.seasonalBarchartData',barChartdataNeeded)
 
         
@@ -162,20 +187,35 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
           <h1>Portfolio Monthly Returns(%)</h1>
             <Divider style={{ margin: '20px 0' }} />
-              <TextField  
-                color='string' 
-                label="greater then(>)%" 
-                variant="filled"
-                defaultValue = {'5'}
-                onChange={greaterNumberHandler}
-              />
-              <TextField  
-                color='secondary' 
-                label="Less then(<)%" 
-                variant="filled" 
-                onChange={lessNumberHandler}
-                defaultValue = {'-5'}
-              />
+            <Box >
+
+                <TextField className={classes.textField1}   
+                  color='string' 
+                  label="greater then(>)%" 
+                  variant="filled"
+                  defaultValue = {'5'}
+                  onChange={greaterNumberHandler}
+                />
+                <TextField  className={classes.titleBox}
+                  color='secondary' 
+                  label="Less then(<)%" 
+                  variant="filled" 
+                  onChange={lessNumberHandler}
+                  defaultValue = {'-5'}
+                />
+
+                  <FormControl  className={classes.titleBox} style={{minWidth: 200}}>
+                            <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
+                                <Select>{
+                                  
+                                }
+
+
+                                </Select>
+                        </FormControl>
+            
+                        <img className={classes.image} src={napkinsIcon} alt="icon" height="75px" />
+            </Box>
             <Divider style={{ margin: '20px 0' }} />
             
             <SeasonalAnalysisTable data={dataNeeded} lessNumber={lessNumber} greaterNumber={greaterNumber}/>

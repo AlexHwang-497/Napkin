@@ -94,7 +94,7 @@ console.log('[PortfolioDetail.spxValue',spxValue)
           <Divider style={{ margin: '20px 0' }} />
           
           
-
+            
             <PortfolioReturnTable  annReturn={calculations}/>
           
           

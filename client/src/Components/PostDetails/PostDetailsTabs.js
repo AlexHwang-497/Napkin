@@ -100,8 +100,6 @@ export default function BasicTabs() {
         setSector(data.sector);
         setImage(data.image);
       })
-        // console.log('[PostDetailsTabs.useEffect.assets',data.assets)
-      // fetchPortfolio(id).then((res)=>console.log('[PostDetailsTabs.useEffect.data',res.data))
 
     }
 
@@ -218,17 +216,7 @@ const fetchPortfolioData = (selectedPortfolio) => {
   }
 
     let yearArr = yearForSelection(combinedDatesArr)
-    // console.log('[postDetailTabs.ytdMonth',ytdMonth)
-    // console.log('[postDetailTabs.ytd',ytd)
-    // console.log('[postDetailTabs.ttm',ttm)
-    // console.log('[postDetailTabs.twoYear',twoYear)
-    // console.log('[postDetailTabs.twoYear',threeYear)
-    // console.log('[postDetailTabs.fourYear',fourYear)
-    // console.log('[postDetailTabs.fiveYear',fiveYear)
-    // console.log('[postDetailTabs.sixYear',sixYear)
-    // console.log('[postDetailTabs.sevenYear',sevenYear)
-    // console.log('[postDetailTabs.eightYear',eightYear)
-    // console.log('[postDetailTabs.nineYear',nineYear)
+    
     // console.log('[postDetailTabs.tenYear',tenYear)
     // console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
     // console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
@@ -276,34 +264,29 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
         </Tabs>
     </AppBar>  
       </Box>
+      <Box></Box>
       <Grid   container direction="row" justifyContent="space-between" alignItems="baseline">
 
         <Card  sx={{ maxWidth: 100 }}>
-          
-
           <TextField id="date" label="Data End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
-          
-          
         </Card>
         <Card>
         
         {/* {(value===0 || value===4)  && <FormControl sx={{ m: 1, width: 300 }}> */}
-        {(value===0 || value===4)  && <FormControl style={{minWidth: 300}}>
-          <InputLabel size='large' align={"right"} id="demo-simple-select-standard-label">Date</InputLabel>
-          <Select
-              value={dateSelect}
-              onChange={dateTypeHandler}
-              label={
-                <Typography variant="h1">Date</Typography>
-                
-                }
-              >
-              <MenuItem value={'ttm'}><Typography variant='h6' align={"left"}>TTM</Typography></MenuItem>
-              <MenuItem value={'3yr'}><Typography variant='h6' align={"left"}>3-Yr</Typography></MenuItem>
-              <MenuItem value={'5yr'}><Typography variant='h6' align={"left"}>5-Yr</Typography></MenuItem>
-              <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"center"}>{yearArr.length-1}-Yr</Typography></MenuItem>
-          </Select>
-      </FormControl>}
+        <Box component="form"sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
+          {(value===0 || value===4)  && <FormControl style={{width: '200px', height: '50%'}}>
+            <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
+            <Select
+                value={dateSelect}
+                onChange={dateTypeHandler}
+                label="Date">
+                <MenuItem value={'ttm'}><Typography variant='h7' align={"left"}>TTM</Typography></MenuItem>
+                <MenuItem value={'3yr'}><Typography variant='h7' align={"left"}>3-Yr</Typography></MenuItem>
+                <MenuItem value={'5yr'}><Typography variant='h7' align={"left"}>5-Yr</Typography></MenuItem>
+                <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"center"}>{yearArr.length-1}-Yr</Typography></MenuItem>
+            </Select>
+          </FormControl>}
+        </Box>
 
         </Card>
       </Grid>
