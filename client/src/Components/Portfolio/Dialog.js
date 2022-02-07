@@ -4,6 +4,7 @@ import DataTable from './CreatePortfolioTable';
 import PortfolioInputForm from './CreatePortfolioInputForm';
 import InputForm from './InputForm/InputForm';
 import CreatePortfolioPagTable from './Charts/CreatePortfolioOverviewPagTable'
+import portfolioIcon from '../../images/portfolioIcon.png'
 
 
 
@@ -62,7 +63,7 @@ export default function CreatePortfolio() {
 
   return (
     <div>
-      <Button fullWidth variant="outlined" id="customized-dialog-title" color="primary" onClick={handleClickOpen}>
+      <Button fullWidth variant="outlined" id="customized-dialog-title" color="primary" onClick={handleClickOpen} startIcon={<Avatar variant='square' src={portfolioIcon}/>}>
         Create Portfolio 
       </Button>
       <BootstrapDialog

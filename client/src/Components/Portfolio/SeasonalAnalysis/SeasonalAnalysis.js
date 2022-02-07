@@ -14,7 +14,7 @@ import PortfolioPostTable from '../Charts/PortfolioPostTable'
 import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
 import PortfolioStepper from '../PortfolioStepper'
 import useStyles from './styles'
-import napkinsIcon from '../../../images/portfolioIcon.png'
+import portfolioIcon from '../../../images/portfolioIcon.png'
 function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearArr,SeasonalAnalysisYearArr}) {
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
@@ -26,6 +26,9 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
     const [stockWeight,setStockWeight]=useState([...ownership] || [0])
     const [greaterNumber,setGreaterNumber] = useState('5')
     const [lessNumber,setLessNumber] = useState('-5')
+    const [symbol,setSymbol] = useState('portfolio')
+    const [image,setImage] = useState(portfolioIcon)
+    const [symbolId,setSymbolId] = useState(0)
     
     const [aggregatePortfolio,setAggregatePortfolio]=useState([])
     // const [aggPortfolio,setAggPortfolio]=useState([])
@@ -56,7 +59,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           const spxValue = dates.map((date, index) => {
               const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
               const data = monthlyReturn(range).map((entry)=>entry.securityGrowthValue)[0]
-              console.log('[SeasonalAnalysis.spxValue.monReturn',data)
+              // console.log('[SeasonalAnalysis.spxValue.monReturn',data)
               return data
           })
           const totalPortoflioValue = dates.map((date, index) => {
@@ -93,13 +96,13 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
       // const securityDataArr = securityData.map((el)=>el.map((entry)=> entry.dates.date))
       const pracsDate = securityData.map((el)=>el.map((entry)=> entry.dates.map((item)=>item.date)))[securityData.length-1]
       const pracsValue = securityData.map((el)=>el.map((entry)=> entry.dates.map((item)=>item.periodReturn)))[securityData.length-1]
-      const pracsSymbol = securityData.map((el)=>el.map((entry)=> {return {symbol:entry.symbol,image:entry.images}}))[0]
+      const options = securityData.map((el)=>el.map((entry,i)=> {return {id:i,symbol:entry.symbol,image:entry.images}}))[0]
       
 
       // console.log('[SeasonalAnalysis.securityDataArr',securityDataArr)
       console.log('[SeasonalAnalysis.pracsDate',pracsDate[0])
       console.log('[SeasonalAnalysis.pracsValue',pracsValue)
-      console.log('[SeasonalAnalysis.pracsSymbol',pracsSymbol)
+      console.log('[SeasonalAnalysis.options',options)
         
           const dateArr = dates.map((date, index) => {
             const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -115,7 +118,7 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           console.log('[SeasonalAnalysis.totalPortoflioValueReturn',totalPortoflioValueReturn)
           
           const tableReturnsData = [dateArr[dateArr.length-1],totalPortoflioValueReturn[totalPortoflioValueReturn.length-1]]
-          const pracsTableReturnsData = [pracsDate[0],pracsValue[2]]
+          const pracsTableReturnsData = [pracsDate[0],pracsValue[symbolId]]
           console.log('[SeasonalAnalysis.pracsTableReturnsData',pracsTableReturnsData)
 
         const  finalTableOrg = (tableReturnsData)=> {
@@ -147,18 +150,9 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
             
             
           }
-          // finalTableOrg(tableReturnsData)
-          const dataNeeded =finalTableOrg(tableReturnsData)
-          const dataNeededPracs = finalTableOrg(pracsTableReturnsData)
-          const barChartdataNeeded =seasonalBarChartData(tableReturnsData)
-
-        console.log('[SeasonalAnalysis.dataNeeded',dataNeeded)
-        console.log('[SeasonalAnalysis.dataNeededPracs',dataNeededPracs)
-        // console.log('[seasonalAnalysis.seasonalBarchartData',barChartdataNeeded)
-
+          
         
-    
-        
+                
         
         const ytdData = [dateArr[0],spxValue[0],totalPortoflioValue[0]]
 
@@ -170,9 +164,52 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           setLessNumber(e.target.value)
           
         }
-        
-        console.log('[SeasonalAnalysis.greaterNumber',greaterNumber)
-        console.log('[SeasonalAnalysis.lessNumber',lessNumber)
+
+      
+      const dateTypeHandler = (e) => {
+        console.log('[seasonalAnalysis.e.target.value',e.target.value)
+
+        if(e.target.value ==='portfolio'){
+          setSymbol(e.target.value)
+          setImage(portfolioIcon)
+    
+
+        } else {
+          setSymbol(e.target.value.symbol)
+          setImage(e.target.value.image)
+          setSymbolId(e.target.value.id)
+    
+        }
+    }
+
+          finalTableOrg(tableReturnsData)
+          const portfolioData =finalTableOrg(tableReturnsData)
+          const securityDataPracs = finalTableOrg(pracsTableReturnsData)
+
+    let dataNeeded,barChartdataNeeded
+    if(symbol === 'portfolio'){
+      dataNeeded =finalTableOrg(tableReturnsData)
+      barChartdataNeeded =seasonalBarChartData(tableReturnsData)
+    } else {
+      dataNeeded =finalTableOrg(pracsTableReturnsData)
+      barChartdataNeeded =seasonalBarChartData(pracsTableReturnsData)
+
+    }
+
+
+
+          const dataNeededPracs = finalTableOrg(pracsTableReturnsData)
+
+
+    
+    
+
+    console.log('[seasonalAnalysis.barChartdataNeeded',barChartdataNeeded)
+    console.log('[seasonalAnalysis.securityDataPracs',securityDataPracs)
+    console.log('[seasonalAnalysis.dataNeeded',dataNeeded)
+
+
+    console.log('[SeasonalAnalysis.symbol',symbol)
 
     return (
         <Grid container spacing={3} >
@@ -205,16 +242,34 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 />
 
                   <FormControl  className={classes.titleBox} style={{minWidth: 200}}>
-                            <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
-                                <Select>{
-                                  
-                                }
-
-
-                                </Select>
-                        </FormControl>
+                            <InputLabel id="demo-simple-select-standard-label">Investment Type</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-standard-label"
+                              id="demo-simple-select-standard"
+                              onChange={dateTypeHandler}
+                              value = {symbol}
+                              // value={lineGraphData}
+                              // onChange={lineGraphDataHandler}
+                              label={symbol}
+                              full width
+                            >
+                              <MenuItem value={'portfolio'}>
+                                <img className={classes.image} src={portfolioIcon} style={{height:'20px',width:'20px'}}/>
+                                Portfolio
+                              </MenuItem>
+                              <Divider style={{ margin: '20px 0' }} />
+                              {options?.map((option,i) => {
+                                  return (
+                                    <MenuItem key={i} value={option}>
+                                    <img className={classes.image} src={option.image} style={{height:'20px',width:'20px'}}/>
+                                      {option.symbol ?? option.image}
+                                    </MenuItem>
+                                  );
+                              })} 
+                            </Select>
+                  </FormControl>
             
-                        <img className={classes.image} src={napkinsIcon} alt="icon" height="75px" />
+                        <img className={classes.image} src={image} alt="icon" height="50px" />
             </Box>
             <Divider style={{ margin: '20px 0' }} />
             
