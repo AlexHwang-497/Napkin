@@ -76,9 +76,9 @@ const PaginationTable = ({post}) => {
                 </TableBody>
             </Table>
 
-            <TablePagination
+            {/* <TablePagination
                 className="px-4"
-                rowsPerPageOptions={[5, 10]}
+                // rowsPerPageOptions={[5, 10]}
                 component="div"
                 count={post.assets.length}
                 rowsPerPage={rowsPerPage}
@@ -91,7 +91,7 @@ const PaginationTable = ({post}) => {
                 }}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            /> */}
         </div>
     )
 }

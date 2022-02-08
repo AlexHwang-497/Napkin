@@ -22,23 +22,11 @@ export default makeStyles((theme) => ({
     marginLeft: '20px',
     
   },
-  textField1: {
-    // marginLeft: '20px',
-    textDecoration: 'none',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      width: 'auto',
-      marginTop: 20,
-    },
-  },
-  textField2: {
-    marginLeft: '20px',
-  },
-  
   titleBox: {
     textDecoration: 'none',
-    // fontSize: '1em',
-    marginLeft: '5px',
+    fontSize: '1em',
+    
+    marginLeft: '10px',
     // margin: '30px 0',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',

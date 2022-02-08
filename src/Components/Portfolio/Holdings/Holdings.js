@@ -12,9 +12,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import ApexTreeChart from '../PortfolioOverview/ApexTreeMap'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'
+import useStyles from './styles'
 
 
 function Holdings({sector,assets,ownership, portfolioName,image, stockData,priceData ,yearArr}) {
+    const classes = useStyles();
     const [selectedLineChartData,setSelectedLineChartData] = useState('ytd')
     const [selectedPortfolioOverviewtData,setSelectedPortfolioOverviewtData] = useState('ytd')
     const [holdingsType,setHoldingsType] = useState('sector')
@@ -155,8 +157,10 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
     console.log('[Holdings.percentileHandler',percentile)
     
     return (
+        <Box sx={{ flexGrow: 1 }}>
+
         <Grid container spacing={3}>
-            <Grid item xs={12} md={6} >
+            <Grid item xs={12} md={6} xs={12}>
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                 <h1>Portfolio Sector Bifurcation</h1>
                 <Divider style={{ margin: '20px 0' }} />
@@ -165,15 +169,14 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
 
             </Grid>
 
-            <Grid item sm={6} spacing={1} >
+            <Grid item sm={6}  xs={12}>
                 <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
                     <h1>Portfolio Tree Map</h1>
                     <Divider style={{ margin: '20px 0' }} />
-
-                    <Box component="form" sx={{'& > :not(style)': { m: 3, width: '25ch' },}} noValidate autoComplete="off">
-                        {/* <Card> */}
-                        <FormControl style={{minWidth: 250}}>
-                        {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}> */}
+                    <Box component="form" sx={{'& > :not(style)': { m: 3, width: '20ch' },}} noValidate autoComplete="off">
+                        
+                        <FormControl className={classes.textField1} style={{minWidth: 100}}>
+                        
                                 <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
                                 <Select
                                     value={dateType}
@@ -188,12 +191,13 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                             </FormControl>
                         {/* </Card> */}
                         {/* <Card> */}
-                        <FormControl style={{minWidth: 250}}>
                         {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}> */}
 
                         
+                        <FormControl  style={{minWidth: 100}}>
                             <InputLabel id="demo-simple-select-standard-label">DataType</InputLabel>
                                 <Select
+                                    className={classes.titleBox}
                                     value={holdingsType}
                                     onChange={holdingsDataHandler}
                                     label="Date"
@@ -212,34 +216,26 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                                     {/* <MenuItem value={''}>Beta</MenuItem>
                                     <MenuItem value={''}>Alpha</MenuItem> */}
                                 </Select>
-                                </FormControl>
-                        {/* </Card> */}
-
+                        </FormControl>
                             
-                            <FormControl variaint="filled" style={{minWidth: 250}}>
-                                <TextField  
-                                    color='string' 
-                                    label="Percentile" 
-                                    variant="filled"
-                                    onChange={percentileHandler}
-                                    size ="small"
-                                />
-
-                            </FormControl>
-
-                            
-                    </Box>
-                    
-                        
+                        <FormControl variaint="filled" style={{minWidth: 100}}>
+                            <TextField  
+                                color='string' 
+                                label="Percentile" 
+                                variant="filled"
+                                onChange={percentileHandler}
+                                size ="small"
+                                className={classes.titleBox}
+                            />
+                        </FormControl>  
+                    </Box>     
                     <Divider style={{ margin: '20px 0' }} />
                     <ApexTreeChart format={format} treeMapData={treeMapData} dateIndex={dateIndex} percentile={percentile}/>
                 </Paper>
             
             </Grid>
-
-            
-            
         </Grid>
+        </Box>
         
     )
 }
