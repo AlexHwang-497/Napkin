@@ -38,7 +38,8 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * The application may occasionaly not load due to the data constraints of the Financial Modeling Prep API
 * only monthly data is availble due to API request per minute availbility
 # Future Updates
-* ability to stress test a user portfolio with various hypothetical economic scenarios
+* ability to stress test a user portfolio with various hypothetical economic scenarios.
 * a portfolio ranking of all portfolios created in the app to see which portfolio ranks the best due to a risk/resturn reward profile.
+* Daily and weekly stock data.
 
  
