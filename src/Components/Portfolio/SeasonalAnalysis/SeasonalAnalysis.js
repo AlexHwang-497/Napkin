@@ -15,7 +15,7 @@ import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
 import PortfolioStepper from '../PortfolioStepper'
 import useStyles from './styles'
 import portfolioIcon from '../../../images/portfolioIcon.png'
-import standardIcon from '../../../images/standard.png'
+import standardIcon from '../../../images/SP500.png'
 function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearArr,SeasonalAnalysisYearArr}) {
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
