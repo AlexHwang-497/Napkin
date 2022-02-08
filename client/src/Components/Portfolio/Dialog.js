@@ -71,7 +71,7 @@ export default function CreatePortfolio() {
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
           Exit 
         </BootstrapDialogTitle>
         <DialogContent dividers>

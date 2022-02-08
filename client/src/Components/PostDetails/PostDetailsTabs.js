@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FetchStockPrices from "../../StockData/FetchStockPrices";
 import config from "../../StockData/config";
 import { NFLX, TEAM, SPY } from "../../Utilities/sampleData";
-
+import useStyles from './styles'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 import {fetchPortfolio,fetchPost} from '../../api/index'
 
@@ -57,7 +57,7 @@ export default function BasicTabs() {
 
   const { id } = useParams();
   console.log('[BasicTabs.id',id)
-
+  const classes = useStyles();
   
 
   const [value, setValue] = useState(0);
@@ -92,7 +92,6 @@ export default function BasicTabs() {
   useEffect(()=>{
     console.log('[PostDetailsTabs.useEffect.assets',id)
     if(assets.length===0){
-      // fetchPost(id).then((data)=>console.log('[PostDetailsTabs.useEffect.data',data))
       fetchPortfolio(id).then(({data})=>{
         selectedPortfolio=data
           setAssets(data.assets)
@@ -109,8 +108,7 @@ export default function BasicTabs() {
   const [endDate, setEndDate] = useState(currentDate)
   const [startDate,setStartDate] = useState('2009-11-01')
 
-  // const startDate = "2011-11-01";
-  // const endDate = "2021-12-01";
+
   const apiKey = config.FMP_API_KEY_ID;
 
   const handleChange = (event, newValue) => {
@@ -161,8 +159,6 @@ const fetchPortfolioData = (selectedPortfolio) => {
       fetchPortfolio(id).then(({data})=>fetchPortfolioData(data))
       return
     }
-      
-    
     fetchPortfolioData(selectedPortfolio)
   }, [assets,endDate]);
   
@@ -202,7 +198,7 @@ const fetchPortfolioData = (selectedPortfolio) => {
     const tenYear = dateArr.slice(119,120)
     const combinedDatesArr = [...ytd,...ttm,...twoYear,...threeYear,...fourYear,...fiveYear,...sixYear,...sevenYear,...eightYear,...nineYear,...tenYear]
     const SeasonalAnalysisYearArr =combinedDatesArr.map((el)=>el.split('-')[0]).sort()
-
+    console.log()
     const yearForSelection = (arr) => {
       let obj ={}
       let result = []
@@ -216,11 +212,12 @@ const fetchPortfolioData = (selectedPortfolio) => {
   }
 
     let yearArr = yearForSelection(combinedDatesArr)
-    
+    console.log('[postDetailTabs.ytd',endDate)
+    console.log('[postDetailTabs.ytdMonth',ytdMonth)
     // console.log('[postDetailTabs.tenYear',tenYear)
     // console.log('[postDetailTabs.combinedDatesArr',combinedDatesArr)
     // console.log('[postDetailTabs.combinedDatesArr2',SeasonalAnalysisYearArr)
-    console.log('[postDetailTabs.yearArr',yearArr)
+    // console.log('[postDetailTabs.yearArr',yearArr)
     
     // console.log('[postDetailTabs.pracData',pracData)
     // console.log('[postDetailTabs.endDate',endDate)
@@ -267,28 +264,37 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
       <Box></Box>
       <Grid   container direction="row" justifyContent="space-between" alignItems="baseline">
 
-        <Card  sx={{ maxWidth: 100 }}>
-          <TextField id="date" label="Data End Date" onChange={endDateHandler} type="date" defaultValue={currentDate}  InputLabelProps={{shrink: true, }}/>
+        <Card  className={classes.dataDateEndTextCard} style={{width: '200px', height: '50%'}}>
+          
+          <TextField  id="date" label="Data End Date" onChange={endDateHandler} type="date" style={{width: '20em', height: '50%'}} defaultValue={currentDate}  InputProps={{ style: { fontSize: 20 } }}  InputLabelProps={{shrink: true, style: { fontSize: 20 }  }}/>
         </Card>
-        <Card>
-        
-        {/* {(value===0 || value===4)  && <FormControl sx={{ m: 1, width: 300 }}> */}
-        <Box component="form"sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
-          {(value===0 || value===4)  && <FormControl style={{width: '200px', height: '50%'}}>
+        {/* <Card className={classes.dateTextBox} > */}
+      {(value===0 || value===4)  && <Card className={classes.dateTextBox} >
+          
+          <FormControl style={{width: '200px', height: '50%'}}>
             <InputLabel id="demo-simple-select-standard-label">Date</InputLabel>
             <Select
                 value={dateSelect}
                 onChange={dateTypeHandler}
-                label="Date">
-                <MenuItem value={'ttm'}><Typography variant='h7' align={"left"}>TTM</Typography></MenuItem>
-                <MenuItem value={'3yr'}><Typography variant='h7' align={"left"}>3-Yr</Typography></MenuItem>
-                <MenuItem value={'5yr'}><Typography variant='h7' align={"left"}>5-Yr</Typography></MenuItem>
-                <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"center"}>{yearArr.length-1}-Yr</Typography></MenuItem>
+                label="Date"
+                
+                className={classes.selectLabel}
+                
+                
+                >
+                <MenuItem value={'ttm'}><Typography variant='h6' align={"left"}>TTM</Typography></MenuItem>
+                <MenuItem value={'3yr'}><Typography variant='h6' align={"left"}>3-Yr</Typography></MenuItem>
+                <MenuItem value={'5yr'}><Typography variant='h6' align={"left"}>5-Yr</Typography></MenuItem>
+                <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"left"}>{yearArr.length-1}-Yr</Typography></MenuItem>
             </Select>
-          </FormControl>}
-        </Box>
+          </FormControl>
+      </Card>}
+        {/* </Box> */}
+        
+        
+        {/* <Box className={classes.dateTextBox} component="form"sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off"> */}
+        {/* <Box className={classes.dataDateEndTextCard} component="form"sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off"> */}
 
-        </Card>
       </Grid>
 
       <TabPanel value={value} index={0}>

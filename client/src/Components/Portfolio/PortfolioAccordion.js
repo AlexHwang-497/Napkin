@@ -7,6 +7,7 @@ import * as React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {Accordion, AccordionSummary, AccordionDetails,Divider, Typography,  } from '@material-ui/core/';
 import CreatePortfolio from './Dialog';
+import tutorialIcon from '../../images/7061982_preview.png'
 export default function PortfolioAccordion() {
   return (
     <div>
@@ -16,7 +17,8 @@ export default function PortfolioAccordion() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant='h5'>Tutorial</Typography>
+        <img src={tutorialIcon} style={{height:'30px',width:'30px'}} />
+          <Typography variant='h5'>Tutorial Video</Typography>
           <Divider style={{ margin: '20px 0' }} />
         </AccordionSummary>
         <AccordionDetails>

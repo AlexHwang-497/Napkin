@@ -15,6 +15,7 @@ import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
 import PortfolioStepper from '../PortfolioStepper'
 import useStyles from './styles'
 import portfolioIcon from '../../../images/portfolioIcon.png'
+import standardIcon from '../../../images/SP500.png'
 function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearArr,SeasonalAnalysisYearArr}) {
     let cov = require( 'compute-covariance' );
     var Finance = require('financejs');
@@ -174,6 +175,11 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
           setImage(portfolioIcon)
     
 
+        } else if (e.target.value.symbol ==='SPY'){
+          setSymbol(e.target.value)
+          setImage(standardIcon)
+          setSymbolId(e.target.value.id)
+
         } else {
           setSymbol(e.target.value.symbol)
           setImage(e.target.value.image)
@@ -181,6 +187,8 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
     
         }
     }
+
+    
 
           finalTableOrg(tableReturnsData)
           const portfolioData =finalTableOrg(tableReturnsData)
@@ -242,19 +250,18 @@ function SeasonalAnalysis({assets,ownership,portfolioName,title,priceData,yearAr
                 />
 
                   <FormControl  className={classes.titleBox} style={{minWidth: 200}}>
-                            <InputLabel id="demo-simple-select-standard-label">Investment Type</InputLabel>
+                            <InputLabel className={classes.titleBox} id="demo-simple-select-standard-label">Investment Type</InputLabel>
                             <Select
                               labelId="demo-simple-select-standard-label"
                               id="demo-simple-select-standard"
                               onChange={dateTypeHandler}
+                              className={classes.titleBox}
                               value = {symbol}
-                              // value={lineGraphData}
-                              // onChange={lineGraphDataHandler}
                               label={symbol}
                               full width
                             >
                               <MenuItem value={'portfolio'}>
-                                <img className={classes.image} src={portfolioIcon} style={{height:'20px',width:'20px'}}/>
+                                <img className={classes.titleBox} src={portfolioIcon} style={{height:'20px',width:'20px'}}/>
                                 Portfolio
                               </MenuItem>
                               <Divider style={{ margin: '20px 0' }} />

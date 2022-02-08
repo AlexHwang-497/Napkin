@@ -200,7 +200,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
             <li><h4>cash: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
         </ul> 
       <div>
-        <input
+        {/* <input
           type="text"
           placeholder="Enter Stock Symbol"
           value={symbol}
@@ -214,10 +214,33 @@ function EditCustomizedDialogs({currentId,post,openState}) {
           onChange={(e) => setVal(e.target.value)}
           min={1}
           max={limit - currentAllowance}
-        />
-        <button disabled={invalidInput()} onClick={symbolLookup}>
+        /> */}
+
+
+<TextField
+        label='Enter Stock Symbol'
+        variant='outlined'
+        onChange={(e) => setSymbol(e.target.value)}
+        onFocus={() => setErrorState("")}
+      />
+
+
+<TextField
+        label='% of portfolio'
+        variant='outlined'
+        onChange={(e) => setVal(e.target.value)}
+        onFocus={() => setErrorState("")}
+        min={1}
+        type = 'number'
+        max={limit - currentAllowance}
+      />
+
+<Button variant="contained" size='medium' color="primary" onClick={symbolLookup} disabled={invalidInput()}>Add
+      </Button>
+
+        {/* <button disabled={invalidInput()} onClick={symbolLookup}>
           Add
-        </button>
+        </button> */}
         <p style={{ marginTop: 0, color: "red" }}>
           {errorState ? errorState : ""}
         </p>
