@@ -183,7 +183,7 @@ function Holdings({sector,assets,ownership, portfolioName,image, stockData,price
                                     onChange={dateTypeHandler}
                                     label="Date"
                                     >
-                                    <MenuItem value={'ytd'}>YTD</MenuItem>
+                                    <MenuItem value={'ytd'}>TTM</MenuItem>
                                     <MenuItem value={'3yr'}>3-Yr</MenuItem>
                                     <MenuItem value={'5yr'}>5-Yr</MenuItem>
                                     <MenuItem value={'6yr'}>{dateLabels.length}-Yr</MenuItem>

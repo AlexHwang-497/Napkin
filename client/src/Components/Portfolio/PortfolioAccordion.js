@@ -1,13 +1,10 @@
 import * as React from 'react';
-// import Accordion from '@mui/material/Accordion';
-// import AccordionSummary from '@mui/material/AccordionSummary';
-// import AccordionDetails from '@mui/material/AccordionDetails';
-// import Typography from '@mui/material/Typography';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {Accordion, AccordionSummary, AccordionDetails,Divider, Typography,  } from '@material-ui/core/';
+import {Accordion, AccordionSummary, AccordionDetails,Divider, Typography, Grid, Card  } from '@material-ui/core/';
 import CreatePortfolio from './Dialog';
 import tutorialIcon from '../../images/7061982_preview.png'
+import ReactYoutubeExample from './youTube'
+
 export default function PortfolioAccordion() {
   return (
     <div>
@@ -22,21 +19,18 @@ export default function PortfolioAccordion() {
           <Divider style={{ margin: '20px 0' }} />
         </AccordionSummary>
         <AccordionDetails>
-        <Divider style={{ margin: '20px 0' }} />
-          <Typography>
-            <p>
-                Please select the Create Portfolio button above or below:
-            </p>
-            <CreatePortfolio/>
-            <p>
-                this will allow you to create an investment portfolio
-            </p>
+        <Card  xs={{ maxWidth: 300 }}>
+            <ReactYoutubeExample/>
+        </Card>
+        
+          
+          
+
+          
                 
 
-          </Typography>
-          <Typography>
-            
-          </Typography>
+          
+          
         </AccordionDetails>
       </Accordion>
       {/* <Accordion>

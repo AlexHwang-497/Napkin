@@ -52,7 +52,7 @@ function InputForm({currentId,setCurrentId}) {
           setSector(sector.concat(data[0].sector))
           setImage(image.concat(data[0].image))
           setSymbol("");
-          setVal(0);
+          setVal('');
         } else {
           setErrorState("Please enter a valid stock symbol");
         }
@@ -143,7 +143,6 @@ console.log('[InputForm.sector',sector)
       <Divider style={{ margin: '20px 0' }} />
     
       
-      <Divider style={{ margin: '20px 0' }} />
       {stockList.length ? (
         <ul style={{ listStyle: "none", padding: 0 }}>
           {/* {stockList.map((stock, i) => (
@@ -169,6 +168,7 @@ console.log('[InputForm.sector',sector)
         onChange={(e) => setVal(e.target.value)}
         onFocus={() => setErrorState("")}
         min={1}
+        value ={val}
         type = 'number'
         max={limit - currentAllowance}
       />
@@ -176,7 +176,9 @@ console.log('[InputForm.sector',sector)
         <Button variant="contained" size='medium' color="primary" onClick={symbolLookup} disabled={invalidInput()}>
         Add
       </Button>
-        
+      <Divider style={{ margin: '20px 0' }} />
+      <Typography variant="h6"><b>Please Note:</b> the portfolio you are creating is based on the growth of <strong>$10k.</strong> When adding securities to your portoflio, please base your inputs off of the <strong>% bifurcation</strong> you expect each security would be out of the <strong>$10k.</strong> </Typography>
+      <Divider style={{ margin: '20px 0' }} />
         
         
         <p style={{ marginTop: 0, color: "red" }}>
@@ -185,10 +187,10 @@ console.log('[InputForm.sector',sector)
       </div>
       <form autoComplete='off' noValidate={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <CreatePortfolioPaginationTable  stockList={stockList} pct={pct} sector={sector} image={image} deleteEntry={deleteEntry}/>
-        <Paper>
-          <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
+
           
-        </Paper>
+
+          <Button className={classes.buttonSubmit} variant='contained' color='primary' size='small' type='submit' >Create New Portfolio</Button>
       </form>
     </div>
   );

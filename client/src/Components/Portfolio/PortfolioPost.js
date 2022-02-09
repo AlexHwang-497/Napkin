@@ -334,7 +334,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
 
 
     return (
-      <Card raised elevation ={6} spacing ={2} sx={{ maxWidth: 345 }}>
+      <Card raised elevation ={6} spacing ={2} sx={{ maxWidth: 350 }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>

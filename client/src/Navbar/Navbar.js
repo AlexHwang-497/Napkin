@@ -77,7 +77,7 @@ const Navbar = () =>{
             autoComplete="off"
           >
             <Typography variant="h3" style={{color:"#fff"}}>Napkin</Typography>
-            <Typography variant="body2" style={{color:"#fff"}}>The Back of the Napkin Portoflio/Asset Management Tool</Typography>
+            <Typography variant="body2" style={{color:"#fff"}}>The Back of the Napkin Portofolio/Asset Management Tool for Better Investment Decisions</Typography>
           </Box>
         </Link>
         
