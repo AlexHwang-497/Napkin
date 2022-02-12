@@ -22,6 +22,7 @@ function InputForm({currentId,setCurrentId}) {
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null)); //!
   const [symbol, setSymbol] = useState("");
   const [errorState, setErrorState] = useState("");
+  const [ownership, setOwnership] = useState([])
   const [val, setVal] = useState(0);
   const [stockList, editStockList] = useState([]);
   const [sector,setSector]=useState([])
@@ -52,7 +53,7 @@ function InputForm({currentId,setCurrentId}) {
           setSector(sector.concat(data[0].sector))
           setImage(image.concat(data[0].image))
           setSymbol("");
-          setVal('');
+          setVal(0);
         } else {
           setErrorState("Please enter a valid stock symbol");
         }
@@ -81,14 +82,6 @@ function InputForm({currentId,setCurrentId}) {
     Ownership:[],
     DateCreated:''
 });
-//   const clear = () =>{
-//     setCurrentId(null)
-//     setPostData({ userId: '',assets:[],ownership:[],dateCreated:''});
-// }
-
-
-
-
 
 
 const handleSubmit = async(e) =>{
@@ -97,33 +90,36 @@ const handleSubmit = async(e) =>{
   if (!currentId) {
       // console.log('this is the createPortfolio in inputForm.js',{assets:stockList,ownership:portfolioPercentage,portfolioName})
       dispatch(createPortfolio({assets:stockList,ownership:pct,portfolioName,sector,image,description}, history));
+      setSymbol('')
+      setVal('')
       
   } else {
       dispatch(updatePortfolio(currentId, { ...postData, name: user?.result?.name }));
+      setSymbol('')
+      setVal('')
   }
   // clear()
 }
 
 const handleComment = async () => {
-  // const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
-
   setComment('');
-  // setComments(newComments);
-
-  // commentsRef.current.scrollIntoView({ behavior: 'smooth' });
 };
+
 const deleteEntry =(index) =>{
   editStockList(stockList.filter((asset,i)=>i!==index))
-  // setOwnership(ownership.filter((o,i)=>i!==index))
-  // setSector(sector.filter((s,i)=>i!==index))
-  // setImage(image.filter((img,i)=>i!==index))
+  editPct(pct.filter((o,i)=>i!==index))
+  setSector(sector.filter((s,i)=>i!==index))
+  setImage(image.filter((img,i)=>i!==index))
   
-  // setAssets(assets)
+  
   
 }
 
 console.log('[InputForm.stockList',stockList)
 console.log('[InputForm.sector',sector)
+console.log('[InputForm.ownership',ownership)
+console.log('[InputForm.image',image)
+console.log('[InputForm.pct',pct)
 
 
   return (
@@ -145,11 +141,7 @@ console.log('[InputForm.sector',sector)
       
       {stockList.length ? (
         <ul style={{ listStyle: "none", padding: 0 }}>
-          {/* {stockList.map((stock, i) => (
-            <li key={i}>
-              {stock}: {pct[i]}% : ${100*pct[i]}
-            </li>
-          ))} */}
+          
             <li><h4>cash available: {limit - currentAllowance}% : ${100*[limit - currentAllowance]}</h4></li>
         </ul>
       ) : (
@@ -161,6 +153,7 @@ console.log('[InputForm.sector',sector)
         variant='outlined'
         onChange={(e) => setSymbol(e.target.value)}
         onFocus={() => setErrorState("")}
+        value = {symbol}
       />
       <TextField
         label='% of portfolio'

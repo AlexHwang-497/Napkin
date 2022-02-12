@@ -13,7 +13,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import LineGraph from './Charts/LineGraph';
 import ApexLineChart from '../Portfolio/PortfolioOverview/apexLineChart'
-// import { deletePost, likePost } from '../../actions/posts';
+
 import { deletePortfolio, likePortfolio } from '../../actions/portfolio';
 import config from '../../StockData/config';
 import { useHistory } from 'react-router-dom';
@@ -287,8 +287,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
       // history.push(`/posts/${post._id}`);
     };
     const editPost =() => {
-      // setCurrentId()
-      // <EditCustomizedDialogs currentId = {post._id}/>
+      
       setOpenState(true)
 
     }
@@ -315,14 +314,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
 
   },[openState])
 
-  // if(error){
-  //   return (
-  //     <div>
-  //       <h2>error</h2>
-  //       {error}
-  //     </div>
-  //   )
-  // }
+  
   const handleDescriptionText =(post) =>{
 
     return post.description

@@ -222,6 +222,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
         variant='outlined'
         onChange={(e) => setSymbol(e.target.value)}
         onFocus={() => setErrorState("")}
+        value = {symbol}
       />
 
 
@@ -232,6 +233,7 @@ function EditCustomizedDialogs({currentId,post,openState}) {
         onFocus={() => setErrorState("")}
         min={1}
         type = 'number'
+        value ={val}
         max={limit - currentAllowance}
       />
 
