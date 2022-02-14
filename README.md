@@ -1,15 +1,13 @@
 # Napkin - The back of the Napkin Portfolio/Asset Management Tool
 
 
-
 # Overview
-
 
 ![projectImage](/client/src/images/napkin.gif)
 
 Napkin is a social media MERN application that allows users to create, manage and interact with various user investment portfolios. The application allows users to analyze, compare, comment and gain insights into a portfolio’s historical risk/return profile by examining various sectors, holdings, and statistical performance and risk metrics against market benchmarks.
 
-Technologies used include MERN (MongoDB, Express.js, React, Node.js) stack, Redux, Webpack, Materail UI, CSS3, HTML5, Apex Charts and the third-party data from Financial Modeling Prep API. 
+Technologies used include MERN (MongoDB, Express.js, React, Node.js) stack, Redux, Webpack, Material UI, CSS3, HTML5, Apex Charts and the third-party data from Financial Modeling Prep API. 
 
 the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 
@@ -21,10 +19,10 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * Express.js, a web application framework, used with Node.js, to provide server-side structure for querying and retrieval of API data.
 * MongoDB, a document-oriented (NoSQL) database system used for storage and management of information.
 * Webpack, a JavaScript bundler to assist with development and production builds.
-* Materaial UI, CSS3 and HTML5, used to manage the presentation and styling of the project.
+* Material UI, CSS3 and HTML5, used to manage the presentation and styling of the project.
 * Apex Charts, a modern JavaScript charting library that helps developers to create beautiful and interactive visualizations in a React based project.
 * Financial Modeling Prep, a third-party finance API used to query and receive real-time stock prices.
-* __Heroku__, a cloud hosting platform.
+* Heroku, a cloud hosting platform.
 
 # Functionality
 * Comprehensive registration/authentication behavior for management of user sessions, and keeping track of user information (e.g. user portfolios, user comments, trades association and etc).
@@ -35,8 +33,8 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * A polished, intuitive, responsive user interface/experience.
 * Users have the ability to create, update, like, comment on portfolios.  
 # Known Issues
-* The application may occasionaly not load due to the data constraints of the Financial Modeling Prep API
-* only monthly data is availble due to API request per minute availbility
+* The application may occasionally not load due to the data constraints of the Financial Modeling Prep API.
+*Currently, the app only utilizes monthly data due to the limitations and availibily of API requests per minute.
 # Future Updates
 * Ability to stress test a user portfolio with various hypothetical economic scenarios.
 * Ranking of portfolio based on various return and risk metrics.  
@@ -44,3 +42,4 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * Inclusion of Dividend Data.  
 
  
+
