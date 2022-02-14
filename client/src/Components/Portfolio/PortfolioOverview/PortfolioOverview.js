@@ -199,7 +199,7 @@ console.log('[PortfolioOverview.dateSelect',dateSelect)
                 
                   
                     <h1>Current Portoflio Securitites as of Trailing {chartLabel} Data</h1>
-                    {/* <Typography variant ="h3">Current Portoflio Securitites as of Trailing {chartLabel} Data</Typography> */}
+                    
                     <Divider style={{ margin: '20px 0' }} />
 
                     <PortfolioOverviewPagTable dataNeeded={portfolioOverviewDataNeeded} chartLabel={chartLabel}/>

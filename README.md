@@ -5,7 +5,7 @@
 # Overview
 
 
-![projectImage](./src/images/napkin.gif)
+![projectImage](/client/src/images/napkin.gif)
 
 Napkin is a social media MERN application that allows users to create, manage and interact with various user investment portfolios. The application allows users to analyze, compare, comment and gain insights into a portfolio’s historical risk/return profile by examining various sectors, holdings, and statistical performance and risk metrics against market benchmarks.
 

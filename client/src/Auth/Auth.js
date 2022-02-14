@@ -106,8 +106,8 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         { isSignup ? 'Sign Up' : 'Sign In' }
                     </Button>
-                    <GoogleLogin
-                        clientId="225564797441-159id80aq6afig2okl00iih49kqqdg7t.apps.googleusercontent.com"
+                    {/* <GoogleLogin
+                        // clientId="225564797441-159id80aq6afig2okl00iih49kqqdg7t.apps.googleusercontent.com"
                         render={(renderProps) => (
                             <Button 
                                 className={classes.googleButton} 
@@ -123,7 +123,7 @@ const Auth = () => {
                         onSuccess={googleSuccess}
                         onFailure={googleError}
                         cookiePolicy="single_host_origin"
-                    />
+                    /> */}
                     <Button id='guestLogin' color="secondary" onClick={handleGuestSubmit} fullWidth variant="contained"  className={classes.submit} >Guest LogIn</Button>
                     <Grid container justify="flex-end">
                         <Grid item>

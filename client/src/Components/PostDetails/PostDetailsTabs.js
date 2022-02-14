@@ -225,7 +225,16 @@ const fetchPortfolioData = (selectedPortfolio) => {
     // console.log('[postDetailTabs.pracsDates',pracsDates)
     // console.log('[postDetailTabs.distinctYears',distinctYears)
     // console.log('[postDetailTabs.yearArray',yearArray)
-  
+    let firstLabel,secondLabel,thirdLabel,fourthLabel 
+    if(yearArr.length<=5){
+      fourthLabel=yearArr.length-1
+      thirdLabel=fourthLabel-1
+      secondLabel=thirdLabel-1
+    } else {
+      fourthLabel=yearArr.length-1
+      thirdLabel=5
+      secondLabel=3
+    }
 
   // ****recommended posts
   // const recommendedPosts = selectedPortfolio.filter(({ _id }) => _id !== selectedPortfolio._id);
@@ -283,9 +292,9 @@ console.log('[postDetailsTabs.dateSelect',dateSelect)
                 
                 >
                 <MenuItem value={'ttm'}><Typography variant='h6' align={"left"}>TTM</Typography></MenuItem>
-                <MenuItem value={'3yr'}><Typography variant='h6' align={"left"}>3-Yr</Typography></MenuItem>
-                <MenuItem value={'5yr'}><Typography variant='h6' align={"left"}>5-Yr</Typography></MenuItem>
-                <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"left"}>{yearArr.length-1}-Yr</Typography></MenuItem>
+                <MenuItem value={'3yr'}><Typography variant='h6' align={"left"}>{secondLabel}-Yr</Typography></MenuItem>
+                <MenuItem value={'5yr'}><Typography variant='h6' align={"left"}>{thirdLabel}-Yr</Typography></MenuItem>
+                <MenuItem value={`${yearArr.length-1}yr`}><Typography variant='h6' align={"left"}>{fourthLabel}-Yr</Typography></MenuItem>
             </Select>
           </FormControl>
       </Card>}

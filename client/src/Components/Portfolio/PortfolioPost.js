@@ -226,19 +226,52 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.lineGraphData',lineGraphData)
   let lineIndex = 0
   let dateIndex = 0
-  if(lineGraphData==='ttm'){
-    lineIndex = 0
-    dateIndex=12
-  } else if (lineGraphData==='3yr'){
-    lineIndex = 2
-    dateIndex=36
-  }else if (lineGraphData==='5yr'){
-    lineIndex = 4
-    dateIndex=60
-  }   
-   else {
-    lineIndex = yearArr.length-2
-    dateIndex = (yearArr.length-1)*12
+  let labelName =''
+  let firstLabel,secondLabel,thirdLabel,fourthLabel 
+  if(yearArr.length<=5){
+    fourthLabel=yearArr.length-1
+    thirdLabel=fourthLabel-1
+    secondLabel=thirdLabel-1
+  } else {
+    fourthLabel=yearArr.length-1
+    thirdLabel=5
+    secondLabel=3
+  }
+
+  if(yearArr.length <=5){
+    if(lineGraphData==='ttm'){
+      lineIndex = 0
+      dateIndex=12
+    } else if (lineGraphData==='3yr'){
+      lineIndex = yearArr.length-2
+      dateIndex=36
+    }else if (lineGraphData==='5yr'){
+      lineIndex = yearArr.length-3
+      dateIndex=60
+    }   
+     else {
+      lineIndex = yearArr.length-2
+      dateIndex = (yearArr.length-1)*12
+    }
+
+  } else {
+
+    if(lineGraphData==='ttm'){
+      lineIndex = 0
+      dateIndex=12
+    } else if (lineGraphData==='3yr'){
+      lineIndex = 2
+      dateIndex=36
+    }else if (lineGraphData==='5yr'){
+      lineIndex = 4
+      dateIndex=60
+    }   
+     else {
+      lineIndex = yearArr.length-2
+      
+      dateIndex = (yearArr.length-1)*12
+      fourthLabel=yearArr.length
+    }
   }
 
   let portfolioLineGraphNeeded = totalPortoflioValue[lineIndex]
@@ -252,6 +285,7 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.dateIndex',dateIndex)
   console.log('[PortfolioPost.lineIndex',lineIndex)
   console.log('[PortfolioPost.post',post)
+  console.log('[PortfolioPost.fourthLabel',fourthLabel)
 
 
 
@@ -367,9 +401,9 @@ console.log('[PortfolioPost.yearArr',yearArr)
                   
                 </Typography>
                 <MenuItem value={'ttm'}>TTM</MenuItem>
-                <MenuItem value={'3yr'}>3-Yr</MenuItem>
-                <MenuItem value={'5yr'}>5-Yr</MenuItem>
-                <MenuItem value={'10yr'}>{dateLabels.length}-Yr</MenuItem>
+                <MenuItem value={'3yr'}>{secondLabel}-Yr</MenuItem>
+                <MenuItem value={'5yr'}>{thirdLabel}-Yr</MenuItem>
+                <MenuItem value={'10yr'}>{fourthLabel}-Yr</MenuItem>
                 </Select>
                   
             </Box>
