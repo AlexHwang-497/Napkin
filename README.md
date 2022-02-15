@@ -1,6 +1,5 @@
 # Napkin - The back of the Napkin Portfolio/Asset Management Tool
 
-
 # Overview
 
 ![projectImage](/client/src/images/napkin.gif)
@@ -9,7 +8,9 @@ Napkin is a social media MERN application that allows users to create, manage an
 
 Technologies used include MERN (MongoDB, Express.js, React, Node.js) stack, Redux, Webpack, Material UI, CSS3, HTML5, Apex Charts and the third-party data from Financial Modeling Prep API. 
 
-the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
+the project is currently hosted at https://portfoliobuildertool.herokuapp.com/ 
+
+the project's video demonstration is currently hosted at https://www.youtube.com/watch?v=NdOayZv6vw8
 
 # Architecture and Technologies
 * JavaScript, the project's front and backend programing language.
@@ -34,7 +35,7 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * Users have the ability to create, update, like, comment on portfolios.  
 # Known Issues
 * The application may occasionally not load due to the data constraints of the Financial Modeling Prep API.
-*Currently, the app only utilizes monthly data due to the limitations and availibily of API requests per minute.
+*Currently, the app only utilizes monthly data due to the limitations and availability of API requests per minute.
 # Future Updates
 * Ability to stress test a user portfolio with various hypothetical economic scenarios.
 * Ranking of portfolio based on various return and risk metrics.  
@@ -42,4 +43,5 @@ the project is currently hosted at https://portfoliobuildertool.herokuapp.com/
 * Inclusion of Dividend Data.  
 
  
+
 
