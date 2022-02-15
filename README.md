@@ -33,9 +33,9 @@ the project's video demonstration is currently hosted at https://www.youtube.com
     * Provides a general summary of current investment portfolio's securities
     * Summary of portfolio's risk and return metrics(annualized return, standard deviation, Beta and Alpha) from a 1yr to 10yr basis
     * Allows various users viewing the portfolio to comment on portfolio
-    * Ability to recalculate data, risk and return calculations by changing to any monthEnd date and view data and calculations in various time frames(trailing 12 months, 3-yr, 5-yr and 10-yr)
+    * Ability to recalculate data, risk and return calculations by changing to any month end date and view data and calculations in various time frames(trailing 12 months, 3-yr, 5-yr and 10-yr)
   * Holdings
-    * identify the sectors or holdings that have contributed to your portfolio’s performance and compare it relative important data types to the understanding of one's investment portfolio.
+    * identify the bifurcation, construction and sectors that have contributed to your portfolio’s performance and compare it relative important data types to the understanding of one's investment portfolio.
   * Total Return Graphs
     * provides graphs and visual representation of portfolio $10,000 growth various time frames(trailing 12 months, 3-yr, 5-yr and 10-yr)
   * Seasonal Analysis
@@ -58,6 +58,7 @@ the project's video demonstration is currently hosted at https://www.youtube.com
 * Inclusion of Dividend Data.  
 
  
+
 
 
 
