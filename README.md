@@ -58,6 +58,7 @@ The project's video demonstration is currently hosted at https://www.youtube.com
 # Future Updates
 * Ability to stress test a user portfolio with various hypothetical economic scenarios.
 * Ranking of portfolio based on various return and risk metrics.  
+* Inclusion of Economic Data.
 * Daily and weekly stock data.
 * Inclusion of dividend data.  
 
