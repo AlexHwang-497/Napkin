@@ -27,12 +27,27 @@ the project's video demonstration is currently hosted at https://www.youtube.com
 
 # Functionality
 * Comprehensive registration/authentication behavior for management of user sessions, and keeping track of user information (e.g. user portfolios, user comments, trades association and etc).
-* Error handling for input fields to prevent invalid entries along with appropriate error messages (e.g. prevents users from signing in with incorrect credentials, stops a user from registering an account under a previously used email address, prevent purchase of a stocks that cost more than a user's available cash, etc.).
-* Separate Portfolio and Transaction pages. Portfolio page displays an aggregated list of all stocks a user has purchased, and lists in alphabetical order based on stock ticker. If a stock was purchased in two separate transactions then the transactions are grouped together. Transaction page displays a list of each individual trade in reverse-chronological order.
-* Color indicators for the pricing information on the Portfolio page to indicate if a stock's value has increased (green) or decreased (red) in price between the most recent opening and closing values.
-* An interactive stock chart, with hover effects, to allow users to review a selected stock's history before completing a purchase.
+* Error handling for input fields to prevent invalid entries along with appropriate error messages (e.g. prevents users from signing in with incorrect credentials, stops a user from registering an account under a previously used email address, prevent user from creating a portfolio that is larger then the allotted amount or bifurcation of a securities and etc.).
+* Individual Portfolio and Data/Information pages that include the following:
+  * Portfolio Overview
+    * Provides a general summary of current investment portfolio's securities
+    * Summary of portfolio's risk and return metrics(annualized return, standard deviation, Beta and Alpha) from a 1yr to 10yr basis
+    * Allows various users viewing the portfolio to comment on portfolio
+    * Ability to recalculate data, risk and return calculations by changing to any monthEnd date and view data and calculations in various time frames(trailing 12 months, 3-yr, 5-yr and 10-yr)
+  * Holdings
+    * identify the sectors or holdings that have contributed to your portfolio’s performance and compare it relative important data types to the understanding of one's investment portfolio.
+  * Total Return Graphs
+    * provides graphs and visual representation of portfolio $10,000 growth various time frames(trailing 12 months, 3-yr, 5-yr and 10-yr)
+  * Seasonal Analysis
+    * provides user a visual representation of monthly returns of portfolio, benchmark and individual securities of portfolio on monthly basis
+    * helps user understand why your portfolio outperformed or underperformed a benchmark over a historical time period and analyze how the structure of your portfolio contributed to your active performance.
+    * assists user to see trends in the risk/return profile
+  * Statistical Summary
+    * provides user insights into created portfolio’s historical risk/return profile by examining  returns, standard deviation, and other statistical measures.
+* Ability to search and filter our a specific portfolio based on specific securities
+* Interactive stock chart, with hover effects, to allow users to review a selected stock's history before completing a purchase.
 * A polished, intuitive, responsive user interface/experience.
-* Users have the ability to create, update, like, comment on portfolios.  
+* Users have the ability to create, update, delete, like, and comment on portfolios in application.  
 # Known Issues
 * The application may occasionally not load due to the data constraints of the Financial Modeling Prep API.
 *Currently, the app only utilizes monthly data due to the limitations and availability of API requests per minute.
@@ -43,5 +58,6 @@ the project's video demonstration is currently hosted at https://www.youtube.com
 * Inclusion of Dividend Data.  
 
  
+
 
 
