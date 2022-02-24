@@ -8,7 +8,6 @@ let finance = new Finance();
 let cov = require( 'compute-covariance' );
 
 
-
 export const OrganizeData = (arr, assets, ownership, images, sector) => {
   
   const min = arr.reduce(
@@ -25,7 +24,7 @@ export const OrganizeData = (arr, assets, ownership, images, sector) => {
       sector:sector[index],
       dates: entry.results
         .map((d) => ({
-          price: d.o,
+          price: d.c,
           date: d.formated.split(" ")[0],
         }))
         .slice(0, min),
@@ -33,17 +32,16 @@ export const OrganizeData = (arr, assets, ownership, images, sector) => {
   });
 };
 
+// ! receives raw data from api from the tstocks that are in the portfolio and bifurcation as well
+// ! data is what we are passin into the equation
+
 export const monthlyReturn = (data) => {
-  // console.log('[this is the data in monthlyReturn',data)
+
+  // ! take the passed in data and run a map function where then we organize the data inside the map function to begin calulaitn what we need with smany varialbes
   const results = data.map((asset) => {
     let aggPeriodReturn=[]
-
-    // console.log('[monthlyReturn.asset',asset)
     let firstPrice = asset.dates[asset.dates.length - 1].price;
-    
     let portoflioShareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
-    // let securityShareGrowth = [((10000 / firstPrice)  / 100];
-    // let shareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
     let securityShareGrowth = [10000 / firstPrice];
     let securityGrowthValue = [10000]
     let portfolioValue = [(10000 * asset.ownership) / 100];
@@ -53,59 +51,65 @@ export const monthlyReturn = (data) => {
     let arrPeriodReturn=[1]
     let returnMean=0
     let priceMean=0
-    
-    
     let sumPeriodReturn=0
     let sumPriceReturn=firstPrice
 
     asset.dates[0].periodReturn = 1;
 
     for (let i = 1; i < asset.dates.length; i++) {
-      //
       let endingPrice = asset.dates[i].price / asset.dates[i - 1].price;
       sumPriceReturn+= asset.dates[i].price
+
       // *this provides us our daily%/monthly%/annual% cumulative return
       let timeReturns = endingPrice - 1;
       asset.dates[i].periodReturn = timeReturns;
       arrPeriodReturn.push(timeReturns)
       sumPeriodReturn+=timeReturns
 
-
-      // *creates the shares compounding
+      // *creates the shares for compounding 
       portoflioShareGrowth.push(portoflioShareGrowth[i - 1] * (1 + timeReturns));
       securityShareGrowth.push(securityShareGrowth[i - 1] * (1 + timeReturns));
 
       // *provides the $10K value of the investment
       portfolioValue.push(portoflioShareGrowth[i] * asset.dates[0].price);
-      securityGrowthValue.push(securityShareGrowth[i]*asset.dates[0].price)
-      // console.log('[monthly this is the endingPrice:',endingPrice,' timeReturns:',timeReturns, 'this is the shareGrowth',shareGrowth,'this is the investmentValue',investmentValue)
-      // Number.parseFloat(row.finalCumulativeReturn*100).toPrecision(5)
+      securityGrowthValue.push(securityShareGrowth[i]*asset.dates[0].price) 
     }
-    // aggPeriodReturn.push(arrPeriodReturn)
+    // * calculates portfolio's cumulative return
     let finalPortfolioValue = portfolioValue[portfolioValue.length -1];
     finalCumulativeReturn = (portfolioValue[portfolioValue.length-1]/portfolioValue[0])-1;
+
+    // * caclualtes portfolio annualized return
     let portfolioValueLength = portfolioValue.length
     let initialPortfolioValue=portfolioValue[0]
-    annualizedReturn =finance.CAGR(initialPortfolioValue, finalPortfolioValue, portfolioValue.length / 12) ;
-    returnMean=sumPeriodReturn/(arrPeriodReturn.length-1)
-    priceMean=sumPriceReturn/(arrPeriodReturn.length-1)
-    let n = arrPeriodReturn.length-1
+    annualizedReturn =finance.CAGR(initialPortfolioValue, finalPortfolioValue, portfolioValueLength/ 12) ;
+
+    // *calulates cumulative reutrn for each security in portfolio
     let securityCumulativeReturn = (securityGrowthValue[securityGrowthValue.length-1]/securityGrowthValue[0])-1
-    // *returns stdDev
+
+    // * avg/mean for prices returns of portoflio
+    priceMean=sumPriceReturn/(arrPeriodReturn.length-1)
+
+    // * avg/mean for montly returns of portoflio
+    returnMean=sumPeriodReturn/(arrPeriodReturn.length-1)
+    
+    //* (x- returnMean) aka numerator for returns variance calculation
     let returnsXsubMean = asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b)
+    
+    let n = arrPeriodReturn.length-1
+    // * returns variance
     let returnsVariance = returnsXsubMean/n 
+    
+    // * return Standard Deviation
     let returnStDev = Math.sqrt(
       asset.dates.slice(1).map(({periodReturn}) => Math.pow(periodReturn - returnMean, 2)).reduce((a, b) => a + b) / n
     );
-    // let beta = 
-    // * returns pricesStDev
+    
+    // * price Standard Deviation
     let priceStDev = Math.sqrt(
       asset.dates.map(({price}) => Math.pow(price - priceMean, 2)).reduce((a, b) => a + b) / n
     );
-    
-    // console.log('[portfoliooverview.pracs.stDev',returnStDev)
-    // console.log('[portfoliooverview.pracs.aggPeriodReturn',aggPeriodReturn)
-    
+
+    // *update key/value pairs
     return {
       ...asset,
       portoflioShareGrowth,
@@ -126,26 +130,27 @@ export const monthlyReturn = (data) => {
       returnsXsubMean,
       returnsVariance,
       securityCumulativeReturn
-
     };
   });
-  // console.log('[PortfolioOverview.pracs.index.finalPortfolioValue]',finalportfolioValue)
-  // const mean = results.arrPeriodReturn((acc,curr)=>acc+=curr)
-  const spy=results[0]
-  // console.log('[PortfolioOverview.spy]',spy)
-// * covaraince calcualtion
-let riskfree = .0235
+  
+  // * calcluate covaraince, beta, alpaha and sharp ratio calculation and update key/value pairs
+    // * 0 index of every portfolio is the S&P 500
+  const spx=results[0]
+  let riskfree = .0235
   for(let i =1; i<results.length;i++){
-    let covariance = cov(spy.arrPeriodReturn.slice(1),results[i].arrPeriodReturn.slice(1))
+    let covariance = cov(spx.arrPeriodReturn.slice(1),results[i].arrPeriodReturn.slice(1))
+    // *security covariance
     results[i].covariance = covariance[0][1]
-    results[i].beta=results[i].covariance/results[i].returnsVariance
+
+    // * security beta
+    results[i].beta=results[i].covariance/results[0].returnsVariance
+
+    // * security alpha
     results[i].alpha=results[i].finalCumulativeReturn-(riskfree + results[i].beta*(results[0].securityCumulativeReturn-riskfree))
-    
+
+    // * security sharpe ratio
+    results[i].sharpe=(results[i].annualizedReturn/100-riskfree)/results[i].returnStDev
   }
-
-
-
-
   return results;
 };
 
@@ -225,15 +230,15 @@ if(!data || data.length===0 || data[0]===undefined) return ;
 };
 
 export const getVariance = (data) => {
-  // console.log("[getVariance.data", data);
+  console.log("[getVariance.data", data);
 if(!data || data.length===0 || data[0]===undefined || (data.length>0 && data[0]===undefined)) return ;
     let sum = data.map((entry)=>entry.slice(1).reduce((acc,curr)=>acc+=curr),0)
-    // console.log("[getVariance.sum", sum);
+    console.log("[getVariance.sum", sum);
     
     let n = data.map((entry)=>entry.length-1)
-    // console.log("[getVariance.n", n);
+    console.log("[getVariance.n", n);
     let mean = sum.map((entry,index)=>entry/n[index])
-    // console.log("[getVariance.mean", mean);
+    console.log("[getVariance.mean", mean);
     const variance = data.map((returns,index)=>returns.slice(1).map((entry)=>Math.pow(entry-mean[index],2)).reduce((a,b)=>a+b,0)).map((el,i)=>el/n[i])
     
 

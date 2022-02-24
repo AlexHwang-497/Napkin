@@ -10,8 +10,7 @@ import { signin, signup,guestSignIn } from '../actions/auth';
 import { AUTH } from '../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
-// import { guestSignIn } from '../api';
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }; /////////////
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }; 
 
 const Auth = () => {
   const [formData, setFormData] = useState(initialState);
@@ -26,29 +25,19 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('this is the handleSubmit in Auth.js',formData)
-    
-
-    
      if(isSignup) {
-      // *we pass in the history to help us navigate once something happens
+    
         dispatch(signup(formData, history));
     } else {
         dispatch(signin(formData, history));
     }
-    
-    
   };
 
   const handleGuestSubmit =()=>{
     dispatch(guestSignIn(history))
   }
-  // const handleChange =''
-  // *[e.target.name]: e.target.value ; this is just handling the current target name aka email edress
-    //   *this going to allow us to spread all the properties and change the one specific property we want to change
+
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-
 
   const switchMode = () => {
     setFormData(initialState);
@@ -58,16 +47,10 @@ const Auth = () => {
 
 
   const googleSuccess = async (res) => {
-      console.log('this is the res in googleSuccess in Auth.js:',res)
-      const result = res?.profileObj;
-      const token = res?.tokenId;
-    console.log('this is the result aka res?.profileObj in googleSuccess in Auth.js:',result)
-    console.log('this is the token aka res?.tokenId in googleSuccess in Auth.js:',token)
-
-    try {
-        // * this is the payload :data: { result, token } }
-        dispatch({ type: 'AUTH', data: { result, token } });
-    // *  this pushes us back to our homepage or redirects us back to the homepage
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    try {  
+      dispatch({ type: 'AUTH', data: { result, token } });
       history.push('/');
     } catch (error) {
       console.log(error);
@@ -76,13 +59,10 @@ const Auth = () => {
 
 
   const googleError = (error) => {
-      console.log('this is the googleError in Auth.js:','Google Sign In was unsuccessful. Try again later')
-      console.log('this is the googleError in Auth.js:',error)
     //   alert('Google Sign In was unsuccessful. Try again later');
-      
   }
 
-// *<Button type="submit"> will call the handleSubmit on <form className={classes.form} onSubmit={handleSubmit}>
+
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -97,8 +77,7 @@ const Auth = () => {
                             <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                             <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                         </>
-                        )}
-                        
+                        )}                        
                         <Input name="email"  label="Email Address" handleChange={handleChange} type="email" />
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                         { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
@@ -137,5 +116,4 @@ const Auth = () => {
         </Container>
     )
 }
-
 export default Auth

@@ -10,8 +10,8 @@ import Paper from '@material-ui/core/Paper';
 
 
 
-function createData(year, annualizedReturn, stdDev, beta, alpha) {
-  return { year, annualizedReturn, stdDev, beta, alpha };
+function createData(year, annualizedReturn, stdDev, beta, alpha,sharpe) {
+  return { year, annualizedReturn, stdDev, beta, alpha, sharpe };
 }
 
 
@@ -54,6 +54,7 @@ export default function PortfolioReturnTable({annReturn}) {
   
 
   const rows =annReturn.map((entry,key)=>createData(...entry))
+  console.log('[[PortfolioDetail.PortfolioReturnTable.rows',annReturn)
   return (
     
     <TableContainer component={Paper}>
@@ -61,11 +62,12 @@ export default function PortfolioReturnTable({annReturn}) {
       <TableHead style={{background:"#091F3C"}}>
         {/* <TableHead style={{background:"#091F3C"}} > */}
           <TableRow >
-            <TableCell style={{color:"#fff"}}>Year</TableCell>
-            <TableCell style={{color:"#fff"}} align="right">AnnualizedReturn(%)</TableCell>
-            <TableCell style={{color:"#fff"}} align="right">StdDev</TableCell>
-            <TableCell style={{color:"#fff"}} align="right">Beta</TableCell>
-            <TableCell style={{color:"#fff"}} align="right">Alpha</TableCell>
+            <TableCell style={{color:"#fff"}} align="center" >Year</TableCell>
+            <TableCell style={{color:"#fff"}} align="center">Annualized Return(%)</TableCell>
+            <TableCell style={{color:"#fff"}} align="center">StdDev</TableCell>
+            <TableCell style={{color:"#fff"}} align="center">Beta</TableCell>
+            <TableCell style={{color:"#fff"}} align="center">Alpha</TableCell>
+            <TableCell style={{color:"#fff"}} align="center">Sharpe Ratio</TableCell>
             
           </TableRow>
         </TableHead>
@@ -75,13 +77,12 @@ export default function PortfolioReturnTable({annReturn}) {
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {row.year}
-              </TableCell>
-              <TableCell align="right">{Number(row.annualizedReturn).toFixed(2)}%</TableCell>
-              <TableCell align="right">{Number(row.stdDev*100).toFixed(2)}%</TableCell>
-              <TableCell align="right">{Number(row.beta).toFixed(2)}</TableCell>
-              <TableCell align="right">{Number(row.alpha*100).toFixed(2)}%</TableCell>           
+              <TableCell  align="center">{row.year}</TableCell>
+              <TableCell align="center">{Number(row.annualizedReturn).toFixed(2)}%</TableCell>
+              <TableCell align="center">{Number(row.stdDev*100).toFixed(2)}%</TableCell>
+              <TableCell align="center">{Number(row.beta).toFixed(2)}</TableCell>
+              <TableCell align="center">{Number(row.alpha).toFixed(2)}</TableCell>           
+              <TableCell align="center">{Number(row.sharpe).toFixed(2)}</TableCell>           
             </StyledTableRow>
           ))}
         </TableBody>

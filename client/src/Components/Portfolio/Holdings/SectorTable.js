@@ -66,21 +66,23 @@ function Row(props) {
                     <TableCell >RetStdDev(%)</TableCell>
                     <TableCell >Beta</TableCell>
                     <TableCell >Alpha</TableCell>
+                    <TableCell >Sharpe Ratio</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
                     <StyledTableRow key={historyRow.date}>
-                      <TableCell  ><img src={historyRow.image} style={{height:'30px',width:'30px'}}/></TableCell>
-                      <TableCell >{historyRow.asset}</TableCell>
+                      <TableCell align='center' ><img src={historyRow.image} style={{height:'30px',width:'30px'}}/></TableCell>
+                      <TableCell align='center'>{historyRow.asset}</TableCell>
                       {/* <TableCell >{row.name}</TableCell> */}
-                      <TableCell >{historyRow.ownership}%</TableCell>
-                      <TableCell >{Number(historyRow.cumulativeReturn*100).toFixed(2)}%</TableCell>
-                      <TableCell >{historyRow.annualizedReturn}%</TableCell>
-                      <TableCell >${historyRow.priceStdDev}</TableCell>
-                      <TableCell >{historyRow.returnStdDev}%</TableCell>
-                      <TableCell >{historyRow.beta}</TableCell>
-                      <TableCell >{historyRow.alpha}%</TableCell>
+                      <TableCell align='center'>{historyRow.ownership}%</TableCell>
+                      <TableCell align='center'>{Number(historyRow.cumulativeReturn*100).toFixed(2)}%</TableCell>
+                      <TableCell align='center'>{historyRow.annualizedReturn}%</TableCell>
+                      <TableCell align='center'>${historyRow.priceStdDev}</TableCell>
+                      <TableCell align='center'>{historyRow.returnStdDev}%</TableCell>
+                      <TableCell align='center'>{historyRow.beta}</TableCell>
+                      <TableCell align='center'>{historyRow.alpha}</TableCell>
+                      <TableCell align='center' >{historyRow.sharpeRatio}</TableCell>
                     </StyledTableRow>
                   ))}
                 </TableBody>
@@ -109,10 +111,11 @@ export default function SectorTable({ownership,assets,sector,image, data,dateInd
     image:el.images,
     annualizedReturn:el.annualizedReturn,
     cumulativeReturn:el.finalCumulativeReturn,
-    alpha:Number(el.alpha*100).toFixed(2),
+    alpha:Number(el.alpha).toFixed(2),
     beta:Number(el.beta).toFixed(2),
     returnStdDev:Number(el.returnStDev*100).toFixed(2),
-    priceStdDev:Number(el.priceStDev).toFixed(2)
+    priceStdDev:Number(el.priceStDev).toFixed(2),
+    sharpeRatio:Number(el.sharpe).toFixed(2),
 
   }}).slice(1)
   console.log('[SectorTable.pracs',pracs)

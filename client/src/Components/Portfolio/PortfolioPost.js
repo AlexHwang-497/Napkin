@@ -148,7 +148,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
 
 let yearArr = yearForSelection(combinedDatesArr)
 
-console.log('[PortfolioPost.yearArr',yearArr)
+
 
     const dateLabels = yearArr.slice(1);
 
@@ -169,54 +169,43 @@ console.log('[PortfolioPost.yearArr',yearArr)
         return data
     })
 
-    console.log('[PortfolioPost.spxValue',spxValue)
-
-    // console.log('[PortfolioOverview.spxValue',spxValue)
+    
     const securityData = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
         const data = monthlyReturn(range).map((entry)=>entry)
-        // console.log('[PortfolioPost.securityData.data/monthlyReturn',data)
-        // console.log('[PortfolioOverview.pracsValue.monReturn',data)
         return data
     })
-    console.log('[PortfolioPost.securityData',securityData)
-
+    
     const spxAnnuzlied = dates.map((date, index) => {
         const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
         const data = monthlyReturn(range).map((entry)=>entry)
-        
         return data
     })
-    console.log('[PortfolioPost.spxAnnuzlied',spxAnnuzlied)
-
-
+    
     const totalPortoflioValue = dates.map((date, index) => {
-        // console.log('[PortfolioOverview.calculations.date',date)
-    const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
-    const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-    const portfolioAnnualizeReturn = calculateAnnualizedReturn(aggPortfolioValue)
-    return aggPortfolioValue
-  })
+      const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
+      const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
+      const portfolioAnnualizeReturn = calculateAnnualizedReturn(aggPortfolioValue)
+      return aggPortfolioValue
+    })
     const arrPortfolioAnnualizedReturn = dates.map((date, index) => {
-        // console.log('[PortfolioOverview.calculations.date',date)
-    const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
-    const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-    const portfolioAnnualizeReturn = calculateAnnualizedReturn(aggPortfolioValue)
-    return portfolioAnnualizeReturn
+      const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
+      const aggPortfolioValue = totalPortfolioValue(monthlyReturn(range))
+      const portfolioAnnualizeReturn = calculateAnnualizedReturn(aggPortfolioValue)
+      return portfolioAnnualizeReturn
   })
-  console.log('[PortfolioPost.arrPortfolioAnnualizedReturn ',arrPortfolioAnnualizedReturn )
-  console.log('[PortfolioPost.totalPortoflioValue',totalPortoflioValue)
+  
 
 
     const arrPortfolioReturns = dates.map((date, index) => {
-        const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
-        const aggPortfolioValueReturns = totalPortfolioValueReturns(monthlyReturn(range))
-        return aggPortfolioValueReturns
+      const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
+      const aggPortfolioValueReturns = totalPortfolioValueReturns(monthlyReturn(range))
+      return aggPortfolioValueReturns
   })
 
-  console.log('[PortfolioPost.arrPortfolioReturns',arrPortfolioReturns)
-    const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
-    // console.log('[getStandardDeviation.portfolioStdDev',portfolioStdDev)
+  
+  const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
+  
 
   const lineGraphDataHandler =(e) => {
     setLineGraphData(e.target.value)
@@ -286,12 +275,6 @@ console.log('[PortfolioPost.yearArr',yearArr)
   console.log('[PortfolioPost.lineIndex',lineIndex)
   console.log('[PortfolioPost.post',post)
   console.log('[PortfolioPost.fourthLabel',fourthLabel)
-
-
-
-
-
-    
 
     const handleLike = async () => {
       dispatch(likePortfolio(post._id));
@@ -409,13 +392,6 @@ console.log('[PortfolioPost.yearArr',yearArr)
             </Box>
         </CardContent>
         
-          
-
-        
-
-        
-        
-          
         <Divider style={{ margin: '20px 0' }} />  
         
         
@@ -438,18 +414,14 @@ console.log('[PortfolioPost.yearArr',yearArr)
         <Divider style={{ margin: '20px 0' }} />
         
         
-<CardContent>
-              {/* <TextField fullWidth label="Portfolio Description" disabled   variant="outlined" rows={10}   defaultValue={post.description}> </TextField> */}
-              {/* <Box component="span" sx={{ display: 'inline-block', mx: '2px', transform: 'scale(1)',border: '1px dashed grey'  }}> */}
-              <Box component="span" sx={{ display: 'block', mx: '2px', transform: 'scale(1)'  }}>
-              <Typography variant ="h6" >Portfolio Description</Typography>
-              <Divider style={{ margin: '20px 0' }} />
-              <Typography variant ="h7" color='text.secondary'>
-                {post.description}
-              </Typography>
-
-              </Box>
-
+<CardContent>      
+  <Box component="span" sx={{ display: 'block', mx: '2px', transform: 'scale(1)'  }}>
+    <Typography variant ="h6" >Portfolio Description</Typography>
+    <Divider style={{ margin: '20px 0' }} />
+    <Typography variant ="h7" color='text.secondary'>
+      {post.description}
+    </Typography>
+  </Box>
 </CardContent>
             
 

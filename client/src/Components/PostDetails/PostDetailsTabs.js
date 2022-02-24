@@ -148,7 +148,7 @@ const fetchPortfolioData = (selectedPortfolio) => {
       setDateArr(portfolioData[0].dates.map((el)=>el.date))
       console.log('[postDetailTabs.portfolioData',portfolioData)
       console.log('[postDetailTabs.dateArr',dateArr)
-      // console.log('[postDetailTabs.portfolioData.pracs',portfolioData[0].dates.map((el)=>el.date))
+      
   })
     );
 

@@ -61,7 +61,7 @@ console.log('[StatisticalSummary.StatisticalSummaryBarChart.title',title)
       labels: {
         formatter: function (y) {
           if(title ==='Beta'){
-            return y
+            return y.toFixed(2)
           } else if(title==='Annualized Return' ) {
             return (y).toFixed(1) + "%";
           } else {

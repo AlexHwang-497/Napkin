@@ -24,15 +24,7 @@ const useStyles = makeStyles({
    }
  });
 const columns = [
-  // { field: 'id', headerName: 'ID', width: 90 },
-  // {
-  //   field: 'image',
-  //   headerName: '',
-  //   width: 150,
-  //   // editable: true,
-  //   renderCell: (params) => <img src={params.value} style={{height:'30px',width:'30px'}} />,
-    
-  // },
+  
   {
     field: "image",
     headerName: "",
@@ -59,8 +51,7 @@ const columns = [
     width: 120,
     align:'left',
     headerAlign: 'left',
-    // flex:1
-    // editable: true,
+   
   },
   {
     field: 'ownership',
@@ -69,7 +60,7 @@ const columns = [
     width: 150,
     align:'left',
     headerAlign: 'left',
-    // editable: true,
+   
   },
   {
     field: 'cumulativeReturn',
@@ -78,7 +69,7 @@ const columns = [
     width: 150,
     align:'left',
     headerAlign: 'left',
-    // editable: true,
+   
   },
   {
     field: 'annualizedReturn',
@@ -87,7 +78,7 @@ const columns = [
     width: 150,
     align:'left',
     headerAlign: 'left',
-    // editable: true,
+   
   },
   {
     field: 'priceStdv',
@@ -96,7 +87,7 @@ const columns = [
     width: 150,
     align:'left',
     headerAlign: 'left',
-    // editable: true,
+   
   },
   {
     field: 'returnStd',
@@ -105,7 +96,7 @@ const columns = [
     width: 150,
     align:'left',
     headerAlign: 'left',
-    // editable: true,
+   
   },
   {
     field: 'beta',
@@ -114,7 +105,7 @@ const columns = [
     width: 150,
     align:'left',
     headerAlign: 'left',
-    // editable: true,
+   
   },
   {
     field: 'alpha',
@@ -122,22 +113,17 @@ const columns = [
     type: 'number',
     width: 150,
     headerAlign: 'left',
-    align:'left',
-    
-    // editable: true,
+    align:'left', 
+  },
+  {
+    field: 'sharpeRatio',
+    headerName: 'Sharpe Ratio',
+    type: 'number',
+    width: 150,
+    headerAlign: 'left',
+    align:'left', 
   },
   
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 1, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 1, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 1, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 1, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 1, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
 ];
 
 export default function PortfolioOverviewPagTable({dataNeeded,chartLabel}) {
@@ -155,7 +141,8 @@ export default function PortfolioOverviewPagTable({dataNeeded,chartLabel}) {
     'priceStdv':'$'+Number(entry.priceStDev).toFixed(2),
     'returnStd':Number(entry.returnStDev*100).toFixed(2)+'%',
     'beta':Number(entry.beta).toFixed(2),
-    'alpha':Number(entry.alpha*100).toFixed(2)+'%'
+    'alpha':Number(entry.alpha).toFixed(2),
+    'sharpeRatio':Number(entry.sharpe).toFixed(2)
     
   }}).slice(1)
   console.log('[PortfolioOverviewPagTable.row',row)

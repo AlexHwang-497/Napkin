@@ -14,6 +14,7 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   console.log('[PortfolioDetail.post',post)
   console.log('[PortfolioDetail.yearArr',yearArr)
+  console.log('[PortfolioDetail.priceData',priceData)
   let calculations = []
   let [spxCumulativeReturn,setSpxCumulativeReturn] =useState()
   
@@ -54,6 +55,8 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
   })
   console.log('[PortfolioDetail.spxCumulativeReturnValue',spxCumulativeReturnValue)
 
+  
+
 
 
 
@@ -65,13 +68,20 @@ function PortfolioDetail({priceData, currentId,assets,ownership,portfolioName,se
     return aggPortfolioValueReturns
   })
   let riskFreeRate = .0235
+  const benchmarkVariance = getVariance(spxValue)
+  console.log('[PortfolioDetail.benchmarkVariance',benchmarkVariance)
 const portfolioVariance = getVariance(arrPortfolioReturns)
+
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
 const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
-const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
+// const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
+const portfolioBeta = portfolioCov.map((el,i)=>el/benchmarkVariance[i])
 const portfolioAlpha = calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeReturn,spxCumulativeReturnValue)
+// const portAnnualizeReturn
+const portfolioSharpe = portfolioAnnualizeReturn.map((el,i)=>(Number(el[1]/100)-(riskFreeRate))/portfolioStdDev[i])
+console.log('[PortfolioDetail.portfolioSharpe',portfolioSharpe)
 if(portfolioStdDev && portfolioStdDev.length>0) {
-  calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i],portfolioAlpha[i]])
+  calculations = calculations.map((entry,i)=>[...entry,portfolioStdDev[i],portfolioBeta[i],portfolioAlpha[i],portfolioSharpe[i]])
 }
 
 console.log('[PortfolioDetail.portfolioStdDev',portfolioStdDev)
@@ -85,31 +95,17 @@ console.log('[PortfolioDetail.arrPortfolioReturns',arrPortfolioReturns)
 console.log('[PortfolioDetail.spxValue',spxValue)
 
 
+
   return (
     <Fragment>
           
           
-          {/* <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}> */}
+          
           <h1>Trailing Risk and Returns of Currrent Portoflio</h1>
-          <Divider style={{ margin: '20px 0' }} />
-          
-          
-            
+          <Divider style={{ margin: '20px 0' }} />            
             <PortfolioReturnTable  annReturn={calculations}/>
-          
-          
 
-
-
-          
-          
-
-          
-            
-            {/* <CommentSection post={post}/> */}
-          {/* </Paper> */}
-
-        </Fragment>
+      </Fragment>
         
         
         )

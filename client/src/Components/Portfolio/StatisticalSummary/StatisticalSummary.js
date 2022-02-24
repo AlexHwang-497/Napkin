@@ -122,11 +122,13 @@ console.log('[StatisticalSummary.securityData',securityData)
     return aggPortfolioValueReturns
   })
   let riskFreeRate = .0235
+const benchmarkVariance = getVariance(spxValue)
 const portfolioVariance = getVariance(arrPortfolioReturns)
 const portfolioStdDev = getStandardDeviation(arrPortfolioReturns)
 const portfolioPriceStdDev = getStandardDeviation(totalPortoflioValue)
 const portfolioCov = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcCovariance(arrPortfolioReturns,spxValue):[]
-const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
+// const portfolioBeta = arrPortfolioReturns && arrPortfolioReturns.length>0 ? calcBeta(portfolioVariance,portfolioCov):[]
+const portfolioBeta = portfolioCov.map((el,i)=>el/benchmarkVariance[i])
 const maxPortfolioReturn =''
 let arrPortfolioReturnsNeeded
 const portfolioAlpha = calcAlpha(portfolioBeta,riskFreeRate,portfolioCumulativeReturn,spxCumulativeReturnValue)
