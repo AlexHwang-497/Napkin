@@ -28,7 +28,6 @@ import ComplexCards from "../Components/Portfolio/Cards/ComplexCard";
 import ChipInput from "material-ui-chip-input";
 import PortfolioCards from "../Components/Portfolio/PortfolioCards";
 import EditCustomizedDialogs from "../Components/Portfolio/editPortfolioDialog";
-import PortfolioStepper from "../Components/Portfolio/PortfolioStepper";
 import PortfolioAccordion from "../Components/Portfolio/PortfolioAccordion";
 import CreatePortfolio from "../Components/Portfolio/Dialog";
 // *this will provide us an idea of where our current location is
