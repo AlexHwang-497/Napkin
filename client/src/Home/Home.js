@@ -22,7 +22,6 @@ import InputForm from "../Components/Portfolio/InputForm/InputForm";
 import PortfolioInputForm from "../Components/Portfolio/InputForm/PortfolioInput";
 import PortfolioPosts from "../Components/Portfolio/PortfolioPosts";
 import PortfolioPagination from "../Components/Portfolio/PortfolioPagination";
-import { PieChartData } from "../actions/PieChartData";
 import ComplexCards from "../Components/Portfolio/Cards/ComplexCard";
 // *this gives us floating bubbles in tags
 import ChipInput from "material-ui-chip-input";
