@@ -1,5 +1,5 @@
 import React, {Fragment,useState} from 'react'
-import FetchStockPrice from '../../../StockData/FetchStockPrices'
+
 import LineGraph from '../Charts/LineGraph'
 import BarGraph from '../Charts/BarGraph'
 import StatCard3 from './StatCard3'

@@ -320,4 +320,3 @@ export const subSet = (data, minDate) => {
     ),
   }))
 }
-

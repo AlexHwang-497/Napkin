@@ -12,9 +12,9 @@ import RecommendedPosts from "./RecommendedPosts";
 import SwipeableTemporaryDrawer from "./tutorial/SwipeableTemporaryDrawer";
 import PostDetails from "./PostDetails";
 import { useDispatch, useSelector } from "react-redux";
-import FetchStockPrices from "../../StockData/FetchStockPrices";
+
 import config from "../../StockData/config";
-import { NFLX, TEAM, SPY } from "../../Utilities/sampleData";
+
 import useStyles from './styles'
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue } from "../../Utilities";
 import {fetchPortfolio,fetchPost} from '../../api/index'
