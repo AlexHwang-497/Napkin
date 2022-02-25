@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { deletePortfolio, likePortfolio } from '../../actions/portfolio'
+import { useHistory } from 'react-router-dom'
 import {
   Card,
   Paper,
@@ -40,13 +43,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined'
 import moment from 'moment'
-import { useDispatch } from 'react-redux'
 import LineGraph from './Charts/LineGraph'
 import ApexLineChart from '../Portfolio/PortfolioOverview/apexLineChart'
-
-import { deletePortfolio, likePortfolio } from '../../actions/portfolio'
 import config from '../../StockData/config'
-import { useHistory } from 'react-router-dom'
+
 import PortfolioPostTable from './Charts/PortfolioPostTable'
 import useStyles from './Styles'
 import EditCustomizedDialogs from './editPortfolioDialog'
