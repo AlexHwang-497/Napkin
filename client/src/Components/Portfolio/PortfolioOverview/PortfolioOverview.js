@@ -25,9 +25,6 @@ import EditCustomizedDialogs from '../editPortfolioDialog'
 import { useDispatch, useSelector } from 'react-redux'
 import PortfolioOverviewTable from './PortfolioOverviewTable'
 import config from '../../../StockData/config'
-
-import ApexHeatChart from '../Charts/ApexHeatmap'
-
 import ApexTreeChart from './ApexTreeMap'
 
 import {

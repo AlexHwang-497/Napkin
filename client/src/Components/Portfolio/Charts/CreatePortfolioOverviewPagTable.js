@@ -17,15 +17,7 @@ const useStyles = makeStyles({
    }
  });
 const columns = [
-  // { field: 'id', headerName: 'ID', width: 90 },
-  // {
-  //   field: 'image',
-  //   headerName: '',
-  //   width: 150,
-  //   // editable: true,
-  //   renderCell: (params) => <img src={params.value} style={{height:'30px',width:'30px'}} />,
-    
-  // },
+
   {
     field: "image",
     headerName: "",
@@ -96,17 +88,6 @@ const columns = [
     // editable: true,
   },
   
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 1, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 1, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 1, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 1, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 1, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
 ];
 
 export default function PortfolioOverviewPagTable({dataNeeded}) {
