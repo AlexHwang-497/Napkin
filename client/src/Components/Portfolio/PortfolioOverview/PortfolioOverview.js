@@ -16,7 +16,6 @@ import {
 import PostDetails from '../../PostDetails/PostDetails'
 import LineGraph from '../Charts/LineGraph'
 import RecommendedPosts from '../../PostDetails/RecommendedPosts'
-import SubOverview from '../InputForm/SubOverview'
 import CommentSection from '../../PostDetails/CommentSection'
 import BarGraph from '../Charts/BarGraph'
 import StatCard3 from '../StatisticalSummary/StatCard3'
@@ -27,12 +26,11 @@ import EditCustomizedDialogs from '../editPortfolioDialog'
 import { useDispatch, useSelector } from 'react-redux'
 import PortfolioOverviewTable from './PortfolioOverviewTable'
 import config from '../../../StockData/config'
-import InventoryLineChart from './apexLineChart'
-import SecondApexLineChart from './secondApexLineChart'
+
 import ApexHeatChart from '../Charts/ApexHeatmap'
-import ApexDonutChart from './apexDoughnutchart'
+
 import ApexTreeChart from './ApexTreeMap'
-import ApexLineChart from './apexLineChart'
+
 import {
   OrganizeData,
   monthlyReturn,
@@ -98,11 +96,9 @@ function PortfolioOverview({
     const data = monthlyReturn(range).map(
       (entry) => entry.securityGrowthValue,
     )[0]
-    // console.log('[PortfolioOverview.spxValue.monReturn',data)
     return data
   })
 
-  // console.log('[PortfolioOverview.spxValue',spxValue)
   const securityData = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)))
     const data = monthlyReturn(range).map((entry) => entry)

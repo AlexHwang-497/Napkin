@@ -26,7 +26,6 @@ import { PieChartData } from "../actions/PieChartData";
 import ComplexCards from "../Components/Portfolio/Cards/ComplexCard";
 // *this gives us floating bubbles in tags
 import ChipInput from "material-ui-chip-input";
-import PortfolioCards from "../Components/Portfolio/PortfolioCards";
 import EditCustomizedDialogs from "../Components/Portfolio/editPortfolioDialog";
 import PortfolioAccordion from "../Components/Portfolio/PortfolioAccordion";
 import CreatePortfolio from "../Components/Portfolio/Dialog";
@@ -135,7 +134,6 @@ const Home = () => {
             {!searchQuery && !tags.length && (
               <Paper className={classes.pagination} elevation={6}>
                 <Pagination page={page} />
-                {/* <PortfolioPagination page={page} /> */}
               </Paper>
             )}
           </Grid>

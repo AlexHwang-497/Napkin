@@ -1,6 +1,5 @@
 import React, {useState,useEffect,Fragment} from "react";
 import { nanoid } from 'nanoid'
-import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
 import { TextField,Divider, Button, Typography, Paper } from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux'

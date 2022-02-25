@@ -44,7 +44,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined'
 import moment from 'moment'
 import LineGraph from './Charts/LineGraph'
-import ApexLineChart from '../Portfolio/PortfolioOverview/apexLineChart'
 import config from '../../StockData/config'
 
 import PortfolioPostTable from './Charts/PortfolioPostTable'
