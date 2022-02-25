@@ -10,8 +10,6 @@ import {
   MenuItem,
 } from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
-import VerticalBar from '../Charts/BarChart'
-
 import ReturnsTable from './ReturnsTable'
 import React, { useEffect, useState } from 'react'
 import config from '../../../StockData/config'
