@@ -1,9 +1,5 @@
 import axios from 'axios'
 
-// *we are creating this base URL with axios
-// const baseURL = process?.env?.PROD ? 'https://portfoliobuildertool-backend.herokuapp.com/' : 'http://localhost:5000'
-// const API = axios.create({ baseURL}  );   //this is the orginal
-// const API = axios.create({ baseURL: 'http://localhost:5000' });   //this is the orginal
 const API = axios.create({ baseURL: 'https://portfoliobuildertool-backend.herokuapp.com/' });  //this is the heroku
 
 
@@ -31,7 +27,7 @@ export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-// *this might be form here instead of formData
+
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const guestSignIn = () => API.post('/user/guest');
@@ -39,7 +35,6 @@ export const guestSignIn = () => API.post('/user/guest');
 // *portfolio
 
 export const createPortfolio = (newPortfolio) => API.post('/portfolio', newPortfolio);
-// export const fetchPortfolio = (id) => API.get(`/posts/${id}`);
 export const fetchPortfolio = (id) => API.get(`/portfolio/${id}`);
 export const fetchPortfolios = (page) => API.get(`/portfolio?page=${page}`);
 export const fetchPortfoliosBySearch = (searchQuery) => API.get(`/portfolio/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}` );
