@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
 import VerticalBar from '../Charts/BarChart'
-import BarGraph from '../Charts/BarGraph'
 import LineGraph from '../Charts/LineGraph'
 import { Line } from 'react-chartjs-2'
 import DoughnutChart from '../Charts/DoughnutChart'

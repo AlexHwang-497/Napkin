@@ -1,7 +1,5 @@
 import React, {Fragment,useState} from 'react'
-
 import LineGraph from '../Charts/LineGraph'
-import BarGraph from '../Charts/BarGraph'
 import StatCard3 from './StatCard3'
 import StatCards from './StatCards'
 import StatCards2 from './StatCard2'
