@@ -28,20 +28,20 @@ import ChipInput from 'material-ui-chip-input'
 import EditCustomizedDialogs from '../Components/Portfolio/editPortfolioDialog'
 import PortfolioAccordion from '../Components/Portfolio/PortfolioAccordion'
 import CreatePortfolio from '../Components/Portfolio/Dialog'
-// *this will provide us an idea of where our current location is
+
 function useQuery() {
   return new URLSearchParams(useLocation().search)
 }
 
 const Home = () => {
   const classes = useStyles()
-  // *this helps us find our currentId for each post
+
   const [currentId, setCurrentId] = useState(null)
   const dispatch = useDispatch()
-  // *this is where we get our page info from
+
   const query = useQuery()
   const history = useHistory()
-  // *this is going to read our url and see if we have a page parameter in it; if so it will poopulate the variable
+
   const page = query.get('page') || 1
   const searchQuery = query.get('searchQuery')
   const [search, setSearch] = useState('')
@@ -84,7 +84,6 @@ const Home = () => {
             <PortfolioPosts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={2}>
-            {/* <Grid item xs={12} sm={6} md={3}> */}
             <AppBar
               className={classes.appBarSearch}
               position="static"
@@ -98,7 +97,6 @@ const Home = () => {
               position="static"
               color="inherit"
             >
-              {/* <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search Sector" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} /> */}
               <CreatePortfolio />
               <ChipInput
                 style={{ margin: '10px 0' }}
@@ -117,7 +115,6 @@ const Home = () => {
                 Search
               </Button>
             </AppBar>
-            {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
 
             {!searchQuery && !tags.length && (
               <Paper className={classes.pagination} elevation={6}>

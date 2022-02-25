@@ -21,7 +21,6 @@ const theme = createMuiTheme({
 })
 
 const App = () => {
-  // const { authData } = useSelector((state) => state);
   const { authData } = useSelector((state) => state.auth)
   const ids = authData?._id
   console.log('[App.authData', authData)
