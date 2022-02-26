@@ -1,22 +1,32 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import DataTable from './CreatePortfolioTable';
-import PortfolioInputForm from './CreatePortfolioInputForm';
-import InputForm from './InputForm/InputForm';
-import CreatePortfolioPagTable from './Charts/CreatePortfolioOverviewPagTable'
-import portfolioIcon from '../../images/portfolioIcon.png'
-
-
-
-import { Avatar,IconButton, styled, DialogTitle,Button, Paper, Grid, Typography, Container,Dialog, DialogActions, DialogContent } from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close';
+import * as React from "react";
+import PropTypes from "prop-types";
+import DataTable from "./CreatePortfolioTable";
+import PortfolioInputForm from "./CreatePortfolioInputForm";
+import InputForm from "./InputForm/InputForm";
+import CreatePortfolioPagTable from "./SharedCharts/CreatePortfolioOverviewPagTable";
+import portfolioIcon from "../../images/portfolioIcon.png";
+import {
+  Avatar,
+  IconButton,
+  styled,
+  DialogTitle,
+  Button,
+  Paper,
+  Grid,
+  Typography,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 // import IconButton from '@material-ui/icons/Icon';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
+  "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
-  '& .MuiDialogActions-root': {
+  "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
 }));
@@ -26,14 +36,13 @@ const BootstrapDialogTitle = (props) => {
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-
       {children}
       {onClose ? (
         <IconButton
           aria-label="close"
           onClick={onClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -63,28 +72,31 @@ export default function CreatePortfolio() {
 
   return (
     <div>
-      <Button fullWidth variant="outlined" id="customized-dialog-title" color="primary" onClick={handleClickOpen} startIcon={<Avatar variant='square' src={portfolioIcon}/>}>
-        Create Portfolio 
+      <Button
+        fullWidth
+        variant="outlined"
+        id="customized-dialog-title"
+        color="primary"
+        onClick={handleClickOpen}
+        startIcon={<Avatar variant="square" src={portfolioIcon} />}
+      >
+        Create Portfolio
       </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Exit 
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
+          Exit
         </BootstrapDialogTitle>
         <DialogContent dividers>
-        <InputForm/>
-          
-          
-          
-          
-          
+          <InputForm />
         </DialogContent>
-        <DialogActions>
-          
-        </DialogActions>
+        <DialogActions></DialogActions>
       </BootstrapDialog>
     </div>
   );

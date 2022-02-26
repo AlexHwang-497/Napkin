@@ -15,7 +15,6 @@ import React, { useEffect, useState } from 'react'
 import config from '../../../StockData/config'
 import { useDispatch, useSelector } from 'react-redux'
 import SeasonalBarChart from './SeasonalBarChart'
-import HeatMapChart from '../Charts/HeatMapChart'
 import {
   OrganizeData,
   monthlyReturn,
@@ -27,8 +26,8 @@ import {
   totalPortfolioValueReturns,
 } from '../../../Utilities'
 import { generateHistoricalDate } from '../../../Utilities/DateRanges'
-import PortfolioPostTable from '../Charts/PortfolioPostTable'
-import SeasonalAnalysisTable from '../Charts/SeasonalAnalysisTable'
+import PortfolioPostTable from '../SharedCharts/PortfolioPostTable'
+import SeasonalAnalysisTable from './SeasonalAnalysisTable'
 import useStyles from './styles'
 import portfolioIcon from '../../../images/portfolioIcon.png'
 import standardIcon from '../../../images/SP500.png'
@@ -56,7 +55,6 @@ function SeasonalAnalysis({
   const [symbolId, setSymbolId] = useState(0)
 
   const [aggregatePortfolio, setAggregatePortfolio] = useState([])
-  // const [aggPortfolio,setAggPortfolio]=useState([])
   const [returnsTableData, setReturnsTableData] = useState([])
 
   const [labels, setLabels] = useState([])
@@ -65,29 +63,22 @@ function SeasonalAnalysis({
   const [ndx, setNdx] = useState([])
   const startDate = '2019-01-01'
   const endDate = '2021-11-01'
-  console.log(
-    '[SeasonalAnalysis.SeasonalAnalysisYearArr',
-    SeasonalAnalysisYearArr,
-  )
-  console.log('[SeasonalAnalysis.priceData', priceData)
 
   const yearRange = SeasonalAnalysisYearArr
 
   if (yearArr.length === 0 || !yearArr) return []
-  // const dateLabels = ['1yr', '3yr', '5yr'];
   const dateLabels = yearArr.slice(1)
   const dates = dateLabels.map((label) => {
     const yearNumber = parseInt(label.split('yr')[0])
     return generateHistoricalDate(yearNumber)
   })
-  console.log('[SeasonalAnalysis.dates', dates)
+  
 
   const spxValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)))
     const data = monthlyReturn(range).map(
       (entry) => entry.securityGrowthValue,
-    )[0]
-    // console.log('[SeasonalAnalysis.spxValue.monReturn',data)
+    )[0]  
     return data
   })
   const totalPortoflioValue = dates.map((date, index) => {
@@ -98,13 +89,10 @@ function SeasonalAnalysis({
   const monthlyData = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)))
     return monthlyReturn(range)
-    // return aggPortfolioValue
   })
   const totalPortoflioValueReturn = dates.map((date, index) => {
-    // console.log('[SeasonalAnalysis.totalPortoflioValueReturn.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)))
     const arrPortfolioValue = totalPortfolioValue(monthlyReturn(range))
-
     let arrCumulativeReturns = [1]
     for (let i = 1; i < arrPortfolioValue.length; i++) {
       arrCumulativeReturns.push(
@@ -117,17 +105,9 @@ function SeasonalAnalysis({
   const securityData = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)))
     const data = monthlyReturn(range).map((entry) => entry)
-    console.log('[SeasonalAnalysis.securityData.data/monthlyReturn', data)
     return data
   })
-  console.log(
-    '[SeasonalAnalysis.securityData',
-    securityData.map((el) =>
-      el.map((entry) => {
-        return { symbol: entry.symbol, image: entry.images }
-      }),
-    ),
-  )
+  
   const securityDataArr = securityData.map((el) =>
     el.map((entry) => entry.dates.date),
   )
@@ -135,9 +115,11 @@ function SeasonalAnalysis({
   const pracsDate = securityData.map((el) =>
     el.map((entry) => entry.dates.map((item) => item.date)),
   )[securityData.length - 1]
+  
   const pracsValue = securityData.map((el) =>
     el.map((entry) => entry.dates.map((item) => item.periodReturn)),
   )[securityData.length - 1]
+
   const options = securityData.map((el) =>
     el.map((entry, i) => {
       return { id: i, symbol: entry.symbol, image: entry.images }
@@ -156,6 +138,7 @@ function SeasonalAnalysis({
     dateArr[dateArr.length - 1],
     totalPortoflioValueReturn[totalPortoflioValueReturn.length - 1],
   ]
+  
   const pracsTableReturnsData = [pracsDate[0], pracsValue[symbolId]]
 
   const finalTableOrg = (tableReturnsData) => {
@@ -183,7 +166,6 @@ function SeasonalAnalysis({
         value: tableReturnsData[1][i],
       })
     }
-
     return result
   }
 

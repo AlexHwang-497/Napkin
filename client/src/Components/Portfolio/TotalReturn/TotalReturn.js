@@ -1,12 +1,10 @@
 import React from 'react'
 import {Grid, Paper,Divider} from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
-
-import LineGraph from '../Charts/LineGraph'
 import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom';
-// import TRLineChart from './TotalReturnLine'
-import TRLineChart from '../Charts/TotalReturnLine'
+
+import TRLineChart from '../SharedCharts/TotalReturnLine'
 
 import { OrganizeData, monthlyReturn,subSet,getStandardDeviation, totalPortfolioValue, calculateAnnualizedReturn,calcCovariance } from "../../../Utilities";
 import {generateHistoricalDate} from '../../../Utilities/DateRanges'

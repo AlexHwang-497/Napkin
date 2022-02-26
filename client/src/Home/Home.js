@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grow,
@@ -8,66 +8,66 @@ import {
   Button,
   Paper,
   Card,
-} from '@material-ui/core'
-import { useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
-import Posts from '../Components/Posts/Posts'
-import Form from '../Components/Forms/Form'
-import { getPosts } from '../actions/posts'
-import { getPostsBySearch } from '../actions/posts'
-import { getPortfoliosBySearch } from '../actions/portfolio'
-import Pagination from '../Components/Pagination'
-import useStyles from './styles'
-import InputForm from '../Components/Portfolio/InputForm/InputForm'
-import PortfolioInputForm from '../Components/Portfolio/InputForm/PortfolioInput'
-import PortfolioPosts from '../Components/Portfolio/PortfolioPosts'
-import PortfolioPagination from '../Components/Portfolio/PortfolioPagination'
-import ComplexCards from '../Components/Portfolio/Cards/ComplexCard'
+} from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import Posts from "../Components/Posts/Posts";
+import Form from "../Components/Forms/Form";
+import { getPosts } from "../actions/posts";
+import { getPostsBySearch } from "../actions/posts";
+import { getPortfoliosBySearch } from "../actions/portfolio";
+import Pagination from "../Components/Pagination";
+import useStyles from "./styles";
+import InputForm from "../Components/Portfolio/InputForm/InputForm";
+import PortfolioInputForm from "../Components/Portfolio/InputForm/PortfolioInput";
+import PortfolioPosts from "../Components/Portfolio/PortfolioPosts";
+import PortfolioPagination from "../Components/Portfolio/PortfolioPagination";
+import ComplexCards from "../Components/Portfolio/Cards/ComplexCard";
 // *this gives us floating bubbles in tags
-import ChipInput from 'material-ui-chip-input'
-import PortfolioAccordion from '../Components/Portfolio/PortfolioAccordion'
-import CreatePortfolio from '../Components/Portfolio/Dialog'
+import ChipInput from "material-ui-chip-input";
+import PortfolioAccordion from "../Components/Portfolio/PortfolioAccordion";
+import CreatePortfolio from "../Components/Portfolio/Dialog";
 
 function useQuery() {
-  return new URLSearchParams(useLocation().search)
+  return new URLSearchParams(useLocation().search);
 }
 
 const Home = () => {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const [currentId, setCurrentId] = useState(null)
-  const dispatch = useDispatch()
+  const [currentId, setCurrentId] = useState(null);
+  const dispatch = useDispatch();
 
-  const query = useQuery()
-  const history = useHistory()
+  const query = useQuery();
+  const history = useHistory();
 
-  const page = query.get('page') || 1
-  const searchQuery = query.get('searchQuery')
-  const [search, setSearch] = useState('')
+  const page = query.get("page") || 1;
+  const searchQuery = query.get("searchQuery");
+  const [search, setSearch] = useState("");
 
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState([]);
 
   const searchPost = () => {
     if (search.trim() || tags) {
-      dispatch(getPortfoliosBySearch({ search, tags: tags.join(',') }))
+      dispatch(getPortfoliosBySearch({ search, tags: tags.join(",") }));
       history.push(
-        `/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`,
-      )
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
-      history.push('/')
+      history.push("/");
     }
-  }
+  };
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
-      searchPost()
+      searchPost();
     }
-  }
+  };
 
-  const handleAddChip = (tag) => setTags([...tags, tag])
+  const handleAddChip = (tag) => setTags([...tags, tag]);
 
   const handleDeleteChip = (chipToDelete) =>
-    setTags(tags.filter((tag) => tag !== chipToDelete))
+    setTags(tags.filter((tag) => tag !== chipToDelete));
 
   return (
     <Grow in>
@@ -98,7 +98,7 @@ const Home = () => {
             >
               <CreatePortfolio />
               <ChipInput
-                style={{ margin: '10px 0' }}
+                style={{ margin: "10px 0" }}
                 value={tags}
                 onAdd={(chip) => handleAddChip(chip)}
                 onDelete={(chip) => handleDeleteChip(chip)}
@@ -124,7 +124,7 @@ const Home = () => {
         </Grid>
       </Container>
     </Grow>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

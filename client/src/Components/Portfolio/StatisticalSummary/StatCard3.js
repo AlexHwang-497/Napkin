@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Card, IconButton, Icon,Divider } from '@material-ui/core'
-import StatiscialSummaryBarChart from '../Charts/StatiscialSummaryBarChart'
+import StatiscialSummaryBarChart from './StatiscialSummaryBarChart'
 
 const StatCard3 = ({portfolioAnnualizedReturn,portfolioBeta,spxStDeviation,portfolioCumulativeReturn,portfolioStdDev,spxCumulativeReturn,spxAnnualizedReturn}) => {
     const statList = [

@@ -14,8 +14,6 @@ import {
   TextField,
 } from '@material-ui/core'
 import PostDetails from '../../PostDetails/PostDetails'
-import LineGraph from '../Charts/LineGraph'
-import { Line } from 'react-chartjs-2'
 import SectorTable from './SectorTable'
 import { useDispatch, useSelector } from 'react-redux'
 import ApexTreeChart from '../PortfolioOverview/ApexTreeMap'
