@@ -145,7 +145,6 @@ function EditPortfolio({ currentId, post, openState }) {
     e.preventDefault();
 
     if (!currentId) {
-      // console.log('this is the createPortfolio in inputForm.js',{assets:stockList,ownership:portfolioPercentage,portfolioName})
     } else {
       dispatch(
         updatePortfolio(currentId, {

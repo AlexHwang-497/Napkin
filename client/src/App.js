@@ -1,32 +1,29 @@
-import React from 'react'
-import { Container } from '@material-ui/core'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import useStyles from './styles'
-import Navbar from './Navbar/Navbar'
-import Home from '../src/Home/Home'
-import Auth from './Auth/Auth'
-import PostDetails from './Components/PostDetails/PostDetails'
-import CreatePortfolio from './Components/Portfolio/CreatePortfolioForm'
-import { useSelector } from 'react-redux'
-import CustomizedDialogs from './Components/Portfolio/Dialog'
-import BasicTabs from './Components/PostDetails/PostDetailsTabs'
-import './index.css'
+import React from "react";
+import { Container } from "@material-ui/core";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import useStyles from "./styles";
+import Navbar from "./Navbar/Navbar";
+import Home from "../src/Home/Home";
+import Auth from "./Auth/Auth";
+import PostDetails from "./Components/PostDetails/PostDetails";
+import CreatePortfolio from "./Components/Portfolio/CreatePortfolioForm";
+import { useSelector } from "react-redux";
+import CustomizedDialogs from "./Components/Portfolio/Dialog";
+import BasicTabs from "./Components/PostDetails/PostDetailsTabs";
+import "./index.css";
 
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: ['Chilanka', 'cursive'].join(','),
+    fontFamily: ["Chilanka", "cursive"].join(","),
   },
-})
+});
 
 const App = () => {
-  const { authData } = useSelector((state) => state.auth)
-  const ids = authData?._id
-  console.log('[App.authData', authData)
-  console.log('[App._id', ids)
-  const user = JSON.parse(localStorage.getItem('profile'))
-  console.log('[App.user', user)
+  const { authData } = useSelector((state) => state.auth);
+  const ids = authData?._id;
+  const user = JSON.parse(localStorage.getItem("profile"));
   return (
     <BrowserRouter>
       <Container maxWidth="">
@@ -49,6 +46,6 @@ const App = () => {
         </Switch>
       </Container>
     </BrowserRouter>
-  )
-}
-export default App
+  );
+};
+export default App;

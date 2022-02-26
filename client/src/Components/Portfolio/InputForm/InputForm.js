@@ -1,84 +1,79 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import { nanoid } from 'nanoid'
+import React, { useState, useEffect, Fragment } from "react";
+import { nanoid } from "nanoid";
 import {
   TextField,
   Divider,
   Button,
   Typography,
   Paper,
-} from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux'
-import FileBase from 'react-file-base64'
-import { useHistory } from 'react-router-dom'
-import useStyles from './styles'
-import { createPost, updatePost } from '../../../actions/posts'
-import Inputs from '../../../Auth/Input'
-import { createPortfolio, updatePortfolio } from '../../../actions/portfolio'
-import config from '../../../StockData/config'
-import CreatePortfolioPaginationTable from './CreatePortfolioPaginationTable'
+} from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import FileBase from "react-file-base64";
+import { useHistory } from "react-router-dom";
+import useStyles from "./styles";
+import { createPost, updatePost } from "../../../actions/posts";
+import Inputs from "../../../Auth/Input";
+import { createPortfolio, updatePortfolio } from "../../../actions/portfolio";
+import config from "../../../StockData/config";
+import CreatePortfolioPaginationTable from "./CreatePortfolioPaginationTable";
 
 function InputForm({ currentId, setCurrentId }) {
-  const apiKey = config.FMP_API_KEY_ID
+  const apiKey = config.FMP_API_KEY_ID;
   const post = useSelector((state) =>
     currentId
       ? state.posts.posts.find((message) => message._id === currentId)
-      : null,
-  )
-  const [symbol, setSymbol] = useState('')
-  const [errorState, setErrorState] = useState('')
-  const [ownership, setOwnership] = useState([])
-  const [val, setVal] = useState(0)
-  const [stockList, editStockList] = useState([])
-  const [sector, setSector] = useState([])
-  const [image, setImage] = useState([])
-  const [pct, editPct] = useState([])
-  const limit = 100
-  const [portfolioName, setPortfolioName] = useState('')
-  const user = JSON.parse(localStorage.getItem('profile'))
-  const [comment, setComment] = useState('')
-  const dispatch = useDispatch()
-  const [description, setDescription] = useState([])
+      : null
+  );
+  const [symbol, setSymbol] = useState("");
+  const [errorState, setErrorState] = useState("");
+  const [ownership, setOwnership] = useState([]);
+  const [val, setVal] = useState(0);
+  const [stockList, editStockList] = useState([]);
+  const [sector, setSector] = useState([]);
+  const [image, setImage] = useState([]);
+  const [pct, editPct] = useState([]);
+  const limit = 100;
+  const [portfolioName, setPortfolioName] = useState("");
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const [comment, setComment] = useState("");
+  const dispatch = useDispatch();
+  const [description, setDescription] = useState([]);
 
   const symbolLookup = () => {
     fetch(
-      `https://financialmodelingprep.com/api/v3/profile/${symbol.toUpperCase()}?apikey=${apiKey}`,
+      `https://financialmodelingprep.com/api/v3/profile/${symbol.toUpperCase()}?apikey=${apiKey}`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log('this is the data from symbolLookup ', data)
         if (data[0] && data[0].symbol) {
-          editStockList(stockList.concat([symbol]))
-          editPct(pct.concat([parseInt(val)]))
-          setSector(sector.concat(data[0].sector))
-          setImage(image.concat(data[0].image))
-          setSymbol('')
-          setVal(0)
+          editStockList(stockList.concat([symbol]));
+          editPct(pct.concat([parseInt(val)]));
+          setSector(sector.concat(data[0].sector));
+          setImage(image.concat(data[0].image));
+          setSymbol("");
+          setVal(0);
         } else {
-          setErrorState('Please enter a valid stock symbol')
+          setErrorState("Please enter a valid stock symbol");
         }
-      })
-  }
+      });
+  };
 
-  const currentAllowance = pct.reduce((acc, value) => acc + value, 0)
-  console.log(
-    'Current Allowance: ',
-    pct.reduce((acc, value) => acc + value, 0),
-  )
-  const invalidInput = () => !symbol || !val || val > limit - currentAllowance
+  const currentAllowance = pct.reduce((acc, value) => acc + value, 0);
 
-  const classes = useStyles() //!
-  const history = useHistory() //!
+  const invalidInput = () => !symbol || !val || val > limit - currentAllowance;
+
+  const classes = useStyles(); //!
+  const history = useHistory(); //!
 
   const [postData, setPostData] = useState({
-    userId: '',
+    userId: "",
     Assets: [],
     Ownership: [],
-    DateCreated: '',
-  })
+    DateCreated: "",
+  });
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
     if (!currentId) {
       dispatch(
         createPortfolio(
@@ -90,31 +85,31 @@ function InputForm({ currentId, setCurrentId }) {
             image,
             description,
           },
-          history,
-        ),
-      )
-      setSymbol('')
-      setVal('')
+          history
+        )
+      );
+      setSymbol("");
+      setVal("");
     } else {
       dispatch(
-        updatePortfolio(currentId, { ...postData, name: user?.result?.name }),
-      )
-      setSymbol('')
-      setVal('')
+        updatePortfolio(currentId, { ...postData, name: user?.result?.name })
+      );
+      setSymbol("");
+      setVal("");
     }
     // clear()
-  }
+  };
 
   const handleComment = async () => {
-    setComment('')
-  }
+    setComment("");
+  };
 
   const deleteEntry = (index) => {
-    editStockList(stockList.filter((asset, i) => i !== index))
-    editPct(pct.filter((o, i) => i !== index))
-    setSector(sector.filter((s, i) => i !== index))
-    setImage(image.filter((img, i) => i !== index))
-  }
+    editStockList(stockList.filter((asset, i) => i !== index));
+    editPct(pct.filter((o, i) => i !== index));
+    setSector(sector.filter((s, i) => i !== index));
+    setImage(image.filter((img, i) => i !== index));
+  };
 
   return (
     <div className="App">
@@ -128,7 +123,7 @@ function InputForm({ currentId, setCurrentId }) {
         onChange={(e) => setPortfolioName(e.target.value)}
         value={portfolioName}
       />
-      <Divider style={{ margin: '20px 0' }} />
+      <Divider style={{ margin: "20px 0" }} />
       <TextField
         fullWidth
         rows={4}
@@ -137,10 +132,10 @@ function InputForm({ currentId, setCurrentId }) {
         multiline
         onChange={(e) => setDescription(e.target.value)}
       />
-      <Divider style={{ margin: '20px 0' }} />
+      <Divider style={{ margin: "20px 0" }} />
 
       {stockList.length ? (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul style={{ listStyle: "none", padding: 0 }}>
           <li>
             <h4>
               cash available: {limit - currentAllowance}% : $
@@ -156,14 +151,14 @@ function InputForm({ currentId, setCurrentId }) {
           label="Enter Stock Symbol"
           variant="outlined"
           onChange={(e) => setSymbol(e.target.value)}
-          onFocus={() => setErrorState('')}
+          onFocus={() => setErrorState("")}
           value={symbol}
         />
         <TextField
           label="% of portfolio"
           variant="outlined"
           onChange={(e) => setVal(e.target.value)}
-          onFocus={() => setErrorState('')}
+          onFocus={() => setErrorState("")}
           min={1}
           value={val}
           type="number"
@@ -179,18 +174,18 @@ function InputForm({ currentId, setCurrentId }) {
         >
           Add
         </Button>
-        <Divider style={{ margin: '20px 0' }} />
+        <Divider style={{ margin: "20px 0" }} />
         <Typography variant="h6">
           <b>Please Note:</b> the portfolio you are creating is based on the
           growth of <strong>$10k.</strong> When adding securities to your
-          portoflio, please base your inputs off of the{' '}
+          portoflio, please base your inputs off of the{" "}
           <strong>% bifurcation</strong> you expect each security would be out
-          of the <strong>$10k.</strong>{' '}
+          of the <strong>$10k.</strong>{" "}
         </Typography>
-        <Divider style={{ margin: '20px 0' }} />
+        <Divider style={{ margin: "20px 0" }} />
 
-        <p style={{ marginTop: 0, color: 'red' }}>
-          {errorState ? errorState : ''}
+        <p style={{ marginTop: 0, color: "red" }}>
+          {errorState ? errorState : ""}
         </p>
       </div>
       <form
@@ -217,7 +212,7 @@ function InputForm({ currentId, setCurrentId }) {
         </Button>
       </form>
     </div>
-  )
+  );
 }
 
-export default InputForm
+export default InputForm;

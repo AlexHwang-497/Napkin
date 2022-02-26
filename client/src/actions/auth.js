@@ -1,6 +1,5 @@
-import { AUTH } from '../constants/actionTypes';
-import * as api from '../api/index.js';
-
+import { AUTH } from "../constants/actionTypes";
+import * as api from "../api/index.js";
 
 export const signin = (formData, history) => async (dispatch) => {
   try {
@@ -8,34 +7,32 @@ export const signin = (formData, history) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    console.log('[signin.data',data)
-
-    history.push('/posts');
+    history.push("/posts");
   } catch (error) {
     console.log(error);
   }
 };
-export const guestSignIn = ( history) => async (dispatch) => {
+
+export const guestSignIn = (history) => async (dispatch) => {
   try {
     const { data } = await api.guestSignIn();
 
     dispatch({ type: AUTH, data });
 
-    history.push('/posts');
+    history.push("/posts");
   } catch (error) {
     console.log(error);
   }
 };
 
-export const signup = (formData, router) => async (dispatch) => {///////
+export const signup = (formData, router) => async (dispatch) => {
   try {
     const { data } = await api.signUp(formData);
 
     dispatch({ type: AUTH, data });
 
-    router.push('/');
+    router.push("/");
   } catch (error) {
     console.log(error);
   }
 };
-

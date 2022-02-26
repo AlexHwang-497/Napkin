@@ -15,26 +15,26 @@ import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     marginTop: theme.spacing(3),
-    overflowX: "auto"
+    overflowX: "auto",
   },
   table: {
-    minWidth: 650
+    minWidth: 650,
   },
   selectTableCell: {
-    width: 60
+    width: 60,
   },
   tableCell: {
     width: 130,
-    height: 40
+    height: 40,
   },
   input: {
     width: 130,
-    height: 40
-  }
+    height: 40,
+  },
 }));
 
 const createData = (name, calories, fat, carbs, protein) => ({
@@ -44,7 +44,7 @@ const createData = (name, calories, fat, carbs, protein) => ({
   fat,
   carbs,
   protein,
-  isEditMode: false
+  isEditMode: false,
 });
 
 const CustomTableCell = ({ row, name, onChange }) => {
@@ -56,7 +56,7 @@ const CustomTableCell = ({ row, name, onChange }) => {
         <Input
           value={row[name]}
           name={name}
-          onChange={e => onChange(e, row)}
+          onChange={(e) => onChange(e, row)}
           className={classes.input}
         />
       ) : (
@@ -66,19 +66,18 @@ const CustomTableCell = ({ row, name, onChange }) => {
   );
 };
 
-function EditableTable({post}) {
-    // console.log('this is the post in EditableTable',post)
+function EditableTable({ post }) {
   const [rows, setRows] = React.useState([
     createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
     createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0)
+    createData("Eclair", 262, 16.0, 24, 6.0),
   ]);
   const [previous, setPrevious] = React.useState({});
   const classes = useStyles();
 
-  const onToggleEditMode = id => {
-    setRows(state => {
-      return rows.map(row => {
+  const onToggleEditMode = (id) => {
+    setRows((state) => {
+      return rows.map((row) => {
         if (row.id === id) {
           return { ...row, isEditMode: !row.isEditMode };
         }
@@ -89,12 +88,12 @@ function EditableTable({post}) {
 
   const onChange = (e, row) => {
     if (!previous[row.id]) {
-      setPrevious(state => ({ ...state, [row.id]: row }));
+      setPrevious((state) => ({ ...state, [row.id]: row }));
     }
     const value = e.target.value;
     const name = e.target.name;
     const { id } = row;
-    const newRows = rows.map(row => {
+    const newRows = rows.map((row) => {
       if (row.id === id) {
         return { ...row, [name]: value };
       }
@@ -103,15 +102,15 @@ function EditableTable({post}) {
     setRows(newRows);
   };
 
-  const onRevert = id => {
-    const newRows = rows.map(row => {
+  const onRevert = (id) => {
+    const newRows = rows.map((row) => {
       if (row.id === id) {
         return previous[id] ? previous[id] : row;
       }
       return row;
     });
     setRows(newRows);
-    setPrevious(state => {
+    setPrevious((state) => {
       delete state[id];
       return state;
     });
@@ -132,7 +131,7 @@ function EditableTable({post}) {
           </TableRow>
         </TableHead>
         <TableBody>
-        {/* {post.assets && post.assets.map((asset,i)=>(
+          {/* {post.assets && post.assets.map((asset,i)=>(
                 <TableRow key={i}>
 
                         <TableCell>
@@ -145,47 +144,52 @@ function EditableTable({post}) {
                         <TableCell className="px-0"> <IconButton onClick={()=>post.deleteEntry(i)}> <Icon color="error">X</Icon> </IconButton> </TableCell>      
                 </TableRow>
             ))} */}
-            {post.assets && post.assets.map((asset,i)=>(
-            <TableRow key={i}>
-              <TableCell className={classes.selectTableCell}>
-                {asset.isEditMode ? (
-                  <>
+          {post.assets &&
+            post.assets.map((asset, i) => (
+              <TableRow key={i}>
+                <TableCell className={classes.selectTableCell}>
+                  {asset.isEditMode ? (
+                    <>
+                      <IconButton
+                        aria-label="done"
+                        onClick={() => onToggleEditMode(i)}
+                      >
+                        <DoneIcon />
+                      </IconButton>
+                      <IconButton
+                        aria-label="revert"
+                        onClick={() => onRevert(i)}
+                      >
+                        <RevertIcon />
+                      </IconButton>
+                    </>
+                  ) : (
                     <IconButton
-                      aria-label="done"
+                      aria-label="delete"
                       onClick={() => onToggleEditMode(i)}
                     >
-                      <DoneIcon />
+                      <EditIcon />
                     </IconButton>
-                    <IconButton
-                      aria-label="revert"
-                      onClick={() => onRevert(i)}
-                    >
-                      <RevertIcon />
-                    </IconButton>
-                  </>
-                ) : (
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => onToggleEditMode(i)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                )}
-              </TableCell>
-              <CustomTableCell {...{ asset, name: "Symbol", onChange }} />
-              <CustomTableCell {...{ asset, name: "Sector", onChange }} />
-              <CustomTableCell {...{ asset, name: "Portfolio(%)", onChange }} />
-              <CustomTableCell {...{ asset, name: "Portfolio($)", onChange }} />
-              {/* <CustomTableCell {...{ asset, name: "protein", onChange }} /> */}
-            </TableRow>
-          ))}
+                  )}
+                </TableCell>
+                <CustomTableCell {...{ asset, name: "Symbol", onChange }} />
+                <CustomTableCell {...{ asset, name: "Sector", onChange }} />
+                <CustomTableCell
+                  {...{ asset, name: "Portfolio(%)", onChange }}
+                />
+                <CustomTableCell
+                  {...{ asset, name: "Portfolio($)", onChange }}
+                />
+                {/* <CustomTableCell {...{ asset, name: "protein", onChange }} /> */}
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </Paper>
   );
 }
 
-export default EditableTable
+export default EditableTable;
 
 // const rootElement = document.getElementById("root");
 // ReactDOM.render(<App />, rootElement);

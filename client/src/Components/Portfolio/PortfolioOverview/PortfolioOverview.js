@@ -115,7 +115,6 @@ function PortfolioOverview({
   const portfolioStdDev = getStandardDeviation(arrPortfolioReturns);
 
   const dateArr = dates.map((date, index) => {
-    // console.log('[TotalReturn.calculations.date',date)
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
     const data = monthlyReturn(range).map((entry) =>
       entry.dates.map((el) => el.date)
