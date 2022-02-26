@@ -25,7 +25,6 @@ import PortfolioPagination from '../Components/Portfolio/PortfolioPagination'
 import ComplexCards from '../Components/Portfolio/Cards/ComplexCard'
 // *this gives us floating bubbles in tags
 import ChipInput from 'material-ui-chip-input'
-import EditCustomizedDialogs from '../Components/Portfolio/editPortfolioDialog'
 import PortfolioAccordion from '../Components/Portfolio/PortfolioAccordion'
 import CreatePortfolio from '../Components/Portfolio/Dialog'
 

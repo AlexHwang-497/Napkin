@@ -70,7 +70,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-function EditCustomizedDialogs({ currentId, post, openState }) {
+function EditPortfolio({ currentId, post, openState }) {
   const [open, setOpen] = useState(openState || false);
   const [description, setDescription] = useState(post.description);
   const [portfolioName, setPortfolioName] = useState(post.portfolioName);
@@ -275,4 +275,4 @@ function EditCustomizedDialogs({ currentId, post, openState }) {
     </div>
   );
 }
-export default EditCustomizedDialogs;
+export default EditPortfolio;

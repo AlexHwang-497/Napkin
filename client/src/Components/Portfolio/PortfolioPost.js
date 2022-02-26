@@ -48,7 +48,7 @@ import config from '../../StockData/config'
 
 import PortfolioPostTable from './Charts/PortfolioPostTable'
 import useStyles from './Styles'
-import EditCustomizedDialogs from './editPortfolioDialog'
+import EditPortfolio from './editPortfolio'
 import { DEFAULT_GRID_PROPS_FROM_OPTIONS } from '@material-ui/data-grid'
 import {
   OrganizeData,
@@ -365,7 +365,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
               aria-label="settings"
               onClick={() => setOpenState(true)}
             >
-              <EditCustomizedDialogs
+              <EditPortfolio
                 size="small"
                 currentId={post._id}
                 post={post}

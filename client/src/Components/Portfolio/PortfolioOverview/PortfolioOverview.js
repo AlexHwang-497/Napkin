@@ -21,7 +21,7 @@ import StatCard3 from '../StatisticalSummary/StatCard3'
 import StatCards from '../StatisticalSummary/StatCards'
 import StatCards2 from '../StatisticalSummary/StatCard2'
 import PortfolioDetail from './PortfolioDetail'
-import EditCustomizedDialogs from '../editPortfolioDialog'
+
 import { useDispatch, useSelector } from 'react-redux'
 import PortfolioOverviewTable from './PortfolioOverviewTable'
 import config from '../../../StockData/config'
