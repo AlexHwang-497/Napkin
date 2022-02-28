@@ -9,9 +9,7 @@ import { useSelector } from "react-redux";
 
 const CommentSection = ({ post, currentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-
   const dispatch = useDispatch();
-
   const [comments, setComments] = useState(post?.comments);
   const [comment, setComment] = useState("");
   const classes = useStyles();

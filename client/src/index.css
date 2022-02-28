@@ -1,21 +1,20 @@
 body {
   background-color: #f7f8fc;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 * {
-  /* font-family: 'Noto Sans JP' !important; */
-  font-family: 'Heebo', sans-serif !important;
+  font-family: "Heebo", sans-serif !important;
 }
 
 .stripedTable .MuiDataGrid-row:nth-child(even) {
   background-color: #f5f5f5;
 }
 .stripedTable .MuiDataGrid-columnsContainer {
-  /* background-color: #819ca9; */
+  
   background-color: rgb(9, 31, 60);
   color: rgb(255, 255, 255);
 }
 .font-link {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }

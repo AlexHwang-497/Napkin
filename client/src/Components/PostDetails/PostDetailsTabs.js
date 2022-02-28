@@ -22,7 +22,7 @@ import {
   Card,
 } from "@material-ui/core";
 import RecommendedPosts from "./RecommendedPosts";
-import SwipeableTemporaryDrawer from "./tutorial/SwipeableTemporaryDrawer";
+
 import PostDetails from "./PostDetails";
 import { useDispatch, useSelector } from "react-redux";
 import config from "../../StockData/config";

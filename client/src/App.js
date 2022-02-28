@@ -27,7 +27,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Container maxWidth="">
-        <Navbar />
+        <Navbar/>
         <Switch>
           <Route
             path="/"

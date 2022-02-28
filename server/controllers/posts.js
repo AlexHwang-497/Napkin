@@ -1,4 +1,3 @@
-// * we are creating all the handlers for our routes in this componet
 import mongoose from "mongoose";
 import express from "express";
 
@@ -26,7 +25,9 @@ export const getPosts = async (req, res) => {
   try {
     const LIMIT = 8;
     const startIndex = (Number(page) - 1) * LIMIT; //! get the starting index of every page
+
     const total = await PostMessage.countDocuments({});
+
     const posts = await PostMessage.find()
       .sort({ _id: 0 })
       .limit(LIMIT)
@@ -44,8 +45,10 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
+
   try {
     const title = new RegExp(searchQuery, "i");
+
     const posts = await PostMessage.find({
       $or: [{ title }, { tags: { $in: tags.split(",") } }],
     });
@@ -58,6 +61,7 @@ export const getPostsBySearch = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const post = req.body;
+
   const newPostMessage = new PostMessage({
     ...post,
     creator: req.userId,
@@ -75,8 +79,10 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const { id } = req.params;
   const { title, message, creator, selectedFile, tags } = req.body;
+
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
+
   const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
   await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
@@ -120,7 +126,6 @@ export const likePost = async (req, res) => {
   res.json(updatedPost);
 };
 
-// ! this is waht is poulating this post
 export const commentPost = async (req, res) => {
   const { id } = req.params;
   const { value } = req.body;

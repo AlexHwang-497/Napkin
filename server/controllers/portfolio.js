@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
+
 import PostMessage from "../models/postMessage.js";
 import postPortfolio from "../models/postPortfolio.js";
 import PostPortfolio from "../models/postPortfolio.js";
@@ -26,6 +27,7 @@ export const getPortfolios = async (req, res) => {
 
   try {
     const LIMIT = 3;
+    const startIndex = (Number(page) - 1) * LIMIT; //! get the starting index of every page
 
     const total = await PostPortfolio.countDocuments({});
 
@@ -49,6 +51,7 @@ export const getPortfolioBySearch = async (req, res) => {
 
   try {
     const title = new RegExp(searchQuery, "i");
+
     const posts = await PostPortfolio.find({
       $or: [
         { sector: { $regex: title } },
