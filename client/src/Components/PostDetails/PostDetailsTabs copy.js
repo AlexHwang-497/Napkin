@@ -5,7 +5,6 @@ import TotalReturn from "../Portfolio/TotalReturn/TotalReturn";
 import SeasonalAnalysis from "../Portfolio/SeasonalAnalysis/SeasonalAnalysis";
 import StatisticalSummary from "../Portfolio/StatisticalSummary/StatisticalSummary";
 import PortfolioOverview from "../Portfolio/PortfolioOverview/PortfolioOverview";
-import Dividend from "../Portfolio/Dividend/Dividend"
 import { useParams, useHistory } from "react-router-dom";
 import InputForm from "../Portfolio/InputForm/InputForm";
 import {
@@ -98,8 +97,6 @@ export default function BasicTabs() {
   const [sectorWeighting, setSectorWeighting] = useState();
   const [dateSelect, setDateSelect] = useState("ttm");
   let currentDate = new Date().toISOString().slice(0, 10);
-  console.log('[value:',value)
-  console.log('[assets:',assets)
 
   const [open, setOpen] = useState(false);
   console.log('you pressed a button',open)
@@ -262,7 +259,7 @@ export default function BasicTabs() {
             <Tab label="Total Return Graphs" {...a11yProps(2)} />
             <Tab label="Seasonal Analysis" {...a11yProps(3)} />
             <Tab label="Statistical Summary" {...a11yProps(4)} />
-            <Tab label="Dividend" {...a11yProps(5)} />
+            <Tab label="Dividend" {...a11yProps(4)} />
           </Tabs>
         </AppBar>
       </Box>
@@ -391,18 +388,6 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={4}>
         <StatisticalSummary
-          dateSelect={dateSelect}
-          yearArr={yearArr}
-          priceData={pracData}
-          assets={assets}
-          currentId={id}
-          ownership={ownership}
-          portfolioName={portfolioName}
-          sectorWeighting={sectorWeighting}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        <Dividend
           dateSelect={dateSelect}
           yearArr={yearArr}
           priceData={pracData}

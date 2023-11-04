@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Grid, Paper, Divider } from "@material-ui/core";
 import PostDetails from "../../PostDetails/PostDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,8 @@ import {
   calcCovariance,
 } from "../../../Utilities";
 import { generateHistoricalDate } from "../../../Utilities/DateRanges";
+
+;
 
 function TotalReturn({
   id,
@@ -42,6 +44,7 @@ function TotalReturn({
 
     return data;
   });
+  
 
   const totalPortoflioValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -57,6 +60,8 @@ function TotalReturn({
 
     return data;
   });
+  
+  
 
   let dateObj = {
     one: "12",

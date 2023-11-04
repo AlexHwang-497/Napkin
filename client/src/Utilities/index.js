@@ -5,11 +5,13 @@ let finance = new Finance();
 let cov = require("compute-covariance");
 
 export const OrganizeData = (arr, assets, ownership, images, sector) => {
+  console.log('index.OrganizeData.arr',arr)
   const min = arr.reduce(
     // *this caluclautes the smalles sampling of data
     (acc, entry) => (acc > entry.totalResults ? entry.totalResults : acc),
     Infinity
-  );
+    );
+    console.log('index.OrganizeData.min',min)
   return arr.map((entry) => {
     const index = assets.indexOf(entry.symbol);
     return {
@@ -23,12 +25,28 @@ export const OrganizeData = (arr, assets, ownership, images, sector) => {
           date: d.formated.split(" ")[0],
         }))
         .slice(0, min),
+        
     };
   });
 };
 
-export const monthlyReturn = (data) => {
-  const results = data.map((asset) => {
+export const DividendData =(dividends) =>{
+  console.log('[index.dividends are inside',dividends)
+}
+
+export const monthlyReturn = (data,div) => {
+  // if (!div.length) return
+
+  
+  const divs = div
+  if(div?.[0]){
+    console.log('[index.monthlyreturns. hit the if statment',divs[0])
+  } 
+  
+  console.log('[index.monthlyreturn.divs',divs)
+
+  
+  const results = data.map((asset,index) => {
     let aggPeriodReturn = [];
     let firstPrice = asset.dates[asset.dates.length - 1].price;
     let portoflioShareGrowth = [((10000 / firstPrice) * asset.ownership) / 100];
@@ -43,7 +61,8 @@ export const monthlyReturn = (data) => {
     let priceMean = 0;
     let sumPeriodReturn = 0;
     let sumPriceReturn = firstPrice;
-
+    
+    
     asset.dates[0].periodReturn = 1;
 
     for (let i = 1; i < asset.dates.length; i++) {
@@ -138,12 +157,17 @@ export const monthlyReturn = (data) => {
       returnsXsubMean,
       returnsVariance,
       securityCumulativeReturn,
+      divs
+      
+      
+      
     };
   });
 
   // * calcluate covaraince, beta, alpaha and sharp ratio calculation and update key/value pairs
   // * 0 index of every portfolio is the S&P 500
   const spx = results[0];
+  
   let riskfree = 0.0235;
   for (let i = 1; i < results.length; i++) {
     let covariance = cov(

@@ -207,7 +207,7 @@ function Holdings({
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6} xs={12}>
+        <Grid item xs={12} md={6} >
           <Paper
             style={{ padding: "20px", borderRadius: "15px" }}
             elevation={6}

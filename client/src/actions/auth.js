@@ -14,8 +14,10 @@ export const signin = (formData, history) => async (dispatch) => {
 };
 
 export const guestSignIn = (history) => async (dispatch) => {
+  console.log('[guestSignin.data',history)
   try {
     const { data } = await api.guestSignIn();
+    console.log('[guestSignin.data',data)
 
     dispatch({ type: AUTH, data });
 

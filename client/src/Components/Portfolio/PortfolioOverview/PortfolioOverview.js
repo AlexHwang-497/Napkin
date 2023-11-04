@@ -74,6 +74,7 @@ function PortfolioOverview({
   const startDate = "2019-01-01";
   const endDate = "2021-11-01";
   const yearRange = ["2019", "2020", "2021"];
+  console.log('you are in portfolioOverview')
 
   if (yearArr.length === 0 || !yearArr) return [];
   const dateLabels = yearArr.slice(1);
@@ -93,9 +94,11 @@ function PortfolioOverview({
 
   const securityData = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
+    console.log('[portfolioOverview.securityData.range',range)
     const data = monthlyReturn(range).map((entry) => entry);
     return data;
   });
+  console.log('[portfolioOverview.securityData',securityData)
 
   const totalPortoflioValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(priceData, date)));
@@ -111,6 +114,10 @@ function PortfolioOverview({
     );
     return aggPortfolioValueReturns;
   });
+
+  console.log('[portfolioOverview.arrPortfolioReturns',arrPortfolioReturns)
+  console.log('[portfolioOverview.securityData',securityData)
+  console.log('[portfolioOverview.dates',dates)
 
   const portfolioStdDev = getStandardDeviation(arrPortfolioReturns);
 
@@ -210,9 +217,9 @@ function PortfolioOverview({
           >
             <h1>Comment Section</h1>
             <Divider style={{ margin: "20px 0" }} />
-            <CommentSection currentId={currentId} post={post} />
+            {/* <CommentSection currentId={currentId} post={post} /> */}
             <Divider style={{ margin: "20px 0" }} />
-            <RecommendedPosts />
+            {/* <RecommendedPosts /> */}
           </Paper>
         </Grid>
       </Grid>

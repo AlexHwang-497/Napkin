@@ -51,6 +51,7 @@ import EditPortfolio from "./editPortfolio";
 import { DEFAULT_GRID_PROPS_FROM_OPTIONS } from "@material-ui/data-grid";
 import {
   OrganizeData,
+  DividendData,
   monthlyReturn,
   subSet,
   getStandardDeviation,
@@ -75,7 +76,7 @@ const ExpandMore = styled((props) => {
 }));
 
 const PortfolioPost = ({ post, setCurrentId }) => {
-  const startDate = "2009-11-01";
+  const startDate = "1990-11-01";
   const endDate = new Date().toISOString().slice(0, 10).toString();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -88,6 +89,7 @@ const PortfolioPost = ({ post, setCurrentId }) => {
   const [openState, setOpenState] = useState(false);
   const [stockData, editStockData] = useState([]);
   const [pracData, setPracData] = useState([]);
+  const [divData, setDivData] = useState([]);
   const [dateArr, setDateArr] = useState([]);
   const [lineGraphData, setLineGraphData] = useState("ttm");
   const [error, setError] = useState(false);
@@ -95,29 +97,83 @@ const PortfolioPost = ({ post, setCurrentId }) => {
   const userId = user?.result.googleId || user?.result?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
   const apiKey = config.FMP_API_KEY_ID;
+  console.log('this is portfoliopost')
+  console.log('[portfolioPost.post',post)
+
+
   useEffect(() => {
+
+    // *** dividends
+    Promise.all(
+      ["SPY", ...post.assets].map((stock) =>
+        fetch(
+          `https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${stock}?apikey=${apiKey}`
+        ),
+      )
+    ).then((results) =>
+          
+      Promise.all(
+        
+        results.map((res) => res.json()))
+        .then((data)=>{
+          console.log('divIside.data',data)
+          // setDivData(data)
+          DividendData(data)
+          setDivData(data)
+          OrganizeData('','','','','',data)
+          console.log('divIside.divData',divData)
+
+        })
+        
+    );
+    
     Promise.all(
       ["SPY", ...post.assets].map((stock) =>
         fetch(
           `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`
-        )
+          // `https://financialmodelingprep.com/api/v4/historical-price-adjusted/${stock}/1/month/${startDate}/${endDate}?apikey=${apiKey}`
+        ),
       )
     ).then((results) =>
+    
       Promise.all(results.map((res) => res.json()))
         .then((stocks) => {
+          console.log('resultsInside',stocks)
+          console.log('resultsInside.regDivData',divData.filter(user=>user.symbol==='SPY'))
+          // console.log('resultsInside.divData',divData.map((el,i)=>[el.symbol, el.historical]))
+          
+          console.log('resultsInside.post.assets',post.assets)
+          console.log('resultsInside.post',post)
           const portfolioData = OrganizeData(
             stocks,
             ["SPY", ...post.assets.map((e) => e.toUpperCase())],
             ["", ...post.ownership],
             ["", ...post.image],
-            ["", ...post.sector]
+            ["", ...post.sector],
+            
           );
+          console.log('[PortfolioPost.insidePromise',portfolioData)
+          console.log('[PortfolioPost.insidePromise.results',results)
+          console.log('[PortfolioPost.insidePromise.stocks',stocks)
           setPracData(portfolioData);
           setDateArr(portfolioData[0].dates.map((el) => el.date));
         })
         .catch((err) => setError(err))
     );
+    
+
   }, [post.assets]);
+
+  fetch('https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/AAPL?apikey=f69c6a774b0cfb6186868a361929fd36')
+  .then(res=>res.json())
+  // .then(data=>console.log('data',data.historical))
+  
+
+  
+  // console.log('portfolioPost.divData',divData.map((el,index)=>[el.symbol,el.historical]))
+  
+
+
 
   let dateObj = {
     0: "ytd",
@@ -182,19 +238,25 @@ const PortfolioPost = ({ post, setCurrentId }) => {
     return generateHistoricalDate(yearNumber);
   });
 
+  // ! creating the cashflows of SPX
   const spxValue = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
+    // console.log('portfolioPost.spxValue.range',range)
 
     const data = monthlyReturn(range).map(
       (entry) => entry.securityGrowthValue
-    )[0];
+      )[0];
+      // console.log('portfolioPost.spxValue.data',data)
 
-    return data;
+      return data;
   });
 
+  // ! creating the necessary calcs and data you need for an indivudal security
   const securityData = dates.map((date, index) => {
     const range = JSON.parse(JSON.stringify(subSet(pracData, date)));
-    const data = monthlyReturn(range).map((entry) => entry);
+    console.log('portfolioPost.securityData.range',range)
+    const data = monthlyReturn(range,divData).map((entry) => entry);
+    console.log('portfolioPost.securityData.data',data)
     return data;
   });
 

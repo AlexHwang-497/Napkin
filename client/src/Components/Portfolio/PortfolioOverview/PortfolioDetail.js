@@ -44,6 +44,11 @@ function PortfolioDetail({
   yearArr,
 }) {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
+  console.log('you are in portfolioDetail')
+  console.log('[portfolioDetail.priceData',priceData)
+  console.log('[portfolioDetail.posts',posts)
+  console.log('[portfolioDetail.post',post)
+
 
   let calculations = [];
   let [spxCumulativeReturn, setSpxCumulativeReturn] = useState();

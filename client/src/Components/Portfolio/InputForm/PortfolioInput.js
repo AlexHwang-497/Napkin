@@ -6,6 +6,8 @@ import FileBase from "react-file-base64";
 import { createPortfolio, updatePortfolio } from "../../../actions/portfolio";
 import { useHistory } from "react-router-dom";
 
+
+
 const PortfolioInputForm = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     userId: "",

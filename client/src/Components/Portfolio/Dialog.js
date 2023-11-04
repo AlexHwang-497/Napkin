@@ -62,6 +62,7 @@ BootstrapDialogTitle.propTypes = {
 
 export default function CreatePortfolio() {
   const [open, setOpen] = React.useState(false);
+  console.log('you pressed a button',open)
 
   const handleClickOpen = () => {
     setOpen(true);
